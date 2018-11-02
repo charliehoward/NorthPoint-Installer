@@ -1,1 +1,0 @@
-Copyright (c) Charlie Howard 2016-2018 All rights reserved.
