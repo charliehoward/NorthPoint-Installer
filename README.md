@@ -1,6 +1,6 @@
 ![logo](https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/northPoint.ico "NorthPoint Installer") 
 
-# NorthPoint Installer 3.0.7.3
+# NorthPoint Installer 3.0.7.4
 ###### Copyright (c) Charlie Howard 2016-2018 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -10,6 +10,10 @@ If run on Windows 10 it also disables Windows 10 hibernation mode, Wi-Fi sense, 
 Changes wallpaper to a selection of HD landscape images.
 
 ### Changelog
+
+###### Update 3.0.7.4
+
+Replaced taskbar pin with better PowerShell script.
 
 ###### Update 3.0.7.3
 

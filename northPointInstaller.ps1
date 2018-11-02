@@ -3,8 +3,8 @@
 
 ## -- Download files
 
-$taskbarpinURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/taskbarpin.vbs"
-$taskbarpinPath = "C:\NorthPoint\taskbarPin.vbs"
+$taskbarpinURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/taskbarPin.ps1"
+$taskbarpinPath = "C:\NorthPoint\taskbarPin.ps1"
 $computerRepairCentreOEMURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentre.bmp"
 $computerRepairCentreOEMPath = "C:\NorthPoint\computerRepairCentre.bmp"
 $computerRepairCentreIconURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentre.ico"
@@ -428,9 +428,12 @@ function northPointInstaller {
 			$progress.SelectedIndex = -1;
 			Invoke-RestMethod -Uri $taskbarpinURL -OutFile $taskbarpinPath
 			Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
-			& "C:\NorthPoint\taskbarPin.vbs" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-			& "C:\NorthPoint\taskbarPin.vbs" "C:\Program Files\Mozilla Firefox\firefox.exe"
-			& "C:\NorthPoint\taskbarPin.vbs" "C:\Windows\explorer.exe"
+			Start-Sleep -s 2
+			& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+			Start-Sleep -s 2
+			& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+			Start-Sleep -s 2
+			& "C:\NorthPoint\taskbarPin.ps1" "C:\Windows\explorer.exe"
 			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\Shell\Bags\1\Desktop" -Name FFLAGS -value 1075839525 -Force
 			if ($wallpaper.Checked)	{
 					$progress.Items.Add("Set wallpapers is checked."  )
@@ -464,9 +467,12 @@ function northPointInstaller {
 			$progress.SelectedIndex = -1;
 			Invoke-RestMethod -Uri $taskbarpinURL -OutFile $taskbarpinPath
 			Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
-			& "C:\NorthPoint\taskbarPin.vbs" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-			& "C:\NorthPoint\taskbarPin.vbs" "C:\Program Files\Mozilla Firefox\firefox.exe"
-			& "C:\NorthPoint\taskbarPin.vbs" "C:\Windows\explorer.exe"
+			Start-Sleep -s 2
+			& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+			Start-Sleep -s 2
+			& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+			Start-Sleep -s 2
+			& "C:\NorthPoint\taskbarPin.ps1" "C:\Windows\explorer.exe"
 			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\Shell\Bags\1\Desktop" -Name FFLAGS -value 1075839525 -Force
 			if ($wallpaper.Checked)	{
 					$progress.Items.Add("Set wallpapers is checked."  )
@@ -499,9 +505,12 @@ function northPointInstaller {
 			$progress.SelectedIndex = -1;
 			Invoke-RestMethod -Uri $taskbarpinURL -OutFile $taskbarpinPath
 			Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
-			& "C:\NorthPoint\taskbarPin.vbs" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-			& "C:\NorthPoint\taskbarPin.vbs" "C:\Program Files\Mozilla Firefox\firefox.exe"
-			& "C:\NorthPoint\taskbarPin.vbs" "C:\Windows\explorer.exe"
+			Start-Sleep -s 2
+			& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+			Start-Sleep -s 2
+			& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+			Start-Sleep -s 2
+			& "C:\NorthPoint\taskbarPin.ps1" "C:\Windows\explorer.exe"
 			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\Shell\Bags\1\Desktop" -Name FFLAGS -value 1075839525 -Force
 			if ($wallpaper.Checked)	{
 					$progress.Items.Add("Set wallpapers is checked."  )
@@ -538,11 +547,12 @@ function northPointInstaller {
 			$progress.SelectedIndex = -1;
 			Invoke-RestMethod -Uri $taskbarpinURL -OutFile $taskbarpinPath
 			Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
-			& "C:\NorthPoint\taskbarPin.vbs" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 			Start-Sleep -s 2
-			& "C:\NorthPoint\taskbarPin.vbs" "C:\Program Files\Mozilla Firefox\firefox.exe"
+			& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 			Start-Sleep -s 2
-			& "C:\NorthPoint\taskbarPin.vbs" "C:\Windows\explorer.exe"
+			& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+			Start-Sleep -s 2
+			& "C:\NorthPoint\taskbarPin.ps1" "C:\Windows\explorer.exe"
 			$progress.Items.Add("Deleting Microsoft Edge from Desktop...")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
@@ -607,7 +617,7 @@ function northPointInstaller {
 
 ## -- NorthPoint Installer
 
-	$northPoint.Text = "NorthPoint Installer 3.0.7.3"
+	$northPoint.Text = "NorthPoint Installer 3.0.7.4"
 	$northPoint.Name = "form1"
 	$northPoint.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
