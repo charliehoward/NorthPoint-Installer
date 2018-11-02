@@ -1,4 +1,4 @@
-# NorthPoint Installer 3.0.7.0
+# NorthPoint Installer 3.0.7.2
 ###### Copyright (c) Charlie Howard 2016-2018 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
