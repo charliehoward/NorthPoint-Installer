@@ -1,6 +1,6 @@
 ![logo](https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/northPoint.ico "NorthPoint Installer") 
 
-# NorthPoint Installer 3.0.8.2
+# NorthPoint Installer 3.0.8.3
 ###### Copyright (c) Charlie Howard 2016-2019 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -15,9 +15,13 @@ Changes wallpaper to a selection of HD landscape images.
 
 ### Changelog
 
+###### Update 3.0.8.3
+
+Installer cleans up files before downloading new files.
+
 ###### Update 3.0.8.2
 
-Added auto arranging Desktop and updated taskbar pining for Windows 8 and 8.1.
+Added auto arranging Desktop, now removed Kaspersky Safe Money icon from the Desktop and updated taskbar pining for Windows 8 and 8.1.
 
 ###### Update 3.0.8.1
 

@@ -55,6 +55,7 @@ $mozillaLocalSettingsURL = "https://raw.githubusercontent.com/charliehoward/Nort
 $mozillaLocalSettingsPath = "C:\Computer Repair Centre\local-settings.js"
 $mozillaConfigURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/mozilla.cfg"
 $mozillaConfigPath = "C:\Computer Repair Centre\mozilla.cfg"
+Remove-Item "C:\Computer Repair Centre" -Recurse -Force
 New-Item -ItemType directory -Path "C:\Computer Repair Centre"
 Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 Invoke-RestMethod -Uri $googleChromeURL -OutFile $googleChromePath
@@ -737,7 +738,7 @@ function northPointInstaller {
 
 ## -- NorthPoint Installer
 
-	$northPoint.Text = "NorthPoint Installer 3.0.8.2"
+	$northPoint.Text = "NorthPoint Installer 3.0.8.3"
 	$northPoint.Name = "form1"
 	$northPoint.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
