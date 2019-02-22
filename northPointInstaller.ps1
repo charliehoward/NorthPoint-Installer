@@ -535,6 +535,7 @@ function northPointInstaller {
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Windows\explorer.exe"
 					}
+				}
 			if ($wallpaper.Checked)	{
 				$progress.Items.Add("Set wallpapers is checked."  )
 				$progress.SelectedIndex = $progress.Items.Count - 1;
@@ -729,6 +730,7 @@ function northPointInstaller {
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			}
+		}
 	}
 	$OnLoadForm_StateCorrection=
 	{
@@ -738,7 +740,7 @@ function northPointInstaller {
 
 ## -- NorthPoint Installer
 
-	$northPoint.Text = "NorthPoint Installer 3.0.8.3"
+	$northPoint.Text = "NorthPoint Installer 3.0.8.4"
 	$northPoint.Name = "form1"
 	$northPoint.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
