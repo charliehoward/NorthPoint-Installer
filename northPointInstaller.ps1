@@ -4,57 +4,57 @@
 ## -- Download files
 
 $taskbarpin10URL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/taskbarPin10.ps1"
-$taskbarpin10Path = "C:\NorthPoint\taskbarPin10.ps1"
+$taskbarpin10Path = "C:\Computer Repair Centre\taskbarPin10.ps1"
 $taskbarpin7URL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/taskbarPin7.ps1"
-$taskbarpin7Path = "C:\NorthPoint\taskbarPin7.ps1"
-$computerRepairCentreOEMURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentre.bmp"
-$computerRepairCentreOEMPath = "C:\Computer Repair Centre\computerRepairCentre.bmp"
-$computerRepairCentreIconURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentre.ico"
-$computerRepairCentreIconPath = "C:\NorthPoint\computerRepairCentre.ico"
+$taskbarpin7Path = "C:\Computer Repair Centre\taskbarPin7.ps1"
+$computerRepairCentreOEMURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentreOEM.bmp"
+$computerRepairCentreOEMPath = "C:\Computer Repair Centre\computerRepairCentreOEM.bmp"
+$computerRepairCentreIconURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentreIcon.ico"
+$computerRepairCentreIconPath = "C:\Computer Repair Centre\computerRepairCentreIcon.ico"
 $googleChromeURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/googleChrome.ico"
-$googleChromePath = "C:\NorthPoint\googleChrome.ico"
+$googleChromePath = "C:\Computer Repair Centre\googleChrome.ico"
 $kasperskyInternetSecurityURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/kasperskyInternetSecurity.ico"
-$kasperskyInternetSecurityPath = "C:\NorthPoint\kasperskyInternetSecurity.ico"
+$kasperskyInternetSecurityPath = "C:\Computer Repair Centre\kasperskyInternetSecurity.ico"
 $libreOfficeURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/libreOffice.ico"
-$libreOfficePath = "C:\NorthPoint\libreOffice.ico"
+$libreOfficePath = "C:\Computer Repair Centre\libreOffice.ico"
 $mozillaFirefoxURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/mozillaFirefox.ico"
-$mozillaFirefoxPath = "C:\NorthPoint\mozillaFirefox.ico"
+$mozillaFirefoxPath = "C:\Computer Repair Centre\mozillaFirefox.ico"
 $mozillaThunderbirdURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/mozillaThunderbird.ico"
-$mozillaThunderbirdPath = "C:\NorthPoint\mozillaThunderbird.ico"
+$mozillaThunderbirdPath = "C:\Computer Repair Centre\mozillaThunderbird.ico"
 $skypeURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/skype.ico"
-$skypePath = "C:\NorthPoint\skype.ico"
+$skypePath = "C:\Computer Repair Centre\skype.ico"
 $teamViewerURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/teamViewer.ico"
-$teamViewerPath = "C:\NorthPoint\teamViewer.ico"
+$teamViewerPath = "C:\Computer Repair Centre\teamViewer.ico"
 $uBlockOriginURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/uBlockOrigin.ico"
-$uBlockOriginPath = "C:\NorthPoint\uBlockOrigin.ico"
+$uBlockOriginPath = "C:\Computer Repair Centre\uBlockOrigin.ico"
 $vlcMediaPlayerURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/vlcMediaPlayer.ico"
-$vlcMediaPlayerPath = "C:\NorthPoint\vlcMediaPlayer.ico"
+$vlcMediaPlayerPath = "C:\Computer Repair Centre\vlcMediaPlayer.ico"
 $birthdayURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/birthday.gif"
-$birthdayPath = "C:\NorthPoint\birthday.gif"
+$birthdayPath = "C:\Computer Repair Centre\birthday.gif"
 $wallpaperURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/wallpaper.ico"
-$wallpaperPath = "C:\NorthPoint\wallpaper.ico"
+$wallpaperPath = "C:\Computer Repair Centre\wallpaper.ico"
 $pinURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/pin.ico"
-$pinPath = "C:\NorthPoint\pin.ico"
+$pinPath = "C:\Computer Repair Centre\pin.ico"
 $wallpapersURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/wallpapers.zip"
 $wallpapersPath = "C:\Computer Repair Centre\wallpapers.zip"
 $themeSwitcher7URL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/themeSwitcher7.exe"
-$themeSwitcher7Path = "C:\NorthPoint\themeSwitcher7.exe"
+$themeSwitcher7Path = "C:\Computer Repair Centre\themeSwitcher7.exe"
 $themeSwitcher10URL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/themeSwitcher10.exe"
-$themeSwitcher10Path = "C:\NorthPoint\themeSwitcher10.exe"
+$themeSwitcher10Path = "C:\Computer Repair Centre\themeSwitcher10.exe"
 $windows7ThemeURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentre7.theme"
 $windows7ThemePath = "C:\Computer Repair Centre\computerRepairCentre7.theme"
 $windows10ThemeURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentre10.theme"
 $windows10ThemePath = "C:\Computer Repair Centre\computerRepairCentre10.theme"
 $iTunesURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/iTunes.ico"
-$iTunesPath = "C:\NorthPoint\iTunes.ico"
+$iTunesPath = "C:\Computer Repair Centre\iTunes.ico"
 $chromeExtensionURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/chromeExtension.ps1"
-$chromeExtensionPath = "C:\NorthPoint\chromeExtension.ps1"
+$chromeExtensionPath = "C:\Computer Repair Centre\chromeExtension.ps1"
 $firefoxExtensionURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/firefoxExtension.ps1"
-$firefoxExtensionPath = "C:\NorthPoint\firefoxExtension.ps1"
+$firefoxExtensionPath = "C:\Computer Repair Centre\firefoxExtension.ps1"
 $mozillaLocalSettingsURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/local-settings.js"
-$mozillaLocalSettingsPath = "C:\NorthPoint\local-settings.js"
+$mozillaLocalSettingsPath = "C:\Computer Repair Centre\local-settings.js"
 $mozillaConfigURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/mozilla.cfg"
-$mozillaConfigPath = "C:\NorthPoint\mozilla.cfg"
+$mozillaConfigPath = "C:\Computer Repair Centre\mozilla.cfg"
 New-Item -ItemType directory -Path "C:\Computer Repair Centre"
 Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 Invoke-RestMethod -Uri $googleChromeURL -OutFile $googleChromePath
@@ -101,7 +101,7 @@ function northPointInstaller {
 	$mozillaThunderbird = New-Object System.Windows.Forms.CheckBox
 	$googleChrome = New-Object System.Windows.Forms.CheckBox
 	$kaspersky = New-Object System.Windows.Forms.CheckBox
-	$vlc = New-ObjeRct System.Windows.Forms.CheckBox
+	$vlc = New-Object System.Windows.Forms.CheckBox
 	$libreOffice = New-Object System.Windows.Forms.CheckBox
 	$skype = New-Object System.Windows.Forms.CheckBox
 	$teamViewer = New-Object System.Windows.Forms.CheckBox
@@ -134,11 +134,11 @@ function northPointInstaller {
 			$birthday.TopMost = $true
 			$birthday.Width = 450
 			$birthday.Height = 240
-			$birthday.Icon = "C:\NorthPoint\northPoint.ico"
+			$birthday.Icon = "C:\Computer Repair Centre\northPoint.ico"
 			$birthdayGIF = New-Object system.windows.Forms.PictureBox
 			$birthdayGIF.Width = 480
 			$birthdayGIF.Height = 332
-			$birthdayGIF.ImageLocation = "C:\NorthPoint\birthday.gif"
+			$birthdayGIF.ImageLocation = "C:\Computer Repair Centre\birthday.gif"
 			$birthdayGIF.location = new-object system.drawing.point(-30,-70)
 			$birthday.controls.Add($birthdayGIF)
 			$Runspace = [RunspaceFactory]::CreateRunspace()
@@ -167,7 +167,7 @@ function northPointInstaller {
 				$progress.Items.Add("Installer being run from Romsey.")
 				$progress.SelectedIndex = $progress.Items.Count - 1;
 				$progress.SelectedIndex = -1;
-				Set-ItemProperty -path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -name Logo -value "C:\Computer Repair Centre\computerRepairCentre.bmp"
+				Set-ItemProperty -path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -name Logo -value "C:\Computer Repair Centre\computerRepairCentreOEM.bmp"
 				Set-ItemProperty -path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -name Manufacturer -value "Computer Repair Centre"
 				Set-ItemProperty -path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -name SupportHours -value "Mon-Sat 9:15am-5pm - Wed 9:15am-4pm"
 				Set-ItemProperty -path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -name SupportPhone -value "01794 517142"
@@ -177,7 +177,7 @@ function northPointInstaller {
 			$progress.Items.Add("Installer being run from Chandlers Ford.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
-			Set-ItemProperty -path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -name Logo -value "C:\Computer Repair Centre\computerRepairCentre.bmp"
+			Set-ItemProperty -path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -name Logo -value "C:\Computer Repair Centre\computerRepairCentreOEM.bmp"
 			Set-ItemProperty -path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -name Manufacturer -value "Computer Repair Centre"
 			Set-ItemProperty -path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -name SupportHours -value "Mon-Fri 9am-5pm - Sat 9am-4pm"
 			Set-ItemProperty -path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -name SupportPhone -value "08712 244129"
@@ -381,7 +381,7 @@ function northPointInstaller {
 				$progress.Items.Add("Installing uBlockOrigin on Google Chrome...")
 				$progress.SelectedIndex = $progress.Items.Count - 1;
 				$progress.SelectedIndex = -1;
-				Import-Module C:\NorthPoint\chromeExtension.ps1
+				Import-Module C:\Computer Repair Centre\chromeExtension.ps1
 				New-ChromeExtension -ExtensionID 'cjpalhdlnbpafiamejdnhcphjbkeiagm' -Mode Machine
 				$progress.Items.Add("The installation of uBlockOrigin on Google Chrome has completed.")
 				$progress.SelectedIndex = $progress.Items.Count - 1;
@@ -392,12 +392,12 @@ function northPointInstaller {
 				$progress.SelectedIndex = $progress.Items.Count - 1;
 				$progress.SelectedIndex = -1;
 				New-Item -ItemType directory -Path "C:\Program Files\Mozilla Firefox\defaults\pref" -Force
-				Copy-Item "C:\NorthPoint\mozilla.cfg" -Destination "C:\Program Files\Mozilla Firefox" -Force
-				Copy-Item "C:\NorthPoint\local-settings.js" -Destination "C:\Program Files\Mozilla Firefox\defaults\pref" -Force	
-				Import-Module C:\NorthPoint\firefoxExtension.ps1	
+				Copy-Item "C:\Computer Repair Centre\mozilla.cfg" -Destination "C:\Program Files\Mozilla Firefox" -Force
+				Copy-Item "C:\Computer Repair Centre\local-settings.js" -Destination "C:\Program Files\Mozilla Firefox\defaults\pref" -Force	
+				Import-Module C:\Computer Repair Centre\firefoxExtension.ps1	
 				$firefoxParams = @{
 					'ExtensionUri' = 'https://addons.mozilla.org/firefox/downloads/file/985780/ublock_origin-1.16.10-an+fx.xpi?src=dp-btn-primary'
-					'ExtensionPath' = 'C:\NorthPoint'
+					'ExtensionPath' = 'C:\Computer Repair Centre'
 					'Hive' = 'HKLM'
 					}
 				New-FirefoxExtension @firefoxParams
@@ -438,27 +438,27 @@ function northPointInstaller {
 				Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
 				if ($ip -like '*212.159.116.68*') {
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin7.ps1" -pinItems "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+					& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin7.ps1" -pinItems "C:\Program Files\Mozilla Firefox\firefox.exe"
+					& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files\Mozilla Firefox\firefox.exe"
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin7.ps1" -pinItems "C:\Program Files\LibreOffice\program\swriter.exe"
+					& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files\LibreOffice\program\swriter.exe"
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin7.ps1" -pinItems "C:\Program Files\LibreOffice\program\scalc.exe"
+					& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files\LibreOffice\program\scalc.exe"
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin7.ps1" -pinItems "C:\Windows\explorer.exe"
+					& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Windows\explorer.exe"
 					}
 				elseIf ($ip -like '*82.0.43.224*') {
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin7.ps1" -pinItems "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+					& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin7.ps1" -pinItems "C:\Program Files\Mozilla Firefox\firefox.exe"
+					& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files\Mozilla Firefox\firefox.exe"
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin7.ps1" -pinItems "C:\Program Files (x86)\Microsoft Office\Office12\WORD.exe"
+					& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files (x86)\Microsoft Office\Office12\WORD.exe"
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin7.ps1" -pinItems "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.exe"
+					& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.exe"
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin7.ps1" -pinItems "C:\Windows\explorer.exe"
+					& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Windows\explorer.exe"
 					}
 				}				
 			if ($wallpaper.Checked)	{
@@ -472,7 +472,7 @@ function northPointInstaller {
 				Invoke-RestMethod -Uri $themeSwitcher7URL -OutFile $themeSwitcher7Path
 				Invoke-RestMethod -Uri $windows7ThemeURL -OutFile $windows7ThemePath
 				& 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
-				& 'C:\NorthPoint\themeSwitcher7.exe' "C:\Computer Repair Centre\computerRepairCentre7.theme"
+				& 'C:\Computer Repair Centre\themeSwitcher7.exe' "C:\Computer Repair Centre\computerRepairCentre7.theme"
 				}
 			$progress.Items.Add("Disabling standby and monitor timeout when plugged in...")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
@@ -495,11 +495,11 @@ function northPointInstaller {
 				Invoke-RestMethod -Uri $taskbarpinURL -OutFile $taskbarpinPath
 				Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
 				Start-Sleep -s 2
-				& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+				& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 				Start-Sleep -s 2
-				& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+				& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
 				Start-Sleep -s 2
-				& "C:\NorthPoint\taskbarPin.ps1" "C:\Windows\explorer.exe"
+				& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Windows\explorer.exe"
 				}
 			if ($wallpaper.Checked)	{
 				$progress.Items.Add("Set wallpapers is checked."  )
@@ -512,7 +512,7 @@ function northPointInstaller {
 				Invoke-RestMethod -Uri $themeSwitcher10URL -OutFile $themeSwitcher10Path
 				Invoke-RestMethod -Uri $windows10ThemeURL -OutFile $windows10ThemePath
 				& 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
-				& 'C:\NorthPoint\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10.theme"
+				& 'C:\Computer Repair Centre\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10.theme"
 				}
 			$progress.Items.Add("Disabling standby and monitor timeout when plugged in...")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
@@ -534,11 +534,11 @@ function northPointInstaller {
 				Invoke-RestMethod -Uri $taskbarpinURL -OutFile $taskbarpinPath
 				Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
 				Start-Sleep -s 2
-				& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+				& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 				Start-Sleep -s 2
-				& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+				& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
 				Start-Sleep -s 2
-				& "C:\NorthPoint\taskbarPin.ps1" "C:\Windows\explorer.exe"
+				& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Windows\explorer.exe"
 				}
 			if ($wallpaper.Checked)	{
 				$progress.Items.Add("Set wallpapers is checked."  )
@@ -551,7 +551,7 @@ function northPointInstaller {
 				Invoke-RestMethod -Uri $themeSwitcher10URL -OutFile $themeSwitcher10Path
 				Invoke-RestMethod -Uri $windows10ThemeURL -OutFile $windows10ThemePath
 				& 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
-				& 'C:\NorthPoint\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10.theme"
+				& 'C:\Computer Repair Centre\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10.theme"
 				}
 			$progress.Items.Add("Disabling standby and monitor timeout when plugged in...")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
@@ -580,30 +580,30 @@ function northPointInstaller {
 					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
 					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files\LibreOffice\program\swriter.exe"
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\LibreOffice\program\swriter.exe"
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin.ps1" "C:\Windows\explorer.exe"
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Windows\explorer.exe"
 					}
 				elseIf ($ip -like '*82.0.43.224*') {
 					Start-Sleep -s 2
 					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
 					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.exe"
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.exe"
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.exe"
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.exe"
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin.ps1" "C:\Windows\explorer.exe"
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Windows\explorer.exe"
 					}
 				}
 			if ($wallpaper.Checked)	{
@@ -617,7 +617,7 @@ function northPointInstaller {
 				Invoke-RestMethod -Uri $themeSwitcher10URL -OutFile $themeSwitcher10Path
 				Invoke-RestMethod -Uri $windows10ThemeURL -OutFile $windows10ThemePath
 				& 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
-				& 'C:\NorthPoint\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10.theme"
+				& 'C:\Computer Repair Centre\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10.theme"
 				}
 			$progress.Items.Add("Disabling fastboot mode...")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
@@ -663,14 +663,14 @@ function northPointInstaller {
 
 ## -- NorthPoint Installer
 
-	$northPoint.Text = "NorthPoint Installer 3.0.8.0"
+	$northPoint.Text = "NorthPoint Installer 3.0.8.1"
 	$northPoint.Name = "form1"
 	$northPoint.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 550
 	$System_Drawing_Size.Height = 240
 	$northPoint.ClientSize = $System_Drawing_Size
-	$northPoint.Icon = "$env:p2eincfilepath\NorthPoint.ico"
+	$northPoint.Icon = "C:\Computer Repair Centre\computerRepairCentreIcon.ico"
 	
 	
 ## -- Install button
@@ -725,7 +725,7 @@ function northPointInstaller {
 	$crc.DataBindings.DefaultDataSourceUpdateMode = 0
 	$crc.Name = "crc"
 	$crc.Checked = 1
-	$crc.Image = [System.Drawing.Image]::FromFile("C:\NorthPoint\computerRepairCentre.ico")
+	$crc.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\computerRepairCentreIcon.ico")
 	$northPoint.Controls.Add($crc)
 	
 	
@@ -740,12 +740,12 @@ function northPointInstaller {
 	$pin.TabIndex = 4
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16+(45*0)
-	$System_Drawing_Point.Y = 5+(31*3)
+	$System_Drawing_Point.Y = 5+(31*2)
 	$pin.Location = $System_Drawing_Point
 	$pin.DataBindings.DefaultDataSourceUpdateMode = 0
 	$pin.Name = "pin"
 	$pin.Checked = 1
-	$pin.Image = [System.Drawing.Image]::FromFile("C:\NorthPoint\pin.ico")
+	$pin.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\pin.ico")
 	$northPoint.Controls.Add($pin)
 	
 	
@@ -765,7 +765,7 @@ function northPointInstaller {
 	$wallpaper.DataBindings.DefaultDataSourceUpdateMode = 0
 	$wallpaper.Name = "vlc"
 	$wallpaper.Checked = 1
-	$wallpaper.Image = [System.Drawing.Image]::FromFile("C:\NorthPoint\wallpaper.ico")
+	$wallpaper.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\wallpaper.ico")
 	$northPoint.Controls.Add($wallpaper)
 	
 	
@@ -784,7 +784,7 @@ function northPointInstaller {
 	$googleChrome.DataBindings.DefaultDataSourceUpdateMode = 0
 	$googleChrome.Name = "googleChrome"
 	$googleChrome.Checked = 1
-	$googleChrome.Image = [System.Drawing.Image]::FromFile("C:\NorthPoint\googleChrome.ico")
+	$googleChrome.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\googleChrome.ico")
 	$northPoint.Controls.Add($googleChrome)
 	
 ## -- iTunes
@@ -803,7 +803,7 @@ function northPointInstaller {
 	$iTunes.DataBindings.DefaultDataSourceUpdateMode = 0
 	$iTunes.Name = "iTunes"
 	$iTunes.Checked = 0
-	$iTunes.Image = [System.Drawing.Image]::FromFile("C:\NorthPoint\iTunes.ico")
+	$iTunes.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\iTunes.ico")
 	$northPoint.Controls.Add($iTunes)
 	
 	
@@ -822,7 +822,7 @@ function northPointInstaller {
 	$kaspersky.DataBindings.DefaultDataSourceUpdateMode = 0
 	$kaspersky.Name = "kaspersky"
 	$kaspersky.Checked = 1
-	$kaspersky.Image = [System.Drawing.Image]::FromFile("C:\NorthPoint\kasperskyInternetSecurity.ico")
+	$kaspersky.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\kasperskyInternetSecurity.ico")
 	$northPoint.Controls.Add($kaspersky)
 	
 	
@@ -841,7 +841,7 @@ function northPointInstaller {
 	$libreOffice.DataBindings.DefaultDataSourceUpdateMode = 0
 	$libreOffice.Name = "libreOffice"
 	$libreOffice.Checked = $libreOfficeLocation
-	$libreOffice.Image = [System.Drawing.Image]::FromFile("C:\NorthPoint\libreOffice.ico")
+	$libreOffice.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\libreOffice.ico")
 	$northPoint.Controls.Add($libreOffice)
 	
 	
@@ -860,7 +860,7 @@ function northPointInstaller {
 	$mozillaFirefox.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaFirefox.Name = "mozillaFirefox"
 	$mozillaFirefox.Checked = 1
-	$mozillaFirefox.Image = [System.Drawing.Image]::FromFile("C:\NorthPoint\mozillaFirefox.ico")
+	$mozillaFirefox.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\mozillaFirefox.ico")
 	$northPoint.Controls.Add($mozillaFirefox)
 	
 	
@@ -879,7 +879,7 @@ function northPointInstaller {
 	$mozillaThunderbird.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaThunderbird.Name = "mozillaThunderbird"
 	$mozillaThunderbird.Checked = 0
-	$mozillaThunderbird.Image = [System.Drawing.Image]::FromFile("C:\NorthPoint\mozillaThunderbird.ico")
+	$mozillaThunderbird.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\mozillaThunderbird.ico")
 	$northPoint.Controls.Add($mozillaThunderbird)
 	
 	
@@ -898,7 +898,7 @@ function northPointInstaller {
 	$skype.DataBindings.DefaultDataSourceUpdateMode = 0
 	$skype.Name = "skype"
 	$skype.Checked = 0
-	$skype.Image = [System.Drawing.Image]::FromFile("C:\NorthPoint\skype.ico")
+	$skype.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\skype.ico")
 	$northPoint.Controls.Add($skype)
 	
 	
@@ -917,7 +917,7 @@ function northPointInstaller {
 	$teamViewer.DataBindings.DefaultDataSourceUpdateMode = 0
 	$teamViewer.Name = "teamViewer"
 	$teamViewer.Checked = 1
-	$teamViewer.Image = [System.Drawing.Image]::FromFile("C:\NorthPoint\teamViewer.ico")
+	$teamViewer.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\teamViewer.ico")
 	$northPoint.Controls.Add($teamViewer)
 	
 
@@ -936,7 +936,7 @@ function northPointInstaller {
 	$uBlockOrigin.DataBindings.DefaultDataSourceUpdateMode = 0
 	$uBlockOrigin.Name = "uBlockOrigin"
 	$uBlockOrigin.Checked = 1
-	$uBlockOrigin.Image = [System.Drawing.Image]::FromFile("C:\NorthPoint\uBlockOrigin.ico")
+	$uBlockOrigin.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\uBlockOrigin.ico")
 	$northPoint.Controls.Add($uBlockOrigin)
 	
 	
@@ -947,15 +947,15 @@ function northPointInstaller {
 	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
 	$vlc.Size = $System_Drawing_Size
-	$vlc.TabIndex = 4
+	$vlc.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16+(45*2)
 	$System_Drawing_Point.Y = 5+(31*1)
 	$vlc.Location = $System_Drawing_Point
 	$vlc.DataBindings.DefaultDataSourceUpdateMode = 0
 	$vlc.Name = "vlc"
-	$vlc.Checked = 1
-	$vlc.Image = [System.Drawing.Image]::FromFile("C:\NorthPoint\vlcMediaPlayer.ico")
+	$vlc.Checked = $libreOfficeLocation
+	$vlc.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\vlcMediaPlayer.ico")
 	$northPoint.Controls.Add($vlc)
 	
 	
