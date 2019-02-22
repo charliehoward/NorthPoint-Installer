@@ -248,6 +248,10 @@ function northPointInstaller {
 			$progress.SelectedIndex = -1;
 			choco install kis -y --ignore-checksum
 			$Programs = choco list --localonly
+			$progress.Items.Add("Removing Safe Money icon from Desktop...")
+			$progress.SelectedIndex = $progress.Items.Count - 1;
+			$progress.SelectedIndex = -1;
+			Remove-Item "C:\Users\Public\Desktop\Safe Money.lnk"
 			if ($Programs -like '*kis*') {
 				$progress.Items.Add("Completed installation of Kaspersky Internet Security 2019.")
 				$progress.SelectedIndex = $progress.Items.Count - 1;
@@ -454,9 +458,9 @@ function northPointInstaller {
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files\Mozilla Firefox\firefox.exe"
 					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files (x86)\Microsoft Office\Office12\WORD.exe"
+					& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files (x86)\Microsoft Office\Office12\WORD.EXE"
 					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.exe"
+					& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.EXE"
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Windows\explorer.exe"
 					}
@@ -480,7 +484,13 @@ function northPointInstaller {
 			powercfg -change -standby-timeout-ac 0
 			powercfg -change -monitor-timeout-ac 0
 			$progress.Items.Add("Setting random wallpaper.")
-			$progress.Items.Add("The installer has finished! The installer will close in 20 seconds.")
+			$progress.Items.Add("Auto arranging Desktop icons.")
+			$progress.SelectedIndex = $progress.Items.Count - 1;
+			$progress.SelectedIndex = -1;
+			Set-ItemProperty -Path HKCU:Software\Microsoft\Windows\Shell\Bags\1\Desktop -Name FFlags -Value 1075839525 -PropertyType DWORD -Force
+			cmd /c taskkill /F /IM explorer.exe
+			cmd /c start explorer.exe
+			$progress.Items.Add("The installer has finished! You can safely close the program.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			}
@@ -494,13 +504,36 @@ function northPointInstaller {
 				$progress.SelectedIndex = -1;
 				Invoke-RestMethod -Uri $taskbarpinURL -OutFile $taskbarpinPath
 				Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
-				Start-Sleep -s 2
-				& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-				Start-Sleep -s 2
-				& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
-				Start-Sleep -s 2
-				& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Windows\explorer.exe"
-				}
+				if ($ip -like '*212.159.116.68*') {
+					Start-Sleep -s 2
+					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
+					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\LibreOffice\program\swriter.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Windows\explorer.exe"
+					}
+				elseIf ($ip -like '*82.0.43.224*') {
+					Start-Sleep -s 2
+					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
+					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.EXE"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.EXE"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Windows\explorer.exe"
+					}
 			if ($wallpaper.Checked)	{
 				$progress.Items.Add("Set wallpapers is checked."  )
 				$progress.SelectedIndex = $progress.Items.Count - 1;
@@ -519,7 +552,13 @@ function northPointInstaller {
 			$progress.SelectedIndex = -1;
 			powercfg -change -standby-timeout-ac 0
 			powercfg -change -monitor-timeout-ac 0
-			$progress.Items.Add("The installer has finished! The installer will close in 20 seconds.")
+			$progress.Items.Add("Auto arranging Desktop icons.")
+			$progress.SelectedIndex = $progress.Items.Count - 1;
+			$progress.SelectedIndex = -1;
+			Set-ItemProperty -Path HKCU:Software\Microsoft\Windows\Shell\Bags\1\Desktop -Name FFlags -Value 1075839525 -PropertyType DWORD -Force
+			cmd /c taskkill /F /IM explorer.exe
+			cmd /c start explorer.exe
+			$progress.Items.Add("The installer has finished! You can safely close the program.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			}
@@ -533,13 +572,36 @@ function northPointInstaller {
 				$progress.SelectedIndex = -1;
 				Invoke-RestMethod -Uri $taskbarpinURL -OutFile $taskbarpinPath
 				Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
-				Start-Sleep -s 2
-				& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-				Start-Sleep -s 2
-				& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
-				Start-Sleep -s 2
-				& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Windows\explorer.exe"
-				}
+				if ($ip -like '*212.159.116.68*') {
+					Start-Sleep -s 2
+					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
+					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\LibreOffice\program\swriter.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Windows\explorer.exe"
+					}
+				elseIf ($ip -like '*82.0.43.224*') {
+					Start-Sleep -s 2
+					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
+					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.EXE"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.EXE"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Windows\explorer.exe"
+					}
 			if ($wallpaper.Checked)	{
 				$progress.Items.Add("Set wallpapers is checked."  )
 				$progress.SelectedIndex = $progress.Items.Count - 1;
@@ -558,7 +620,13 @@ function northPointInstaller {
 			$progress.SelectedIndex = -1;
 			powercfg -change -standby-timeout-ac 0
 			powercfg -change -monitor-timeout-ac 0
-			$progress.Items.Add("The installer has finished! The installer will close in 20 seconds.")
+			$progress.Items.Add("Auto arranging Desktop icons.")
+			$progress.SelectedIndex = $progress.Items.Count - 1;
+			$progress.SelectedIndex = -1;
+			Set-ItemProperty -Path HKCU:Software\Microsoft\Windows\Shell\Bags\1\Desktop -Name FFlags -Value 1075839525 -PropertyType DWORD -Force
+			cmd /c taskkill /F /IM explorer.exe
+			cmd /c start explorer.exe
+			$progress.Items.Add("The installer has finished! You can safely close the program.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			}
@@ -599,9 +667,9 @@ function northPointInstaller {
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.exe"
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.EXE"
 					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.exe"
+					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.EXE"
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Windows\explorer.exe"
 					}
@@ -650,7 +718,13 @@ function northPointInstaller {
 			$progress.SelectedIndex = -1;
 			powercfg -change -standby-timeout-ac 0
 			powercfg -change -monitor-timeout-ac 0
-			$progress.Items.Add("The installer has finished!")
+			$progress.Items.Add("Auto arranging Desktop icons.")
+			$progress.SelectedIndex = $progress.Items.Count - 1;
+			$progress.SelectedIndex = -1;
+			Set-ItemProperty -Path HKCU:Software\Microsoft\Windows\Shell\Bags\1\Desktop -Name FFlags -Value 1075839525 -PropertyType DWORD -Force
+			cmd /c taskkill /F /IM explorer.exe
+			cmd /c start explorer.exe
+			$progress.Items.Add("The installer has finished! You can safely close the program.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			}
@@ -663,7 +737,7 @@ function northPointInstaller {
 
 ## -- NorthPoint Installer
 
-	$northPoint.Text = "NorthPoint Installer 3.0.8.1"
+	$northPoint.Text = "NorthPoint Installer 3.0.8.2"
 	$northPoint.Name = "form1"
 	$northPoint.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
