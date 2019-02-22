@@ -1,4 +1,4 @@
-![logo](https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/northPoint.ico "NorthPoint Installer") 
+![logo](https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentreIcon.ico "NorthPoint Installer") 
 
 # NorthPoint Installer 3.0.8.4
 ###### Copyright (c) Charlie Howard 2016-2019 All rights reserved.
