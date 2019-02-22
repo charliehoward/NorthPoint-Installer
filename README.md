@@ -1,6 +1,6 @@
 ![logo](https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentreOEM.bmp "NorthPoint Installer") 
 
-# NorthPoint Installer 3.0.8.4
+# NorthPoint Installer 3.0.8.5
 ###### Copyright (c) Charlie Howard 2016-2019 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -15,6 +15,10 @@ Changes wallpaper to a selection of HD landscape images.
 
 ### Changelog
 
+###### Update 3.0.8.5
+
+Removed auto-arranging Desktop icons due to locking issue.
+
 ###### Update 3.0.8.4
 
 Fixed crashing issue.
@@ -25,7 +29,7 @@ Installer cleans up files before downloading new files.
 
 ###### Update 3.0.8.2
 
-Added auto arranging Desktop, now removed Kaspersky Safe Money icon from the Desktop and updated taskbar pining for Windows 8 and 8.1.
+Added auto-arranging Desktop, now removed Kaspersky Safe Money icon from the Desktop and updated taskbar pinning for Windows 8 and 8.1.
 
 ###### Update 3.0.8.1
 
@@ -33,7 +37,7 @@ Fixed formatting issue and changed icon.
 
 ###### Update 3.0.8.0
 
-Added dark mode for Windows 10, added more wallpapers, added option to disable taskbar repin and fixed pining icons on Windows 7.
+Added dark mode for Windows 10, added more wallpapers, added option to disable taskbar repin and fixed pinning icons on Windows 7.
 
 ###### Update 3.0.7.4
 

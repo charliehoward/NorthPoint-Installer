@@ -485,12 +485,6 @@ function northPointInstaller {
 			powercfg -change -standby-timeout-ac 0
 			powercfg -change -monitor-timeout-ac 0
 			$progress.Items.Add("Setting random wallpaper.")
-			$progress.Items.Add("Auto arranging Desktop icons.")
-			$progress.SelectedIndex = $progress.Items.Count - 1;
-			$progress.SelectedIndex = -1;
-			#New-ItemProperty -Path HKCU:Software\Microsoft\Windows\Shell\Bags\1\Desktop -Name FFlags -Value 1075839525 -PropertyType DWORD -Force
-			#cmd /c taskkill /F /IM explorer.exe
-			#cmd /c start explorer.exe
 			$progress.Items.Add("The installer has finished! You can safely close the program.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
@@ -554,12 +548,6 @@ function northPointInstaller {
 			$progress.SelectedIndex = -1;
 			powercfg -change -standby-timeout-ac 0
 			powercfg -change -monitor-timeout-ac 0
-			$progress.Items.Add("Auto arranging Desktop icons.")
-			$progress.SelectedIndex = $progress.Items.Count - 1;
-			$progress.SelectedIndex = -1;
-			New-ItemProperty -Path HKCU:Software\Microsoft\Windows\Shell\Bags\1\Desktop -Name FFlags -Value 1075839525 -PropertyType DWORD -Force
-			cmd /c taskkill /F /IM explorer.exe
-			cmd /c start explorer.exe
 			$progress.Items.Add("The installer has finished! You can safely close the program.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
@@ -622,12 +610,6 @@ function northPointInstaller {
 			$progress.SelectedIndex = -1;
 			powercfg -change -standby-timeout-ac 0
 			powercfg -change -monitor-timeout-ac 0
-			$progress.Items.Add("Auto arranging Desktop icons.")
-			$progress.SelectedIndex = $progress.Items.Count - 1;
-			$progress.SelectedIndex = -1;
-			New-ItemProperty -Path HKCU:Software\Microsoft\Windows\Shell\Bags\1\Desktop -Name FFlags -Value 1075839525 -PropertyType DWORD -Force
-			cmd /c taskkill /F /IM explorer.exe
-			cmd /c start explorer.exe
 			$progress.Items.Add("The installer has finished! You can safely close the program.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
@@ -720,12 +702,6 @@ function northPointInstaller {
 			$progress.SelectedIndex = -1;
 			powercfg -change -standby-timeout-ac 0
 			powercfg -change -monitor-timeout-ac 0
-			$progress.Items.Add("Auto arranging Desktop icons.")
-			$progress.SelectedIndex = $progress.Items.Count - 1;
-			$progress.SelectedIndex = -1;
-			#New-ItemProperty -Path HKCU:Software\Microsoft\Windows\Shell\Bags\1\Desktop -Name FFlags -Value 1075839525 -PropertyType DWORD -Force
-			#cmd /c taskkill /F /IM explorer.exe
-			#cmd /c start explorer.exe
 			$progress.Items.Add("The installer has finished! You can safely close the program.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
@@ -740,7 +716,7 @@ function northPointInstaller {
 
 ## -- NorthPoint Installer
 
-	$northPoint.Text = "NorthPoint Installer 3.0.8.4"
+	$northPoint.Text = "NorthPoint Installer 3.0.8.5"
 	$northPoint.Name = "form1"
 	$northPoint.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
