@@ -488,9 +488,9 @@ function northPointInstaller {
 			$progress.Items.Add("Auto arranging Desktop icons.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
-			New-ItemProperty -Path HKCU:Software\Microsoft\Windows\Shell\Bags\1\Desktop -Name FFlags -Value 1075839525 -PropertyType DWORD -Force
-			cmd /c taskkill /F /IM explorer.exe
-			cmd /c start explorer.exe
+			#New-ItemProperty -Path HKCU:Software\Microsoft\Windows\Shell\Bags\1\Desktop -Name FFlags -Value 1075839525 -PropertyType DWORD -Force
+			#cmd /c taskkill /F /IM explorer.exe
+			#cmd /c start explorer.exe
 			$progress.Items.Add("The installer has finished! You can safely close the program.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
@@ -723,9 +723,9 @@ function northPointInstaller {
 			$progress.Items.Add("Auto arranging Desktop icons.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
-			New-ItemProperty -Path HKCU:Software\Microsoft\Windows\Shell\Bags\1\Desktop -Name FFlags -Value 1075839525 -PropertyType DWORD -Force
-			cmd /c taskkill /F /IM explorer.exe
-			cmd /c start explorer.exe
+			#New-ItemProperty -Path HKCU:Software\Microsoft\Windows\Shell\Bags\1\Desktop -Name FFlags -Value 1075839525 -PropertyType DWORD -Force
+			#cmd /c taskkill /F /IM explorer.exe
+			#cmd /c start explorer.exe
 			$progress.Items.Add("The installer has finished! You can safely close the program.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
