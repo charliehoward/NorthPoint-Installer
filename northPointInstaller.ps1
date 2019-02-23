@@ -489,7 +489,7 @@ function northPointInstaller {
 			powercfg -change -standby-timeout-ac 0
 			powercfg -change -monitor-timeout-ac 0
 			$progress.Items.Add("Setting random wallpaper.")
-			$progress.Items.Add("The installer has finished! You can safely close the program.")
+			$progress.Items.Add("The installation has finished! You can safely close the program.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			}
@@ -523,12 +523,10 @@ function northPointInstaller {
 				& 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
 				& 'C:\Computer Repair Centre\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10.theme"
 				}
-			$progress.Items.Add("Disabling standby and monitor timeout when plugged in...")
+			$progress.Items.Add("The installation has finished!.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
-			powercfg -change -standby-timeout-ac 0
-			powercfg -change -monitor-timeout-ac 0
-			$progress.Items.Add("The installer has finished! The taskbar requires a reboot so please press 'Reboot' when it's safe.")
+			$progress.Items.Add("The taskbar requires a reboot so please press 'Reboot' when it's safe.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			}
@@ -562,12 +560,10 @@ function northPointInstaller {
 				& 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
 				& 'C:\Computer Repair Centre\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10.theme"
 				}
-			$progress.Items.Add("Disabling standby and monitor timeout when plugged in...")
+			$progress.Items.Add("The installation has finished!.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
-			powercfg -change -standby-timeout-ac 0
-			powercfg -change -monitor-timeout-ac 0
-			$progress.Items.Add("The installer has finished! The taskbar requires a reboot so please press 'Reboot' when it's safe.")
+			$progress.Items.Add("The taskbar requires a reboot so please press 'Reboot' when it's safe.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			}
@@ -579,6 +575,80 @@ function northPointInstaller {
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			Set-ItemProperty -path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced -name LaunchTo -value 1
+			$progress.Items.Add("Disabling fastboot mode...")
+			$progress.SelectedIndex = $progress.Items.Count - 1;
+			$progress.SelectedIndex = -1;
+			Set-ItemProperty -path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -name HiberbootEnabled -value 0
+			$progress.Items.Add("Disabling Wi-Fi Sense...")
+			$progress.SelectedIndex = $progress.Items.Count - 1;
+			$progress.SelectedIndex = -1;
+			New-Item -Path HKLM:\Software\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting -Force
+			Set-ItemProperty -Path "HKLM:\Software\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting" -Name "Value" -Type DWord -Value 0
+			Set-ItemProperty -Path "HKLM:\Software\Microsoft\PolicyManager\default\WiFi\AllowAutoConnectToWiFiSenseHotspots" -Name "Value" -Type DWord -Value 0
+			$progress.Items.Add("Disabling telemetry...")
+			$progress.SelectedIndex = $progress.Items.Count - 1;
+			$progress.SelectedIndex = -1;
+			Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
+			Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
+			Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0	
+			$progress.Items.Add("Disabling Bing Search in start menu...")
+			$progress.SelectedIndex = $progress.Items.Count - 1;
+			$progress.SelectedIndex = -1;
+			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "BingSearchEnabled" -Type DWord -Value 0
+			If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
+				New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
+			}
+			Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "DisableWebSearch" -Type DWord -Value 1
+			$progress.Items.Add("Disabling start menu suggestions...")
+			$progress.SelectedIndex = $progress.Items.Count - 1;
+			$progress.SelectedIndex = -1;
+			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "SystemPaneSuggestionsEnabled" -Type DWord -Value 0
+			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "SilentInstalledAppsEnabled" -Type DWord -Value 0
+			$progress.Items.Add("Disabling location tracking...")
+			$progress.SelectedIndex = $progress.Items.Count - 1;
+			$progress.SelectedIndex = -1;
+			Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sensor\Overrides\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}" -Name "SensorPermissionState" -Type DWord -Value 0
+			Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\lfsvc\Service\Configuration" -Name "Status" -Type DWord -Value 0	
+			$progress.Items.Add("Disabling advertising ID...")
+			$progress.SelectedIndex = $progress.Items.Count - 1;
+			$progress.SelectedIndex = -1;
+			If (!(Test-Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo")) {
+				New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo" | Out-Null
+			}
+			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo" -Name "Enabled" -Type DWord -Value 0
+			$progress.Items.Add("Disabling People icon...")
+			$progress.SelectedIndex = $progress.Items.Count - 1;
+			$progress.SelectedIndex = -1;
+			New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People"
+			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" -Name "PeopleBand" -Type DWord -Value 0
+			$progress.Items.Add("Disabling Cortana search bar...")
+			$progress.SelectedIndex = $progress.Items.Count - 1;
+			$progress.SelectedIndex = -1;
+			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0	
+			$progress.Items.Add("Disabling task view icon...")
+			$progress.SelectedIndex = $progress.Items.Count - 1;
+			$progress.SelectedIndex = -1;
+			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Type DWord -Value 0	
+			$progress.Items.Add("Hiding recently used files and folders in File Explorer...")
+			$progress.SelectedIndex = $progress.Items.Count - 1;
+			$progress.SelectedIndex = -1;
+			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowRecent" -Type DWord -Value 0
+			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowFrequent" -Type DWord -Value 0		
+			$progress.Items.Add("Disabling Action Centre...")
+			$progress.SelectedIndex = $progress.Items.Count - 1;
+			$progress.SelectedIndex = -1;
+			New-Item -Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer"
+			Set-ItemProperty -Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer" -Name "DisableNotificationCenter" -Type DWord -Value 1
+			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\PushNotifications" -Name "ToastEnabled" -Type DWord -Value 0		
+			$progress.Items.Add("Disabling standby and monitor timeout when plugged in...")
+			$progress.SelectedIndex = $progress.Items.Count - 1;
+			$progress.SelectedIndex = -1;
+			powercfg -change -standby-timeout-ac 0
+			powercfg -change -monitor-timeout-ac 0	
+			$progress.Items.Add("Removing Microsoft Edge icon from the Desktop...")
+			$progress.SelectedIndex = $progress.Items.Count - 1;
+			$progress.SelectedIndex = -1;		
+			Remove-Item "$Home\Desktop\Microsoft Edge.lnk" -Force
 			if ($pin.Checked)	{
 				$progress.Items.Add("Setting taskbar icons...")
 				$progress.SelectedIndex = $progress.Items.Count - 1;
@@ -604,38 +674,10 @@ function northPointInstaller {
 				& 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
 				& 'C:\Computer Repair Centre\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10.theme"
 				}
-			$progress.Items.Add("Disabling fastboot mode...")
+			$progress.Items.Add("The installation has finished!.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
-			Set-ItemProperty -path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -name HiberbootEnabled -value 0
-			$progress.Items.Add("Disabling Wi-Fi Sense...")
-			$progress.SelectedIndex = $progress.Items.Count - 1;
-			$progress.SelectedIndex = -1;
-			New-Item -Path HKLM:\Software\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting -Force
-			Set-ItemProperty -Path "HKLM:\Software\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting" -Name "Value" -Type DWord -Value 0
-			Set-ItemProperty -Path "HKLM:\Software\Microsoft\PolicyManager\default\WiFi\AllowAutoConnectToWiFiSenseHotspots" -Name "Value" -Type DWord -Value 0
-			$progress.Items.Add("Disabling People icon...")
-			$progress.SelectedIndex = $progress.Items.Count - 1;
-			$progress.SelectedIndex = -1;
-			New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People"
-			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" -Name "PeopleBand" -Type DWord -Value 0
-			$progress.Items.Add("Hiding recently used files and folders in Explorer...")
-			$progress.SelectedIndex = $progress.Items.Count - 1;
-			$progress.SelectedIndex = -1;
-			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowRecent" -Type DWord -Value 0
-			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowFrequent" -Type DWord -Value 0
-			$progress.Items.Add("Disabling Action Center...")
-			$progress.SelectedIndex = $progress.Items.Count - 1;
-			$progress.SelectedIndex = -1;
-			New-Item -Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer"
-			Set-ItemProperty -Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer" -Name "DisableNotificationCenter" -Type DWord -Value 1
-			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\PushNotifications" -Name "ToastEnabled" -Type DWord -Value 0
-			$progress.Items.Add("Disabling standby and monitor timeout when plugged in...")
-			$progress.SelectedIndex = $progress.Items.Count - 1;
-			$progress.SelectedIndex = -1;
-			powercfg -change -standby-timeout-ac 0
-			powercfg -change -monitor-timeout-ac 0
-			$progress.Items.Add("The installer has finished! The taskbar requires a reboot so please press 'Reboot' when it's safe.")
+			$progress.Items.Add("The taskbar requires a reboot so please press 'Reboot' when it's safe.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			}
@@ -652,7 +694,7 @@ function northPointInstaller {
 
 ## -- NorthPoint Installer
 
-	$northPoint.Text = "NorthPoint Installer 3.0.9.1"
+	$northPoint.Text = "NorthPoint Installer 3.0.9.2"
 	$northPoint.Name = "form1"
 	$northPoint.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
