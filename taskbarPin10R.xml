@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LayoutModificationTemplate
+    xmlns="http://schemas.microsoft.com/Start/2014/LayoutModification"
+    xmlns:defaultlayout="http://schemas.microsoft.com/Start/2014/FullDefaultLayout"
+    xmlns:start="http://schemas.microsoft.com/Start/2014/StartLayout"
+    xmlns:taskbar="http://schemas.microsoft.com/Start/2014/TaskbarLayout"
+    Version="1">
+  <CustomTaskbarLayoutCollection PinListPlacement="Replace">
+    <defaultlayout:TaskbarLayout>
+      <taskbar:TaskbarPinList>
+        <taskbar:DesktopApp DesktopApplicationLinkPath="C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"/>
+        <taskbar:DesktopApp DesktopApplicationLinkPath="C:\Program Files\Mozilla Firefox\firefox.exe" />
+		<taskbar:DesktopApp DesktopApplicationLinkPath="C:\Program Files\LibreOffice\program\swriter.exe" />
+		<taskbar:DesktopApp DesktopApplicationLinkPath="C:\Program Files\LibreOffice\program\scalc.exe" />
+        <taskbar:DesktopApp DesktopApplicationLinkPath="%APPDATA%\Microsoft\Windows\Start Menu\Programs\System Tools\File Explorer.lnk" />
+      </taskbar:TaskbarPinList>
+    </defaultlayout:TaskbarLayout>
+  </CustomTaskbarLayoutCollection>
+</LayoutModificationTemplate>

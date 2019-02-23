@@ -1,6 +1,4 @@
-![logo](https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentreOEM.bmp "NorthPoint Installer") 
-
-# NorthPoint Installer 3.0.8.5
+# NorthPoint Installer 3.0.9.0
 ###### Copyright (c) Charlie Howard 2016-2019 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -14,6 +12,10 @@ If run on Windows 10 it also disables Windows 10 hibernation mode, Wi-Fi sense, 
 Changes wallpaper to a selection of HD landscape images.
 
 ### Changelog
+
+###### Update 3.0.9.0
+
+Added XML file to replace taskbar pinning on Windows 10.
 
 ###### Update 3.0.8.5
 

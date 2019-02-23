@@ -3,8 +3,10 @@
 
 ## -- Download files
 
-$taskbarpin10URL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/taskbarPin10.ps1"
-$taskbarpin10Path = "C:\Computer Repair Centre\taskbarPin10.ps1"
+$taskbarpin10RURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/taskbarPin10R.xml"
+$taskbarpin10RPath = "C:\Computer Repair Centre\taskbarPin10R.xml"
+$taskbarpin10CFURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/taskbarPin10CF.xml"
+$taskbarpin10CFPath = "C:\Computer Repair Centre\taskbarPin10CF.xml"
 $taskbarpin7URL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/taskbarPin7.ps1"
 $taskbarpin7Path = "C:\Computer Repair Centre\taskbarPin7.ps1"
 $computerRepairCentreOEMURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentreOEM.bmp"
@@ -72,7 +74,8 @@ Invoke-RestMethod -Uri $wallpaperURL -OutFile $wallpaperPath
 Invoke-RestMethod -Uri $pinURL -OutFile $pinPath
 Invoke-RestMethod -Uri $uBlockOriginURL -OutFile $uBlockOriginPath
 Invoke-RestMethod -Uri $taskbarpin7URL -OutFile $taskbarpin7Path
-Invoke-RestMethod -Uri $taskbarpin10URL -OutFile $taskbarpin10Path
+Invoke-RestMethod -Uri $taskbarpin10RURL -OutFile $taskbarpin10RPath
+Invoke-RestMethod -Uri $taskbarpin10CFURL -OutFile $taskbarpin10CFPath
 $progressBar.Close()
 $os = (Get-WmiObject -Class Win32_OperatingSystem).version
 $ip = Invoke-RestMethod http://ipinfo.io/json | Select -exp ip
@@ -96,6 +99,7 @@ function northPointInstaller {
 	[System.Windows.Forms.Application]::EnableVisualStyles()
 	$northPoint = New-Object System.Windows.Forms.Form
 	$install = New-Object System.Windows.Forms.Button
+	$reboot = New-Object System.Windows.Forms.Button
 	$progress = New-Object System.Windows.Forms.ListBox
 	$crc = New-Object System.Windows.Forms.CheckBox
 	$mozillaFirefox = New-Object System.Windows.Forms.CheckBox
@@ -119,7 +123,7 @@ function northPointInstaller {
 	## -- Install button click
 
 	$handler_install_Click=
-		{
+	{
 		$progress.Items.Add("Copyright (c) Charlie Howard 2016-2019 All rights reserved.")
 		$progress.SelectedIndex = $progress.Items.Count - 1;
 		$progress.SelectedIndex = -1;
@@ -500,34 +504,10 @@ function northPointInstaller {
 				Invoke-RestMethod -Uri $taskbarpinURL -OutFile $taskbarpinPath
 				Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
 				if ($ip -like '*212.159.116.68*') {
-					Start-Sleep -s 2
-					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
-					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\LibreOffice\program\swriter.exe"
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Windows\explorer.exe"
+					Import-StartLayout -LayoutPath "C:\Computer Repair Centre\taskbarPin10R.xml" -MountPath C:\
 					}
 				elseIf ($ip -like '*82.0.43.224*') {
-					Start-Sleep -s 2
-					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
-					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.EXE"
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.EXE"
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Windows\explorer.exe"
+					Import-StartLayout -LayoutPath "C:\Computer Repair Centre\taskbarPin10CF.xml" -MountPath C:\
 					}
 				}
 			if ($wallpaper.Checked)	{
@@ -548,7 +528,7 @@ function northPointInstaller {
 			$progress.SelectedIndex = -1;
 			powercfg -change -standby-timeout-ac 0
 			powercfg -change -monitor-timeout-ac 0
-			$progress.Items.Add("The installer has finished! You can safely close the program.")
+			$progress.Items.Add("The installer has finished! The taskbar requires a reboot so please press "Reboot" when it's safe.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			}
@@ -563,34 +543,10 @@ function northPointInstaller {
 				Invoke-RestMethod -Uri $taskbarpinURL -OutFile $taskbarpinPath
 				Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
 				if ($ip -like '*212.159.116.68*') {
-					Start-Sleep -s 2
-					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
-					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\LibreOffice\program\swriter.exe"
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Windows\explorer.exe"
+					Import-StartLayout -LayoutPath "C:\Computer Repair Centre\taskbarPin10R.xml" -MountPath C:\
 					}
 				elseIf ($ip -like '*82.0.43.224*') {
-					Start-Sleep -s 2
-					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
-					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.EXE"
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.EXE"
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Windows\explorer.exe"
+					Import-StartLayout -LayoutPath "C:\Computer Repair Centre\taskbarPin10CF.xml" -MountPath C:\
 					}
 			if ($wallpaper.Checked)	{
 				$progress.Items.Add("Set wallpapers is checked."  )
@@ -610,7 +566,7 @@ function northPointInstaller {
 			$progress.SelectedIndex = -1;
 			powercfg -change -standby-timeout-ac 0
 			powercfg -change -monitor-timeout-ac 0
-			$progress.Items.Add("The installer has finished! You can safely close the program.")
+			$progress.Items.Add("The installer has finished! The taskbar requires a reboot so please press "Reboot" when it's safe.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			}
@@ -628,34 +584,10 @@ function northPointInstaller {
 				$progress.SelectedIndex = -1;
 				Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
 				if ($ip -like '*212.159.116.68*') {
-					Start-Sleep -s 2
-					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
-					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\LibreOffice\program\swriter.exe"
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Windows\explorer.exe"
+					Import-StartLayout -LayoutPath "C:\Computer Repair Centre\taskbarPin10R.xml" -MountPath C:\
 					}
 				elseIf ($ip -like '*82.0.43.224*') {
-					Start-Sleep -s 2
-					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
-					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.EXE"
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.EXE"
-					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin.ps1" "C:\Windows\explorer.exe"
+					Import-StartLayout -LayoutPath "C:\Computer Repair Centre\taskbarPin10CF.xml" -MountPath C:\
 					}
 				}
 			if ($wallpaper.Checked)	{
@@ -702,11 +634,15 @@ function northPointInstaller {
 			$progress.SelectedIndex = -1;
 			powercfg -change -standby-timeout-ac 0
 			powercfg -change -monitor-timeout-ac 0
-			$progress.Items.Add("The installer has finished! You can safely close the program.")
+			$progress.Items.Add("The installer has finished! The taskbar requires a reboot so please press "Reboot" when it's safe.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			}
 		}
+	}
+	$handler_reboot_Click=
+	{
+		Restart-Computer -Force
 	}
 	$OnLoadForm_StateCorrection=
 	{
@@ -716,7 +652,7 @@ function northPointInstaller {
 
 ## -- NorthPoint Installer
 
-	$northPoint.Text = "NorthPoint Installer 3.0.8.5"
+	$northPoint.Text = "NorthPoint Installer 3.0.9.0"
 	$northPoint.Name = "form1"
 	$northPoint.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -731,7 +667,7 @@ function northPointInstaller {
 	$install.TabIndex = 4
 	$install.Name = "install"
 	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 521
+	$System_Drawing_Size.Width = 256
 	$System_Drawing_Size.Height = 23
 	$install.Size = $System_Drawing_Size
 	$install.UseVisualStyleBackColor = $True
@@ -743,6 +679,25 @@ function northPointInstaller {
 	$install.DataBindings.DefaultDataSourceUpdateMode = 0
 	$install.add_Click($handler_install_Click)
 	$northPoint.Controls.Add($install)
+	
+
+## -- Reboot button
+
+	$reboot.TabIndex = 4
+	$reboot.Name = "reboot"
+	$System_Drawing_Size = New-Object System.Drawing.Size
+	$System_Drawing_Size.Width = 256
+	$System_Drawing_Size.Height = 23
+	$reboot.Size = $System_Drawing_Size
+	$reboot.UseVisualStyleBackColor = $True
+	$reboot.Text = "Reboot"
+	$System_Drawing_Point = New-Object System.Drawing.Point
+	$System_Drawing_Point.X = 280
+	$System_Drawing_Point.Y = 13
+	$reboot.Location = $System_Drawing_Point
+	$reboot.DataBindings.DefaultDataSourceUpdateMode = 0
+	$reboot.add_Click($handler_reboot_Click)
+	$northPoint.Controls.Add($reboot)
 	
 	
 ## -- Progress box
