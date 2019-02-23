@@ -673,6 +673,7 @@ function northPointInstaller {
 				Invoke-RestMethod -Uri $windows10ThemeURL -OutFile $windows10ThemePath
 				& 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
 				& 'C:\Computer Repair Centre\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10.theme"
+				Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value 0
 				}
 			$progress.Items.Add("The installation has finished!.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
@@ -694,7 +695,7 @@ function northPointInstaller {
 
 ## -- NorthPoint Installer
 
-	$northPoint.Text = "NorthPoint Installer 3.0.9.2"
+	$northPoint.Text = "NorthPoint Installer 3.0.9.3"
 	$northPoint.Name = "form1"
 	$northPoint.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
