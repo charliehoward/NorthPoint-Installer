@@ -528,7 +528,7 @@ function northPointInstaller {
 			$progress.SelectedIndex = -1;
 			powercfg -change -standby-timeout-ac 0
 			powercfg -change -monitor-timeout-ac 0
-			$progress.Items.Add("The installer has finished! The taskbar requires a reboot so please press "Reboot" when it's safe.")
+			$progress.Items.Add("The installer has finished! The taskbar requires a reboot so please press 'Reboot' when it's safe.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			}
@@ -548,6 +548,7 @@ function northPointInstaller {
 				elseIf ($ip -like '*82.0.43.224*') {
 					Import-StartLayout -LayoutPath "C:\Computer Repair Centre\taskbarPin10CF.xml" -MountPath C:\
 					}
+				}	
 			if ($wallpaper.Checked)	{
 				$progress.Items.Add("Set wallpapers is checked."  )
 				$progress.SelectedIndex = $progress.Items.Count - 1;
@@ -566,7 +567,7 @@ function northPointInstaller {
 			$progress.SelectedIndex = -1;
 			powercfg -change -standby-timeout-ac 0
 			powercfg -change -monitor-timeout-ac 0
-			$progress.Items.Add("The installer has finished! The taskbar requires a reboot so please press "Reboot" when it's safe.")
+			$progress.Items.Add("The installer has finished! The taskbar requires a reboot so please press 'Reboot' when it's safe.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			}
@@ -634,11 +635,10 @@ function northPointInstaller {
 			$progress.SelectedIndex = -1;
 			powercfg -change -standby-timeout-ac 0
 			powercfg -change -monitor-timeout-ac 0
-			$progress.Items.Add("The installer has finished! The taskbar requires a reboot so please press "Reboot" when it's safe.")
+			$progress.Items.Add("The installer has finished! The taskbar requires a reboot so please press 'Reboot' when it's safe.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			}
-		}
 	}
 	$handler_reboot_Click=
 	{
@@ -652,7 +652,7 @@ function northPointInstaller {
 
 ## -- NorthPoint Installer
 
-	$northPoint.Text = "NorthPoint Installer 3.0.9.0"
+	$northPoint.Text = "NorthPoint Installer 3.0.9.1"
 	$northPoint.Name = "form1"
 	$northPoint.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
