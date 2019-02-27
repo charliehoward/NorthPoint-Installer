@@ -3,12 +3,10 @@
 
 ## -- Download files
 
-$taskbarpin10RURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/taskbarPin10R.xml"
-$taskbarpin10RPath = "C:\Computer Repair Centre\taskbarPin10R.xml"
-$taskbarpin10CFURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/taskbarPin10CF.xml"
-$taskbarpin10CFPath = "C:\Computer Repair Centre\taskbarPin10CF.xml"
 $taskbarpin7URL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/taskbarPin7.ps1"
 $taskbarpin7Path = "C:\Computer Repair Centre\taskbarPin7.ps1"
+$taskbarpin10URL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/taskbarPin10.ps1"
+$taskbarpin10Path = "C:\Computer Repair Centre\taskbarPin10.ps1"
 $computerRepairCentreOEMURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentreOEM.bmp"
 $computerRepairCentreOEMPath = "C:\Computer Repair Centre\computerRepairCentreOEM.bmp"
 $computerRepairCentreIconURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentreIcon.ico"
@@ -74,8 +72,7 @@ Invoke-RestMethod -Uri $wallpaperURL -OutFile $wallpaperPath
 Invoke-RestMethod -Uri $pinURL -OutFile $pinPath
 Invoke-RestMethod -Uri $uBlockOriginURL -OutFile $uBlockOriginPath
 Invoke-RestMethod -Uri $taskbarpin7URL -OutFile $taskbarpin7Path
-Invoke-RestMethod -Uri $taskbarpin10RURL -OutFile $taskbarpin10RPath
-Invoke-RestMethod -Uri $taskbarpin10CFURL -OutFile $taskbarpin10CFPath
+Invoke-RestMethod -Uri $taskbarpin10URL -OutFile $taskbarpin10Path
 $progressBar.Close()
 $os = (Get-WmiObject -Class Win32_OperatingSystem).version
 $ip = Invoke-RestMethod http://ipinfo.io/json | Select -exp ip
@@ -501,13 +498,40 @@ function northPointInstaller {
 				$progress.Items.Add("Setting taskbar icons...")
 				$progress.SelectedIndex = $progress.Items.Count - 1;
 				$progress.SelectedIndex = -1;
-				Invoke-RestMethod -Uri $taskbarpinURL -OutFile $taskbarpinPath
 				Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
 				if ($ip -like '*212.159.116.68*') {
-					Import-StartLayout -LayoutPath "C:\Computer Repair Centre\taskbarPin10R.xml" -MountPath C:\
+					Start-Sleep -s 2
+					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
+					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\swriter.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
+					$progress.Items.Add("Disabling Cortana search bar...")
+					$progress.SelectedIndex = $progress.Items.Count - 1;
+					$progress.SelectedIndex = -1;
+					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0	
 					}
 				elseIf ($ip -like '*82.0.43.224*') {
-					Import-StartLayout -LayoutPath "C:\Computer Repair Centre\taskbarPin10CF.xml" -MountPath C:\
+					Start-Sleep -s 2
+					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
+					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.EXE"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.EXE"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
 					}
 				}
 			if ($wallpaper.Checked)	{
@@ -538,13 +562,40 @@ function northPointInstaller {
 				$progress.Items.Add("Setting taskbar icons...")
 				$progress.SelectedIndex = $progress.Items.Count - 1;
 				$progress.SelectedIndex = -1;
-				Invoke-RestMethod -Uri $taskbarpinURL -OutFile $taskbarpinPath
 				Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
 				if ($ip -like '*212.159.116.68*') {
-					Import-StartLayout -LayoutPath "C:\Computer Repair Centre\taskbarPin10R.xml" -MountPath C:\
+					Start-Sleep -s 2
+					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
+					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\swriter.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
+					$progress.Items.Add("Disabling Cortana search bar...")
+					$progress.SelectedIndex = $progress.Items.Count - 1;
+					$progress.SelectedIndex = -1;
+					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0	
 					}
 				elseIf ($ip -like '*82.0.43.224*') {
-					Import-StartLayout -LayoutPath "C:\Computer Repair Centre\taskbarPin10CF.xml" -MountPath C:\
+					Start-Sleep -s 2
+					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
+					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.EXE"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.EXE"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
 					}
 				}	
 			if ($wallpaper.Checked)	{
@@ -621,10 +672,6 @@ function northPointInstaller {
 			$progress.SelectedIndex = -1;
 			New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People"
 			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" -Name "PeopleBand" -Type DWord -Value 0
-			$progress.Items.Add("Disabling Cortana search bar...")
-			$progress.SelectedIndex = $progress.Items.Count - 1;
-			$progress.SelectedIndex = -1;
-			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0	
 			$progress.Items.Add("Disabling task view icon...")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
@@ -650,15 +697,40 @@ function northPointInstaller {
 			$progress.SelectedIndex = -1;		
 			Remove-Item "$Home\Desktop\Microsoft Edge.lnk" -Force
 			if ($pin.Checked)	{
-				$progress.Items.Add("Setting taskbar icons...")
-				$progress.SelectedIndex = $progress.Items.Count - 1;
-				$progress.SelectedIndex = -1;
-				Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
+					Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
 				if ($ip -like '*212.159.116.68*') {
-					Import-StartLayout -LayoutPath "C:\Computer Repair Centre\taskbarPin10R.xml" -MountPath C:\
+					Start-Sleep -s 2
+					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
+					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\swriter.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
+					$progress.Items.Add("Disabling Cortana search bar...")
+					$progress.SelectedIndex = $progress.Items.Count - 1;
+					$progress.SelectedIndex = -1;
+					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0	
 					}
 				elseIf ($ip -like '*82.0.43.224*') {
-					Import-StartLayout -LayoutPath "C:\Computer Repair Centre\taskbarPin10CF.xml" -MountPath C:\
+					Start-Sleep -s 2
+					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
+					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.EXE"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.EXE"
+					Start-Sleep -s 2
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
 					}
 				}
 			if ($wallpaper.Checked)	{
@@ -695,7 +767,7 @@ function northPointInstaller {
 
 ## -- NorthPoint Installer
 
-	$northPoint.Text = "NorthPoint Installer 3.0.9.4"
+	$northPoint.Text = "NorthPoint Installer 3.0.9.5"
 	$northPoint.Name = "form1"
 	$northPoint.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
