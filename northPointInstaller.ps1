@@ -5,8 +5,8 @@
 
 $taskbarpin7URL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/taskbarPin7.ps1"
 $taskbarpin7Path = "C:\Computer Repair Centre\taskbarPin7.ps1"
-$taskbarpin10URL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/taskbarPin10.vbs"
-$taskbarpin10Path = "C:\Computer Repair Centre\taskbarPin10.vbs"
+$taskbarpin10URL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/taskbarPin10.ps1"
+$taskbarpin10Path = "C:\Computer Repair Centre\taskbarPin10.ps1"
 $computerRepairCentreOEMURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentreOEM.bmp"
 $computerRepairCentreOEMPath = "C:\Computer Repair Centre\computerRepairCentreOEM.bmp"
 $computerRepairCentreIconURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentreIcon.ico"
