@@ -1,7 +1,4 @@
-## -- Copyright (c) Charlie Howard 2016-2019 All rights reserved
-
-
-Param($Target)
+aram($Target)
 
 $KeyPath1  = "HKCU:\SOFTWARE\Classes"
 $KeyPath2  = "*"
