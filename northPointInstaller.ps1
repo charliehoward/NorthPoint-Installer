@@ -697,40 +697,39 @@ function northPointInstaller {
 			$progress.SelectedIndex = -1;		
 			Remove-Item "$Home\Desktop\Microsoft Edge.lnk" -Force
 			if ($pin.Checked)	{
-					Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
+				$progress.Items.Add("Setting taskbar icons...")
+				$progress.SelectedIndex = $progress.Items.Count - 1;
+				$progress.SelectedIndex = -1;
+				Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
 				if ($ip -like '*212.159.116.68*') {
 					Start-Sleep -s 2
 					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
 					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
 					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin10.vbs" "C:\Program Files\Mozilla Firefox\firefox.exe"
+					& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
 					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin10.vbs" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+					& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin10.vbs" "C:\Program Files\LibreOffice\program\swriter.exe"
+					& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files\LibreOffice\program\swriter.exe"
 					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin10.vbs" "C:\Program Files\LibreOffice\program\scalc.exe"
+					& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
 					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin10.vbs" "C:\Windows\explorer.exe"
-					$progress.Items.Add("Disabling Cortana search bar...")
-					$progress.SelectedIndex = $progress.Items.Count - 1;
-					$progress.SelectedIndex = -1;
-					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0	
+					& "C:\NorthPoint\taskbarPin.ps1" "C:\Windows\explorer.exe"
 					}
 				elseIf ($ip -like '*82.0.43.224*') {
 					Start-Sleep -s 2
 					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
 					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
 					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin10.vbs" "C:\Program Files\Mozilla Firefox\firefox.exe"
+					& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
 					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin10.vbs" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+					& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin10.vbs" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.EXE"
+					& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.exe"
 					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin10.vbs" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.EXE"
+					& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.exe"
 					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin10.vbs" "C:\Windows\explorer.exe"
+					& "C:\NorthPoint\taskbarPin.ps1" "C:\Windows\explorer.exe"
 					}
 				}
 			if ($wallpaper.Checked)	{
@@ -750,9 +749,6 @@ function northPointInstaller {
 			$progress.Items.Add("The installation has finished!.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
-			$progress.Items.Add("The taskbar requires a reboot so please press 'Reboot' when it's safe.")
-			$progress.SelectedIndex = $progress.Items.Count - 1;
-			$progress.SelectedIndex = -1;
 			}
 	}
 	$handler_reboot_Click=
@@ -767,7 +763,7 @@ function northPointInstaller {
 
 ## -- NorthPoint Installer
 
-	$northPoint.Text = "Computer Repair Centre Installer 3.0.9.6"
+	$northPoint.Text = "Computer Repair Centre Installer 3.0.9.7"
 	$northPoint.Name = "form1"
 	$northPoint.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
