@@ -1,4 +1,4 @@
-aram($Target)
+Param($Target)
 
 $KeyPath1  = "HKCU:\SOFTWARE\Classes"
 $KeyPath2  = "*"
