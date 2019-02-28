@@ -494,22 +494,15 @@ function northPointInstaller {
 			$progress.Items.Add("This computer is running Windows 8.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
-			$progress.Items.Add("Setting explorer to open to This PC...")
-			$progress.SelectedIndex = $progress.Items.Count - 1;
-			$progress.SelectedIndex = -1;
-			Set-ItemProperty -path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced -name LaunchTo -value 1
-			$progress.Items.Add("Disabling stanby and monitor timeout when plugged in...")
-			$progress.SelectedIndex = $progress.Items.Count - 1;
-			$progress.SelectedIndex = -1;
-			powercfg -change -standby-timeout-ac 0
-			powercfg -change -monitor-timeout-ac 0
 			if ($pin.Checked)	{
 				$progress.Items.Add("Setting taskbar icons...")
 				$progress.SelectedIndex = $progress.Items.Count - 1;
 				$progress.SelectedIndex = -1;
 				Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
-				Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
 				if ($ip -like '*212.159.116.68*') {
+					Start-Sleep -s 2
+					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
+					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
 					Start-Sleep -s 2
@@ -520,16 +513,23 @@ function northPointInstaller {
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
+					$progress.Items.Add("Disabling Cortana search bar...")
+					$progress.SelectedIndex = $progress.Items.Count - 1;
+					$progress.SelectedIndex = -1;
+					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0	
 					}
 				elseIf ($ip -like '*82.0.43.224*') {
+					Start-Sleep -s 2
+					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
+					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.exe"
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.EXE"
 					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.exe"
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.EXE"
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
 					}
@@ -547,7 +547,10 @@ function northPointInstaller {
 				& 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
 				& 'C:\Computer Repair Centre\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10.theme"
 				}
-			$progress.Items.Add("The installation has finished! You can safely close the program.")
+			$progress.Items.Add("The installation has finished!.")
+			$progress.SelectedIndex = $progress.Items.Count - 1;
+			$progress.SelectedIndex = -1;
+			$progress.Items.Add("The taskbar requires a reboot so please press 'Reboot' when it's safe.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			}
@@ -555,22 +558,15 @@ function northPointInstaller {
 			$progress.Items.Add("This computer is running Windows 8.1.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
-			$progress.Items.Add("Setting explorer to open to This PC...")
-			$progress.SelectedIndex = $progress.Items.Count - 1;
-			$progress.SelectedIndex = -1;
-			Set-ItemProperty -path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced -name LaunchTo -value 1
-			$progress.Items.Add("Disabling stanby and monitor timeout when plugged in...")
-			$progress.SelectedIndex = $progress.Items.Count - 1;
-			$progress.SelectedIndex = -1;
-			powercfg -change -standby-timeout-ac 0
-			powercfg -change -monitor-timeout-ac 0
 			if ($pin.Checked)	{
 				$progress.Items.Add("Setting taskbar icons...")
 				$progress.SelectedIndex = $progress.Items.Count - 1;
 				$progress.SelectedIndex = -1;
 				Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
-				Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
 				if ($ip -like '*212.159.116.68*') {
+					Start-Sleep -s 2
+					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
+					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
 					Start-Sleep -s 2
@@ -581,20 +577,27 @@ function northPointInstaller {
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
+					$progress.Items.Add("Disabling Cortana search bar...")
+					$progress.SelectedIndex = $progress.Items.Count - 1;
+					$progress.SelectedIndex = -1;
+					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0	
 					}
 				elseIf ($ip -like '*82.0.43.224*') {
+					Start-Sleep -s 2
+					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
+					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.exe"
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.EXE"
 					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.exe"
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.EXE"
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
 					}
-				}
+				}	
 			if ($wallpaper.Checked)	{
 				$progress.Items.Add("Set wallpapers is checked."  )
 				$progress.SelectedIndex = $progress.Items.Count - 1;
@@ -608,7 +611,7 @@ function northPointInstaller {
 				& 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
 				& 'C:\Computer Repair Centre\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10.theme"
 				}
-			$progress.Items.Add("The installation has finished! You can safely close the program.")
+			$progress.Items.Add("The installation has finished!.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			$progress.Items.Add("The taskbar requires a reboot so please press 'Reboot' when it's safe.")
@@ -669,6 +672,10 @@ function northPointInstaller {
 			$progress.SelectedIndex = -1;
 			New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People"
 			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" -Name "PeopleBand" -Type DWord -Value 0
+			$progress.Items.Add("Disabling task view icon...")
+			$progress.SelectedIndex = $progress.Items.Count - 1;
+			$progress.SelectedIndex = -1;
+			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Type DWord -Value 0	
 			$progress.Items.Add("Hiding recently used files and folders in File Explorer...")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
@@ -705,11 +712,6 @@ function northPointInstaller {
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
-					Start-Sleep -s 2
-					$progress.Items.Add("Disabling Cortana search bar...")
-					$progress.SelectedIndex = $progress.Items.Count - 1;
-					$progress.SelectedIndex = -1;
-					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0	
 					}
 				elseIf ($ip -like '*82.0.43.224*') {
 					Start-Sleep -s 2
@@ -724,11 +726,6 @@ function northPointInstaller {
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
 					}
 				}
-			Start-Sleep -s 2
-			$progress.Items.Add("Disabling task view icon...")
-			$progress.SelectedIndex = $progress.Items.Count - 1;
-			$progress.SelectedIndex = -1;
-			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Type DWord -Value 0	
 			if ($wallpaper.Checked)	{
 				$progress.Items.Add("Set wallpapers is checked."  )
 				$progress.SelectedIndex = $progress.Items.Count - 1;
@@ -743,7 +740,7 @@ function northPointInstaller {
 				& 'C:\Computer Repair Centre\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10.theme"
 				Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value 0
 				}
-			$progress.Items.Add("The installation has finished! You can safely close the program.")
+			$progress.Items.Add("The installation has finished!.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			}
@@ -760,7 +757,7 @@ function northPointInstaller {
 
 ## -- NorthPoint Installer
 
-	$northPoint.Text = "Computer Repair Centre Installer 3.0.9.9"
+	$northPoint.Text = "Computer Repair Centre Installer 3.0.9.7"
 	$northPoint.Name = "form1"
 	$northPoint.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1082,3 +1079,4 @@ function northPointInstaller {
 	$northPoint.ShowDialog()
 	$northPoint.Focus()
 	}
+northPointInstaller
