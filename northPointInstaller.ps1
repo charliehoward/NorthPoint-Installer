@@ -1,3 +1,29 @@
+
+Skip to content
+
+    Pull requests
+    Issues
+    Marketplace
+    Explore
+
+    @charliehoward
+
+2
+1
+
+    0
+
+charliehoward/NorthPoint-Installer
+Code
+Issues 0
+Pull requests 0
+Projects 0
+Wiki
+Insights
+Settings
+NorthPoint-Installer/northPointInstaller.ps1
+@charliehoward charliehoward Update 3.0.9.7 166f2a0 21 hours ago
+1083 lines (1019 sloc) 52.4 KB
 ## -- Copyright (c) Charlie Howard 2016-2019 All rights reserved
 
 
@@ -157,8 +183,8 @@ function northPointInstaller {
 			$PowerShell.EndInvoke($AsyncObject)
 			$PowerShell.Dispose()
 		}
-		if ($crc.selected)	{
-			$progress.Items.Add("Computer Repair Centre OEM information is selected."  )
+		if ($crc.Checked)	{
+			$progress.Items.Add("Computer Repair Centre OEM information is checked."  )
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 		    $progress.Items.Add("Installing Computer Repair Centre OEM information...")
@@ -200,8 +226,8 @@ function northPointInstaller {
 		$progress.Items.Add("Completed installation of all requisites...")
 		$progress.SelectedIndex = $progress.Items.Count - 1;
 		$progress.SelectedIndex = -1;
-	  if ($googleChrome.selected)	{
-			$progress.Items.Add("Google Chrome is selected."  )
+	  if ($googleChrome.Checked)	{
+			$progress.Items.Add("Google Chrome is checked."  )
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			$progress.Items.Add("Installing Google Chrome...")
@@ -221,8 +247,8 @@ function northPointInstaller {
 				$progress.SelectedIndex = -1;
 				}
 			}
-	  if ($iTunes.selected)	{
-			$progress.Items.Add("iTunes is selected."  )
+	  if ($iTunes.Checked)	{
+			$progress.Items.Add("iTunes is checked."  )
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			$progress.Items.Add("Installing iTunes...")
@@ -241,8 +267,8 @@ function northPointInstaller {
 				$progress.SelectedIndex = -1;
 				}
 			}
-		if ($kaspersky.selected)	{
-			$progress.Items.Add("Kaspersky Internet Security 2019 is selected."  )
+		if ($kaspersky.Checked)	{
+			$progress.Items.Add("Kaspersky Internet Security 2019 is checked."  )
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			$progress.Items.Add("Installing Kaspersky Internet Security 2019...")
@@ -276,8 +302,8 @@ function northPointInstaller {
 				$progress.SelectedIndex = -1;
 				}
 			}
-		if ($libreOffice.selected)	{
-			$progress.Items.Add("LibreOffice is selected."  )
+		if ($libreOffice.Checked)	{
+			$progress.Items.Add("LibreOffice is checked."  )
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			$progress.Items.Add("Installing LibreOffice...")
@@ -296,8 +322,8 @@ function northPointInstaller {
 				$progress.SelectedIndex = -1;
 				}
 			}
-	    if ($mozillaFirefox.selected)	{
-			$progress.Items.Add("Mozilla Firefox is selected."  )
+	    if ($mozillaFirefox.Checked)	{
+			$progress.Items.Add("Mozilla Firefox is checked."  )
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			$progress.Items.Add("Installing Mozilla Firefox...")
@@ -319,8 +345,8 @@ function northPointInstaller {
 				$progress.SelectedIndex = -1;
 				}
 			}
-		if ($mozillaThunderbird.selected)	{
-			$progress.Items.Add("Mozilla Thunderbird is selected."  )
+		if ($mozillaThunderbird.Checked)	{
+			$progress.Items.Add("Mozilla Thunderbird is checked."  )
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			$progress.Items.Add("Installing Mozilla Thunderbird...")
@@ -339,8 +365,8 @@ function northPointInstaller {
 				$progress.SelectedIndex = -1;
 				}
 			}
-		if ($skype.selected)	{
-			$progress.Items.Add("Skype is selected."  )
+		if ($skype.Checked)	{
+			$progress.Items.Add("Skype is checked."  )
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			$progress.Items.Add("Installing Skype...")
@@ -359,8 +385,8 @@ function northPointInstaller {
 				$progress.SelectedIndex = -1;
 				}
 			}
-		if ($teamViewer.selected)	{
-			$progress.Items.Add("TeamViewer is selected."  )
+		if ($teamViewer.Checked)	{
+			$progress.Items.Add("TeamViewer is checked."  )
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			$progress.Items.Add("Installing TeamViewer...")
@@ -379,11 +405,11 @@ function northPointInstaller {
 				$progress.SelectedIndex = -1;
 				}
 			}
-		if ($uBlockOrigin.selected)	{
-			$progress.Items.Add("uBlockOrigin is selected."  )
+		if ($uBlockOrigin.Checked)	{
+			$progress.Items.Add("uBlockOrigin is checked."  )
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
-			if ($googleChrome.selected)	{
+			if ($googleChrome.Checked)	{
 				$progress.Items.Add("Installing uBlockOrigin on Google Chrome...")
 				$progress.SelectedIndex = $progress.Items.Count - 1;
 				$progress.SelectedIndex = -1;
@@ -393,7 +419,7 @@ function northPointInstaller {
 				$progress.SelectedIndex = $progress.Items.Count - 1;
 				$progress.SelectedIndex = -1;
 				}
-			if ($mozillaFirefox.selected)	{
+			if ($mozillaFirefox.Checked)	{
 				$progress.Items.Add("Installing uBlockOrigin on Mozilla Firefox...")
 				$progress.SelectedIndex = $progress.Items.Count - 1;
 				$progress.SelectedIndex = -1;
@@ -412,8 +438,8 @@ function northPointInstaller {
 				$progress.SelectedIndex = -1;
 				}
 			}
-		if ($vlc.selected)	{
-			$progress.Items.Add("VLC Media Player is selected."  )
+		if ($vlc.Checked)	{
+			$progress.Items.Add("VLC Media Player is checked."  )
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
 			$progress.Items.Add("Installing VLC Media Player...")
@@ -436,7 +462,7 @@ function northPointInstaller {
 			$progress.Items.Add("This computer is running Windows 7.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
-			if ($pin.selected)	{
+			if ($pin.Checked)	{
 				$progress.Items.Add("Setting taskbar icons...")
 				$progress.SelectedIndex = $progress.Items.Count - 1;
 				$progress.SelectedIndex = -1;
@@ -467,8 +493,8 @@ function northPointInstaller {
 					& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Windows\explorer.exe"
 					}
 				}				
-			if ($wallpaper.selected)	{
-				$progress.Items.Add("Set wallpapers is selected."  )
+			if ($wallpaper.Checked)	{
+				$progress.Items.Add("Set wallpapers is checked."  )
 				$progress.SelectedIndex = $progress.Items.Count - 1;
 				$progress.SelectedIndex = -1;
 				$progress.Items.Add("Setting wallpapers...")
@@ -494,16 +520,15 @@ function northPointInstaller {
 			$progress.Items.Add("This computer is running Windows 8.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
-			$progress.Items.Add("Setting explorer to open to This PC...")
-			$progress.SelectedIndex = $progress.Items.Count - 1;
-			$progress.SelectedIndex = -1;
-			Set-ItemProperty -path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced -name LaunchTo -value 1
-			if ($pin.selected)	{
+			if ($pin.Checked)	{
 				$progress.Items.Add("Setting taskbar icons...")
 				$progress.SelectedIndex = $progress.Items.Count - 1;
 				$progress.SelectedIndex = -1;
 				Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
 				if ($ip -like '*212.159.116.68*') {
+					Start-Sleep -s 2
+					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
+					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
 					Start-Sleep -s 2
@@ -514,22 +539,29 @@ function northPointInstaller {
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
+					$progress.Items.Add("Disabling Cortana search bar...")
+					$progress.SelectedIndex = $progress.Items.Count - 1;
+					$progress.SelectedIndex = -1;
+					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0	
 					}
 				elseIf ($ip -like '*82.0.43.224*') {
+					Start-Sleep -s 2
+					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
+					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.exe"
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.EXE"
 					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.exe"
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.EXE"
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
 					}
 				}
-			if ($wallpaper.selected)	{
-				$progress.Items.Add("Set wallpapers is selected."  )
+			if ($wallpaper.Checked)	{
+				$progress.Items.Add("Set wallpapers is checked."  )
 				$progress.SelectedIndex = $progress.Items.Count - 1;
 				$progress.SelectedIndex = -1;
 				$progress.Items.Add("Setting wallpapers...")
@@ -552,16 +584,15 @@ function northPointInstaller {
 			$progress.Items.Add("This computer is running Windows 8.1.")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
-			$progress.Items.Add("Setting explorer to open to This PC...")
-			$progress.SelectedIndex = $progress.Items.Count - 1;
-			$progress.SelectedIndex = -1;
-			Set-ItemProperty -path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced -name LaunchTo -value 1
-			if ($pin.selected)	{
+			if ($pin.Checked)	{
 				$progress.Items.Add("Setting taskbar icons...")
 				$progress.SelectedIndex = $progress.Items.Count - 1;
 				$progress.SelectedIndex = -1;
 				Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
 				if ($ip -like '*212.159.116.68*') {
+					Start-Sleep -s 2
+					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
+					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
 					Start-Sleep -s 2
@@ -571,23 +602,30 @@ function northPointInstaller {
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
 					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"	
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
+					$progress.Items.Add("Disabling Cortana search bar...")
+					$progress.SelectedIndex = $progress.Items.Count - 1;
+					$progress.SelectedIndex = -1;
+					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0	
 					}
 				elseIf ($ip -like '*82.0.43.224*') {
+					Start-Sleep -s 2
+					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
+					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.exe"
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.EXE"
 					Start-Sleep -s 2
-					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.exe"
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.EXE"
 					Start-Sleep -s 2
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
 					}
-				}
-			if ($wallpaper.selected)	{
-				$progress.Items.Add("Set wallpapers is selected."  )
+				}	
+			if ($wallpaper.Checked)	{
+				$progress.Items.Add("Set wallpapers is checked."  )
 				$progress.SelectedIndex = $progress.Items.Count - 1;
 				$progress.SelectedIndex = -1;
 				$progress.Items.Add("Setting wallpapers...")
@@ -660,6 +698,10 @@ function northPointInstaller {
 			$progress.SelectedIndex = -1;
 			New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People"
 			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" -Name "PeopleBand" -Type DWord -Value 0
+			$progress.Items.Add("Disabling task view icon...")
+			$progress.SelectedIndex = $progress.Items.Count - 1;
+			$progress.SelectedIndex = -1;
+			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Type DWord -Value 0	
 			$progress.Items.Add("Hiding recently used files and folders in File Explorer...")
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;
@@ -680,56 +722,38 @@ function northPointInstaller {
 			$progress.SelectedIndex = $progress.Items.Count - 1;
 			$progress.SelectedIndex = -1;		
 			Remove-Item "$Home\Desktop\Microsoft Edge.lnk" -Force
-			if ($pin.selected)	{
+			if ($pin.Checked)	{
 				$progress.Items.Add("Setting taskbar icons...")
 				$progress.SelectedIndex = $progress.Items.Count - 1;
 				$progress.SelectedIndex = -1;
 				Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
 				if ($ip -like '*212.159.116.68*') {
 					Start-Sleep -s 2
-					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
-					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\swriter.exe"
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files\LibreOffice\program\swriter.exe"
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
 					Start-Sleep -s 2
-<<<<<<< HEAD
 					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
-					$progress.Items.Add("Disabling Cortana search bar...")
-					$progress.SelectedIndex = $progress.Items.Count - 1;
-					$progress.SelectedIndex = -1;
-					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0	
-=======
-					& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
-					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin.ps1" "C:\Windows\explorer.exe"
->>>>>>> parent of 166f2a0... Update 3.0.9.7
 					}
 				elseIf ($ip -like '*82.0.43.224*') {
 					Start-Sleep -s 2
-					Remove-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Recurse -Force
-					New-Item "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar" -Force
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.exe"
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.exe"
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.exe"
 					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.exe"
-					Start-Sleep -s 2
-					& "C:\NorthPoint\taskbarPin.ps1" "C:\Windows\explorer.exe"
+					& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
 					}
 				}
-			$progress.Items.Add("Disabling task view icon...")
-			$progress.SelectedIndex = $progress.Items.Count - 1;
-			$progress.SelectedIndex = -1;
-			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Type DWord -Value 0	
-			if ($wallpaper.selected)	{
-				$progress.Items.Add("Set wallpapers is selected."  )
+			if ($wallpaper.Checked)	{
+				$progress.Items.Add("Set wallpapers is checked."  )
 				$progress.SelectedIndex = $progress.Items.Count - 1;
 				$progress.SelectedIndex = -1;
 				$progress.Items.Add("Setting wallpapers...")
@@ -759,7 +783,7 @@ function northPointInstaller {
 
 ## -- NorthPoint Installer
 
-	$northPoint.Text = "Computer Repair Centre Installer 3.0.9.8"
+	$northPoint.Text = "Computer Repair Centre Installer 3.0.9.7"
 	$northPoint.Name = "form1"
 	$northPoint.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -839,7 +863,7 @@ function northPointInstaller {
 	$crc.Location = $System_Drawing_Point
 	$crc.DataBindings.DefaultDataSourceUpdateMode = 0
 	$crc.Name = "crc"
-	$crc.selected = 1
+	$crc.Checked = 1
 	$crc.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\computerRepairCentreIcon.ico")
 	$northPoint.Controls.Add($crc)
 	
@@ -859,7 +883,7 @@ function northPointInstaller {
 	$pin.Location = $System_Drawing_Point
 	$pin.DataBindings.DefaultDataSourceUpdateMode = 0
 	$pin.Name = "pin"
-	$pin.selected = 1
+	$pin.Checked = 1
 	$pin.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\pin.ico")
 	$northPoint.Controls.Add($pin)
 	
@@ -879,7 +903,7 @@ function northPointInstaller {
 	$wallpaper.Location = $System_Drawing_Point
 	$wallpaper.DataBindings.DefaultDataSourceUpdateMode = 0
 	$wallpaper.Name = "vlc"
-	$wallpaper.selected = 1
+	$wallpaper.Checked = 1
 	$wallpaper.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\wallpaper.ico")
 	$northPoint.Controls.Add($wallpaper)
 	
@@ -898,7 +922,7 @@ function northPointInstaller {
 	$googleChrome.Location = $System_Drawing_Point
 	$googleChrome.DataBindings.DefaultDataSourceUpdateMode = 0
 	$googleChrome.Name = "googleChrome"
-	$googleChrome.selected = 1
+	$googleChrome.Checked = 1
 	$googleChrome.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\googleChrome.ico")
 	$northPoint.Controls.Add($googleChrome)
 	
@@ -917,7 +941,7 @@ function northPointInstaller {
 	$iTunes.Location = $System_Drawing_Point
 	$iTunes.DataBindings.DefaultDataSourceUpdateMode = 0
 	$iTunes.Name = "iTunes"
-	$iTunes.selected = 0
+	$iTunes.Checked = 0
 	$iTunes.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\iTunes.ico")
 	$northPoint.Controls.Add($iTunes)
 	
@@ -936,7 +960,7 @@ function northPointInstaller {
 	$kaspersky.Location = $System_Drawing_Point
 	$kaspersky.DataBindings.DefaultDataSourceUpdateMode = 0
 	$kaspersky.Name = "kaspersky"
-	$kaspersky.selected = 1
+	$kaspersky.Checked = 1
 	$kaspersky.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\kasperskyInternetSecurity.ico")
 	$northPoint.Controls.Add($kaspersky)
 	
@@ -955,7 +979,7 @@ function northPointInstaller {
 	$libreOffice.Location = $System_Drawing_Point
 	$libreOffice.DataBindings.DefaultDataSourceUpdateMode = 0
 	$libreOffice.Name = "libreOffice"
-	$libreOffice.selected = $libreOfficeLocation
+	$libreOffice.Checked = $libreOfficeLocation
 	$libreOffice.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\libreOffice.ico")
 	$northPoint.Controls.Add($libreOffice)
 	
@@ -974,7 +998,7 @@ function northPointInstaller {
 	$mozillaFirefox.Location = $System_Drawing_Point
 	$mozillaFirefox.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaFirefox.Name = "mozillaFirefox"
-	$mozillaFirefox.selected = 1
+	$mozillaFirefox.Checked = 1
 	$mozillaFirefox.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\mozillaFirefox.ico")
 	$northPoint.Controls.Add($mozillaFirefox)
 	
@@ -993,7 +1017,7 @@ function northPointInstaller {
 	$mozillaThunderbird.Location = $System_Drawing_Point
 	$mozillaThunderbird.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaThunderbird.Name = "mozillaThunderbird"
-	$mozillaThunderbird.selected = 0
+	$mozillaThunderbird.Checked = 0
 	$mozillaThunderbird.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\mozillaThunderbird.ico")
 	$northPoint.Controls.Add($mozillaThunderbird)
 	
@@ -1012,7 +1036,7 @@ function northPointInstaller {
 	$skype.Location = $System_Drawing_Point
 	$skype.DataBindings.DefaultDataSourceUpdateMode = 0
 	$skype.Name = "skype"
-	$skype.selected = 0
+	$skype.Checked = 0
 	$skype.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\skype.ico")
 	$northPoint.Controls.Add($skype)
 	
@@ -1031,7 +1055,7 @@ function northPointInstaller {
 	$teamViewer.Location = $System_Drawing_Point
 	$teamViewer.DataBindings.DefaultDataSourceUpdateMode = 0
 	$teamViewer.Name = "teamViewer"
-	$teamViewer.selected = 1
+	$teamViewer.Checked = 1
 	$teamViewer.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\teamViewer.ico")
 	$northPoint.Controls.Add($teamViewer)
 	
@@ -1050,7 +1074,7 @@ function northPointInstaller {
 	$uBlockOrigin.Location = $System_Drawing_Point
 	$uBlockOrigin.DataBindings.DefaultDataSourceUpdateMode = 0
 	$uBlockOrigin.Name = "uBlockOrigin"
-	$uBlockOrigin.selected = 1
+	$uBlockOrigin.Checked = 1
 	$uBlockOrigin.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\uBlockOrigin.ico")
 	$northPoint.Controls.Add($uBlockOrigin)
 	
@@ -1069,7 +1093,7 @@ function northPointInstaller {
 	$vlc.Location = $System_Drawing_Point
 	$vlc.DataBindings.DefaultDataSourceUpdateMode = 0
 	$vlc.Name = "vlc"
-	$vlc.selected = $libreOfficeLocation
+	$vlc.Checked = $libreOfficeLocation
 	$vlc.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\vlcMediaPlayer.ico")
 	$northPoint.Controls.Add($vlc)
 	
@@ -1082,3 +1106,18 @@ function northPointInstaller {
 	$northPoint.Focus()
 	}
 northPointInstaller
+
+    © 2019 GitHub, Inc.
+    Terms
+    Privacy
+    Security
+    Status
+    Help
+
+    Contact GitHub
+    Pricing
+    API
+    Training
+    Blog
+    About
+
