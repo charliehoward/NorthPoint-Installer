@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+## -- Copyright (c) Charlie Howard 2016-2019 All rights reserved
+
+
+>>>>>>> parent of 166f2a0... Update 3.0.9.7
 Param($Target)
 
 $KeyPath1  = "HKCU:\SOFTWARE\Classes"
