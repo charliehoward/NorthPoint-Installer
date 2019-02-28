@@ -73,7 +73,6 @@ Invoke-RestMethod -Uri $pinURL -OutFile $pinPath
 Invoke-RestMethod -Uri $uBlockOriginURL -OutFile $uBlockOriginPath
 Invoke-RestMethod -Uri $taskbarpin7URL -OutFile $taskbarpin7Path
 Invoke-RestMethod -Uri $taskbarpin10URL -OutFile $taskbarpin10Path
-$progressBar.Close()
 $os = (Get-WmiObject -Class Win32_OperatingSystem).version
 $ip = Invoke-RestMethod http://ipinfo.io/json | Select -exp ip
 $date = Get-Date
@@ -158,7 +157,7 @@ function northPointInstaller {
 			$PowerShell.Dispose()
 		}
 		if ($crc.Checked)	{
-			$progress.Items.Add("Computer Repair Centre OEM information is Checked."  )
+			$progress.Items.Add("Computer Repair Centre OEM information is selected."  )
 			$progress.CheckedIndex = $progress.Items.Count - 1;
 			$progress.CheckedIndex = -1;
 		    $progress.Items.Add("Installing Computer Repair Centre OEM information...")
@@ -201,7 +200,7 @@ function northPointInstaller {
 		$progress.CheckedIndex = $progress.Items.Count - 1;
 		$progress.CheckedIndex = -1;
 	  if ($googleChrome.Checked)	{
-			$progress.Items.Add("Google Chrome is Checked."  )
+			$progress.Items.Add("Google Chrome is selected."  )
 			$progress.CheckedIndex = $progress.Items.Count - 1;
 			$progress.CheckedIndex = -1;
 			$progress.Items.Add("Installing Google Chrome...")
@@ -222,7 +221,7 @@ function northPointInstaller {
 				}
 			}
 	  if ($iTunes.Checked)	{
-			$progress.Items.Add("iTunes is Checked."  )
+			$progress.Items.Add("iTunes is selected."  )
 			$progress.CheckedIndex = $progress.Items.Count - 1;
 			$progress.CheckedIndex = -1;
 			$progress.Items.Add("Installing iTunes...")
@@ -242,7 +241,7 @@ function northPointInstaller {
 				}
 			}
 		if ($kaspersky.Checked)	{
-			$progress.Items.Add("Kaspersky Internet Security 2019 is Checked."  )
+			$progress.Items.Add("Kaspersky Internet Security 2019 is selected."  )
 			$progress.CheckedIndex = $progress.Items.Count - 1;
 			$progress.CheckedIndex = -1;
 			$progress.Items.Add("Installing Kaspersky Internet Security 2019...")
@@ -277,7 +276,7 @@ function northPointInstaller {
 				}
 			}
 		if ($libreOffice.Checked)	{
-			$progress.Items.Add("LibreOffice is Checked."  )
+			$progress.Items.Add("LibreOffice is selected."  )
 			$progress.CheckedIndex = $progress.Items.Count - 1;
 			$progress.CheckedIndex = -1;
 			$progress.Items.Add("Installing LibreOffice...")
@@ -297,7 +296,7 @@ function northPointInstaller {
 				}
 			}
 	    if ($mozillaFirefox.Checked)	{
-			$progress.Items.Add("Mozilla Firefox is Checked."  )
+			$progress.Items.Add("Mozilla Firefox is selected."  )
 			$progress.CheckedIndex = $progress.Items.Count - 1;
 			$progress.CheckedIndex = -1;
 			$progress.Items.Add("Installing Mozilla Firefox...")
@@ -320,7 +319,7 @@ function northPointInstaller {
 				}
 			}
 		if ($mozillaThunderbird.Checked)	{
-			$progress.Items.Add("Mozilla Thunderbird is Checked."  )
+			$progress.Items.Add("Mozilla Thunderbird is selected."  )
 			$progress.CheckedIndex = $progress.Items.Count - 1;
 			$progress.CheckedIndex = -1;
 			$progress.Items.Add("Installing Mozilla Thunderbird...")
@@ -340,7 +339,7 @@ function northPointInstaller {
 				}
 			}
 		if ($skype.Checked)	{
-			$progress.Items.Add("Skype is Checked."  )
+			$progress.Items.Add("Skype is selected."  )
 			$progress.CheckedIndex = $progress.Items.Count - 1;
 			$progress.CheckedIndex = -1;
 			$progress.Items.Add("Installing Skype...")
@@ -360,7 +359,7 @@ function northPointInstaller {
 				}
 			}
 		if ($teamViewer.Checked)	{
-			$progress.Items.Add("TeamViewer is Checked."  )
+			$progress.Items.Add("TeamViewer is selected."  )
 			$progress.CheckedIndex = $progress.Items.Count - 1;
 			$progress.CheckedIndex = -1;
 			$progress.Items.Add("Installing TeamViewer...")
@@ -380,7 +379,7 @@ function northPointInstaller {
 				}
 			}
 		if ($uBlockOrigin.Checked)	{
-			$progress.Items.Add("uBlockOrigin is Checked."  )
+			$progress.Items.Add("uBlockOrigin is selected."  )
 			$progress.CheckedIndex = $progress.Items.Count - 1;
 			$progress.CheckedIndex = -1;
 			if ($googleChrome.Checked)	{
@@ -413,7 +412,7 @@ function northPointInstaller {
 				}
 			}
 		if ($vlc.Checked)	{
-			$progress.Items.Add("VLC Media Player is Checked."  )
+			$progress.Items.Add("VLC Media Player is selected."  )
 			$progress.CheckedIndex = $progress.Items.Count - 1;
 			$progress.CheckedIndex = -1;
 			$progress.Items.Add("Installing VLC Media Player...")
@@ -468,7 +467,7 @@ function northPointInstaller {
 					}
 				}				
 			if ($wallpaper.Checked)	{
-				$progress.Items.Add("Set wallpapers is Checked."  )
+				$progress.Items.Add("Set wallpapers is selected."  )
 				$progress.CheckedIndex = $progress.Items.Count - 1;
 				$progress.CheckedIndex = -1;
 				$progress.Items.Add("Setting wallpapers...")
@@ -498,6 +497,11 @@ function northPointInstaller {
 			$progress.CheckedIndex = $progress.Items.Count - 1;
 			$progress.CheckedIndex = -1;
 			Set-ItemProperty -path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced -name LaunchTo -value 1
+			$progress.Items.Add("Disabling standby and monitor timeout when plugged in...")
+			$progress.CheckedIndex = $progress.Items.Count - 1;
+			$progress.CheckedIndex = -1;
+			powercfg -change -standby-timeout-ac 0
+			powercfg -change -monitor-timeout-ac 0	
 			if ($pin.Checked)	{
 				$progress.Items.Add("Setting taskbar icons...")
 				$progress.CheckedIndex = $progress.Items.Count - 1;
@@ -529,7 +533,7 @@ function northPointInstaller {
 					}
 				}
 			if ($wallpaper.Checked)	{
-				$progress.Items.Add("Set wallpapers is Checked."  )
+				$progress.Items.Add("Set wallpapers is selected."  )
 				$progress.CheckedIndex = $progress.Items.Count - 1;
 				$progress.CheckedIndex = -1;
 				$progress.Items.Add("Setting wallpapers...")
@@ -541,10 +545,7 @@ function northPointInstaller {
 				& 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
 				& 'C:\Computer Repair Centre\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10.theme"
 				}
-			$progress.Items.Add("The installation has finished!.")
-			$progress.CheckedIndex = $progress.Items.Count - 1;
-			$progress.CheckedIndex = -1;
-			$progress.Items.Add("The taskbar requires a reboot so please press 'Reboot' when it's safe.")
+			$progress.Items.Add("The installation has finished! You can safely close the program.")
 			$progress.CheckedIndex = $progress.Items.Count - 1;
 			$progress.CheckedIndex = -1;
 			}
@@ -556,6 +557,11 @@ function northPointInstaller {
 			$progress.CheckedIndex = $progress.Items.Count - 1;
 			$progress.CheckedIndex = -1;
 			Set-ItemProperty -path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced -name LaunchTo -value 1
+			$progress.Items.Add("Disabling standby and monitor timeout when plugged in...")
+			$progress.CheckedIndex = $progress.Items.Count - 1;
+			$progress.CheckedIndex = -1;
+			powercfg -change -standby-timeout-ac 0
+			powercfg -change -monitor-timeout-ac 0	
 			if ($pin.Checked)	{
 				$progress.Items.Add("Setting taskbar icons...")
 				$progress.CheckedIndex = $progress.Items.Count - 1;
@@ -587,7 +593,7 @@ function northPointInstaller {
 					}
 				}
 			if ($wallpaper.Checked)	{
-				$progress.Items.Add("Set wallpapers is Checked."  )
+				$progress.Items.Add("Set wallpapers is selected."  )
 				$progress.CheckedIndex = $progress.Items.Count - 1;
 				$progress.CheckedIndex = -1;
 				$progress.Items.Add("Setting wallpapers...")
@@ -599,10 +605,7 @@ function northPointInstaller {
 				& 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
 				& 'C:\Computer Repair Centre\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10.theme"
 				}
-			$progress.Items.Add("The installation has finished!.")
-			$progress.CheckedIndex = $progress.Items.Count - 1;
-			$progress.CheckedIndex = -1;
-			$progress.Items.Add("The taskbar requires a reboot so please press 'Reboot' when it's safe.")
+			$progress.Items.Add("The installation has finished! You can safely close the program.")
 			$progress.CheckedIndex = $progress.Items.Count - 1;
 			$progress.CheckedIndex = -1;
 			}
@@ -719,7 +722,7 @@ function northPointInstaller {
 			$progress.CheckedIndex = -1;
 			Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Type DWord -Value 0	
 			if ($wallpaper.Checked)	{
-				$progress.Items.Add("Set wallpapers is Checked."  )
+				$progress.Items.Add("Set wallpapers is selected."  )
 				$progress.CheckedIndex = $progress.Items.Count - 1;
 				$progress.CheckedIndex = -1;
 				$progress.Items.Add("Setting wallpapers...")
@@ -732,7 +735,7 @@ function northPointInstaller {
 				& 'C:\Computer Repair Centre\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10.theme"
 				Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value 0
 				}
-			$progress.Items.Add("The installation has finished!.")
+			$progress.Items.Add("The installation has finished! You can safely close the program.")
 			$progress.CheckedIndex = $progress.Items.Count - 1;
 			$progress.CheckedIndex = -1;
 			}
@@ -749,7 +752,7 @@ function northPointInstaller {
 
 ## -- NorthPoint Installer
 
-	$northPoint.Text = "Computer Repair Centre Installer 3.0.9.8"
+	$northPoint.Text = "Computer Repair Centre Installer 3.0.9.10"
 	$northPoint.Name = "form1"
 	$northPoint.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
