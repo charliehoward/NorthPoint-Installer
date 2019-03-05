@@ -1,4 +1,4 @@
-# NorthPoint Installer 3.0.9.11
+# NorthPoint Installer 3.1.0.0
 ###### Copyright (c) Charlie Howard 2016-2019 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -12,6 +12,10 @@ If run on Windows 10 it also disables Windows 10 hibernation mode, Wi-Fi sense, 
 Changes wallpaper to a selection of HD landscape images.
 
 ### Changelog
+
+###### Update 3.1.0.0
+
+The installer is now multithreaded so the GUI uses one thread and the script uses another. This speeds it up and also stops the GUI from freezing while the script is in progress. Also added am adaptive progress bar to show much progress is left.
 
 ###### Update 3.0.9.11
 
@@ -47,7 +51,7 @@ Reverted to old way of pinning taskbar icons and re-renabled Cortana search bar 
 
 ###### Update 3.0.9.4
 
-Updated OEM logo. 
+Updated OEM logo.
 
 ###### Update 3.0.9.3
 
