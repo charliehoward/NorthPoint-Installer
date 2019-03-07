@@ -5,6 +5,7 @@
 
 $computerRepairCentreIconURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentreIcon.ico"
 $computerRepairCentreIconPath = "C:\Computer Repair Centre\computerRepairCentreIcon.ico"
+Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 
 function download {
 	[reflection.assembly]::loadwithpartialname("System.Windows.Forms")
@@ -31,7 +32,6 @@ function download {
 			$taskbarpin10Path = "C:\Computer Repair Centre\taskbarPin10.ps1"
 			$computerRepairCentreOEMURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentreOEM.bmp"
 			$computerRepairCentreOEMPath = "C:\Computer Repair Centre\computerRepairCentreOEM.bmp"
-
 			$googleChromeURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/googleChrome.ico"
 			$googleChromePath = "C:\Computer Repair Centre\googleChrome.ico"
 			$kasperskyInternetSecurityURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/kasperskyInternetSecurity.ico"
@@ -932,7 +932,7 @@ function northPointInstaller {
 
 	## -- NorthPoint Installer
 
-	$northPoint.Text = "Computer Repair Centre Installer 3.2.0.0"
+	$northPoint.Text = "Computer Repair Centre Installer 3.2.0.1"
 	$northPoint.Name = "form1"
 	$northPoint.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
