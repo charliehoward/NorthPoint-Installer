@@ -5,6 +5,8 @@
 
 $computerRepairCentreIconURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentreIcon.ico"
 $computerRepairCentreIconPath = "C:\Computer Repair Centre\computerRepairCentreIcon.ico"
+$wallpapersURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/wallpapers.zip"
+$wallpapersPath = "C:\Computer Repair Centre\wallpapers.zip"
 Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 
 function download {
@@ -932,7 +934,7 @@ function northPointInstaller {
 
 	## -- NorthPoint Installer
 
-	$northPoint.Text = "Computer Repair Centre Installer 3.2.0.1"
+	$northPoint.Text = "Computer Repair Centre Installer 3.2.0.2"
 	$northPoint.Name = "form1"
 	$northPoint.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
