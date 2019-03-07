@@ -243,6 +243,17 @@ function northPointInstaller {
 	$syncHash.progressBarValue = $progressBarValue
 	$syncHash.wallpapersURL = $wallpapersURL
 	$syncHash.wallpapersPath = $wallpapersPath
+	$date = Get-Date
+	$charlie = Get-Date -Day 06 -Month 04
+	$dean = Get-Date -Day 21 -Month 04
+	$howard = Get-Date -Day 16 -Month 05
+	$adam = Get-Date -Day 09 -Month 06
+	$steve = Get-Date -Day 24 -Month 06
+	$josh = Get-Date -Day 22 -Month 10
+	if (($date.Day -eq $charlie.Day -and $date.Month -eq $charlie.Month) -or ($date.Day -eq $dean.Day -and $date.Month -eq $dean.Month) -or ($date.Day -eq $howard.Day -and $date.Month -eq $howard.Month) -or ($date.Day -eq $adam.Day -and $date.Month -eq $adam.Month) -or ($date.Day -eq $steve.Day -and $date.Month -eq $steve.Month) -or ($date.Day -eq $josj.Day -and $date.Month -eq $josh.Month)) {
+		$birthday = "true"
+	}
+	$syncHash.birthday = $birthday
 	$b1 = $false
 	$b2 = $false
 	$b3 = $false
@@ -258,6 +269,172 @@ function northPointInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
+				if ($syncHash.birthday -like '*true*') {
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("")
+					Sleep (1)
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("                                                         HAPPY")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("                                                     BIRTHDAY")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("                                                           TO YOU!")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("                                                         HAPPY")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("                                                     BIRTHDAY")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("                                                           TO YOU!")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("                                                         HAPPY")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("                                                     BIRTHDAY")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("                                                           TO YOU!")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Sleep (1)
+					$syncHash.progress.Items.Add("")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+				}
 				$syncHash.progress.Items.Add("Copyright (c) Charlie Howard 2016-2019 All rights reserved.")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
@@ -934,7 +1111,7 @@ function northPointInstaller {
 
 	## -- NorthPoint Installer
 
-	$northPoint.Text = "Computer Repair Centre Installer 3.2.0.2"
+	$northPoint.Text = "Computer Repair Centre Installer 3.2.0.3"
 	$northPoint.Name = "form1"
 	$northPoint.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
