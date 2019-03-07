@@ -1,8 +1,8 @@
 ## -- Copyright (c) Charlie Howard 2016-2019 All rights reserved
 
 
-Function New-FirefoxExtension {
-    <#
+function New-FirefoxExtension {
+<#
     .SYNOPSIS
     Add extensions to Firefox. Does not enable them
     
@@ -51,131 +51,131 @@ Function New-FirefoxExtension {
     New-FirefoxExtension @params
 
     #>
-    [cmdletBinding()]
-    Param(
-        [Parameter(Mandatory)]
-        [string[]]$ExtensionUri,
-        [Parameter(Mandatory)]
-        [String]$ExtensionPath,
-        [Parameter(Mandatory = $false)]
-        [ValidateSet('HKCU', 'HKLM')]
-        [string]$Hive
-    )
+	[CmdletBinding()]
+	param(
+		[Parameter(Mandatory)]
+		[string[]]$ExtensionUri,
+		[Parameter(Mandatory)]
+		[string]$ExtensionPath,
+		[Parameter(Mandatory = $false)]
+		[ValidateSet('HKCU','HKLM')]
+		[string]$Hive
+	)
 
-    If (!(Test-Path $ExtensionPath)) {
-        
-        New-Item -ItemType Directory $ExtensionPath | Out-Null
-    
-    }
+	if (!(Test-Path $ExtensionPath)) {
 
-    Foreach ($Uri in $ExtensionUri) {
+		New-Item -ItemType Directory $ExtensionPath | Out-Null
 
-        #Store just the extension filename for later use
-        #Thanks reddit user /u/ta11ow for the regex help!
-        $Uri -match '(?<=/)(?<ExtensionName>[^/]+)(?=\?)'
-        $Extension = $matches['ExtensionName']
+	}
 
-        #Download the Extension and save it to the FireFoxExtensions folder
-        Invoke-WebRequest -Uri $Uri -OutFile "C:\FirefoxExtensions\$Extension"
+	foreach ($Uri in $ExtensionUri) {
 
-        #Now we have to manipulate the extension into the form that Mozilla dictates
-        
-        #Create a zip file from the xpi
-        Get-ChildItem -Path $ExtensionPath | Foreach-Object { $NewName = $_.FullName -replace ".xpi", ".zip"
-            Copy-Item -Path $_.FullName -Destination $NewName }
+		#Store just the extension filename for later use
+		#Thanks reddit user /u/ta11ow for the regex help!
+		$Uri -match '(?<=/)(?<ExtensionName>[^/]+)(?=\?)'
+		$Extension = $matches['ExtensionName']
 
-        #Depending on PS Version, expand the zip file
-        If ($PSVersionTable.PSVersion.Major -ge 4) {
-            
-            Expand-Archive -Path (Get-ChildItem $ExtensionPath |
-                    Where-Object { $_.Extension -eq '.zip'} |
-                    Select-Object -ExpandProperty FullName) -DestinationPath $ExtensionPath
-        }
+		#Download the Extension and save it to the FireFoxExtensions folder
+		Invoke-WebRequest -Uri $Uri -OutFile "C:\FirefoxExtensions\$Extension"
 
-        Else {
+		#Now we have to manipulate the extension into the form that Mozilla dictates
 
-            [System.IO.Compression.ZipFile]::ExtractToDirectory((Get-ChildItem $ExtensionPath |
-                        Where-Object { $_.Extension -eq '.zip'} |
-                        Select-Object -ExpandProperty FullName), $ExtensionPath)
+		#Create a zip file from the xpi
+		Get-ChildItem -Path $ExtensionPath | ForEach-Object { $NewName = $_.FullName -replace ".xpi",".zip"
+			Copy-Item -Path $_.FullName -Destination $NewName }
 
-        }
+		#Depending on PS Version, expand the zip file
+		if ($PSVersionTable.PSVersion.Major -ge 4) {
 
-        #convert the manifest file into a psobject
-        $file = Get-Content "$ExtensionPath\manifest.json" | ConvertFrom-Json
+			Expand-Archive -Path (Get-ChildItem $ExtensionPath |
+				Where-Object { $_.Extension -eq '.zip' } |
+				Select-Object -ExpandProperty FullName) -DestinationPath $ExtensionPath
+		}
 
-        
-        #store the author id
-        $authorValue = $file.applications.gecko.id
+		else {
 
-        
+			[System.IO.Compression.ZipFile]::ExtractToDirectory((Get-ChildItem $ExtensionPath |
+					Where-Object { $_.Extension -eq '.zip' } |
+					Select-Object -ExpandProperty FullName),$ExtensionPath)
 
-        Rename-Item -Path $ExtensionPath\$($matches['ExtensionName']) -NewName "$authorValue.xpi"
-        #Cleanup all the junk, leaving only the extension pack file behind
-        Remove-Item -Path $ExtensionPath -Exclude *.xpi -Recurse -Force
+		}
 
-        #Modify registry based on which Hive you selected
-        Switch ($Hive) {
-            
-            'HKCU' {
-                Switch ([environment]::Is64BitOperatingSystem) {
-                    $true {
-            
-                        If (!(Test-Path "C:\Program Files\Mozilla Firefox\firefox.exe")) {
-                            
-                            $regKey = "HKCU:\Software\Wow6432Node\Mozilla\Firefox\Extensions"
-                            New-ItemProperty -Path $regKey -Name $authorValue -Value "$ExtensionPath\$authorValue.xpi" -PropertyType String
-                        }
-                        
-                        Else {
-                            
-                            $regKey = "HKCU:\Software\Mozilla\Firefox\Extensions"
-                            New-ItemProperty -Path $regKey -Name $authorValue -Value "$ExtensionPath\$authorValue.xpi" -PropertyType String
-                        }
-                        
-                    }
-                    
-                    $false {
-                        
-                        $regKey = "HKCU:\Software\Mozilla\Firefox\Extensions"
-                        New-ItemProperty -Path $regKey -Name $authorValue -Value "$ExtensionPath\$authorValue.xpi" -PropertyType String
-                    
-                    }
-                
-                }#hkcu switch
+		#convert the manifest file into a psobject
+		$file = Get-Content "$ExtensionPath\manifest.json" | ConvertFrom-Json
 
-            }#hkcu
 
-            'HKLM' {
-                Switch ([environment]::Is64BitOperatingSystem) {
-                    $true {
-            
-                        If (Test-Path "C:\Program Files\Mozilla Firefox\firefox.exe") {
-                            
-                            $regKey = "HKLM:\Software\Mozilla\Firefox\Extensions"
-                            New-ItemProperty -Path $regKey -Name $authorValue -Value "$ExtensionPath\$authorValue.xpi" -PropertyType String
-                        }
-                        
-                        Else {
-                            
-                            $regKey = "HKLM:\Software\Wow6432Node\Mozilla\Firefox\Extensions"
-                            
-                            New-ItemProperty -Path $regKey -Name $authorValue -Value "$ExtensionPath\$authorValue.xpi" -PropertyType String
-                        }
-                        
-                    }
-                    
-                    $false {
-                        
-                        $regKey = "HKLM:\Software\Mozilla\Firefox\Extensions"
-                        New-ItemProperty -Path $regKey -Name $matches['ExtensionName'] -Value "$ExtensionPath\$($matches['ExtensionName'])" -PropertyType String
-                    
-                    }
-                
-                }#hklm switch
-        
-            }#hklm 
-        }#end outer switch
+		#store the author id
+		$authorValue = $file.applications.gecko.id
 
-    }#foreach
 
-}#function
+
+		Rename-Item -Path $ExtensionPath\$($matches['ExtensionName']) -NewName "$authorValue.xpi"
+		#Cleanup all the junk, leaving only the extension pack file behind
+		Remove-Item -Path $ExtensionPath -Exclude *.xpi -Recurse -Force
+
+		#Modify registry based on which Hive you selected
+		switch ($Hive) {
+
+			'HKCU' {
+				switch ([environment]::Is64BitOperatingSystem) {
+					$true {
+
+						if (!(Test-Path "C:\Program Files\Mozilla Firefox\firefox.exe")) {
+
+							$regKey = "HKCU:\Software\Wow6432Node\Mozilla\Firefox\Extensions"
+							New-ItemProperty -Path $regKey -Name $authorValue -Value "$ExtensionPath\$authorValue.xpi" -PropertyType String
+						}
+
+						else {
+
+							$regKey = "HKCU:\Software\Mozilla\Firefox\Extensions"
+							New-ItemProperty -Path $regKey -Name $authorValue -Value "$ExtensionPath\$authorValue.xpi" -PropertyType String
+						}
+
+					}
+
+					$false {
+
+						$regKey = "HKCU:\Software\Mozilla\Firefox\Extensions"
+						New-ItemProperty -Path $regKey -Name $authorValue -Value "$ExtensionPath\$authorValue.xpi" -PropertyType String
+
+					}
+
+				} #hkcu switch
+
+			} #hkcu
+
+			'HKLM' {
+				switch ([environment]::Is64BitOperatingSystem) {
+					$true {
+
+						if (Test-Path "C:\Program Files\Mozilla Firefox\firefox.exe") {
+
+							$regKey = "HKLM:\Software\Mozilla\Firefox\Extensions"
+							New-ItemProperty -Path $regKey -Name $authorValue -Value "$ExtensionPath\$authorValue.xpi" -PropertyType String
+						}
+
+						else {
+
+							$regKey = "HKLM:\Software\Wow6432Node\Mozilla\Firefox\Extensions"
+
+							New-ItemProperty -Path $regKey -Name $authorValue -Value "$ExtensionPath\$authorValue.xpi" -PropertyType String
+						}
+
+					}
+
+					$false {
+
+						$regKey = "HKLM:\Software\Mozilla\Firefox\Extensions"
+						New-ItemProperty -Path $regKey -Name $matches['ExtensionName'] -Value "$ExtensionPath\$($matches['ExtensionName'])" -PropertyType String
+
+					}
+
+				} #hklm switch
+
+			} #hklm 
+		} #end outer switch
+
+	} #foreach
+
+} #function

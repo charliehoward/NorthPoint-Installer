@@ -1,4 +1,4 @@
-# NorthPoint Installer 3.1.0.0
+# NorthPoint Installer 3.2.0.0
 ###### Copyright (c) Charlie Howard 2016-2019 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -12,6 +12,10 @@ If run on Windows 10 it also disables Windows 10 hibernation mode, Wi-Fi sense, 
 Changes wallpaper to a selection of HD landscape images.
 
 ### Changelog
+
+###### Update 3.2.0.0
+
+Rewritten the executable in C++ so Windows Defender and other anti-virus software won't delete it. Added in loading form while the files download.
 
 ###### Update 3.1.0.0
 

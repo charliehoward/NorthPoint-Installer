@@ -53,8 +53,6 @@ $mozillaLocalSettingsURL = "https://raw.githubusercontent.com/charliehoward/Nort
 $mozillaLocalSettingsPath = "C:\Computer Repair Centre\local-settings.js"
 $mozillaConfigURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/mozilla.cfg"
 $mozillaConfigPath = "C:\Computer Repair Centre\mozilla.cfg"
-Remove-Item "C:\Computer Repair Centre" -Recurse -Force
-New-Item -ItemType directory -Path "C:\Computer Repair Centre"
 Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 Invoke-RestMethod -Uri $googleChromeURL -OutFile $googleChromePath
 Invoke-RestMethod -Uri $kasperskyInternetSecurityURL -OutFile $kasperskyInternetSecurityPath
@@ -80,14 +78,14 @@ Invoke-RestMethod -Uri $windows7ThemeURL -OutFile $windows7ThemePath
 Invoke-RestMethod -Uri $themeSwitcher10URL -OutFile $themeSwitcher10Path
 Invoke-RestMethod -Uri $windows10ThemeURL -OutFile $windows10ThemePath
 $operatingSystem = (Get-WmiObject -Class Win32_OperatingSystem).version
-$internetProtocol = Invoke-RestMethod http://ipinfo.io/json | Select -exp ip
+$internetProtocol = Invoke-RestMethod http://ipinfo.io/json | Select-Object -exp ip
 $user = $env:UserName
-If ($internetProtocol -like '*82.0.43.224*') {
+if ($internetProtocol -like '*82.0.43.224*') {
 	$libreOfficeLocation = 0
-	}
+}
 else {
 	$libreOfficeLocation = 1
-	}
+}
 function northPointInstaller {
 	[reflection.assembly]::loadwithpartialname("System.Windows.Forms")
 	[reflection.assembly]::loadwithpartialname("System.Drawing")
@@ -96,7 +94,7 @@ function northPointInstaller {
 	$install = New-Object System.Windows.Forms.Button
 	$reboot = New-Object System.Windows.Forms.Button
 	$progress = New-Object System.Windows.Forms.ListBox
-  $progressBar = New-Object System.Windows.Forms.ProgressBar
+	$progressBar = New-Object System.Windows.Forms.ProgressBar
 	$crc = New-Object System.Windows.Forms.CheckBox
 	$mozillaFirefox = New-Object System.Windows.Forms.CheckBox
 	$mozillaThunderbird = New-Object System.Windows.Forms.CheckBox
@@ -111,717 +109,717 @@ function northPointInstaller {
 	$wallpaper = New-Object System.Windows.Forms.CheckBox
 	$pin = New-Object System.Windows.Forms.CheckBox
 	$InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState
-  $syncHash = [hashtable]::Synchronized(@{})
-  $syncHash.progressBar = $progressBar
-  $syncHash.progress = $progress
-  $syncHash.crc = $crc
-  $syncHash.mozillaFirefox = $mozillaFirefox
-  $syncHash.mozillaThunderbird = $mozillaThunderbird
-  $syncHash.googleChrome = $googleChrome
-  $syncHash.kaspersky = $kaspersky
-  $syncHash.vlc = $vlc
-  $syncHash.libreOffice = $libreOffice
-  $syncHash.skype = $skype
-  $syncHash.teamViewer = $teamViewer
-  $syncHash.iTunes = $iTunes
-  $syncHash.uBlockOrigin = $uBlockOrigin
-  $syncHash.wallpaper = $wallpaper
-  $syncHash.pin = $pin
-  $syncHash.operatingSystem = $operatingSystem
-  $syncHash.internetProtocol = $internetProtocol
-  $syncHash.libreOfficeLocation = $libreOfficeLocation
-  $syncHash.user = $user
+	$syncHash = [hashtable]::Synchronized(@{})
+	$syncHash.progressBar = $progressBar
+	$syncHash.progress = $progress
+	$syncHash.crc = $crc
+	$syncHash.mozillaFirefox = $mozillaFirefox
+	$syncHash.mozillaThunderbird = $mozillaThunderbird
+	$syncHash.googleChrome = $googleChrome
+	$syncHash.kaspersky = $kaspersky
+	$syncHash.vlc = $vlc
+	$syncHash.libreOffice = $libreOffice
+	$syncHash.skype = $skype
+	$syncHash.teamViewer = $teamViewer
+	$syncHash.iTunes = $iTunes
+	$syncHash.uBlockOrigin = $uBlockOrigin
+	$syncHash.wallpaper = $wallpaper
+	$syncHash.pin = $pin
+	$syncHash.operatingSystem = $operatingSystem
+	$syncHash.internetProtocol = $internetProtocol
+	$syncHash.libreOfficeLocation = $libreOfficeLocation
+	$syncHash.user = $user
 	$syncHash.progressBarValue = $progressBarValue
 	$syncHash.wallpapersURL = $wallpapersURL
 	$syncHash.wallpapersPath = $wallpapersPath
-  $b1= $false
-	$b2= $false
-	$b3= $false
+	$b1 = $false
+	$b2 = $false
+	$b3 = $false
 
 
 	## -- Install button click
 
-	$handler_install_Click=
+	$handler_install_Click =
 	{
-    $processRunspace =[runspacefactory]::CreateRunspace()
-    $processRunspace.ApartmentState = "STA"
-    $processRunspace.ThreadOptions = "ReuseThread"
-    $processRunspace.Open()
-    $processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
-    $psCmd = [PowerShell]::Create().AddScript({
-     $syncHash.progress.Items.Add("Copyright (c) Charlie Howard 2016-2019 All rights reserved.")
-     $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-     $syncHash.progress.SelectedIndex = -1;
-		 $syncHash.progressBar.Maximum = 1
-		 if ($syncHash.crc.Checked) { $syncHash.progressBar.Maximum += 1 }
-		 if ($syncHash.mozillaFirefox.Checked) { $syncHash.progressBar.Maximum += 1 }
-		 if ($syncHash.mozillaThunderbird.Checked) { $syncHash.progressBar.Maximum += 1 }
-		 if ($syncHash.googleChrome.Checked) { $syncHash.progressBar.Maximum += 1 }
-		 if ($syncHash.kaspersky.Checked) { $syncHash.progressBar.Maximum += 2 }
-		 if ($syncHash.vlc.Checked) { $syncHash.progressBar.Maximum += 1 }
-		 if ($syncHash.libreOffice.Checked) { $syncHash.progressBar.Maximum += 1 }
-		 if ($syncHash.skype.Checked) { $syncHash.progressBar.Maximum += 1 }
-		 if ($syncHash.teamViewer.Checked) { $syncHash.progressBar.Maximum += 1 }
-		 if ($syncHash.iTunes.Checked) { $syncHash.progressBar.Maximum += 1 }
-		 if ($syncHash.wallpaper.Checked) { $syncHash.progressBar.Maximum += 1 }
-		 if ($syncHash.pin.Checked) { $syncHash.progressBar.Maximum += 1 }
-		 if ($syncHash.uBlockOrigin.Checked) {
-			 if ($syncHash.googleChrome.Checked) { $syncHash.progressBar.Maximum += 1 }
-			 if ($syncHash.mozillaFirefox.Checked) { $syncHash.progressBar.Maximum += 1 }
-			 }
-		 if ($syncHash.operatingSystem -like '*6.1*')	{ $syncHash.progressBar.Maximum += 1 }
-		 if ($syncHash.operatingSystem -like '*6.2*')	{ $syncHash.progressBar.Maximum += 2 }
-		 if ($syncHash.operatingSystem -like '*6.3*')	{ $syncHash.progressBar.Maximum += 2 }
-		 if ($syncHash.operatingSystem -like '*10.0*')	{
-			 $syncHash.progressBar.Maximum += 14
-			 if ($syncHash.pin.Checked) {
-				 if ($syncHash.internetProtocol -like '*212.159.116.68*')	{ $syncHash.progressBar.Maximum += 1 }
-			   }
-			 }
-		 $syncHash.ProgressBar.Refresh()
-		 if ($syncHash.crc.Checked)	{
-       $syncHash.progress.Items.Add("Computer Repair Centre OEM information is selected."  )
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-			 $syncHash.progress.Items.Add("Installing Computer Repair Centre OEM information...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       if ($syncHash.internetProtocol -like '*212.159.116.68*') {
-         $syncHash.progress.Items.Add("Installer being run from Romsey.")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-         Set-ItemProperty -path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -name Logo -value "C:\Computer Repair Centre\computerRepairCentreOEM.bmp"
-         Set-ItemProperty -path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -name Manufacturer -value "Computer Repair Centre"
-         Set-ItemProperty -path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -name SupportHours -value "Mon-Sat 9:15am-5pm - Wed 9:15am-4pm"
-         Set-ItemProperty -path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -name SupportPhone -value "01794 517142"
-         Set-ItemProperty -path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -name SupportURL -value "https://www.firstforitrepairs.co.uk"
-       }
-     elseIf ($syncHash.internetProtocol -like '*82.0.43.224*') {
-       $syncHash.progress.Items.Add("Installer being run from Chandlers Ford.")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       Set-ItemProperty -path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -name Logo -value "C:\Computer Repair Centre\computerRepairCentreOEM.bmp"
-       Set-ItemProperty -path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -name Manufacturer -value "Computer Repair Centre"
-       Set-ItemProperty -path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -name SupportHours -value "Mon-Fri 9am-5pm - Sat 9am-4pm"
-       Set-ItemProperty -path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -name SupportPhone -value "08712 244129"
-       Set-ItemProperty -path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -name SupportURL -value "https://www.brmcomputers.co.uk"
-       }
-       $syncHash.progress.Items.Add("Completed installation of Computer Repair Centre OEM information.")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-			 $syncHash.progressBar.PerformStep()
-       }
-     $syncHash.progress.Items.Add("Installing all requisites...")
-     $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-     $syncHash.progress.SelectedIndex = -1;
-     iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-     choco install dotnet4.5 -y
-     choco install dotnet4.6.1 -y
-     choco install powershell -y
-     choco install 7zip.install -y --ignore-checksum
-     $syncHash.progress.Items.Add("Completed installation of all requisites...")
-     $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-     $syncHash.progress.SelectedIndex = -1;
-     $syncHash.progressBar.PerformStep()
-     if ($syncHash.googleChrome.Checked)	{
-       $syncHash.progress.Items.Add("Google Chrome is selected."  )
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       $syncHash.progress.Items.Add("Installing Google Chrome...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       choco install googlechrome -y --ignore-checksum
-       $programList = choco list --localonly
-       if ($programList -like '*GoogleChrome*') {
-         $syncHash.progress.Items.Add("Completed installation of Google Chrome.")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-         $syncHash.progressBar.PerformStep()
-         }
-       else {
-         $syncHash.progress.Items.Add("The installation of Google Chrome has failed.")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-				 $syncHash.progressBar.PerformStep()
-         }
-       }
-     if ($syncHash.iTunes.Checked)	{
-       $syncHash.progress.Items.Add("iTunes is selected."  )
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       $syncHash.progress.Items.Add("Installing iTunes...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       choco install itunes -y --ignore-checksum
-       $programList = choco list --localonly
-       if ($programList -like '*iTunes*') {
-         $syncHash.progress.Items.Add("Completed installation of iTunes.")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-         $syncHash.progressBar.PerformStep()
-         }
-       else {
-         $syncHash.progress.Items.Add("The installation of iTunes has failed.")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-				 $syncHash.progressBar.PerformStep()
-         }
-       }
-     if ($syncHash.kaspersky.Checked)	{
-       $syncHash.progress.Items.Add("Kaspersky Internet Security 2019 is selected."  )
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       $syncHash.progress.Items.Add("Installing Kaspersky Internet Security 2019...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       choco install kis -y --ignore-checksum
-       $programList = choco list --localonly
-       $syncHash.progress.Items.Add("Removing Safe Money icon from Desktop...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       Remove-Item "C:\Users\Public\Desktop\Safe Money.lnk"
-       if ($programList -like '*kis*') {
-         $syncHash.progress.Items.Add("Completed installation of Kaspersky Internet Security 2019.")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-         $syncHash.progressBar.PerformStep()
-         $syncHash.progress.Items.Add("Uninstalling Kaspersky Secure Connection...")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-         $kasperskySecureConnection = gci "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall" | ForEach { gp $_.PSPath } | ? { $_ -Match "Kaspersky Secure Connection" } | Select UninstallString
- 				 $kasperskySecureConnection = $kasperskySecureConnection.UninstallString -Replace "msiexec.exe","" -Replace "/I","" -Replace "/X",""
- 			   $kasperskySecureConnection = $kasperskySecureConnection.Trim()
- 				 $kasperskySecureConnection = $kasperskySecureConnection | Select -Skip 1
- 				cmd /c "C:\Windows\SysWOW64\msiexec.exe /i$kasperskySecureConnection REMOVE=ALL /passive"
-         $syncHash.progress.Items.Add("Completed uninstallation of Kaspersky Secure Connection.")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-				 $syncHash.progressBar.PerformStep()
-         }
-       else {
-         $syncHash.progress.Items.Add("The installation of Kaspersky Internet Security 2019 has failed.")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-				 $syncHash.progressBar.PerformStep()
-				 $syncHash.progressBar.PerformStep()
-         }
-       }
-     if ($syncHash.libreOffice.Checked)	{
-       $syncHash.progress.Items.Add("LibreOffice is selected."  )
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       $syncHash.progress.Items.Add("Installing LibreOffice...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       choco install libreoffice -y --ignore-checksum
-       $programList = choco list --localonly
-       if ($programList -like '*libreoffice*') {
-         $syncHash.progress.Items.Add("Completed installation of LibreOffice.")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-				 $syncHash.progressBar.PerformStep()
-         }
-       else {
-         $syncHash.progress.Items.Add("The installation of LibreOffice has failed.")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-				 $syncHash.progressBar.PerformStep()
-         }
-       }
-       if ($syncHash.mozillaFirefox.Checked)	{
-       $syncHash.progress.Items.Add("Mozilla Firefox is selected."  )
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       $syncHash.progress.Items.Add("Installing Mozilla Firefox...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       choco install firefox -y --ignore-checksum
-       $programList = choco list --localonly
-       if ($programList -like '*Firefox*') {
-         $syncHash.progress.Items.Add("Completed installation of Mozilla Firefox.")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-				 $syncHash.progressBar.PerformStep()
-         }
-       else {
-         $syncHash.progress.Items.Add("The installation of Mozilla Firefox has failed.")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-				 $syncHash.progressBar.PerformStep()
-         }
-       }
-     if ($syncHash.mozillaThunderbird.Checked)	{
-       $syncHash.progress.Items.Add("Mozilla Thunderbird is selected."  )
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       $syncHash.progress.Items.Add("Installing Mozilla Thunderbird...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       choco install thunderbird -y --ignore-checksum
-       $programList = choco list --localonly
-       if ($programList -like '*thunderbird*') {
-         $syncHash.progress.Items.Add("Completed installation of Mozilla Thunderbird.")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-				 $syncHash.progressBar.PerformStep()
-         }
-       else {
-         $syncHash.progress.Items.Add("The installation of Mozilla Thunderbird has failed.")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-				 $syncHash.progressBar.PerformStep()
-         }
-       }
-     if ($syncHash.skype.Checked)	{
-       $syncHash.progress.Items.Add("Skype is selected."  )
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       $syncHash.progress.Items.Add("Installing Skype...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       choco install skype -y --ignore-checksum
-       $programList = choco list --localonly
-       if ($programList -like '*skype*') {
-         $syncHash.progress.Items.Add("Completed installation of Skype.")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-				 $syncHash.progressBar.PerformStep()
-         }
-       else {
-         $syncHash.progress.Items.Add("The installation of Skype has failed.")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-				 $syncHash.progressBar.PerformStep()
-         }
-       }
-     if ($syncHash.teamViewer.Checked)	{
-       $syncHash.progress.Items.Add("TeamViewer is selected."  )
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       $syncHash.progress.Items.Add("Installing TeamViewer...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       choco install teamviewer -y --ignore-checksum
-       $programList = choco list --localonly
-       if ($programList -like '*teamviewer*') {
-         $syncHash.progress.Items.Add("Completed installation of TeamViewer.")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-				 $syncHash.progressBar.PerformStep()
-         }
-       else {
-         $syncHash.progress.Items.Add("The installation of TeamViewer has failed.")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-				 $syncHash.progressBar.PerformStep()
-         }
-       }
-     if ($syncHash.uBlockOrigin.Checked)	{
-       $syncHash.progress.Items.Add("uBlockOrigin is selected."  )
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       if ($syncHash.googleChrome.Checked)	{
-         $syncHash.progress.Items.Add("Installing uBlockOrigin on Google Chrome...")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-         Import-Module C:\Computer Repair Centre\chromeExtension.ps1
-         New-ChromeExtension -ExtensionID 'cjpalhdlnbpafiamejdnhcphjbkeiagm' -Mode Machine
-         $syncHash.progress.Items.Add("The installation of uBlockOrigin on Google Chrome has completed.")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-				 $syncHash.progressBar.PerformStep()
-         }
-       if ($syncHash.mozillaFirefox.Checked)	{
-         $syncHash.progress.Items.Add("Installing uBlockOrigin on Mozilla Firefox...")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-         New-Item -ItemType directory -Path "C:\Program Files\Mozilla Firefox\defaults\pref" -Force
-         Copy-Item "C:\Computer Repair Centre\mozilla.cfg" -Destination "C:\Program Files\Mozilla Firefox" -Force
-         Copy-Item "C:\Computer Repair Centre\local-settings.js" -Destination "C:\Program Files\Mozilla Firefox\defaults\pref" -Force
-         Import-Module C:\Computer Repair Centre\firefoxExtension.ps1
-         $firefoxParams = @{
-           'ExtensionUri' = 'https://addons.mozilla.org/firefox/downloads/file/985780/ublock_origin-1.16.10-an+fx.xpi?src=dp-btn-primary'
-           'ExtensionPath' = 'C:\Computer Repair Centre'
-           'Hive' = 'HKLM'
-           }
-         New-FirefoxExtension @firefoxParams
-         $syncHash.progress.Items.Add("The installation of uBlockOrigin on Mozilla Firefox has completed.")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-				 $syncHash.progressBar.PerformStep()
-         }
-       }
-     if ($syncHash.vlc.Checked)	{
-       $syncHash.progress.Items.Add("VLC Media Player is selected."  )
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       $syncHash.progress.Items.Add("Installing VLC Media Player...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       choco install vlc -y --ignore-checksum
-       $programList = choco list --localonly
-       if ($programList -like '*vlc*') {
-         $syncHash.progress.Items.Add("Completed installation of VLC Media Player.")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-				 $syncHash.progressBar.PerformStep()
-         }
-       else {
-         $syncHash.progress.Items.Add("The installation of VLC Media Player has failed.")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-				 $syncHash.progressBar.PerformStep()
-         }
-       }
-     if ($syncHash.operatingSystem -like '*6.1*')	{
-       $syncHash.progress.Items.Add("This computer is running Windows 7.")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       if ($syncHash.pin.Checked)	{
-         $syncHash.progress.Items.Add("Setting taskbar icons...")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-         Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
-         if ($syncHash.internetProtocol -like '*212.159.116.68*') {
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files\Mozilla Firefox\firefox.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files\LibreOffice\program\swriter.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files\LibreOffice\program\scalc.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Windows\explorer.exe"
-					 $syncHash.progressBar.PerformStep()
-           }
-         if ($syncHash.internetProtocol -like '*82.0.43.224*') {
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files\Mozilla Firefox\firefox.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files (x86)\Microsoft Office\Office12\WORD.EXE"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.EXE"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Windows\explorer.exe"
-					 $syncHash.progressBar.PerformStep()
-           }
-         }
-       if ($syncHash.wallpaper.Checked)	{
-         $syncHash.progress.Items.Add("Set wallpapers is selected."  )
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-         $syncHash.progress.Items.Add("Setting wallpapers...")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-				 Invoke-RestMethod -Uri $syncHash.wallpapersURL -OutFile $syncHash.wallpapersPath
-				 Remove-Item "C:\Computer Repair Centre\Wallpapers" -Recurse -Force
-         & 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
-         & 'C:\Computer Repair Centre\themeSwitcher7.exe' "C:\Computer Repair Centre\computerRepairCentre7.theme"
-				 $syncHash.progressBar.PerformStep()
-         }
-       $syncHash.progress.Items.Add("Disabling standby and monitor timeout when plugged in...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       powercfg -change -standby-timeout-ac 0
-       powercfg -change -monitor-timeout-ac 0
-       $syncHash.progressBar.PerformStep()
-       $syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       }
-     if ($syncHash.operatingSystem -like '*6.2*')	{
-       $syncHash.progress.Items.Add("This computer is running Windows 8.")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       $syncHash.progress.Items.Add("Setting explorer to open to This PC...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-			 $syncHash.progressBar.PerformStep()
-       Set-ItemProperty -path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced -name LaunchTo -value 1
-       $syncHash.progress.Items.Add("Disabling standby and monitor timeout when plugged in...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       powercfg -change -standby-timeout-ac 0
-       powercfg -change -monitor-timeout-ac 0
-			 $syncHash.progressBar.PerformStep()
-       if ($syncHash.pin.Checked)	{
-         $syncHash.progress.Items.Add("Setting taskbar icons...")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-         Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
-         if ($syncHash.internetProtocol -like '*212.159.116.68*') {
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\swriter.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
-					 $syncHash.progressBar.PerformStep()
-           }
-         if ($syncHash.internetProtocol -like '*82.0.43.224*') {
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
-					 $syncHash.progressBar.PerformStep()
-           }
-         }
-       if ($syncHash.wallpaper.Checked)	{
-         $syncHash.progress.Items.Add("Set wallpapers is selected."  )
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-         $syncHash.progress.Items.Add("Setting wallpapers...")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-				 Invoke-RestMethod -Uri $syncHash.wallpapersURL -OutFile $syncHash.wallpapersPath
-				 Remove-Item "C:\Computer Repair Centre\Wallpapers" -Recurse -Force
-         & 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
-         & 'C:\Computer Repair Centre\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10.theme"
-				 $syncHash.progressBar.PerformStep()
-         }
-       $syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       }
-     if ($syncHash.operatingSystem -like '*6.3*')	{
-       $syncHash.progress.Items.Add("This computer is running Windows 8.1.")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       $syncHash.progress.Items.Add("Setting explorer to open to This PC...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-			 $syncHash.progressBar.PerformStep()
-       Set-ItemProperty -path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced -name LaunchTo -value 1
-       $syncHash.progress.Items.Add("Disabling standby and monitor timeout when plugged in...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       powercfg -change -standby-timeout-ac 0
-       powercfg -change -monitor-timeout-ac 0
-			 $syncHash.progressBar.PerformStep()
-       if ($syncHash.pin.Checked)	{
-         $syncHash.progress.Items.Add("Setting taskbar icons...")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-         Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
-         if ($syncHash.internetProtocol -like '*212.159.116.68*') {
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\swriter.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
-					 $syncHash.progressBar.PerformStep()
-           }
-         if ($syncHash.internetProtocol -like '*82.0.43.224*') {
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
-					 $syncHash.progressBar.PerformStep()
-           }
-         }
-       if ($syncHash.wallpaper.Checked)	{
-         $syncHash.progress.Items.Add("Set wallpapers is selected."  )
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-         $syncHash.progress.Items.Add("Setting wallpapers...")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-				 Invoke-RestMethod -Uri $syncHash.wallpapersURL -OutFile $syncHash.wallpapersPath
-				 Remove-Item "C:\Computer Repair Centre\Wallpapers" -Recurse -Force
-         & 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
-         & 'C:\Computer Repair Centre\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10.theme"
-				 $syncHash.progressBar.PerformStep()
-         }
-       $syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       }
-     if ($syncHash.operatingSystem -like '*10.0*')	{
-       $syncHash.progress.Items.Add("This computer is running Windows 10.")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       $syncHash.progress.Items.Add("Setting explorer to open to This PC...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       Set-ItemProperty -path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced -name LaunchTo -value 1
-			 $syncHash.progressBar.PerformStep()
-       $syncHash.progress.Items.Add("Disabling fastboot mode...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       Set-ItemProperty -path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -name HiberbootEnabled -value 0
-			 $syncHash.progressBar.PerformStep()
-       $syncHash.progress.Items.Add("Disabling Wi-Fi Sense...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       New-Item -Path HKLM:\Software\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting -Force
-       Set-ItemProperty -Path "HKLM:\Software\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting" -Name "Value" -Type DWord -Value 0
-       Set-ItemProperty -Path "HKLM:\Software\Microsoft\PolicyManager\default\WiFi\AllowAutoConnectToWiFiSenseHotspots" -Name "Value" -Type DWord -Value 0
-			 $syncHash.progressBar.PerformStep()
-       $syncHash.progress.Items.Add("Disabling telemetry...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
-       Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
-       Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
-			 $syncHash.progressBar.PerformStep()
-       $syncHash.progress.Items.Add("Disabling Bing Search in start menu...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "BingSearchEnabled" -Type DWord -Value 0
-       If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
-         New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
-       }
-       Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "DisableWebSearch" -Type DWord -Value 1
-			 $syncHash.progressBar.PerformStep()
-       $syncHash.progress.Items.Add("Disabling start menu suggestions...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "SystemPaneSuggestionsEnabled" -Type DWord -Value 0
-       Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "SilentInstalledAppsEnabled" -Type DWord -Value 0
-			 $syncHash.progressBar.PerformStep()
-       $syncHash.progress.Items.Add("Disabling location tracking...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sensor\Overrides\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}" -Name "SensorPermissionState" -Type DWord -Value 0
-       Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\lfsvc\Service\Configuration" -Name "Status" -Type DWord -Value 0
-			 $syncHash.progressBar.PerformStep()
-       $syncHash.progress.Items.Add("Disabling advertising ID...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       If (!(Test-Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo")) {
-         New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo" | Out-Null
-       }
-       Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo" -Name "Enabled" -Type DWord -Value 0
-			 $syncHash.progressBar.PerformStep()
-       $syncHash.progress.Items.Add("Disabling People icon...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People"
-       Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" -Name "PeopleBand" -Type DWord -Value 0
-			 $syncHash.progressBar.PerformStep()
-       $syncHash.progress.Items.Add("Hiding recently used files and folders in File Explorer...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowRecent" -Type DWord -Value 0
-       Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowFrequent" -Type DWord -Value 0
-			 $syncHash.progressBar.PerformStep()
-       $syncHash.progress.Items.Add("Disabling Action Centre...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       New-Item -Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer"
-       Set-ItemProperty -Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer" -Name "DisableNotificationCenter" -Type DWord -Value 1
-       Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\PushNotifications" -Name "ToastEnabled" -Type DWord -Value 0
-			 $syncHash.progressBar.PerformStep()
-       $syncHash.progress.Items.Add("Disabling standby and monitor timeout when plugged in...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       powercfg -change -standby-timeout-ac 0
-       powercfg -change -monitor-timeout-ac 0
-			 $syncHash.progressBar.PerformStep()
-       $syncHash.progress.Items.Add("Removing Microsoft Edge icon from the Desktop...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       Remove-Item "$Home\Desktop\Microsoft Edge.lnk" -Force
-			 $syncHash.progressBar.PerformStep()
-       if ($syncHash.pin.Checked)	{
-         $syncHash.progress.Items.Add("Setting taskbar icons...")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-         Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
-         if ($syncHash.internetProtocol -like '*212.159.116.68*') {
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\swriter.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
-					 $syncHash.progressBar.PerformStep()
-           $syncHash.progress.Items.Add("Disabling Cortana search bar...")
-           $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-           $syncHash.progress.SelectedIndex = -1;
-           Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0
-					 $syncHash.progressBar.PerformStep()
-           }
-         if ($syncHash.internetProtocol -like '*82.0.43.224*') {
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.exe"
-           Start-Sleep -s 2
-           & "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
-					 $syncHash.progressBar.PerformStep()
-           }
-         }
-       $syncHash.progress.Items.Add("Disabling task view icon...")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Type DWord -Value 0
-			 $syncHash.progressBar.PerformStep()
-       if ($syncHash.wallpaper.Checked)	{
-         $syncHash.progress.Items.Add("Set wallpapers is selected."  )
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-         $syncHash.progress.Items.Add("Setting wallpapers...")
-         $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-         $syncHash.progress.SelectedIndex = -1;
-				 Invoke-RestMethod -Uri $syncHash.wallpapersURL -OutFile $syncHash.wallpapersPath
-				 Remove-Item "C:\Computer Repair Centre\Wallpapers" -Recurse -Force
-         & 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
-         & 'C:\Computer Repair Centre\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10.theme"
-         Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value 0
-				 $syncHash.progressBar.PerformStep()
-         }
-       $syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
-       $syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-       $syncHash.progress.SelectedIndex = -1;
-       }
-})
-$psCmd.Runspace = $processRunspace
-$data = $psCmd.BeginInvoke()
+		$processRunspace = [runspacefactory]::CreateRunspace()
+		$processRunspace.ApartmentState = "STA"
+		$processRunspace.ThreadOptions = "ReuseThread"
+		$processRunspace.Open()
+		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
+		$psCmd = [powershell]::Create().AddScript({
+				$syncHash.progress.Items.Add("Copyright (c) Charlie Howard 2016-2019 All rights reserved.")
+				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+				$syncHash.progress.SelectedIndex = -1;
+				$syncHash.progressBar.Maximum = 1
+				if ($syncHash.crc.Checked) { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.mozillaFirefox.Checked) { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.mozillaThunderbird.Checked) { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.googleChrome.Checked) { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.kaspersky.Checked) { $syncHash.progressBar.Maximum += 2 }
+				if ($syncHash.vlc.Checked) { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.libreOffice.Checked) { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.skype.Checked) { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.teamViewer.Checked) { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.iTunes.Checked) { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.wallpaper.Checked) { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.pin.Checked) { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.uBlockOrigin.Checked) {
+					if ($syncHash.googleChrome.Checked) { $syncHash.progressBar.Maximum += 1 }
+					if ($syncHash.mozillaFirefox.Checked) { $syncHash.progressBar.Maximum += 1 }
+				}
+				if ($syncHash.operatingSystem -like '*6.1*') { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.operatingSystem -like '*6.2*') { $syncHash.progressBar.Maximum += 2 }
+				if ($syncHash.operatingSystem -like '*6.3*') { $syncHash.progressBar.Maximum += 2 }
+				if ($syncHash.operatingSystem -like '*10.0*') {
+					$syncHash.progressBar.Maximum += 14
+					if ($syncHash.pin.Checked) {
+						if ($syncHash.internetProtocol -like '*212.159.116.68*') { $syncHash.progressBar.Maximum += 1 }
+					}
+				}
+				$syncHash.progressBar.Refresh()
+				if ($syncHash.crc.Checked) {
+					$syncHash.progress.Items.Add("Computer Repair Centre OEM information is selected.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Installing Computer Repair Centre OEM information...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					if ($syncHash.internetProtocol -like '*212.159.116.68*') {
+						$syncHash.progress.Items.Add("Installer being run from Romsey.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name Logo -Value "C:\Computer Repair Centre\computerRepairCentreOEM.bmp"
+						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name Manufacturer -Value "Computer Repair Centre"
+						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportHours -Value "Mon-Sat 9:15am-5pm - Wed 9:15am-4pm"
+						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportPhone -Value "01794 517142"
+						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportURL -Value "https://www.firstforitrepairs.co.uk"
+					}
+					elseif ($syncHash.internetProtocol -like '*82.0.43.224*') {
+						$syncHash.progress.Items.Add("Installer being run from Chandlers Ford.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name Logo -Value "C:\Computer Repair Centre\computerRepairCentreOEM.bmp"
+						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name Manufacturer -Value "Computer Repair Centre"
+						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportHours -Value "Mon-Fri 9am-5pm - Sat 9am-4pm"
+						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportPhone -Value "08712 244129"
+						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportURL -Value "https://www.brmcomputers.co.uk"
+					}
+					$syncHash.progress.Items.Add("Completed installation of Computer Repair Centre OEM information.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progressBar.PerformStep()
+				}
+				$syncHash.progress.Items.Add("Installing all requisites...")
+				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+				$syncHash.progress.SelectedIndex = -1;
+				Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+				choco install dotnet4.5 -y
+				choco install dotnet4.6.1 -y
+				choco install powershell -y
+				choco install 7zip.install -y --ignore-checksum
+				$syncHash.progress.Items.Add("Completed installation of all requisites...")
+				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+				$syncHash.progress.SelectedIndex = -1;
+				$syncHash.progressBar.PerformStep()
+				if ($syncHash.googleChrome.Checked) {
+					$syncHash.progress.Items.Add("Google Chrome is selected.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Installing Google Chrome...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					choco install googlechrome -y --ignore-checksum
+					$programList = choco list --localonly
+					if ($programList -like '*GoogleChrome*') {
+						$syncHash.progress.Items.Add("Completed installation of Google Chrome.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+					else {
+						$syncHash.progress.Items.Add("The installation of Google Chrome has failed.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+				}
+				if ($syncHash.iTunes.Checked) {
+					$syncHash.progress.Items.Add("iTunes is selected.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Installing iTunes...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					choco install itunes -y --ignore-checksum
+					$programList = choco list --localonly
+					if ($programList -like '*iTunes*') {
+						$syncHash.progress.Items.Add("Completed installation of iTunes.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+					else {
+						$syncHash.progress.Items.Add("The installation of iTunes has failed.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+				}
+				if ($syncHash.kaspersky.Checked) {
+					$syncHash.progress.Items.Add("Kaspersky Internet Security 2019 is selected.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Installing Kaspersky Internet Security 2019...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					choco install kis -y --ignore-checksum
+					$programList = choco list --localonly
+					$syncHash.progress.Items.Add("Removing Safe Money icon from Desktop...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Remove-Item "C:\Users\Public\Desktop\Safe Money.lnk"
+					if ($programList -like '*kis*') {
+						$syncHash.progress.Items.Add("Completed installation of Kaspersky Internet Security 2019.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+						$syncHash.progress.Items.Add("Uninstalling Kaspersky Secure Connection...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$kasperskySecureConnection = Get-ChildItem "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall" | ForEach-Object { Get-ItemProperty $_.PSPath } | Where-Object { $_ -match "Kaspersky Secure Connection" } | Select-Object UninstallString
+						$kasperskySecureConnection = $kasperskySecureConnection.UninstallString -replace "msiexec.exe","" -replace "/I","" -replace "/X",""
+						$kasperskySecureConnection = $kasperskySecureConnection.Trim()
+						$kasperskySecureConnection = $kasperskySecureConnection | Select-Object -Skip 1
+						cmd /c "C:\Windows\SysWOW64\msiexec.exe /i$kasperskySecureConnection REMOVE=ALL /passive"
+						$syncHash.progress.Items.Add("Completed uninstallation of Kaspersky Secure Connection.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+					else {
+						$syncHash.progress.Items.Add("The installation of Kaspersky Internet Security 2019 has failed.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+						$syncHash.progressBar.PerformStep()
+					}
+				}
+				if ($syncHash.libreOffice.Checked) {
+					$syncHash.progress.Items.Add("LibreOffice is selected.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Installing LibreOffice...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					choco install libreoffice -y --ignore-checksum
+					$programList = choco list --localonly
+					if ($programList -like '*libreoffice*') {
+						$syncHash.progress.Items.Add("Completed installation of LibreOffice.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+					else {
+						$syncHash.progress.Items.Add("The installation of LibreOffice has failed.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+				}
+				if ($syncHash.mozillaFirefox.Checked) {
+					$syncHash.progress.Items.Add("Mozilla Firefox is selected.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Installing Mozilla Firefox...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					choco install firefox -y --ignore-checksum
+					$programList = choco list --localonly
+					if ($programList -like '*Firefox*') {
+						$syncHash.progress.Items.Add("Completed installation of Mozilla Firefox.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+					else {
+						$syncHash.progress.Items.Add("The installation of Mozilla Firefox has failed.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+				}
+				if ($syncHash.mozillaThunderbird.Checked) {
+					$syncHash.progress.Items.Add("Mozilla Thunderbird is selected.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Installing Mozilla Thunderbird...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					choco install thunderbird -y --ignore-checksum
+					$programList = choco list --localonly
+					if ($programList -like '*thunderbird*') {
+						$syncHash.progress.Items.Add("Completed installation of Mozilla Thunderbird.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+					else {
+						$syncHash.progress.Items.Add("The installation of Mozilla Thunderbird has failed.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+				}
+				if ($syncHash.skype.Checked) {
+					$syncHash.progress.Items.Add("Skype is selected.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Installing Skype...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					choco install skype -y --ignore-checksum
+					$programList = choco list --localonly
+					if ($programList -like '*skype*') {
+						$syncHash.progress.Items.Add("Completed installation of Skype.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+					else {
+						$syncHash.progress.Items.Add("The installation of Skype has failed.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+				}
+				if ($syncHash.teamViewer.Checked) {
+					$syncHash.progress.Items.Add("TeamViewer is selected.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Installing TeamViewer...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					choco install teamviewer -y --ignore-checksum
+					$programList = choco list --localonly
+					if ($programList -like '*teamviewer*') {
+						$syncHash.progress.Items.Add("Completed installation of TeamViewer.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+					else {
+						$syncHash.progress.Items.Add("The installation of TeamViewer has failed.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+				}
+				if ($syncHash.uBlockOrigin.Checked) {
+					$syncHash.progress.Items.Add("uBlockOrigin is selected.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					if ($syncHash.googleChrome.Checked) {
+						$syncHash.progress.Items.Add("Installing uBlockOrigin on Google Chrome...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Import-Module C:\Computer Repair Centre\chromeExtension.ps1
+						New-ChromeExtension -ExtensionID 'cjpalhdlnbpafiamejdnhcphjbkeiagm' -Mode Machine
+						$syncHash.progress.Items.Add("The installation of uBlockOrigin on Google Chrome has completed.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+					if ($syncHash.mozillaFirefox.Checked) {
+						$syncHash.progress.Items.Add("Installing uBlockOrigin on Mozilla Firefox...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						New-Item -ItemType directory -Path "C:\Program Files\Mozilla Firefox\defaults\pref" -Force
+						Copy-Item "C:\Computer Repair Centre\mozilla.cfg" -Destination "C:\Program Files\Mozilla Firefox" -Force
+						Copy-Item "C:\Computer Repair Centre\local-settings.js" -Destination "C:\Program Files\Mozilla Firefox\defaults\pref" -Force
+						Import-Module C:\Computer Repair Centre\firefoxExtension.ps1
+						$firefoxParams = @{
+							'ExtensionUri' = 'https://addons.mozilla.org/firefox/downloads/file/985780/ublock_origin-1.16.10-an+fx.xpi?src=dp-btn-primary'
+							'ExtensionPath' = 'C:\Computer Repair Centre'
+							'Hive' = 'HKLM'
+						}
+						New-FirefoxExtension @firefoxParams
+						$syncHash.progress.Items.Add("The installation of uBlockOrigin on Mozilla Firefox has completed.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+				}
+				if ($syncHash.vlc.Checked) {
+					$syncHash.progress.Items.Add("VLC Media Player is selected.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Installing VLC Media Player...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					choco install vlc -y --ignore-checksum
+					$programList = choco list --localonly
+					if ($programList -like '*vlc*') {
+						$syncHash.progress.Items.Add("Completed installation of VLC Media Player.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+					else {
+						$syncHash.progress.Items.Add("The installation of VLC Media Player has failed.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+				}
+				if ($syncHash.operatingSystem -like '*6.1*') {
+					$syncHash.progress.Items.Add("This computer is running Windows 7.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					if ($syncHash.pin.Checked) {
+						$syncHash.progress.Items.Add("Setting taskbar icons...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
+						if ($syncHash.internetProtocol -like '*212.159.116.68*') {
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files\Mozilla Firefox\firefox.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files\LibreOffice\program\swriter.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files\LibreOffice\program\scalc.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Windows\explorer.exe"
+							$syncHash.progressBar.PerformStep()
+						}
+						if ($syncHash.internetProtocol -like '*82.0.43.224*') {
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files\Mozilla Firefox\firefox.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files (x86)\Microsoft Office\Office12\WORD.EXE"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.EXE"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Windows\explorer.exe"
+							$syncHash.progressBar.PerformStep()
+						}
+					}
+					if ($syncHash.wallpaper.Checked) {
+						$syncHash.progress.Items.Add("Set wallpapers is selected.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progress.Items.Add("Setting wallpapers...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Invoke-RestMethod -Uri $syncHash.wallpapersURL -OutFile $syncHash.wallpapersPath
+						Remove-Item "C:\Computer Repair Centre\Wallpapers" -Recurse -Force
+						& 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
+						& 'C:\Computer Repair Centre\themeSwitcher7.exe' "C:\Computer Repair Centre\computerRepairCentre7.theme"
+						$syncHash.progressBar.PerformStep()
+					}
+					$syncHash.progress.Items.Add("Disabling standby and monitor timeout when plugged in...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					powercfg -change -standby-timeout-ac 0
+					powercfg -change -monitor-timeout-ac 0
+					$syncHash.progressBar.PerformStep()
+					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+				}
+				if ($syncHash.operatingSystem -like '*6.2*') {
+					$syncHash.progress.Items.Add("This computer is running Windows 8.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Setting explorer to open to This PC...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progressBar.PerformStep()
+					Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name LaunchTo -Value 1
+					$syncHash.progress.Items.Add("Disabling standby and monitor timeout when plugged in...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					powercfg -change -standby-timeout-ac 0
+					powercfg -change -monitor-timeout-ac 0
+					$syncHash.progressBar.PerformStep()
+					if ($syncHash.pin.Checked) {
+						$syncHash.progress.Items.Add("Setting taskbar icons...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
+						if ($syncHash.internetProtocol -like '*212.159.116.68*') {
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\swriter.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
+							$syncHash.progressBar.PerformStep()
+						}
+						if ($syncHash.internetProtocol -like '*82.0.43.224*') {
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
+							$syncHash.progressBar.PerformStep()
+						}
+					}
+					if ($syncHash.wallpaper.Checked) {
+						$syncHash.progress.Items.Add("Set wallpapers is selected.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progress.Items.Add("Setting wallpapers...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Invoke-RestMethod -Uri $syncHash.wallpapersURL -OutFile $syncHash.wallpapersPath
+						Remove-Item "C:\Computer Repair Centre\Wallpapers" -Recurse -Force
+						& 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
+						& 'C:\Computer Repair Centre\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10.theme"
+						$syncHash.progressBar.PerformStep()
+					}
+					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+				}
+				if ($syncHash.operatingSystem -like '*6.3*') {
+					$syncHash.progress.Items.Add("This computer is running Windows 8.1.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Setting explorer to open to This PC...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progressBar.PerformStep()
+					Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name LaunchTo -Value 1
+					$syncHash.progress.Items.Add("Disabling standby and monitor timeout when plugged in...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					powercfg -change -standby-timeout-ac 0
+					powercfg -change -monitor-timeout-ac 0
+					$syncHash.progressBar.PerformStep()
+					if ($syncHash.pin.Checked) {
+						$syncHash.progress.Items.Add("Setting taskbar icons...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
+						if ($syncHash.internetProtocol -like '*212.159.116.68*') {
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\swriter.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
+							$syncHash.progressBar.PerformStep()
+						}
+						if ($syncHash.internetProtocol -like '*82.0.43.224*') {
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
+							$syncHash.progressBar.PerformStep()
+						}
+					}
+					if ($syncHash.wallpaper.Checked) {
+						$syncHash.progress.Items.Add("Set wallpapers is selected.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progress.Items.Add("Setting wallpapers...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Invoke-RestMethod -Uri $syncHash.wallpapersURL -OutFile $syncHash.wallpapersPath
+						Remove-Item "C:\Computer Repair Centre\Wallpapers" -Recurse -Force
+						& 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
+						& 'C:\Computer Repair Centre\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10.theme"
+						$syncHash.progressBar.PerformStep()
+					}
+					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+				}
+				if ($syncHash.operatingSystem -like '*10.0*') {
+					$syncHash.progress.Items.Add("This computer is running Windows 10.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Setting explorer to open to This PC...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name LaunchTo -Value 1
+					$syncHash.progressBar.PerformStep()
+					$syncHash.progress.Items.Add("Disabling fastboot mode...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -Name HiberbootEnabled -Value 0
+					$syncHash.progressBar.PerformStep()
+					$syncHash.progress.Items.Add("Disabling Wi-Fi Sense...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					New-Item -Path HKLM:\Software\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting -Force
+					Set-ItemProperty -Path "HKLM:\Software\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting" -Name "Value" -Type DWord -Value 0
+					Set-ItemProperty -Path "HKLM:\Software\Microsoft\PolicyManager\default\WiFi\AllowAutoConnectToWiFiSenseHotspots" -Name "Value" -Type DWord -Value 0
+					$syncHash.progressBar.PerformStep()
+					$syncHash.progress.Items.Add("Disabling telemetry...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
+					Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
+					Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
+					$syncHash.progressBar.PerformStep()
+					$syncHash.progress.Items.Add("Disabling Bing Search in start menu...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "BingSearchEnabled" -Type DWord -Value 0
+					if (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
+						New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
+					}
+					Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "DisableWebSearch" -Type DWord -Value 1
+					$syncHash.progressBar.PerformStep()
+					$syncHash.progress.Items.Add("Disabling start menu suggestions...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "SystemPaneSuggestionsEnabled" -Type DWord -Value 0
+					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "SilentInstalledAppsEnabled" -Type DWord -Value 0
+					$syncHash.progressBar.PerformStep()
+					$syncHash.progress.Items.Add("Disabling location tracking...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sensor\Overrides\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}" -Name "SensorPermissionState" -Type DWord -Value 0
+					Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\lfsvc\Service\Configuration" -Name "Status" -Type DWord -Value 0
+					$syncHash.progressBar.PerformStep()
+					$syncHash.progress.Items.Add("Disabling advertising ID...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					if (!(Test-Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo")) {
+						New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo" | Out-Null
+					}
+					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo" -Name "Enabled" -Type DWord -Value 0
+					$syncHash.progressBar.PerformStep()
+					$syncHash.progress.Items.Add("Disabling People icon...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People"
+					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" -Name "PeopleBand" -Type DWord -Value 0
+					$syncHash.progressBar.PerformStep()
+					$syncHash.progress.Items.Add("Hiding recently used files and folders in File Explorer...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowRecent" -Type DWord -Value 0
+					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowFrequent" -Type DWord -Value 0
+					$syncHash.progressBar.PerformStep()
+					$syncHash.progress.Items.Add("Disabling Action Centre...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					New-Item -Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer"
+					Set-ItemProperty -Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer" -Name "DisableNotificationCenter" -Type DWord -Value 1
+					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\PushNotifications" -Name "ToastEnabled" -Type DWord -Value 0
+					$syncHash.progressBar.PerformStep()
+					$syncHash.progress.Items.Add("Disabling standby and monitor timeout when plugged in...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					powercfg -change -standby-timeout-ac 0
+					powercfg -change -monitor-timeout-ac 0
+					$syncHash.progressBar.PerformStep()
+					$syncHash.progress.Items.Add("Removing Microsoft Edge icon from the Desktop...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Remove-Item "$Home\Desktop\Microsoft Edge.lnk" -Force
+					$syncHash.progressBar.PerformStep()
+					if ($syncHash.pin.Checked) {
+						$syncHash.progress.Items.Add("Setting taskbar icons...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
+						if ($syncHash.internetProtocol -like '*212.159.116.68*') {
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\swriter.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
+							$syncHash.progressBar.PerformStep()
+							$syncHash.progress.Items.Add("Disabling Cortana search bar...")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0
+							$syncHash.progressBar.PerformStep()
+						}
+						if ($syncHash.internetProtocol -like '*82.0.43.224*') {
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.exe"
+							Start-Sleep -s 2
+							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
+							$syncHash.progressBar.PerformStep()
+						}
+					}
+					$syncHash.progress.Items.Add("Disabling task view icon...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Type DWord -Value 0
+					$syncHash.progressBar.PerformStep()
+					if ($syncHash.wallpaper.Checked) {
+						$syncHash.progress.Items.Add("Set wallpapers is selected.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progress.Items.Add("Setting wallpapers...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Invoke-RestMethod -Uri $syncHash.wallpapersURL -OutFile $syncHash.wallpapersPath
+						Remove-Item "C:\Computer Repair Centre\Wallpapers" -Recurse -Force
+						& 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
+						& 'C:\Computer Repair Centre\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10.theme"
+						Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value 0
+						$syncHash.progressBar.PerformStep()
+					}
+					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+				}
+			})
+		$psCmd.Runspace = $processRunspace
+		$data = $psCmd.BeginInvoke()
 	}
-	$handler_reboot_Click=
+	$handler_reboot_Click =
 	{
 		Restart-Computer -Force
 	}
-	$OnLoadForm_StateCorrection=
+	$OnLoadForm_StateCorrection =
 	{
-	    $northPoint.WindowState = $InitialFormWindowState
+		$northPoint.WindowState = $InitialFormWindowState
 	}
 
 
-## -- NorthPoint Installer
+	## -- NorthPoint Installer
 
 	$northPoint.Text = "Computer Repair Centre Installer 3.1.0.0"
 	$northPoint.Name = "form1"
@@ -833,7 +831,7 @@ $data = $psCmd.BeginInvoke()
 	$northPoint.Icon = "C:\Computer Repair Centre\computerRepairCentreIcon.ico"
 
 
-## -- Install button
+	## -- Install button
 
 	$install.TabIndex = 4
 	$install.Name = "install"
@@ -852,7 +850,7 @@ $data = $psCmd.BeginInvoke()
 	$northPoint.Controls.Add($install)
 
 
-## -- Reboot button
+	## -- Reboot button
 
 	$reboot.TabIndex = 4
 	$reboot.Name = "reboot"
@@ -871,27 +869,27 @@ $data = $psCmd.BeginInvoke()
 	$northPoint.Controls.Add($reboot)
 
 
-## -- Progress bar
+	## -- Progress bar
 
-  $progressBar.DataBindings.DefaultDataSourceUpdateMode = 0
-  $System_Drawing_Point = New-Object System.Drawing.Point
-  $System_Drawing_Point.X = 170
-  $System_Drawing_Point.Y = 43
-  $progressBar.Location = $System_Drawing_Point
-  $progressBar.Name = "progressBar"
-  $System_Drawing_Size = New-Object System.Drawing.Size
-  $System_Drawing_Size.Height = 15
-  $System_Drawing_Size.Width = 365
-  $progressBar.Size = $System_Drawing_Size
-  $progressBar.TabIndex = 3
-  $progressBar.Minimum = 0
-  $progressBar.Step = 1
-  $progressBar.Value = 0
+	$progressBar.DataBindings.DefaultDataSourceUpdateMode = 0
+	$System_Drawing_Point = New-Object System.Drawing.Point
+	$System_Drawing_Point.X = 170
+	$System_Drawing_Point.Y = 43
+	$progressBar.Location = $System_Drawing_Point
+	$progressBar.Name = "progressBar"
+	$System_Drawing_Size = New-Object System.Drawing.Size
+	$System_Drawing_Size.Height = 15
+	$System_Drawing_Size.Width = 365
+	$progressBar.Size = $System_Drawing_Size
+	$progressBar.TabIndex = 3
+	$progressBar.Minimum = 0
+	$progressBar.Step = 1
+	$progressBar.Value = 0
 	$progressBar.Style = "Continuous"
-  $northPoint.Controls.Add($progressBar)
+	$northPoint.Controls.Add($progressBar)
 
 
-## -- Progress box
+	## -- Progress box
 
 	$progress.FormattingEnabled = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -908,7 +906,7 @@ $data = $psCmd.BeginInvoke()
 	$northPoint.Controls.Add($progress)
 
 
-## -- Computer Repair Centre OEM Information
+	## -- Computer Repair Centre OEM Information
 
 
 	$crc.UseVisualStyleBackColor = $True
@@ -918,8 +916,8 @@ $data = $psCmd.BeginInvoke()
 	$crc.Size = $System_Drawing_Size
 	$crc.TabIndex = 0
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16+(45*0)
-	$System_Drawing_Point.Y = 5+(31*1)
+	$System_Drawing_Point.X = 16 + (45 * 0)
+	$System_Drawing_Point.Y = 5 + (31 * 1)
 	$crc.Location = $System_Drawing_Point
 	$crc.DataBindings.DefaultDataSourceUpdateMode = 0
 	$crc.Name = "crc"
@@ -928,7 +926,7 @@ $data = $psCmd.BeginInvoke()
 	$northPoint.Controls.Add($crc)
 
 
-## -- Pin
+	## -- Pin
 
 
 	$pin.UseVisualStyleBackColor = $True
@@ -938,8 +936,8 @@ $data = $psCmd.BeginInvoke()
 	$pin.Size = $System_Drawing_Size
 	$pin.TabIndex = 4
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16+(45*0)
-	$System_Drawing_Point.Y = 5+(31*2)
+	$System_Drawing_Point.X = 16 + (45 * 0)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
 	$pin.Location = $System_Drawing_Point
 	$pin.DataBindings.DefaultDataSourceUpdateMode = 0
 	$pin.Name = "pin"
@@ -948,7 +946,7 @@ $data = $psCmd.BeginInvoke()
 	$northPoint.Controls.Add($pin)
 
 
-## -- Wallpaper
+	## -- Wallpaper
 
 
 	$wallpaper.UseVisualStyleBackColor = $True
@@ -958,8 +956,8 @@ $data = $psCmd.BeginInvoke()
 	$wallpaper.Size = $System_Drawing_Size
 	$wallpaper.TabIndex = 4
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16+(45*0)
-	$System_Drawing_Point.Y = 5+(31*3)
+	$System_Drawing_Point.X = 16 + (45 * 0)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$wallpaper.Location = $System_Drawing_Point
 	$wallpaper.DataBindings.DefaultDataSourceUpdateMode = 0
 	$wallpaper.Name = "vlc"
@@ -968,7 +966,7 @@ $data = $psCmd.BeginInvoke()
 	$northPoint.Controls.Add($wallpaper)
 
 
-## -- Google Chrome
+	## -- Google Chrome
 
 	$googleChrome.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -977,8 +975,8 @@ $data = $psCmd.BeginInvoke()
 	$googleChrome.Size = $System_Drawing_Size
 	$googleChrome.TabIndex = 2
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16+(45*0)
-	$System_Drawing_Point.Y = 5+(31*4)
+	$System_Drawing_Point.X = 16 + (45 * 0)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
 	$googleChrome.Location = $System_Drawing_Point
 	$googleChrome.DataBindings.DefaultDataSourceUpdateMode = 0
 	$googleChrome.Name = "googleChrome"
@@ -986,7 +984,7 @@ $data = $psCmd.BeginInvoke()
 	$googleChrome.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\googleChrome.ico")
 	$northPoint.Controls.Add($googleChrome)
 
-## -- iTunes
+	## -- iTunes
 
 
 	$iTunes.UseVisualStyleBackColor = $True
@@ -996,8 +994,8 @@ $data = $psCmd.BeginInvoke()
 	$iTunes.Size = $System_Drawing_Size
 	$iTunes.TabIndex = 2
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16+(45*0)
-	$System_Drawing_Point.Y = 5+(31*5)
+	$System_Drawing_Point.X = 16 + (45 * 0)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
 	$iTunes.Location = $System_Drawing_Point
 	$iTunes.DataBindings.DefaultDataSourceUpdateMode = 0
 	$iTunes.Name = "iTunes"
@@ -1006,7 +1004,7 @@ $data = $psCmd.BeginInvoke()
 	$northPoint.Controls.Add($iTunes)
 
 
-## -- Kaspersky Internet Security
+	## -- Kaspersky Internet Security
 
 	$kaspersky.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1015,8 +1013,8 @@ $data = $psCmd.BeginInvoke()
 	$kaspersky.Size = $System_Drawing_Size
 	$kaspersky.TabIndex = 3
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16+(45*0)
-	$System_Drawing_Point.Y = 5+(31*6)
+	$System_Drawing_Point.X = 16 + (45 * 0)
+	$System_Drawing_Point.Y = 5 + (31 * 6)
 	$kaspersky.Location = $System_Drawing_Point
 	$kaspersky.DataBindings.DefaultDataSourceUpdateMode = 0
 	$kaspersky.Name = "kaspersky"
@@ -1025,7 +1023,7 @@ $data = $psCmd.BeginInvoke()
 	$northPoint.Controls.Add($kaspersky)
 
 
-## -- LibreOffice
+	## -- LibreOffice
 
 	$libreOffice.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1034,8 +1032,8 @@ $data = $psCmd.BeginInvoke()
 	$libreOffice.Size = $System_Drawing_Size
 	$libreOffice.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16+(45*1)
-	$System_Drawing_Point.Y = 5+(31*1)
+	$System_Drawing_Point.X = 16 + (45 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 1)
 	$libreOffice.Location = $System_Drawing_Point
 	$libreOffice.DataBindings.DefaultDataSourceUpdateMode = 0
 	$libreOffice.Name = "libreOffice"
@@ -1044,7 +1042,7 @@ $data = $psCmd.BeginInvoke()
 	$northPoint.Controls.Add($libreOffice)
 
 
-## -- Mozilla Firefox
+	## -- Mozilla Firefox
 
 	$mozillaFirefox.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1053,8 +1051,8 @@ $data = $psCmd.BeginInvoke()
 	$mozillaFirefox.Size = $System_Drawing_Size
 	$mozillaFirefox.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16+(45*1)
-	$System_Drawing_Point.Y = 5+(31*2)
+	$System_Drawing_Point.X = 16 + (45 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
 	$mozillaFirefox.Location = $System_Drawing_Point
 	$mozillaFirefox.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaFirefox.Name = "mozillaFirefox"
@@ -1063,7 +1061,7 @@ $data = $psCmd.BeginInvoke()
 	$northPoint.Controls.Add($mozillaFirefox)
 
 
-## -- Mozilla Thunderbird
+	## -- Mozilla Thunderbird
 
 	$mozillaThunderbird.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1072,8 +1070,8 @@ $data = $psCmd.BeginInvoke()
 	$mozillaThunderbird.Size = $System_Drawing_Size
 	$mozillaThunderbird.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16+(45*1)
-	$System_Drawing_Point.Y = 5+(31*3)
+	$System_Drawing_Point.X = 16 + (45 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$mozillaThunderbird.Location = $System_Drawing_Point
 	$mozillaThunderbird.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaThunderbird.Name = "mozillaThunderbird"
@@ -1082,7 +1080,7 @@ $data = $psCmd.BeginInvoke()
 	$northPoint.Controls.Add($mozillaThunderbird)
 
 
-## -- Skype
+	## -- Skype
 
 	$skype.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1091,8 +1089,8 @@ $data = $psCmd.BeginInvoke()
 	$skype.Size = $System_Drawing_Size
 	$skype.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16+(45*1)
-	$System_Drawing_Point.Y = 5+(31*4)
+	$System_Drawing_Point.X = 16 + (45 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
 	$skype.Location = $System_Drawing_Point
 	$skype.DataBindings.DefaultDataSourceUpdateMode = 0
 	$skype.Name = "skype"
@@ -1101,7 +1099,7 @@ $data = $psCmd.BeginInvoke()
 	$northPoint.Controls.Add($skype)
 
 
-## -- TeamViewer
+	## -- TeamViewer
 
 	$teamViewer.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1110,8 +1108,8 @@ $data = $psCmd.BeginInvoke()
 	$teamViewer.Size = $System_Drawing_Size
 	$teamViewer.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16+(45*1)
-	$System_Drawing_Point.Y = 5+(31*5)
+	$System_Drawing_Point.X = 16 + (45 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
 	$teamViewer.Location = $System_Drawing_Point
 	$teamViewer.DataBindings.DefaultDataSourceUpdateMode = 0
 	$teamViewer.Name = "teamViewer"
@@ -1120,7 +1118,7 @@ $data = $psCmd.BeginInvoke()
 	$northPoint.Controls.Add($teamViewer)
 
 
-## -- uBlock Origin
+	## -- uBlock Origin
 
 	$uBlockOrigin.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1129,8 +1127,8 @@ $data = $psCmd.BeginInvoke()
 	$uBlockOrigin.Size = $System_Drawing_Size
 	$uBlockOrigin.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16+(45*1)
-	$System_Drawing_Point.Y = 5+(31*6)
+	$System_Drawing_Point.X = 16 + (45 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 6)
 	$uBlockOrigin.Location = $System_Drawing_Point
 	$uBlockOrigin.DataBindings.DefaultDataSourceUpdateMode = 0
 	$uBlockOrigin.Name = "uBlockOrigin"
@@ -1139,7 +1137,7 @@ $data = $psCmd.BeginInvoke()
 	$northPoint.Controls.Add($uBlockOrigin)
 
 
-## -- VLC Media Player
+	## -- VLC Media Player
 
 	$vlc.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1148,8 +1146,8 @@ $data = $psCmd.BeginInvoke()
 	$vlc.Size = $System_Drawing_Size
 	$vlc.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16+(45*2)
-	$System_Drawing_Point.Y = 5+(31*1)
+	$System_Drawing_Point.X = 16 + (45 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 1)
 	$vlc.Location = $System_Drawing_Point
 	$vlc.DataBindings.DefaultDataSourceUpdateMode = 0
 	$vlc.Name = "vlc"
@@ -1158,11 +1156,11 @@ $data = $psCmd.BeginInvoke()
 	$northPoint.Controls.Add($vlc)
 
 
-## -- Form
+	## -- Form
 
 	$InitialFormWindowState = $northPoint.WindowState
 	$northPoint.add_Load($OnLoadForm_StateCorrection)
 	$northPoint.ShowDialog()
 	$northPoint.Focus()
-	}
+}
 northPointInstaller
