@@ -1,4 +1,4 @@
-# NorthPoint Installer 3.2.0.3
+# NorthPoint Installer 3.2.2.0
 ###### Copyright (c) Charlie Howard 2016-2019 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -13,7 +13,11 @@ Changes wallpaper to a selection of HD landscape images.
 
 ### Changelog
 
-###### Update 3.2.0.3
+###### Update 3.2.2.0
+
+Birthday feature now says the name of whose birthday it is. Added close button.
+
+###### Update 3.2.1.0
 
 Added birthday easter egg.
 

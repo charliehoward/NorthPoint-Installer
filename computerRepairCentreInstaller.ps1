@@ -201,9 +201,10 @@ function northPointInstaller {
 	[reflection.assembly]::loadwithpartialname("System.Windows.Forms")
 	[reflection.assembly]::loadwithpartialname("System.Drawing")
 	[System.Windows.Forms.Application]::EnableVisualStyles()
-	$northPoint = New-Object System.Windows.Forms.Form
+	$crcInstaller = New-Object System.Windows.Forms.Form
 	$install = New-Object System.Windows.Forms.Button
 	$reboot = New-Object System.Windows.Forms.Button
+	$close = New-Object System.Windows.Forms.Button
 	$progress = New-Object System.Windows.Forms.ListBox
 	$progressBar = New-Object System.Windows.Forms.ProgressBar
 	$crc = New-Object System.Windows.Forms.CheckBox
@@ -221,6 +222,7 @@ function northPointInstaller {
 	$pin = New-Object System.Windows.Forms.CheckBox
 	$InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState
 	$syncHash = [hashtable]::Synchronized(@{})
+	$syncHash.crcInstaller = $crcInstaller
 	$syncHash.progressBar = $progressBar
 	$syncHash.progress = $progress
 	$syncHash.crc = $crc
@@ -250,10 +252,35 @@ function northPointInstaller {
 	$adam = Get-Date -Day 09 -Month 06
 	$steve = Get-Date -Day 24 -Month 06
 	$josh = Get-Date -Day 22 -Month 10
-	if (($date.Day -eq $charlie.Day -and $date.Month -eq $charlie.Month) -or ($date.Day -eq $dean.Day -and $date.Month -eq $dean.Month) -or ($date.Day -eq $howard.Day -and $date.Month -eq $howard.Month) -or ($date.Day -eq $adam.Day -and $date.Month -eq $adam.Month) -or ($date.Day -eq $steve.Day -and $date.Month -eq $steve.Month) -or ($date.Day -eq $josj.Day -and $date.Month -eq $josh.Month)) {
+	$testing = Get-Date -Day 08 -Month 03
+	if (($date.Day -eq $charlie.Day -and $date.Month -eq $charlie.Month) -or ($date.Day -eq $dean.Day -and $date.Month -eq $dean.Month) -or ($date.Day -eq $howard.Day -and $date.Month -eq $howard.Month) -or ($date.Day -eq $adam.Day -and $date.Month -eq $adam.Month) -or ($date.Day -eq $steve.Day -and $date.Month -eq $steve.Month) -or ($date.Day -eq $josh.Day -and $date.Month -eq $josh.Month) -or ($date.Day -eq $testing.Day -and $date.Month -eq $testing.Month)) {
 		$birthday = "true"
 	}
+	if ($date.Day -eq $charlie.Day -and $date.Month -eq $charlie.Month) {
+		$charlieBirthday = "true"
+	}
+	if ($date.Day -eq $dean.Day -and $date.Month -eq $dean.Month) {
+		$deanBirthday = "true"
+	}
+	if ($date.Day -eq $howard.Day -and $date.Month -eq $howard.Month) {
+		$howardBirthday = "true"
+	}
+	if ($date.Day -eq $adam.Day -and $date.Month -eq $adam.Month) {
+		$adamBirthday = "true"
+	}
+	if ($date.Day -eq $steve.Day -and $date.Month -eq $steve.Month) {
+		$steveBirthday = "true"
+	}
+	if ($date.Day -eq $josh.Day -and $date.Month -eq $josh.Month) {
+		$joshBirthday = "true"
+	}
 	$syncHash.birthday = $birthday
+	$syncHash.charlieBirthday = $charlieBirthday
+	$syncHash.deanBirthday = $deanBirthday
+	$syncHash.howardBirthday = $howardBirthday
+	$syncHash.adamBirthday = $adamBirthday
+	$syncHash.steveBirthday = $steveBirthday
+	$syncHash.joshBirthday = $joshBirthday
 	$b1 = $false
 	$b2 = $false
 	$b3 = $false
@@ -269,7 +296,7 @@ function northPointInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				if ($syncHash.birthday -like '*true*') {
+				if ($syncHash.birthday -eq "true") {
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
@@ -319,6 +346,42 @@ function northPointInstaller {
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					Sleep (1)
+					if ($syncHash.charlieBirthday -eq "true") {
+						$syncHash.progress.Items.Add("                                                        CHARLIE")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Sleep (1)
+					}
+					if ($syncHash.deanBirthday -eq "true") {
+						$syncHash.progress.Items.Add("                                                        DEAN")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Sleep (1)
+					}
+					if ($syncHash.howardBirthday -eq "true") {
+						$syncHash.progress.Items.Add("                                                        HOWARD")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Sleep (1)
+					}
+					if ($syncHash.adamBirthday -eq "true") {
+						$syncHash.progress.Items.Add("                                                        ADAM")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Sleep (1)
+					}
+					if ($syncHash.steveBirthday -eq "true") {
+						$syncHash.progress.Items.Add("                                                        STEVE")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Sleep (1)
+					}
+					if ($syncHash.joshBirthday -eq "true") {
+						$syncHash.progress.Items.Add("                                                        JOSH")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Sleep (1)
+					}
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
@@ -367,6 +430,42 @@ function northPointInstaller {
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					Sleep (1)
+					if ($syncHash.charlieBirthday -eq "true") {
+						$syncHash.progress.Items.Add("                                                        CHARLIE")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Sleep (1)
+					}
+					if ($syncHash.deanBirthday -eq "true") {
+						$syncHash.progress.Items.Add("                                                        DEAN")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Sleep (1)
+					}
+					if ($syncHash.howardBirthday -eq "true") {
+						$syncHash.progress.Items.Add("                                                        HOWARD")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Sleep (1)
+					}
+					if ($syncHash.adamBirthday -eq "true") {
+						$syncHash.progress.Items.Add("                                                        ADAM")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Sleep (1)
+					}
+					if ($syncHash.steveBirthday -eq "true") {
+						$syncHash.progress.Items.Add("                                                        STEVE")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Sleep (1)
+					}
+					if ($syncHash.joshBirthday -eq "true") {
+						$syncHash.progress.Items.Add("                                                        JOSH")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Sleep (1)
+					}
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
@@ -415,6 +514,42 @@ function northPointInstaller {
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					Sleep (1)
+					if ($syncHash.charlieBirthday -eq "true") {
+						$syncHash.progress.Items.Add("                                                        CHARLIE")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Sleep (1)
+					}
+					if ($syncHash.deanBirthday -eq "true") {
+						$syncHash.progress.Items.Add("                                                        DEAN")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Sleep (1)
+					}
+					if ($syncHash.howardBirthday -eq "true") {
+						$syncHash.progress.Items.Add("                                                        HOWARD")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Sleep (1)
+					}
+					if ($syncHash.adamBirthday -eq "true") {
+						$syncHash.progress.Items.Add("                                                        ADAM")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Sleep (1)
+					}
+					if ($syncHash.steveBirthday -eq "true") {
+						$syncHash.progress.Items.Add("                                                        STEVE")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Sleep (1)
+					}
+					if ($syncHash.joshBirthday -eq "true") {
+						$syncHash.progress.Items.Add("                                                        JOSH")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Sleep (1)
+					}
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
@@ -1103,22 +1238,26 @@ function northPointInstaller {
 	{
 		Restart-Computer -Force
 	}
+	$handler_close_Click =
+	{
+		$syncHash.crcInstaller.Close()
+	}
 	$OnLoadForm_StateCorrection =
 	{
-		$northPoint.WindowState = $InitialFormWindowState
+		$crcInstaller.WindowState = $InitialFormWindowState
 	}
 
 
-	## -- NorthPoint Installer
+	## -- Computer Repair Centre Installer
 
-	$northPoint.Text = "Computer Repair Centre Installer 3.2.0.3"
-	$northPoint.Name = "form1"
-	$northPoint.DataBindings.DefaultDataSourceUpdateMode = 0
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.2.2.0"
+	$crcInstaller.Name = "crcInstaller"
+	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 550
 	$System_Drawing_Size.Height = 240
-	$northPoint.ClientSize = $System_Drawing_Size
-	$northPoint.Icon = "C:\Computer Repair Centre\computerRepairCentreIcon.ico"
+	$crcInstaller.ClientSize = $System_Drawing_Size
+	$crcInstaller.Icon = "C:\Computer Repair Centre\computerRepairCentreIcon.ico"
 
 
 	## -- Install button
@@ -1126,7 +1265,7 @@ function northPointInstaller {
 	$install.TabIndex = 4
 	$install.Name = "install"
 	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 256
+	$System_Drawing_Size.Width = 160
 	$System_Drawing_Size.Height = 23
 	$install.Size = $System_Drawing_Size
 	$install.UseVisualStyleBackColor = $True
@@ -1137,7 +1276,7 @@ function northPointInstaller {
 	$install.location = $System_Drawing_Point
 	$install.DataBindings.DefaultDataSourceUpdateMode = 0
 	$install.add_Click($handler_install_Click)
-	$northPoint.Controls.Add($install)
+	$crcInstaller.Controls.Add($install)
 
 
 	## -- Reboot button
@@ -1145,18 +1284,37 @@ function northPointInstaller {
 	$reboot.TabIndex = 4
 	$reboot.Name = "reboot"
 	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 256
+	$System_Drawing_Size.Width = 160
 	$System_Drawing_Size.Height = 23
 	$reboot.Size = $System_Drawing_Size
 	$reboot.UseVisualStyleBackColor = $True
 	$reboot.Text = "Reboot"
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 280
+	$System_Drawing_Point.X = 195
 	$System_Drawing_Point.Y = 13
 	$reboot.location = $System_Drawing_Point
 	$reboot.DataBindings.DefaultDataSourceUpdateMode = 0
 	$reboot.add_Click($handler_reboot_Click)
-	$northPoint.Controls.Add($reboot)
+	$crcInstaller.Controls.Add($reboot)
+
+
+  ## -- Close button
+
+	$close.TabIndex = 4
+	$close.Name = "close"
+	$System_Drawing_Size = New-Object System.Drawing.Size
+	$System_Drawing_Size.Width = 160
+	$System_Drawing_Size.Height = 23
+	$close.Size = $System_Drawing_Size
+	$close.UseVisualStyleBackColor = $True
+	$close.Text = "Close"
+	$System_Drawing_Point = New-Object System.Drawing.Point
+	$System_Drawing_Point.X = 375
+	$System_Drawing_Point.Y = 13
+	$close.location = $System_Drawing_Point
+	$close.DataBindings.DefaultDataSourceUpdateMode = 0
+	$close.add_Click($handler_close_Click)
+	$crcInstaller.Controls.Add($close)
 
 
 	## -- Progress bar
@@ -1176,7 +1334,7 @@ function northPointInstaller {
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$progressBar.Style = "Continuous"
-	$northPoint.Controls.Add($progressBar)
+	$crcInstaller.Controls.Add($progressBar)
 
 
 	## -- Progress box
@@ -1193,7 +1351,7 @@ function northPointInstaller {
 	$System_Drawing_Point.Y = 63
 	$progress.location = $System_Drawing_Point
 	$progress.TabIndex = 3
-	$northPoint.Controls.Add($progress)
+	$crcInstaller.Controls.Add($progress)
 
 
 	## -- Computer Repair Centre OEM Information
@@ -1213,7 +1371,7 @@ function northPointInstaller {
 	$crc.Name = "crc"
 	$crc.Checked = 1
 	$crc.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\computerRepairCentreIcon.ico")
-	$northPoint.Controls.Add($crc)
+	$crcInstaller.Controls.Add($crc)
 
 
 	## -- Pin
@@ -1233,7 +1391,7 @@ function northPointInstaller {
 	$pin.Name = "pin"
 	$pin.Checked = 1
 	$pin.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\pin.ico")
-	$northPoint.Controls.Add($pin)
+	$crcInstaller.Controls.Add($pin)
 
 
 	## -- Wallpaper
@@ -1253,7 +1411,7 @@ function northPointInstaller {
 	$wallpaper.Name = "vlc"
 	$wallpaper.Checked = 1
 	$wallpaper.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\wallpaper.ico")
-	$northPoint.Controls.Add($wallpaper)
+	$crcInstaller.Controls.Add($wallpaper)
 
 
 	## -- Google Chrome
@@ -1272,7 +1430,7 @@ function northPointInstaller {
 	$googleChrome.Name = "googleChrome"
 	$googleChrome.Checked = 1
 	$googleChrome.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\googleChrome.ico")
-	$northPoint.Controls.Add($googleChrome)
+	$crcInstaller.Controls.Add($googleChrome)
 
 	## -- iTunes
 
@@ -1291,7 +1449,7 @@ function northPointInstaller {
 	$iTunes.Name = "iTunes"
 	$iTunes.Checked = 0
 	$iTunes.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\iTunes.ico")
-	$northPoint.Controls.Add($iTunes)
+	$crcInstaller.Controls.Add($iTunes)
 
 
 	## -- Kaspersky Internet Security
@@ -1310,7 +1468,7 @@ function northPointInstaller {
 	$kaspersky.Name = "kaspersky"
 	$kaspersky.Checked = 1
 	$kaspersky.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\kasperskyInternetSecurity.ico")
-	$northPoint.Controls.Add($kaspersky)
+	$crcInstaller.Controls.Add($kaspersky)
 
 
 	## -- LibreOffice
@@ -1329,7 +1487,7 @@ function northPointInstaller {
 	$libreOffice.Name = "libreOffice"
 	$libreOffice.Checked = $libreOfficeLocation
 	$libreOffice.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\libreOffice.ico")
-	$northPoint.Controls.Add($libreOffice)
+	$crcInstaller.Controls.Add($libreOffice)
 
 
 	## -- Mozilla Firefox
@@ -1348,7 +1506,7 @@ function northPointInstaller {
 	$mozillaFirefox.Name = "mozillaFirefox"
 	$mozillaFirefox.Checked = 1
 	$mozillaFirefox.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\mozillaFirefox.ico")
-	$northPoint.Controls.Add($mozillaFirefox)
+	$crcInstaller.Controls.Add($mozillaFirefox)
 
 
 	## -- Mozilla Thunderbird
@@ -1367,7 +1525,7 @@ function northPointInstaller {
 	$mozillaThunderbird.Name = "mozillaThunderbird"
 	$mozillaThunderbird.Checked = 0
 	$mozillaThunderbird.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\mozillaThunderbird.ico")
-	$northPoint.Controls.Add($mozillaThunderbird)
+	$crcInstaller.Controls.Add($mozillaThunderbird)
 
 
 	## -- Skype
@@ -1386,7 +1544,7 @@ function northPointInstaller {
 	$skype.Name = "skype"
 	$skype.Checked = 0
 	$skype.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\skype.ico")
-	$northPoint.Controls.Add($skype)
+	$crcInstaller.Controls.Add($skype)
 
 
 	## -- TeamViewer
@@ -1405,7 +1563,7 @@ function northPointInstaller {
 	$teamViewer.Name = "teamViewer"
 	$teamViewer.Checked = 1
 	$teamViewer.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\teamViewer.ico")
-	$northPoint.Controls.Add($teamViewer)
+	$crcInstaller.Controls.Add($teamViewer)
 
 
 	## -- uBlock Origin
@@ -1424,7 +1582,7 @@ function northPointInstaller {
 	$uBlockOrigin.Name = "uBlockOrigin"
 	$uBlockOrigin.Checked = 1
 	$uBlockOrigin.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\uBlockOrigin.ico")
-	$northPoint.Controls.Add($uBlockOrigin)
+	$crcInstaller.Controls.Add($uBlockOrigin)
 
 
 	## -- VLC Media Player
@@ -1443,14 +1601,14 @@ function northPointInstaller {
 	$vlc.Name = "vlc"
 	$vlc.Checked = $libreOfficeLocation
 	$vlc.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\vlcMediaPlayer.ico")
-	$northPoint.Controls.Add($vlc)
+	$crcInstaller.Controls.Add($vlc)
 
 
 	## -- Form
 
-	$InitialFormWindowState = $northPoint.WindowState
-	$northPoint.add_Load($OnLoadForm_StateCorrection)
-	$northPoint.ShowDialog()
-	$northPoint.Focus()
+	$InitialFormWindowState = $crcInstaller.WindowState
+	$crcInstaller.add_Load($OnLoadForm_StateCorrection)
+	$crcInstaller.ShowDialog()
+	$crcInstaller.Focus()
 }
 northPointInstaller
