@@ -252,8 +252,7 @@ function northPointInstaller {
 	$adam = Get-Date -Day 09 -Month 06
 	$steve = Get-Date -Day 24 -Month 06
 	$josh = Get-Date -Day 22 -Month 10
-	$testing = Get-Date -Day 08 -Month 03
-	if (($date.Day -eq $charlie.Day -and $date.Month -eq $charlie.Month) -or ($date.Day -eq $dean.Day -and $date.Month -eq $dean.Month) -or ($date.Day -eq $howard.Day -and $date.Month -eq $howard.Month) -or ($date.Day -eq $adam.Day -and $date.Month -eq $adam.Month) -or ($date.Day -eq $steve.Day -and $date.Month -eq $steve.Month) -or ($date.Day -eq $josh.Day -and $date.Month -eq $josh.Month) -or ($date.Day -eq $testing.Day -and $date.Month -eq $testing.Month)) {
+	if (($date.Day -eq $charlie.Day -and $date.Month -eq $charlie.Month) -or ($date.Day -eq $dean.Day -and $date.Month -eq $dean.Month) -or ($date.Day -eq $howard.Day -and $date.Month -eq $howard.Month) -or ($date.Day -eq $adam.Day -and $date.Month -eq $adam.Month) -or ($date.Day -eq $steve.Day -and $date.Month -eq $steve.Month) -or ($date.Day -eq $josh.Day -and $date.Month -eq $josh.Month)) {
 		$birthday = "true"
 	}
 	if ($date.Day -eq $charlie.Day -and $date.Month -eq $charlie.Month) {
@@ -1250,7 +1249,7 @@ function northPointInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.2.2.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.2.2.1"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
