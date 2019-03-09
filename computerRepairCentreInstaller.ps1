@@ -197,7 +197,7 @@ if ($internetProtocol -like '*82.0.43.224*') {
 else {
 	$libreOfficeLocation = 1
 }
-function northPointInstaller {
+function computerRepairCentreInstaller {
 	[reflection.assembly]::loadwithpartialname("System.Windows.Forms")
 	[reflection.assembly]::loadwithpartialname("System.Drawing")
 	[System.Windows.Forms.Application]::EnableVisualStyles()
@@ -330,241 +330,241 @@ function northPointInstaller {
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progress.Items.Add("")
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progress.Items.Add("                                                         HAPPY")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("                                                     BIRTHDAY")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("                                                           TO YOU!")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					if ($syncHash.charlieBirthday -eq "true") {
 						$syncHash.progress.Items.Add("                                                        CHARLIE")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						Sleep (1)
+						Sleep(1)
 					}
 					if ($syncHash.deanBirthday -eq "true") {
 						$syncHash.progress.Items.Add("                                                        DEAN")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						Sleep (1)
+						Sleep(1)
 					}
 					if ($syncHash.howardBirthday -eq "true") {
 						$syncHash.progress.Items.Add("                                                        HOWARD")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						Sleep (1)
+						Sleep(1)
 					}
 					if ($syncHash.adamBirthday -eq "true") {
 						$syncHash.progress.Items.Add("                                                        ADAM")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						Sleep (1)
+						Sleep(1)
 					}
 					if ($syncHash.steveBirthday -eq "true") {
 						$syncHash.progress.Items.Add("                                                        STEVE")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						Sleep (1)
+						Sleep(1)
 					}
 					if ($syncHash.joshBirthday -eq "true") {
 						$syncHash.progress.Items.Add("                                                        JOSH")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						Sleep (1)
+						Sleep(1)
 					}
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("                                                         HAPPY")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("                                                     BIRTHDAY")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("                                                           TO YOU!")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					if ($syncHash.charlieBirthday -eq "true") {
 						$syncHash.progress.Items.Add("                                                        CHARLIE")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						Sleep (1)
+						Sleep(1)
 					}
 					if ($syncHash.deanBirthday -eq "true") {
 						$syncHash.progress.Items.Add("                                                        DEAN")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						Sleep (1)
+						Sleep(1)
 					}
 					if ($syncHash.howardBirthday -eq "true") {
 						$syncHash.progress.Items.Add("                                                        HOWARD")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						Sleep (1)
+						Sleep(1)
 					}
 					if ($syncHash.adamBirthday -eq "true") {
 						$syncHash.progress.Items.Add("                                                        ADAM")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						Sleep (1)
+						Sleep(1)
 					}
 					if ($syncHash.steveBirthday -eq "true") {
 						$syncHash.progress.Items.Add("                                                        STEVE")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						Sleep (1)
+						Sleep(1)
 					}
 					if ($syncHash.joshBirthday -eq "true") {
 						$syncHash.progress.Items.Add("                                                        JOSH")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						Sleep (1)
+						Sleep(1)
 					}
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("                                                         HAPPY")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("                                                     BIRTHDAY")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("                                                           TO YOU!")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					if ($syncHash.charlieBirthday -eq "true") {
 						$syncHash.progress.Items.Add("                                                        CHARLIE")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						Sleep (1)
+						Sleep(1)
 					}
 					if ($syncHash.deanBirthday -eq "true") {
 						$syncHash.progress.Items.Add("                                                        DEAN")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						Sleep (1)
+						Sleep(1)
 					}
 					if ($syncHash.howardBirthday -eq "true") {
 						$syncHash.progress.Items.Add("                                                        HOWARD")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						Sleep (1)
+						Sleep(1)
 					}
 					if ($syncHash.adamBirthday -eq "true") {
 						$syncHash.progress.Items.Add("                                                        ADAM")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						Sleep (1)
+						Sleep(1)
 					}
 					if ($syncHash.steveBirthday -eq "true") {
 						$syncHash.progress.Items.Add("                                                        STEVE")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						Sleep (1)
+						Sleep(1)
 					}
 					if ($syncHash.joshBirthday -eq "true") {
 						$syncHash.progress.Items.Add("                                                        JOSH")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						Sleep (1)
+						Sleep(1)
 					}
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Sleep (1)
+					Sleep(1)
 					$syncHash.progress.Items.Add("")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
@@ -905,28 +905,28 @@ function northPointInstaller {
 						$syncHash.progress.SelectedIndex = -1;
 						Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
 						if ($syncHash.internetProtocol -like '*212.159.116.68*') {
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files\Mozilla Firefox\firefox.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files\LibreOffice\program\swriter.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files\LibreOffice\program\scalc.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Windows\explorer.exe"
 							$syncHash.progressBar.PerformStep()
 						}
 						if ($syncHash.internetProtocol -like '*82.0.43.224*') {
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files\Mozilla Firefox\firefox.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files (x86)\Microsoft Office\Office12\WORD.EXE"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.EXE"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Windows\explorer.exe"
 							$syncHash.progressBar.PerformStep()
 						}
@@ -975,28 +975,28 @@ function northPointInstaller {
 						$syncHash.progress.SelectedIndex = -1;
 						Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
 						if ($syncHash.internetProtocol -like '*212.159.116.68*') {
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\swriter.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
 							$syncHash.progressBar.PerformStep()
 						}
 						if ($syncHash.internetProtocol -like '*82.0.43.224*') {
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
 							$syncHash.progressBar.PerformStep()
 						}
@@ -1039,28 +1039,28 @@ function northPointInstaller {
 						$syncHash.progress.SelectedIndex = -1;
 						Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
 						if ($syncHash.internetProtocol -like '*212.159.116.68*') {
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\swriter.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
 							$syncHash.progressBar.PerformStep()
 						}
 						if ($syncHash.internetProtocol -like '*82.0.43.224*') {
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
 							$syncHash.progressBar.PerformStep()
 						}
@@ -1175,15 +1175,15 @@ function northPointInstaller {
 						$syncHash.progress.SelectedIndex = -1;
 						Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
 						if ($syncHash.internetProtocol -like '*212.159.116.68*') {
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\swriter.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
 							$syncHash.progressBar.PerformStep()
 							$syncHash.progress.Items.Add("Disabling Cortana search bar...")
@@ -1193,15 +1193,15 @@ function northPointInstaller {
 							$syncHash.progressBar.PerformStep()
 						}
 						if ($syncHash.internetProtocol -like '*82.0.43.224*') {
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.exe"
-							Start-Sleep -s 2
+							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
 							$syncHash.progressBar.PerformStep()
 						}
@@ -1249,7 +1249,7 @@ function northPointInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.2.2.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.2.2.2"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1610,4 +1610,4 @@ function northPointInstaller {
 	$crcInstaller.ShowDialog()
 	$crcInstaller.Focus()
 }
-northPointInstaller
+computerRepairCentreInstaller
