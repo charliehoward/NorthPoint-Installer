@@ -56,6 +56,8 @@ function download {
 			$wallpaperPath = "C:\Computer Repair Centre\wallpaper.ico"
 			$pinURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/pin.ico"
 			$pinPath = "C:\Computer Repair Centre\pin.ico"
+			$nightModeURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/nightMode.ico"
+			$nightModePath = "C:\Computer Repair Centre\nightMode.ico"
 			$themeSwitcher7URL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/themeSwitcher7.exe"
 			$themeSwitcher7Path = "C:\Computer Repair Centre\themeSwitcher7.exe"
 			$themeSwitcher10URL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/themeSwitcher10.exe"
@@ -99,6 +101,8 @@ function download {
 			Invoke-RestMethod -Uri $wallpaperURL -OutFile $wallpaperPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $pinURL -OutFile $pinPath
+			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $nightModeURL -OutFile $nightModePath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $uBlockOriginURL -OutFile $uBlockOriginPath
 			$syncHash.progressBar.PerformStep()
@@ -169,7 +173,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 25
+	$progressBar.Maximum = 26
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$progressBar.Style = "Continuous"
@@ -192,10 +196,10 @@ $operatingSystem = (Get-WmiObject -Class Win32_OperatingSystem).version
 $internetProtocol = Invoke-RestMethod http://ipinfo.io/json | Select-Object -exp ip
 $user = $env:UserName
 if ($internetProtocol -like '*82.0.43.224*') {
-	$libreOfficeLocation = 0
+	$location = 0
 }
 else {
-	$libreOfficeLocation = 1
+	$location = 1
 }
 function computerRepairCentreInstaller {
 	[reflection.assembly]::loadwithpartialname("System.Windows.Forms")
@@ -220,6 +224,7 @@ function computerRepairCentreInstaller {
 	$uBlockOrigin = New-Object System.Windows.Forms.CheckBox
 	$wallpaper = New-Object System.Windows.Forms.CheckBox
 	$pin = New-Object System.Windows.Forms.CheckBox
+	$nightMode = New-Object System.Windows.Forms.CheckBox
 	$InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState
 	$syncHash = [hashtable]::Synchronized(@{})
 	$syncHash.crcInstaller = $crcInstaller
@@ -238,6 +243,7 @@ function computerRepairCentreInstaller {
 	$syncHash.uBlockOrigin = $uBlockOrigin
 	$syncHash.wallpaper = $wallpaper
 	$syncHash.pin = $pin
+	$syncHash.nightMode = $nightMode
 	$syncHash.operatingSystem = $operatingSystem
 	$syncHash.internetProtocol = $internetProtocol
 	$syncHash.libreOfficeLocation = $libreOfficeLocation
@@ -585,6 +591,7 @@ function computerRepairCentreInstaller {
 				if ($syncHash.iTunes.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.wallpaper.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.pin.Checked) { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.nightMode.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.uBlockOrigin.Checked) {
 					if ($syncHash.googleChrome.Checked) { $syncHash.progressBar.Maximum += 1 }
 					if ($syncHash.mozillaFirefox.Checked) { $syncHash.progressBar.Maximum += 1 }
@@ -846,7 +853,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing uBlockOrigin on Google Chrome...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						Import-Module C:\Computer Repair Centre\chromeExtension.ps1
+						Import-Module "C:\Computer Repair Centre\chromeExtension.ps1"
 						New-ChromeExtension -ExtensionID 'cjpalhdlnbpafiamejdnhcphjbkeiagm' -Mode Machine
 						$syncHash.progress.Items.Add("The installation of uBlockOrigin on Google Chrome has completed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -860,10 +867,10 @@ function computerRepairCentreInstaller {
 						New-Item -ItemType directory -Path "C:\Program Files\Mozilla Firefox\defaults\pref" -Force
 						Copy-Item "C:\Computer Repair Centre\mozilla.cfg" -Destination "C:\Program Files\Mozilla Firefox" -Force
 						Copy-Item "C:\Computer Repair Centre\local-settings.js" -Destination "C:\Program Files\Mozilla Firefox\defaults\pref" -Force
-						Import-Module C:\Computer Repair Centre\firefoxExtension.ps1
+						Import-Module "C:\Computer Repair Centre\firefoxExtension.ps1"
 						$firefoxParams = @{
 							'ExtensionUri' = 'https://addons.mozilla.org/firefox/downloads/file/985780/ublock_origin-1.16.10-an+fx.xpi?src=dp-btn-primary'
-							'ExtensionPath' = 'C:\Computer Repair Centre'
+							'ExtensionPath' = 'C:\FirefoxExtensions'
 							'Hive' = 'HKLM'
 						}
 						New-FirefoxExtension @firefoxParams
@@ -1222,6 +1229,15 @@ function computerRepairCentreInstaller {
 						Remove-Item "C:\Computer Repair Centre\Wallpapers" -Recurse -Force
 						& 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
 						& 'C:\Computer Repair Centre\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10.theme"
+						$syncHash.progressBar.PerformStep()
+						$syncHash.progress.Items.Add("Completed installation of wallpapers.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+					}
+					if ($syncHash.nightMode.Checked) {
+						$syncHash.progress.Items.Add("Set night mode is selected.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
 						Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value 0
 						$syncHash.progressBar.PerformStep()
 					}
@@ -1249,7 +1265,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.2.2.2"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.3.0.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1355,7 +1371,6 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre OEM Information
 
-
 	$crc.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 36
@@ -1375,7 +1390,6 @@ function computerRepairCentreInstaller {
 
 	## -- Pin
 
-
 	$pin.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 36
@@ -1388,13 +1402,12 @@ function computerRepairCentreInstaller {
 	$pin.location = $System_Drawing_Point
 	$pin.DataBindings.DefaultDataSourceUpdateMode = 0
 	$pin.Name = "pin"
-	$pin.Checked = 1
+	$pin.Checked = 0
 	$pin.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\pin.ico")
 	$crcInstaller.Controls.Add($pin)
 
 
 	## -- Wallpaper
-
 
 	$wallpaper.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1407,10 +1420,29 @@ function computerRepairCentreInstaller {
 	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$wallpaper.location = $System_Drawing_Point
 	$wallpaper.DataBindings.DefaultDataSourceUpdateMode = 0
-	$wallpaper.Name = "vlc"
+	$wallpaper.Name = "wallpaper"
 	$wallpaper.Checked = 1
 	$wallpaper.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\wallpaper.ico")
 	$crcInstaller.Controls.Add($wallpaper)
+
+
+	## -- Night Mode
+
+	$nightMode.UseVisualStyleBackColor = $True
+	$System_Drawing_Size = New-Object System.Drawing.Size
+	$System_Drawing_Size.Width = 36
+	$System_Drawing_Size.Height = 36
+	$nightMode.Size = $System_Drawing_Size
+	$nightMode.TabIndex = 4
+	$System_Drawing_Point = New-Object System.Drawing.Point
+	$System_Drawing_Point.X = 16 + (45 * 0)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
+	$nightMode.location = $System_Drawing_Point
+	$nightMode.DataBindings.DefaultDataSourceUpdateMode = 0
+	$nightMode.Name = "nightMode"
+	$nightMode.Checked = 1
+	$nightMode.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\nightMode.ico")
+	$crcInstaller.Controls.Add($nightMode)
 
 
 	## -- Google Chrome
@@ -1423,7 +1455,7 @@ function computerRepairCentreInstaller {
 	$googleChrome.TabIndex = 2
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 0)
-	$System_Drawing_Point.Y = 5 + (31 * 4)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
 	$googleChrome.location = $System_Drawing_Point
 	$googleChrome.DataBindings.DefaultDataSourceUpdateMode = 0
 	$googleChrome.Name = "googleChrome"
@@ -1433,7 +1465,6 @@ function computerRepairCentreInstaller {
 
 	## -- iTunes
 
-
 	$iTunes.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 36
@@ -1442,7 +1473,7 @@ function computerRepairCentreInstaller {
 	$iTunes.TabIndex = 2
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 0)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$System_Drawing_Point.Y = 5 + (31 * 6)
 	$iTunes.location = $System_Drawing_Point
 	$iTunes.DataBindings.DefaultDataSourceUpdateMode = 0
 	$iTunes.Name = "iTunes"
@@ -1460,8 +1491,8 @@ function computerRepairCentreInstaller {
 	$kaspersky.Size = $System_Drawing_Size
 	$kaspersky.TabIndex = 3
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 0)
-	$System_Drawing_Point.Y = 5 + (31 * 6)
+	$System_Drawing_Point.X = 16 + (45 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 1)
 	$kaspersky.location = $System_Drawing_Point
 	$kaspersky.DataBindings.DefaultDataSourceUpdateMode = 0
 	$kaspersky.Name = "kaspersky"
@@ -1480,11 +1511,11 @@ function computerRepairCentreInstaller {
 	$libreOffice.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
 	$libreOffice.location = $System_Drawing_Point
 	$libreOffice.DataBindings.DefaultDataSourceUpdateMode = 0
 	$libreOffice.Name = "libreOffice"
-	$libreOffice.Checked = $libreOfficeLocation
+	$libreOffice.Checked = $location
 	$libreOffice.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\libreOffice.ico")
 	$crcInstaller.Controls.Add($libreOffice)
 
@@ -1499,7 +1530,7 @@ function computerRepairCentreInstaller {
 	$mozillaFirefox.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$mozillaFirefox.location = $System_Drawing_Point
 	$mozillaFirefox.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaFirefox.Name = "mozillaFirefox"
@@ -1518,7 +1549,7 @@ function computerRepairCentreInstaller {
 	$mozillaThunderbird.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 3)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
 	$mozillaThunderbird.location = $System_Drawing_Point
 	$mozillaThunderbird.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaThunderbird.Name = "mozillaThunderbird"
@@ -1537,7 +1568,7 @@ function computerRepairCentreInstaller {
 	$skype.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 4)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
 	$skype.location = $System_Drawing_Point
 	$skype.DataBindings.DefaultDataSourceUpdateMode = 0
 	$skype.Name = "skype"
@@ -1556,7 +1587,7 @@ function computerRepairCentreInstaller {
 	$teamViewer.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$System_Drawing_Point.Y = 5 + (31 * 6)
 	$teamViewer.location = $System_Drawing_Point
 	$teamViewer.DataBindings.DefaultDataSourceUpdateMode = 0
 	$teamViewer.Name = "teamViewer"
@@ -1574,8 +1605,8 @@ function computerRepairCentreInstaller {
 	$uBlockOrigin.Size = $System_Drawing_Size
 	$uBlockOrigin.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 6)
+	$System_Drawing_Point.X = 16 + (45 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 1)
 	$uBlockOrigin.location = $System_Drawing_Point
 	$uBlockOrigin.DataBindings.DefaultDataSourceUpdateMode = 0
 	$uBlockOrigin.Name = "uBlockOrigin"
@@ -1594,7 +1625,7 @@ function computerRepairCentreInstaller {
 	$vlc.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
 	$vlc.location = $System_Drawing_Point
 	$vlc.DataBindings.DefaultDataSourceUpdateMode = 0
 	$vlc.Name = "vlc"

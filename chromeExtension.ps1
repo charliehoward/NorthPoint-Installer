@@ -9,7 +9,6 @@ function New-ChromeExtension {
 		[Parameter(Mandatory)]
 		[ValidateSet('Machine','User')]
 		[string]$Mode
-
 	)
 	foreach ($Extension in $ExtensionID) {
 		$regLocation = 'Software\Policies\Google\Chrome\ExtensionInstallForcelist'
@@ -20,7 +19,6 @@ function New-ChromeExtension {
 					[int]$Count = 0
 					Write-Verbose -Message "Count is now $Count"
 					New-Item -Path "HKLM:\$regLocation" -Force
-
 				}
 				else {
 					Write-Verbose -Message "Keys found, counting them..."
@@ -35,10 +33,8 @@ function New-ChromeExtension {
 					[int]$Count = 0
 					Write-Verbose -Message "Count is now $Count"
 					New-Item -Path "HKCU:\$regLocation" -Force
-
 				}
 				else {
-
 					Write-Verbose -Message "Keys found, counting them..."
 					[int]$Count = (Get-Item "HKCU:\$regLocation").Count
 					Write-Verbose -Message "Count is now $Count"

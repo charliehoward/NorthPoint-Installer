@@ -1,4 +1,4 @@
-# NorthPoint Installer 3.2.2.2
+# NorthPoint Installer 3.3.0.0
 ###### Copyright (c) Charlie Howard 2016-2019 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -12,6 +12,10 @@ If run on Windows 10 it also disables Windows 10 hibernation mode, Wi-Fi sense, 
 Changes wallpaper to a selection of HD landscape images.
 
 ### Changelog
+
+###### Update 3.3.0.0
+
+Fixed Google Chrome and Mozilla Firefox uBlock Origin installs with the new version of Windows 1903. Temporarily disabled taskbar pining until a new solution is found for Windows 1903. Moved night mode to its own check box so it can be disabled. Fixed theme for Windows 1903.
 
 ###### Update 3.2.2.2
 

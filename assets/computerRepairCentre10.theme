@@ -1,9 +1,9 @@
 ; Copyright © Microsoft Corp.
 
 [Theme]
-; Windows - IDS_THEME_DISPLAYNAME_AERO
-DisplayName=Computer Repair Centre
-ThemeId={6111D627-5E3C-42B6-8D96-70707044D89A}
+; Windows - IDS_THEME_DISPLAYNAME_AERO_LIGHT
+DisplayName=ComputerRepairCentre
+ThemeId={6116404B-4CED-429C-8588-5787FF2739BC}
 
 ; Computer - SHIDI_SERVER
 [CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\DefaultIcon]
@@ -41,7 +41,7 @@ Wait=%SystemRoot%\cursors\aero_busy.ani
 DefaultValue=Windows Default
 
 [Control Panel\Desktop]
-Wallpaper=%SystemDrive%\Computer Repair Centre\Wallpapers\g5g7mtzvmht01.jpg
+Wallpaper=%SystemDrive%\Computer Repair Centre\Wallpapers\yf2IHMV.jpeg
 Pattern=
 MultimonBackgrounds=0
 PicturePosition=4
@@ -52,6 +52,8 @@ ColorStyle=NormalColor
 Size=NormalSize
 AutoColorization=0
 ColorizationColor=0XC43F3F3F
+SystemMode=Dark
+AppMode=Dark
 VisualStyleVersion=10
 
 [boot]
@@ -62,7 +64,7 @@ MTSM=RJSPBS
 
 [Sounds]
 ; IDS_SCHEME_DEFAULT
-SchemeName=Windows Default
+SchemeName=@mmres.dll,-800
 
 [Slideshow]
 ImagesRootPIDL=WGAFA8BUg/E0gouOpBhoYjAArADMdmBAvMkOcBAAAAAAAAAAAAAAAAAAAAAAAAgdAEDAAAAAAYlTzlFEAM0TNBVVU5XMAAgXAkAAEAw7+6NTkhkVONXWuAAAAo3wBAAAA4AAAAAAAAAAAAAAAAAAAAAI1QDADBwbA0GAwBQdAQHAlBgcAACASBQZAAHAhBQaAIHAgAwQAUGAuBAdAIHAlBAAAgBAxDQMAAAAAAgVONlWQAwVBxETQFkfxAAAGBQCAQAAv7rVO1WWW50Ua5CAAAQt/BAAAAAJAAAAAAAAAAAAAAAAAAAAnzwsAcFAhBAbAwGAwBQYAAHAlBgcAMHAAAAGAMJAAAwJA8uvFCAAAEzUQN1td66/Nyx/DFIjECkOjOXLpBAAAQGAAAAAfAAAAwCAAAwdAkGAuBAZA8GA3BwcA4CApBQbA0GAlBgcAMHApBgdAUGAjBwbA4GA0BgcA8GAsBAcAEGAuBQZAwGAfBwYAcHA1AgbAEDAoBgMAQHA4BQeAUGA3BQeAAAAAAAAAAAAAAAGAAAA
