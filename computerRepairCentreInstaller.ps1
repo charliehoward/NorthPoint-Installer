@@ -1265,7 +1265,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.3.0.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.3.1.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1629,7 +1629,7 @@ function computerRepairCentreInstaller {
 	$vlc.location = $System_Drawing_Point
 	$vlc.DataBindings.DefaultDataSourceUpdateMode = 0
 	$vlc.Name = "vlc"
-	$vlc.Checked = $libreOfficeLocation
+	$vlc.Checked = 1
 	$vlc.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\vlcMediaPlayer.ico")
 	$crcInstaller.Controls.Add($vlc)
 
