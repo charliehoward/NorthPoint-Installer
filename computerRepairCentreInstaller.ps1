@@ -274,8 +274,8 @@ function computerRepairCentreInstaller {
 		$adamBirthday = "true"
 	}
 #	if ($date.Day -eq $steve.Day -and $date.Month -eq $steve.Month) {
-		$steveBirthday = "true"
-	}
+	#	$steveBirthday = "true"
+#	}
 	if ($date.Day -eq $josh.Day -and $date.Month -eq $josh.Month) {
 		$joshBirthday = "true"
 	}
