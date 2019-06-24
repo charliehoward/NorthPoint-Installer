@@ -273,7 +273,7 @@ function computerRepairCentreInstaller {
 	if ($date.Day -eq $adam.Day -and $date.Month -eq $adam.Month) {
 		$adamBirthday = "true"
 	}
-	if ($date.Day -eq $steve.Day -and $date.Month -eq $steve.Month) {
+#	if ($date.Day -eq $steve.Day -and $date.Month -eq $steve.Month) {
 		$steveBirthday = "true"
 	}
 	if ($date.Day -eq $josh.Day -and $date.Month -eq $josh.Month) {
@@ -284,7 +284,7 @@ function computerRepairCentreInstaller {
 	$syncHash.deanBirthday = $deanBirthday
 	$syncHash.howardBirthday = $howardBirthday
 	$syncHash.adamBirthday = $adamBirthday
-	$syncHash.steveBirthday = $steveBirthday
+#	$syncHash.steveBirthday = $steveBirthday
 	$syncHash.joshBirthday = $joshBirthday
 	$b1 = $false
 	$b2 = $false
