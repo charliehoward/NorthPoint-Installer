@@ -256,7 +256,7 @@ function computerRepairCentreInstaller {
 	$dean = Get-Date -Day 21 -Month 04
 	$howard = Get-Date -Day 16 -Month 05
 	$adam = Get-Date -Day 09 -Month 06
-	$steve = Get-Date -Day 24 -Month 06
+#	$steve = Get-Date -Day 24 -Month 06
 	$josh = Get-Date -Day 22 -Month 10
 	if (($date.Day -eq $charlie.Day -and $date.Month -eq $charlie.Month) -or ($date.Day -eq $dean.Day -and $date.Month -eq $dean.Month) -or ($date.Day -eq $howard.Day -and $date.Month -eq $howard.Month) -or ($date.Day -eq $adam.Day -and $date.Month -eq $adam.Month) -or ($date.Day -eq $steve.Day -and $date.Month -eq $steve.Month) -or ($date.Day -eq $josh.Day -and $date.Month -eq $josh.Month)) {
 		$birthday = "true"
