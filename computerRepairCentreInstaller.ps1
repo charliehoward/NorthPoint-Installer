@@ -338,7 +338,7 @@ function computerRepairCentreInstaller {
 				choco install dotnet4.5 -y
 				choco install dotnet4.6.1 -y
 				choco install powershell -y
-				choco install 7zip.install -y --ignore-checksum
+				choco install 7zip.install -y --ignore-checksums
 				$syncHash.progress.Items.Add("Completed installation of all requisites...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
@@ -350,7 +350,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Installing Google Chrome...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					choco install googlechrome -y --ignore-checksum
+					choco install googlechrome -y --ignore-checksums
 					$programList = choco list --localonly
 					if ($programList -like '*GoogleChrome*') {
 						$syncHash.progress.Items.Add("Completed installation of Google Chrome.")
@@ -372,7 +372,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Installing iTunes...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					choco install itunes -y --ignore-checksum
+					choco install itunes -y --ignore-checksums
 					$programList = choco list --localonly
 					if ($programList -like '*iTunes*') {
 						$syncHash.progress.Items.Add("Completed installation of iTunes.")
@@ -394,7 +394,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Installing Kaspersky Internet Security 2019...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					choco install kis -y --ignore-checksum
+					choco install kis -y --ignore-checksums
 					$programList = choco list --localonly
 					$syncHash.progress.Items.Add("Removing Safe Money icon from Desktop...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -433,7 +433,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Installing LibreOffice...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					choco install libreoffice -y --ignore-checksum
+					choco install libreoffice -y --ignore-checksums
 					$programList = choco list --localonly
 					if ($programList -like '*libreoffice*') {
 						$syncHash.progress.Items.Add("Completed installation of LibreOffice.")
@@ -455,7 +455,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Installing Mozilla Firefox...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					choco install firefox -y --ignore-checksum
+					choco install firefox -y --ignore-checksums
 					$programList = choco list --localonly
 					if ($programList -like '*Firefox*') {
 						$syncHash.progress.Items.Add("Completed installation of Mozilla Firefox.")
@@ -477,7 +477,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Installing Mozilla Thunderbird...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					choco install thunderbird -y --ignore-checksum
+					choco install thunderbird -y --ignore-checksums
 					$programList = choco list --localonly
 					if ($programList -like '*thunderbird*') {
 						$syncHash.progress.Items.Add("Completed installation of Mozilla Thunderbird.")
@@ -499,7 +499,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Installing Skype...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					choco install skype -y --ignore-checksum
+					choco install skype -y --ignore-checksums
 					$programList = choco list --localonly
 					if ($programList -like '*skype*') {
 						$syncHash.progress.Items.Add("Completed installation of Skype.")
@@ -521,7 +521,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Installing TeamViewer...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					choco install teamviewer -y --ignore-checksum
+					choco install teamviewer -y --ignore-checksums
 					$programList = choco list --localonly
 					if ($programList -like '*teamviewer*') {
 						$syncHash.progress.Items.Add("Completed installation of TeamViewer.")
@@ -578,7 +578,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Installing VLC Media Player...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					choco install vlc -y --ignore-checksum
+					choco install vlc -y --ignore-checksums
 					$programList = choco list --localonly
 					if ($programList -like '*vlc*') {
 						$syncHash.progress.Items.Add("Completed installation of VLC Media Player.")
@@ -956,7 +956,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.3.1.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.3.1.2"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
