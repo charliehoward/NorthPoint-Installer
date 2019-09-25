@@ -433,9 +433,9 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Installing LibreOffice...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					choco install libreoffice -y --ignore-checksums
+					choco install libreoffice-fresh -y --ignore-checksums
 					$programList = choco list --localonly
-					if ($programList -like '*libreoffice*') {
+					if ($programList -like '*libreoffice-fresh*') {
 						$syncHash.progress.Items.Add("Completed installation of LibreOffice.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
@@ -956,7 +956,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.3.1.2"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.3.2.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size

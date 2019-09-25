@@ -2,13 +2,13 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>kis</id>
-    <version>19.1.0.0</version>
+    <version>20.0.0.0</version>
     <title>Kaspersky Internet Security</title>
     <authors>Kaspersky Lab</authors>
     <owners>dtgm</owners>
     <licenseUrl>https://support.kaspersky.com/12138</licenseUrl>
     <projectUrl>https://usa.kaspersky.com/downloads/free-home-trials/internet-security</projectUrl>
-    <iconUrl>https://gitlab.com/charliehoward/NorthPointInstaller/raw/master/assets/kasperskyInternetSecurity.ico</iconUrl>
+    <iconUrl>https://chocolatey.org/content/packageimages/kvrt.2019.06.24.1824.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Kaspersky Internet Security combines antivirus protection with a personal firewall and an anti-spam filter. Also keeps your PC free from malicious code, adware, spyware, hacker attacks, dialers, spam and network fraud.
 
@@ -27,7 +27,7 @@ This package installs the Free 30-day trial version of Kaspersky Internet Securi
 * http://products.kaspersky-labs.com/english/homeuser/kis2016/release_notes_kis_en.html
 
 #### Package
-* Automatically built and uploaded by [dtgm](https://chocolatey.org/profiles/dtgm)</releaseNotes>
+* Built and uploaded by [choward](https://chocolatey.org/profiles/dtgm)</releaseNotes>
     <copyright>© 1997 Kaspersky Lab</copyright>
     <tags>trial security firewall antivirus antispyware admin</tags>
     <packageSourceUrl>https://github.com/dtgm/chocolatey-packages/tree/master/automatic/kis/</packageSourceUrl>

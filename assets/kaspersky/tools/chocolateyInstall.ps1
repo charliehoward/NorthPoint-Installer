@@ -17,7 +17,7 @@ $packageParameters = $env:chocolateyPackageParameters
 $advParamNotes = @"
 Command line installation parameters:
 
-/a  
+/a
   denotes administrative installation when installation files are copied to a specified network folder
   Example: KIS16.0.0.463.en-US.exe /a"Z:\Kaspersky Lab"
 /sendstat
@@ -77,7 +77,7 @@ ALLOWREBOOT=1
 SKIPPRODUCTCHECK=1
   skips checking for applications incompatible with Kaspersky Internet Security 2016.
   Example: KIS16.0.0.463.en-US.exe /pSKIPPRODUCTCHECK=1
-  
+
 Reference: http://support.kaspersky.com/us/12002#block2
 "@
 Write-Verbose $paramPropNotes
@@ -141,7 +141,7 @@ if ($packageParameters) {
     $klPasswdArea = $arguments["klPasswdArea"]
     $silentArgs += " /pKLPASSWDAREA=" + $klPasswdArea
   }
-  
+
   Write-Debug "Parameters requiring single character 0 to disable"
   if ($arguments.ContainsKey("sendStat")) {
     Write-Host "sendStat Found"
@@ -174,7 +174,7 @@ if ($packageParameters) {
 } else {
     Write-Debug "No package parameters passed in"
 }
-  
+
 #if ($admin) { $silentArgs += " /admin" }
 if ($sendStat -eq "1") { $silentArgs += " /sendstat" }
 if ($recommended -eq "1") { $silentArgs += " /recommended" }
