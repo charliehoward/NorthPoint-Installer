@@ -388,10 +388,10 @@ function computerRepairCentreInstaller {
 					}
 				}
 				if ($syncHash.kaspersky.Checked) {
-					$syncHash.progress.Items.Add("Kaspersky Internet Security 2019 is selected.")
+					$syncHash.progress.Items.Add("Kaspersky Internet Security 2020 is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progress.Items.Add("Installing Kaspersky Internet Security 2019...")
+					$syncHash.progress.Items.Add("Installing Kaspersky Internet Security 2020...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					choco install kis -y --ignore-checksums
@@ -401,7 +401,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 					Remove-Item "C:\Users\Public\Desktop\Safe Money.lnk"
 					if ($programList -like '*kis*') {
-						$syncHash.progress.Items.Add("Completed installation of Kaspersky Internet Security 2019.")
+						$syncHash.progress.Items.Add("Completed installation of Kaspersky Internet Security 2020.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
@@ -419,7 +419,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progressBar.PerformStep()
 					}
 					else {
-						$syncHash.progress.Items.Add("The installation of Kaspersky Internet Security 2019 has failed.")
+						$syncHash.progress.Items.Add("The installation of Kaspersky Internet Security 2020 has failed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
@@ -956,7 +956,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.3.2.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.3.3.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
