@@ -269,7 +269,7 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.Items.Add("Copyright (c) Charlie Howard 2016-2019 All rights reserved.")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Current version: 3.3.3.1 (03/10/2019)")
+				$syncHash.progress.Items.Add("Current version: 3.3.4.0 (24/10/2019)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 1
@@ -959,7 +959,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.3.3.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.3.4.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
