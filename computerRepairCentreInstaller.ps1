@@ -195,7 +195,7 @@ download
 $operatingSystem = (Get-WmiObject -Class Win32_OperatingSystem).version
 $internetProtocol = Invoke-RestMethod http://ipinfo.io/json | Select-Object -exp ip
 $user = $env:UserName
-if ($internetProtocol -like '*82.0.43.224*') {
+if ($internetProtocol -like '*82.24.225.42*') {
 	$location = 0
 }
 else {
@@ -315,7 +315,7 @@ function computerRepairCentreInstaller {
 						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportPhone -Value "01794 517142" -Force
 						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportURL -Value "https://www.firstforitrepairs.co.uk" -Force
 					}
-					elseif ($syncHash.internetProtocol -like '*82.0.43.224*') {
+					elseif ($syncHash.internetProtocol -like '*82.24.225.42*') {
 						$syncHash.progress.Items.Add("Installer being run from Chandlers Ford.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
@@ -615,7 +615,7 @@ function computerRepairCentreInstaller {
 							& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Windows\explorer.exe"
 							$syncHash.progressBar.PerformStep()
 						}
-						if ($syncHash.internetProtocol -like '*82.0.43.224*') {
+						if ($syncHash.internetProtocol -like '*82.24.225.42*') {
 							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin7.ps1" -pinItems "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 							Sleep(2)
@@ -685,7 +685,7 @@ function computerRepairCentreInstaller {
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
 							$syncHash.progressBar.PerformStep()
 						}
-						if ($syncHash.internetProtocol -like '*82.0.43.224*') {
+						if ($syncHash.internetProtocol -like '*82.24.225.42*') {
 							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
 							Sleep(2)
@@ -749,7 +749,7 @@ function computerRepairCentreInstaller {
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
 							$syncHash.progressBar.PerformStep()
 						}
-						if ($syncHash.internetProtocol -like '*82.0.43.224*') {
+						if ($syncHash.internetProtocol -like '*82.24.225.42*') {
 							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
 							Sleep(2)
@@ -890,7 +890,7 @@ function computerRepairCentreInstaller {
 							Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0
 							$syncHash.progressBar.PerformStep()
 						}
-						if ($syncHash.internetProtocol -like '*82.0.43.224*') {
+						if ($syncHash.internetProtocol -like '*82.24.225.42*') {
 							Sleep(2)
 							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
 							Sleep(2)

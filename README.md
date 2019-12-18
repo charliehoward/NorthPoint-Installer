@@ -15,7 +15,7 @@ Changes wallpaper to a selection of HD landscape images.
 
 ###### Update 3.3.5.0
 
-Disabled Windows night mode by default because old people.
+Disabled Windows night mode by default because old people and updated Chandler's Ford IP.
 
 ###### Update 3.3.4.0
 
