@@ -1,4 +1,4 @@
-## -- Copyright (c) Charlie Howard 2016-2019 All rights reserved
+## -- Copyright (c) Charlie Howard 2016-2020 All rights reserved
 
 
 ## -- Download files
@@ -266,7 +266,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.3.5.0 (18/12/2019)")
+				$syncHash.progress.Items.Add("Current version: 3.3.5.1 (02/01/2020)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 1
@@ -331,7 +331,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progressBar.PerformStep()
 				}
-				$syncHash.progress.Items.Add("Installing all requisites...")
+				$syncHash.progress.Items.Add("Installing all prerequisites...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
@@ -339,7 +339,7 @@ function computerRepairCentreInstaller {
 				choco install dotnet4.6.1 -y
 				choco install powershell -y
 				choco install 7zip.install -y --ignore-checksums
-				$syncHash.progress.Items.Add("Completed installation of all requisites...")
+				$syncHash.progress.Items.Add("Completed installation of all prerequisites...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.PerformStep()
@@ -932,6 +932,9 @@ function computerRepairCentreInstaller {
 						Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value 0
 						$syncHash.progressBar.PerformStep()
 					}
+					else {
+						Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value 1
+					}
 					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
@@ -956,7 +959,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.3.5.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.3.5.1"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size

@@ -1,5 +1,5 @@
-# NorthPoint Installer 3.3.5.0
-###### Copyright (c) Charlie Howard 2016-2019 All rights reserved.
+# NorthPoint Installer 3.3.5.1
+###### Copyright (c) Charlie Howard 2016-2020 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
 
@@ -13,9 +13,13 @@ Changes wallpaper to a selection of HD landscape images.
 
 ### Changelog
 
+###### Update 3.3.5.1
+
+Fixed issue with dark mode being enabled even with box not ticked. Because old people. Fixed issue with installer only working on second launch, it should now work on first launch.
+
 ###### Update 3.3.5.0
 
-Disabled Windows night mode by default because old people and updated Chandler's Ford IP.
+Disabled Windows dark mode by default because old people and updated Chandler's Ford IP.
 
 ###### Update 3.3.4.0
 
