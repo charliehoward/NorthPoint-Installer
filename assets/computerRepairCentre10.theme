@@ -2,8 +2,8 @@
 
 [Theme]
 ; Windows - IDS_THEME_DISPLAYNAME_AERO_LIGHT
-DisplayName=ComputerRepairCentre
-ThemeId={6116404B-4CED-429C-8588-5787FF2739BC}
+DisplayName=CRC10
+ThemeId={B2EBB96A-02D4-4724-923F-DD4C95217162}
 
 ; Computer - SHIDI_SERVER
 [CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\DefaultIcon]
@@ -41,7 +41,7 @@ Wait=%SystemRoot%\cursors\aero_busy.ani
 DefaultValue=Windows Default
 
 [Control Panel\Desktop]
-Wallpaper=%SystemDrive%\Computer Repair Centre\Wallpapers\yf2IHMV.jpeg
+Wallpaper=%SystemDrive%\Computer Repair Centre\Wallpapers\2cRQltQ.jpeg
 Pattern=
 MultimonBackgrounds=0
 PicturePosition=4
@@ -50,10 +50,10 @@ PicturePosition=4
 Path=%SystemRoot%\resources\themes\Aero\Aero.msstyles
 ColorStyle=NormalColor
 Size=NormalSize
-AutoColorization=0
-ColorizationColor=0XC43F3F3F
-SystemMode=Dark
-AppMode=Dark
+AutoColorization=1
+ColorizationColor=0XC41B535A
+SystemMode=Light
+AppMode=Light
 VisualStyleVersion=10
 
 [boot]
