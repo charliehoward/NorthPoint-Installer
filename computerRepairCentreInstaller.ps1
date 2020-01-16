@@ -64,8 +64,10 @@ function download {
 			$themeSwitcher10Path = "C:\Computer Repair Centre\themeSwitcher10.exe"
 			$windows7ThemeURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentre7.theme"
 			$windows7ThemePath = "C:\Computer Repair Centre\computerRepairCentre7.theme"
-			$windows10ThemeURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentre10.theme"
-			$windows10ThemePath = "C:\Computer Repair Centre\computerRepairCentre10.theme"
+			$windows10ThemeLightURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentre10Light.theme"
+			$windows10ThemeLightPath = "C:\Computer Repair Centre\computerRepairCentre10Light.theme"
+			$windows10ThemeDarkURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentre10Dark.theme"
+			$windows10ThemeDarkPath = "C:\Computer Repair Centre\computerRepairCentre10Dark.theme"
 			$iTunesURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/iTunes.ico"
 			$iTunesPath = "C:\Computer Repair Centre\iTunes.ico"
 			$chromeExtensionURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/chromeExtension.ps1"
@@ -128,7 +130,9 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $themeSwitcher10URL -OutFile $themeSwitcher10Path
 			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $windows10ThemeURL -OutFile $windows10ThemePath
+			Invoke-RestMethod -Uri $windows10ThemeLightURL -OutFile $windows10ThemeLightPath
+			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $windows10ThemeDarkURL -OutFile $windows10ThemeDarkPath
 			$syncHash.progressBar.PerformStep()
 			$syncHash.downloadBox.Close()
 		})
@@ -266,7 +270,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.3.5.3 (13/01/2020)")
+				$syncHash.progress.Items.Add("Current version: 3.4.0.0 (16/01/2020)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 1
@@ -909,7 +913,24 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Type DWord -Value 0
 					$syncHash.progressBar.PerformStep()
-					if ($syncHash.wallpaper.Checked) {
+					if (($syncHash.wallpaper.Checked) -and ($syncHash.nightMode.Checked)) {
+						$syncHash.progress.Items.Add("Set wallpapers and dark mode has been selected.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progress.Items.Add("Enabling wallpapers and dark mode...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Invoke-RestMethod -Uri $syncHash.wallpapersURL -OutFile $syncHash.wallpapersPath
+						Remove-Item "C:\Computer Repair Centre\Wallpapers" -Recurse -Force
+						& 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
+						& 'C:\Computer Repair Centre\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10Dark.theme"
+						$syncHash.progressBar.PerformStep()
+						$syncHash.progressBar.PerformStep()
+						$syncHash.progress.Items.Add("Completed installation of wallpapers and dark mode.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+					}
+					if (($syncHash.wallpaper.Checked) -and ($syncHash.nightMode.Checked -eq 0)) {
 						$syncHash.progress.Items.Add("Set wallpapers is selected.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
@@ -919,17 +940,23 @@ function computerRepairCentreInstaller {
 						Invoke-RestMethod -Uri $syncHash.wallpapersURL -OutFile $syncHash.wallpapersPath
 						Remove-Item "C:\Computer Repair Centre\Wallpapers" -Recurse -Force
 						& 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
-						& 'C:\Computer Repair Centre\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10.theme"
+						& 'C:\Computer Repair Centre\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10Light.theme"
 						$syncHash.progressBar.PerformStep()
 						$syncHash.progress.Items.Add("Completed installation of wallpapers.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 					}
-					if ($syncHash.nightMode.Checked) {
-						$syncHash.progress.Items.Add("Set night mode is selected.")
+					if (($syncHash.nightMode.Checked) -and ($syncHash.wallpaper.Checked -eq 0) {
+						$syncHash.progress.Items.Add("Set dark mode is selected.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progress.Items.Add("Enabling dark mode...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value 0
+						$syncHash.progress.Items.Add("Dark mode has been enabled.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
 					}
 					else {
@@ -959,7 +986,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.3.5.3"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.4.0.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size

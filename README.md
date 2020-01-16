@@ -1,4 +1,4 @@
-# NorthPoint Installer 3.3.5.3
+# NorthPoint Installer 3.4.0.0
 ###### Copyright (c) Charlie Howard 2016-2020 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -12,6 +12,12 @@ If run on Windows 10 it also disables Windows 10 hibernation mode, Wi-Fi sense, 
 Changes wallpaper to a selection of HD landscape images.
 
 ### Changelog
+
+######
+
+Update 3.4.0.0
+
+Installer can now enable the set theme in light and dark mode depending on the dark mode selection.
 
 ###### Update 3.3.5.3
 
