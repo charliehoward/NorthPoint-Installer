@@ -1,4 +1,4 @@
-# NorthPoint Installer 3.4.0.0
+# NorthPoint Installer 3.4.0.1
 ###### Copyright (c) Charlie Howard 2016-2020 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -13,9 +13,11 @@ Changes wallpaper to a selection of HD landscape images.
 
 ### Changelog
 
-######
+###### Update 3.4.0.1
 
-Update 3.4.0.0
+Fixed missing token.
+
+###### Update 3.4.0.0
 
 Installer can now enable the set theme in light and dark mode depending on the dark mode selection.
 
