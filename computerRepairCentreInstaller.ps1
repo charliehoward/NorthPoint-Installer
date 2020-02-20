@@ -274,7 +274,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.4.1.1 (20/02/2020)")
+				$syncHash.progress.Items.Add("Current version: 3.4.1.1g (20/02/2020)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 1
@@ -891,6 +891,11 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Type DWord -Value 0
+						$syncHash.progressBar.PerformStep()
+						$syncHash.progress.Items.Add("Disabling Cortana icon...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowCortanaButton" -Type DWord -Value 0
 						$syncHash.progressBar.PerformStep()
 					}
 					if (($syncHash.wallpaper.Checked) -and ($syncHash.nightMode.Checked)) {
