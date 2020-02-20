@@ -274,7 +274,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.4.1.0 (20/02/2020)")
+				$syncHash.progress.Items.Add("Current version: 3.4.1.1 (20/02/2020)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 1
@@ -877,12 +877,10 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						Remove-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Recurse -Force
-						Sleep(2)
-						& "C:\Computer Repair Centre\syspin.exe" "C:\Program Files\Mozilla Firefox\firefox.exe"
-						Sleep(2)
-						& "C:\Computer Repair Centre\syspin.exe" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-						Sleep(2)
-						& "C:\Computer Repair Centre\syspin.exe" "C:\Windows\explorer.exe"
+						Sleep(3)
+						& "C:\Computer Repair Centre\sysPin.exe" "C:\Program Files\Mozilla Firefox\firefox.exe" "Pin to taskbar"
+						& "C:\Computer Repair Centre\sysPin.exe" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" "Pin to taskbar"
+						& "C:\Computer Repair Centre\sysPin.exe" "C:\Windows\explorer.exe" "Pin to taskbar"
 						$syncHash.progressBar.PerformStep()
 						$syncHash.progress.Items.Add("Disabling Cortana search bar...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -968,7 +966,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.4.1.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.4.1.1"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
