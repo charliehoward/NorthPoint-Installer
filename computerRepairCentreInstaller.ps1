@@ -78,6 +78,8 @@ function download {
 			$mozillaLocalSettingsPath = "C:\Computer Repair Centre\local-settings.js"
 			$mozillaConfigURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/mozilla.cfg"
 			$mozillaConfigPath = "C:\Computer Repair Centre\mozilla.cfg"
+			$sysPinURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/sysPin.exe"
+			$sysPinPath = "C:\Computer Repair Centre\sysPin.exe"
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $googleChromeURL -OutFile $googleChromePath
@@ -134,6 +136,8 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $windows10ThemeDarkURL -OutFile $windows10ThemeDarkPath
 			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $sysPinURL -OutFile $sysPinPath
+			$syncHash.progressBar.PerformStep()
 			$syncHash.downloadBox.Close()
 		})
 	$psCmd.Runspace = $processRunspace
@@ -177,7 +181,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 26
+	$progressBar.Maximum = 27
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$progressBar.Style = "Continuous"
@@ -285,7 +289,7 @@ function computerRepairCentreInstaller {
 				if ($syncHash.teamViewer.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.iTunes.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.wallpaper.Checked) { $syncHash.progressBar.Maximum += 1 }
-				if ($syncHash.pin.Checked) { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.pin.Checked) { $syncHash.progressBar.Maximum += 2 }
 				if ($syncHash.nightMode.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.uBlockOrigin.Checked) {
 					if ($syncHash.googleChrome.Checked) { $syncHash.progressBar.Maximum += 1 }
@@ -295,10 +299,7 @@ function computerRepairCentreInstaller {
 				if ($syncHash.operatingSystem -like '*6.2*') { $syncHash.progressBar.Maximum += 2 }
 				if ($syncHash.operatingSystem -like '*6.3*') { $syncHash.progressBar.Maximum += 2 }
 				if ($syncHash.operatingSystem -like '*10.0*') {
-					$syncHash.progressBar.Maximum += 14
-					if ($syncHash.pin.Checked) {
-						if ($syncHash.internetProtocol -like '*212.159.116.68*') { $syncHash.progressBar.Maximum += 1 }
-					}
+					$syncHash.progressBar.Maximum += 13
 				}
 				$syncHash.progressBar.Refresh()
 				if ($syncHash.crc.Checked) {
@@ -875,44 +876,25 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Setting taskbar icons...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites"
-						if ($syncHash.internetProtocol -like '*212.159.116.68*') {
-							Sleep(2)
-							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
-							Sleep(2)
-							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-							Sleep(2)
-							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\swriter.exe"
-							Sleep(2)
-							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\LibreOffice\program\scalc.exe"
-							Sleep(2)
-							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
-							$syncHash.progressBar.PerformStep()
-							$syncHash.progress.Items.Add("Disabling Cortana search bar...")
-							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							$syncHash.progress.SelectedIndex = -1;
-							Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0
-							$syncHash.progressBar.PerformStep()
-						}
-						if ($syncHash.internetProtocol -like '*82.24.227.141*') {
-							Sleep(2)
-							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files\Mozilla Firefox\firefox.exe"
-							Sleep(2)
-							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-							Sleep(2)
-							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\WORD.exe"
-							Sleep(2)
-							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.exe"
-							Sleep(2)
-							& "C:\Computer Repair Centre\taskbarPin10.ps1" "C:\Windows\explorer.exe"
-							$syncHash.progressBar.PerformStep()
-						}
+						Remove-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Recurse -Force
+						Sleep(2)
+						& "C:\Computer Repair Centre\syspin.exe" "C:\Program Files\Mozilla Firefox\firefox.exe"
+						Sleep(2)
+						& "C:\Computer Repair Centre\syspin.exe" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+						Sleep(2)
+						& "C:\Computer Repair Centre\syspin.exe" "C:\Windows\explorer.exe"
+						$syncHash.progressBar.PerformStep()
+						$syncHash.progress.Items.Add("Disabling Cortana search bar...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0
+						$syncHash.progressBar.PerformStep()
+						$syncHash.progress.Items.Add("Disabling task view icon...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Type DWord -Value 0
+						$syncHash.progressBar.PerformStep()
 					}
-					$syncHash.progress.Items.Add("Disabling task view icon...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Type DWord -Value 0
-					$syncHash.progressBar.PerformStep()
 					if (($syncHash.wallpaper.Checked) -and ($syncHash.nightMode.Checked)) {
 						$syncHash.progress.Items.Add("Set wallpapers and dark mode has been selected.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -986,7 +968,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.4.0.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.4.1.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1123,7 +1105,7 @@ function computerRepairCentreInstaller {
 	$pin.location = $System_Drawing_Point
 	$pin.DataBindings.DefaultDataSourceUpdateMode = 0
 	$pin.Name = "pin"
-	$pin.Checked = 0
+	$pin.Checked = 1
 	$pin.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\pin.ico")
 	$crcInstaller.Controls.Add($pin)
 
