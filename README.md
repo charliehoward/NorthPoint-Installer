@@ -1,4 +1,4 @@
-# NorthPoint Installer 3.4.1.1
+# NorthPoint Installer 3.4.2.0
 ###### Copyright (c) Charlie Howard 2016-2020 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -12,6 +12,12 @@ If run on Windows 10 it also disables Windows 10 hibernation mode, Wi-Fi sense, 
 Changes wallpaper to a selection of HD landscape images.
 
 ### Changelog
+
+###### Update 3.4.2.0
+
+Removed most of the support for Windows 7, no future features will come to 7 but programs will continue to install and wallpapers will continue to be set.
+Removed official support for Windows 8 & 8.1 but basic programs will continue to install.
+Default browser will change to Google Chrome if installed, Mozilla Firefox if installed or Mozilla Firefox is both Chrome and Firefox are installed.
 
 ###### Update 3.4.1.1
 
