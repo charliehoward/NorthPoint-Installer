@@ -3,9 +3,9 @@
 
 ## -- Download files
 
-$computerRepairCentreIconURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentreIcon.ico"
+$computerRepairCentreIconURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/computerRepairCentreIcon.ico"
 $computerRepairCentreIconPath = "C:\Computer Repair Centre\computerRepairCentreIcon.ico"
-$wallpapersURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/wallpapers.zip"
+$wallpapersURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/wallpapers.zip"
 $wallpapersPath = "C:\Computer Repair Centre\wallpapers.zip"
 Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 
@@ -28,55 +28,55 @@ function download {
 	$processRunspace.Open()
 	$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 	$psCmd = [powershell]::Create().AddScript({
-			$computerRepairCentreOEMURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentreOEM.bmp"
+			$computerRepairCentreOEMURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/computerRepairCentreOEM.bmp"
 			$computerRepairCentreOEMPath = "C:\Computer Repair Centre\computerRepairCentreOEM.bmp"
-			$googleChromeURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/googleChrome.ico"
+			$googleChromeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/googleChrome.ico"
 			$googleChromePath = "C:\Computer Repair Centre\googleChrome.ico"
-			$kasperskyInternetSecurityURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/kasperskyInternetSecurity.ico"
+			$kasperskyInternetSecurityURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/kasperskyInternetSecurity.ico"
 			$kasperskyInternetSecurityPath = "C:\Computer Repair Centre\kasperskyInternetSecurity.ico"
-			$libreOfficeURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/libreOffice.ico"
+			$libreOfficeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/libreOffice.ico"
 			$libreOfficePath = "C:\Computer Repair Centre\libreOffice.ico"
-			$mozillaFirefoxURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/mozillaFirefox.ico"
+			$mozillaFirefoxURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/mozillaFirefox.ico"
 			$mozillaFirefoxPath = "C:\Computer Repair Centre\mozillaFirefox.ico"
-			$mozillaThunderbirdURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/mozillaThunderbird.ico"
+			$mozillaThunderbirdURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/mozillaThunderbird.ico"
 			$mozillaThunderbirdPath = "C:\Computer Repair Centre\mozillaThunderbird.ico"
-			$skypeURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/skype.ico"
+			$skypeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/skype.ico"
 			$skypePath = "C:\Computer Repair Centre\skype.ico"
-			$teamViewerURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/teamViewer.ico"
+			$teamViewerURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/teamViewer.ico"
 			$teamViewerPath = "C:\Computer Repair Centre\teamViewer.ico"
-			$uBlockOriginURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/uBlockOrigin.ico"
+			$uBlockOriginURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/uBlockOrigin.ico"
 			$uBlockOriginPath = "C:\Computer Repair Centre\uBlockOrigin.ico"
-			$vlcMediaPlayerURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/vlcMediaPlayer.ico"
+			$vlcMediaPlayerURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/vlcMediaPlayer.ico"
 			$vlcMediaPlayerPath = "C:\Computer Repair Centre\vlcMediaPlayer.ico"
-			$wallpaperURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/wallpaper.ico"
+			$wallpaperURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/wallpaper.ico"
 			$wallpaperPath = "C:\Computer Repair Centre\wallpaper.ico"
-			$pinURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/pin.ico"
+			$pinURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/pin.ico"
 			$pinPath = "C:\Computer Repair Centre\pin.ico"
-			$nightModeURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/nightMode.ico"
+			$nightModeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/nightMode.ico"
 			$nightModePath = "C:\Computer Repair Centre\nightMode.ico"
-			$themeSwitcher7URL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/themeSwitcher7.exe"
+			$themeSwitcher7URL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/themeSwitcher7.exe"
 			$themeSwitcher7Path = "C:\Computer Repair Centre\themeSwitcher7.exe"
-			$themeSwitcher10URL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/themeSwitcher10.exe"
+			$themeSwitcher10URL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/themeSwitcher10.exe"
 			$themeSwitcher10Path = "C:\Computer Repair Centre\themeSwitcher10.exe"
-			$windows7ThemeURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentre7.theme"
+			$windows7ThemeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/computerRepairCentre7.theme"
 			$windows7ThemePath = "C:\Computer Repair Centre\computerRepairCentre7.theme"
-			$windows10ThemeLightURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentre10Light.theme"
+			$windows10ThemeLightURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/computerRepairCentre10Light.theme"
 			$windows10ThemeLightPath = "C:\Computer Repair Centre\computerRepairCentre10Light.theme"
-			$windows10ThemeDarkURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/computerRepairCentre10Dark.theme"
+			$windows10ThemeDarkURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/computerRepairCentre10Dark.theme"
 			$windows10ThemeDarkPath = "C:\Computer Repair Centre\computerRepairCentre10Dark.theme"
-			$iTunesURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/iTunes.ico"
+			$iTunesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/iTunes.ico"
 			$iTunesPath = "C:\Computer Repair Centre\iTunes.ico"
-			$chromeExtensionURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/chromeExtension.ps1"
+			$chromeExtensionURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/chromeExtension.ps1"
 			$chromeExtensionPath = "C:\Computer Repair Centre\chromeExtension.ps1"
-			$firefoxExtensionURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/firefoxExtension.ps1"
+			$firefoxExtensionURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/firefoxExtension.ps1"
 			$firefoxExtensionPath = "C:\Computer Repair Centre\firefoxExtension.ps1"
-			$mozillaLocalSettingsURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/local-settings.js"
+			$mozillaLocalSettingsURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/local-settings.js"
 			$mozillaLocalSettingsPath = "C:\Computer Repair Centre\local-settings.js"
-			$mozillaConfigURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/mozilla.cfg"
+			$mozillaConfigURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/mozilla.cfg"
 			$mozillaConfigPath = "C:\Computer Repair Centre\mozilla.cfg"
-			$sysPinURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/sysPin.exe"
+			$sysPinURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sysPin.exe"
 			$sysPinPath = "C:\Computer Repair Centre\sysPin.exe"
-			$setDefaultBrowserURL = "https://raw.githubusercontent.com/charliehoward/NorthPoint-Installer/master/assets/setDefaultBrowser.exe"
+			$setDefaultBrowserURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/SetDefaultBrowser.exe"
 			$setDefaultBrowserPath = "C:\Computer Repair Centre\setDefaultBrowser.exe"
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 			$syncHash.progressBar.PerformStep()
@@ -270,7 +270,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.5.0.2 (29/02/2020)")
+				$syncHash.progress.Items.Add("Current version: 3.5.0.3 (07/03/2020)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 6
@@ -865,7 +865,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.5.0.2"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.5.0.3"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
