@@ -270,7 +270,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.5.0.3 (07/03/2020)")
+				$syncHash.progress.Items.Add("Current version: 3.5.0.4 (07/03/2020)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 6
@@ -780,14 +780,14 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.Items.Add("Setting Mozilla Firefox as the default browser...")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
-							& "C:\Computer Repair Centre\SetDefaultBrowser.exe HKLM Firefox-308046B0AF4A39CB"
+							& 'C:\Computer Repair Centre\setDefaultBrowser.exe' HKLM Firefox-308046B0AF4A39CB
 							$syncHash.progressBar.PerformStep()
 						}
 						elseIf ($programList -like '*Chrome*') {
 							$syncHash.progress.Items.Add("Setting Google Chrome as the default browser...")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
-							& "C:\Computer Repair Centre\SetDefaultBrowser.exe Chrome"
+							& 'C:\Computer Repair Centre\setDefaultBrowser.exe' Chrome
 							$syncHash.progressBar.PerformStep()
 						}
 					}
@@ -865,7 +865,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.5.0.3"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.5.0.4"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
