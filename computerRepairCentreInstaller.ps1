@@ -270,10 +270,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.5.0.4 (07/03/2020)")
+				$syncHash.progress.Items.Add("Current version: 3.5.1.0 (11/03/2020)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progressBar.Maximum = 6
+				$syncHash.progressBar.Maximum = 7
 				if ($syncHash.crc.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.mozillaFirefox.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.mozillaThunderbird.Checked) { $syncHash.progressBar.Maximum += 1 }
@@ -296,7 +296,7 @@ function computerRepairCentreInstaller {
 				if ($syncHash.operatingSystem -like '*6.2*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*6.3*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*10.0*') {
-					$syncHash.progressBar.Maximum += 14
+					$syncHash.progressBar.Maximum += 13
 				}
 				$syncHash.progressBar.Refresh()
 				if ($syncHash.crc.Checked) {
@@ -336,7 +336,11 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.Items.Add("Installing all prerequisites...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
+				$syncHash.progress.Items.Add("Installing Chocolatey...")
+				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+				$syncHash.progress.SelectedIndex = -1;
 				Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+				$syncHash.progressBar.PerformStep()
 				$syncHash.progress.Items.Add("Installing Microsoft .NET 3.5...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
@@ -737,12 +741,6 @@ function computerRepairCentreInstaller {
 					Set-ItemProperty -Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer" -Name "DisableNotificationCenter" -Type DWord -Value 1
 					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\PushNotifications" -Name "ToastEnabled" -Type DWord -Value 0
 					$syncHash.progressBar.PerformStep()
-					$syncHash.progress.Items.Add("Disabling standby and monitor timeout when plugged in...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					powercfg -change -standby-timeout-ac 0
-					powercfg -change -monitor-timeout-ac 0
-					$syncHash.progressBar.PerformStep()
 					$syncHash.progress.Items.Add("Removing Microsoft Edge icon from the Desktop...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
@@ -865,7 +863,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.5.0.4"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.5.1.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
