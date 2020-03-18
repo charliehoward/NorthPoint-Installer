@@ -1,4 +1,4 @@
-# NorthPoint Installer 3.5.1.0
+# NorthPoint Installer 3.5.2.0
 ###### Copyright (c) Charlie Howard 2016-2020 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -12,6 +12,10 @@ Changes wallpaper to a selection of HD landscape images.
 Sets the default browser to either Google Chrome or Mozilla Firefox depending on what has been selected, or Firefox if both are selected.
 
 ### Changelog
+
+###### Update 3.5.2.0
+
+Added more wallpapers so installer with now randomly pick between two different wallpapers sets. Can easily add more in the future.
 
 ###### Update 3.5.1.0
 
