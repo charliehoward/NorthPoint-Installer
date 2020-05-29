@@ -278,7 +278,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.5.3.0 (23/03/2020)")
+				$syncHash.progress.Items.Add("Current version: 3.5.3.1 (29/05/2020)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 7
@@ -304,7 +304,7 @@ function computerRepairCentreInstaller {
 				if ($syncHash.operatingSystem -like '*6.2*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*6.3*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*10.0*') {
-					$syncHash.progressBar.Maximum += 12
+					$syncHash.progressBar.Maximum += 13
 				}
 				$syncHash.progressBar.Refresh()
 				if ($syncHash.crc.Checked) {
@@ -434,7 +434,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Installing Kaspersky Internet Security 2020...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					choco install kis -y --ignore-checksums
+					choco install kis -y --ignore-checksums --force
 					$programList = choco list --localonly
 					$syncHash.progress.Items.Add("Removing Safe Money icon from Desktop...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -764,11 +764,11 @@ function computerRepairCentreInstaller {
 						& "C:\Computer Repair Centre\sysPin.exe" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" "Pin to taskbar"
 						& "C:\Computer Repair Centre\sysPin.exe" "C:\Windows\explorer.exe" "Pin to taskbar"
 						$syncHash.progressBar.PerformStep()
-						#$syncHash.progress.Items.Add("Disabling Cortana search bar...")
-						#$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						#$syncHash.progress.SelectedIndex = -1;
-						#Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0
-						#$syncHash.progressBar.PerformStep()
+						$syncHash.progress.Items.Add("Disabling Cortana search bar...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0
+						$syncHash.progressBar.PerformStep()
 						$syncHash.progress.Items.Add("Disabling task view icon...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
@@ -872,7 +872,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.5.3.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.5.3.1"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
