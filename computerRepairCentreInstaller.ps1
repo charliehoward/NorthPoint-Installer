@@ -278,7 +278,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.5.3.1 (29/05/2020)")
+				$syncHash.progress.Items.Add("Current version: 3.5.3.2 (13/07/2020)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 7
@@ -701,12 +701,12 @@ function computerRepairCentreInstaller {
 					Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
 					Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
 					$syncHash.progressBar.PerformStep()
-					$syncHash.progress.Items.Add("Disabling Bing Search in start menu...")
+					$syncHash.progress.Items.Add("Disabling Bing  in start menu...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "BingSearchEnabled" -Type DWord -Value 0
-					if (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
-						New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
+					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\" -Name "BingEnabled" -Type DWord -Value 0
+					if (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows ")) {
+						New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows " -Force | Out-Null
 					}
 					Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "DisableWebSearch" -Type DWord -Value 1
 					$syncHash.progressBar.PerformStep()
@@ -764,11 +764,11 @@ function computerRepairCentreInstaller {
 						& "C:\Computer Repair Centre\sysPin.exe" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" "Pin to taskbar"
 						& "C:\Computer Repair Centre\sysPin.exe" "C:\Windows\explorer.exe" "Pin to taskbar"
 						$syncHash.progressBar.PerformStep()
-						$syncHash.progress.Items.Add("Disabling Cortana search bar...")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0
-						$syncHash.progressBar.PerformStep()
+						#$syncHash.progress.Items.Add("Disabling Cortana search bar...")
+						#$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						#$syncHash.progress.SelectedIndex = -1;
+						#Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0
+						#$syncHash.progressBar.PerformStep()
 						$syncHash.progress.Items.Add("Disabling task view icon...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
@@ -872,7 +872,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.5.3.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.5.3.2"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
