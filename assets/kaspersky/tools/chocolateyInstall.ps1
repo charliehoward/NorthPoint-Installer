@@ -1,8 +1,8 @@
 ﻿$packageName = 'kis'
 $installerType = 'exe'
 $silentArgs = "/s /noreboot"
-$url = 'https://products.s.kaspersky-labs.com/homeuser/kis2020/20.0.14.1085abc/english-GB-0.2035.0/3231363334337c44454c7c31/KIS20.0.14.1085_en-GB_full.exe'
-$checksum = 'D78DA3B06FE5C4CD8196F0FACD301581'
+$url = 'https://github.com/charliehoward/NorthPoint-Installer/releases/download/kis20.2.14.1085_en-gb_full/kis20.0.14.1085_en-gb_full.exe'
+$checksum = 'd3d121ee4080ad24fdd8c883db706d80'
 $checksumType = 'md5'
 $validExitCodes = @(0,3010)
 
