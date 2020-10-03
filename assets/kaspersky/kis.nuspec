@@ -6,7 +6,7 @@
     <title>Kaspersky Internet Security</title>
     <authors>Kaspersky Lab</authors>
     <owners>dtgm</owners>
-    <licenseUrl>https://support.kaspersky.com/12138</licenseUrl>
+    <licenseUrl>https://www.kaspersky.co.uk/end-user-license-agreement</licenseUrl>
     <projectUrl>https://usa.kaspersky.com/downloads/free-home-trials/internet-security</projectUrl>
     <iconUrl>https://chocolatey.org/content/packageimages/kvrt.2019.06.24.1824.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -32,6 +32,6 @@ This package installs the Free 30-day trial version of Kaspersky Internet Securi
     <tags>trial security firewall antivirus antispyware admin</tags>
     <packageSourceUrl>https://github.com/dtgm/chocolatey-packages/tree/master/automatic/kis/</packageSourceUrl>
     <docsUrl>https://support.kaspersky.com/kis2016</docsUrl>
-    <mailingListUrl>http://forum.kaspersky.com/index.php?showforum=8</mailingListUrl>
+    <mailingListUrl>https://kasperskyclub.com/index.php?showforum=8</mailingListUrl>
   </metadata>
 </package>

@@ -278,7 +278,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.5.4.1 (27/07/2020)")
+				$syncHash.progress.Items.Add("Current version: 3.5.4.2 (03/10/2020)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 7
@@ -761,7 +761,7 @@ function computerRepairCentreInstaller {
 						Remove-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Recurse -Force
 						Sleep(3)
 						& "C:\Computer Repair Centre\sysPin.exe" "C:\Program Files\Mozilla Firefox\firefox.exe" "Pin to taskbar"
-						& "C:\Computer Repair Centre\sysPin.exe" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" "Pin to taskbar"
+						& "C:\Computer Repair Centre\sysPin.exe" "C:\Program Files\Google\Chrome\Application\chrome.exe" "Pin to taskbar"
 						& "C:\Computer Repair Centre\sysPin.exe" "C:\Windows\explorer.exe" "Pin to taskbar"
 						$syncHash.progressBar.PerformStep()
 						#$syncHash.progress.Items.Add("Disabling Cortana search bar...")
@@ -872,7 +872,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.5.4.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.5.4.2"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
