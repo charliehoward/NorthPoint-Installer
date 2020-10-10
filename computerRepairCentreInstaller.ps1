@@ -278,7 +278,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.5.4.2 (03/10/2020)")
+				$syncHash.progress.Items.Add("Current version: 3.5.5.0 (10/10/2020)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 7
@@ -304,7 +304,7 @@ function computerRepairCentreInstaller {
 				if ($syncHash.operatingSystem -like '*6.2*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*6.3*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*10.0*') {
-					$syncHash.progressBar.Maximum += 13
+					$syncHash.progressBar.Maximum += 12
 				}
 				$syncHash.progressBar.Refresh()
 				if ($syncHash.crc.Checked) {
@@ -742,13 +742,6 @@ function computerRepairCentreInstaller {
 					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowRecent" -Type DWord -Value 0
 					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowFrequent" -Type DWord -Value 0
 					$syncHash.progressBar.PerformStep()
-					$syncHash.progress.Items.Add("Disabling Action Centre...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					New-Item -Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer"
-					Set-ItemProperty -Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer" -Name "DisableNotificationCenter" -Type DWord -Value 1
-					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\PushNotifications" -Name "ToastEnabled" -Type DWord -Value 0
-					$syncHash.progressBar.PerformStep()
 					$syncHash.progress.Items.Add("Removing Microsoft Edge icon from the Desktop...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
@@ -872,7 +865,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.5.4.2"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.5.5.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
