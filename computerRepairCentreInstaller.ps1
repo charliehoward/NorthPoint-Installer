@@ -54,6 +54,8 @@ function download {
 			$teamViewerPath = "C:\Computer Repair Centre\teamViewer.ico"
 			$microsoftOfficeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/microsoftOffice.ico"
 			$microsoftOfficePath = "C:\Computer Repair Centre\microsoftOffice.ico"
+			$microsoftOffice2007URL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/microsoftOffice2007.ico"
+			$microsoftOffice2007Path = "C:\Computer Repair Centre\microsoftOffice2007.ico"
 			$microsoftOfficeXMLURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/office/ProPlusVLK2019.xml"
 			$microsoftOfficeXMLPath = "C:\Computer Repair Centre\ProPlusVLK2019.xml"
 			$microsoftOfficeSetupURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/office/setup.exe"
@@ -152,6 +154,8 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $microsoftOfficeURL -OutFile $microsoftOfficePath
 			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $microsoftOffice2007URL -OutFile $microsoftOffice2007Path
+			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $microsoftOfficeSetupURL -OutFile $microsoftOfficeSetupPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $microsoftOfficeXMLURL -OutFile $microsoftOfficeXMLPath
@@ -201,7 +205,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 32
+	$progressBar.Maximum = 33
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$progressBar.Style = "Continuous"
@@ -300,7 +304,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.7.0.1 (18/12/2020)")
+				$syncHash.progress.Items.Add("Current version: 3.7.0.2 (18/12/2020)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 7
@@ -928,7 +932,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.7.0.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.7.0.2"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
