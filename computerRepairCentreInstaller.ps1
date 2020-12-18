@@ -152,11 +152,11 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $microsoftOfficeURL -OutFile $microsoftOfficePath
 			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $microsoftOfficeKeyURL -OutFile $microsoftOfficeKeyPath
-			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $microsoftOfficeSetupURL -OutFile $microsoftOfficeSetupPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $microsoftOfficeXMLURL -OutFile $microsoftOfficeXMLPath
+			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $microsoftOfficeKeyURL -OutFile $microsoftOfficeKeyPath
 			$syncHash.progressBar.PerformStep()
 			$syncHash.downloadBox.Close()
 		})
@@ -247,6 +247,7 @@ function computerRepairCentreInstaller {
 	$vlc = New-Object System.Windows.Forms.CheckBox
 	$libreOffice = New-Object System.Windows.Forms.CheckBox
 	$microsoftOffice = New-Object System.Windows.Forms.CheckBox
+	$microsoftOffice2007 = New-Object System.Windows.Forms.CheckBox
 	$skype = New-Object System.Windows.Forms.CheckBox
 	$teamViewer = New-Object System.Windows.Forms.CheckBox
 	$iTunes = New-Object System.Windows.Forms.CheckBox
@@ -267,6 +268,7 @@ function computerRepairCentreInstaller {
 	$syncHash.vlc = $vlc
 	$syncHash.libreOffice = $libreOffice
 	$syncHash.microsoftOffice = $microsoftOffice
+	$syncHash.microsoftOffice2007 = $microsoftOffice2007
 	$syncHash.skype = $skype
 	$syncHash.teamViewer = $teamViewer
 	$syncHash.iTunes = $iTunes
@@ -296,7 +298,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.6.2.0 (18/12/2020)")
+				$syncHash.progress.Items.Add("Current version: 3.7.0.0 (18/12/2020)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 7
@@ -314,7 +316,8 @@ function computerRepairCentreInstaller {
 				if ($syncHash.wallpaper.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.pin.Checked) { $syncHash.progressBar.Maximum += 4 }
 				if ($syncHash.nightMode.Checked) { $syncHash.progressBar.Maximum += 1 }
-				if ($syncHash.microsoftOffice.Checked) { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.microsoftOffice.Checked) { $syncHash.progressBar.Maximum += 2 }
+				if ($syncHash.microsoftOffice2007.Checked) { $syncHash.progressBar.Maximum += 3 }
 				if ($syncHash.uBlockOrigin.Checked) {
 					if ($syncHash.googleChrome.Checked) { $syncHash.progressBar.Maximum += 1 }
 					if ($syncHash.mozillaFirefox.Checked) { $syncHash.progressBar.Maximum += 1 }
@@ -323,7 +326,7 @@ function computerRepairCentreInstaller {
 				if ($syncHash.operatingSystem -like '*6.2*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*6.3*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*10.0*') {
-					$syncHash.progressBar.Maximum += 12
+					$syncHash.progressBar.Maximum += 11
 				}
 				$syncHash.progressBar.Refresh()
 				if ($syncHash.crc.Checked) {
@@ -506,6 +509,26 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
 					}
+				}
+				if ($syncHash.microsoftOffice2007.Checked) {
+					$syncHash.progress.Items.Add("Microsoft Office 2007 is selected.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Downloading Microsoft Office 2007...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Invoke-RestMethod -Uri "https://github.com/charliehoward/NorthPoint-Installer/releases/download/office2007/Office.2007.Enterprise.zip" -OutFile "C:\Computer Repair Centre\Microsoft Office 2007 Enterprise.zip"
+					& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\Microsoft Office 2007 Enterprise.zip" "-oC:\Computer Repair Centre\Microsoft Office 2007 Enterprise"
+					$syncHash.progressBar.PerformStep()
+					$syncHash.progress.Items.Add("Installing Microsoft Office 2007...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$DesktopPath = [Environment]::GetFolderPath("Desktop")
+					& 'C:\Computer Repair Centre\Microsoft Office 2007 Enterprise\setup.exe' /configure 'C:\Computer Repair Centre\Microsoft Office 2007 Enterprise\Enterprise.WW\config.xml'
+					$syncHash.progress.Items.Add("Completed installation of Microsoft Office 2007.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progressBar.PerformStep()
 				}
 				if ($syncHash.microsoftOffice.Checked) {
 					$syncHash.progress.Items.Add("Microsoft Office 2019 is selected.")
@@ -776,11 +799,6 @@ function computerRepairCentreInstaller {
 					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowRecent" -Type DWord -Value 0
 					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowFrequent" -Type DWord -Value 0
 					$syncHash.progressBar.PerformStep()
-					$syncHash.progress.Items.Add("Removing Microsoft Edge icon from the Desktop...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					Remove-Item "$Home\Desktop\Microsoft Edge.lnk" -Force
-					$syncHash.progressBar.PerformStep()
 					if ($syncHash.pin.Checked) {
 						$syncHash.progress.Items.Add("Setting taskbar icons...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -791,11 +809,6 @@ function computerRepairCentreInstaller {
 						& "C:\Computer Repair Centre\sysPin.exe" "C:\Program Files\Google\Chrome\Application\chrome.exe" "Pin to taskbar"
 						& "C:\Computer Repair Centre\sysPin.exe" "C:\Windows\explorer.exe" "Pin to taskbar"
 						$syncHash.progressBar.PerformStep()
-						#$syncHash.progress.Items.Add("Disabling Cortana search bar...")
-						#$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						#$syncHash.progress.SelectedIndex = -1;
-						#Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0
-						#$syncHash.progressBar.PerformStep()
 						$syncHash.progress.Items.Add("Disabling task view icon...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
@@ -805,6 +818,20 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowCortanaButton" -Type DWord -Value 0
+						$syncHash.progressBar.PerformStep()
+					}
+					if ($syncHash.microsoftOffice2007.Checked) {
+						Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office Word 2007.lnk" -Destination "$DesktopPath\Microsoft Office Word 2007.lnk"
+						Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office Excel 2007.lnk" -Destination "$DesktopPath\Microsoft Office Excel 2007.lnk"
+						Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office PowerPoint 2007.lnk" -Destination "$DesktopPath\Microsoft Office PowerPoint 2007.lnk"
+						Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office Outlook 2007.lnk" -Destination "$DesktopPath\Microsoft Office Outlook 2007.lnk"
+						$syncHash.progressBar.PerformStep()
+					}
+					if ($syncHash.microsoftOffice.Checked) {
+						Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Word.lnk" -Destination "$DesktopPath\Word.lnk"
+						Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Excel.lnk" -Destination "$DesktopPath\Excel.lnk"
+						Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\PowerPoint.lnk" -Destination "$DesktopPath\PowerPoint.lnk"
+						Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Outlook.lnk" -Destination "$DesktopPath\Outlook.lnk"
 						$syncHash.progressBar.PerformStep()
 					}
 					$programList = choco list --localonly
@@ -899,7 +926,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.6.2.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.7.0.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1154,7 +1181,26 @@ function computerRepairCentreInstaller {
 	$crcInstaller.Controls.Add($libreOffice)
 
 
-	## -- Microsoft Office
+	## -- Microsoft Office 2007
+
+	$microsoftOffice2007.UseVisualStyleBackColor = $True
+	$System_Drawing_Size = New-Object System.Drawing.Size
+	$System_Drawing_Size.Width = 36
+	$System_Drawing_Size.Height = 36
+	$microsoftOffice2007.Size = $System_Drawing_Size
+	$microsoftOffice2007.TabIndex = 1
+	$System_Drawing_Point = New-Object System.Drawing.Point
+	$System_Drawing_Point.X = 16 + (45 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
+	$microsoftOffice2007.location = $System_Drawing_Point
+	$microsoftOffice2007.DataBindings.DefaultDataSourceUpdateMode = 0
+	$microsoftOffice2007.Name = "microsoftOffice2007"
+	$microsoftOffice2007.Checked = 0
+	$microsoftOffice2007.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\microsoftOffice2007.ico")
+	$crcInstaller.Controls.Add($microsoftOffice2007)
+
+
+	## -- Microsoft Office 2019
 
 	$microsoftOffice.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1164,7 +1210,7 @@ function computerRepairCentreInstaller {
 	$microsoftOffice.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 3)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
 	$microsoftOffice.location = $System_Drawing_Point
 	$microsoftOffice.DataBindings.DefaultDataSourceUpdateMode = 0
 	$microsoftOffice.Name = "microsoftOffice"
@@ -1183,7 +1229,7 @@ function computerRepairCentreInstaller {
 	$mozillaFirefox.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 4)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
 	$mozillaFirefox.location = $System_Drawing_Point
 	$mozillaFirefox.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaFirefox.Name = "mozillaFirefox"
@@ -1202,7 +1248,7 @@ function computerRepairCentreInstaller {
 	$mozillaThunderbird.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$System_Drawing_Point.Y = 5 + (31 * 6)
 	$mozillaThunderbird.location = $System_Drawing_Point
 	$mozillaThunderbird.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaThunderbird.Name = "mozillaThunderbird"
@@ -1220,8 +1266,8 @@ function computerRepairCentreInstaller {
 	$skype.Size = $System_Drawing_Size
 	$skype.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 6)
+	$System_Drawing_Point.X = 16 + (45 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 1)
 	$skype.location = $System_Drawing_Point
 	$skype.DataBindings.DefaultDataSourceUpdateMode = 0
 	$skype.Name = "skype"
@@ -1240,7 +1286,7 @@ function computerRepairCentreInstaller {
 	$teamViewer.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
 	$teamViewer.location = $System_Drawing_Point
 	$teamViewer.DataBindings.DefaultDataSourceUpdateMode = 0
 	$teamViewer.Name = "teamViewer"
@@ -1259,7 +1305,7 @@ function computerRepairCentreInstaller {
 	$uBlockOrigin.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$uBlockOrigin.location = $System_Drawing_Point
 	$uBlockOrigin.DataBindings.DefaultDataSourceUpdateMode = 0
 	$uBlockOrigin.Name = "uBlockOrigin"
@@ -1278,7 +1324,7 @@ function computerRepairCentreInstaller {
 	$vlc.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 3)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
 	$vlc.location = $System_Drawing_Point
 	$vlc.DataBindings.DefaultDataSourceUpdateMode = 0
 	$vlc.Name = "vlc"
