@@ -10,4 +10,5 @@
   </Add>
   <Display Level="Full" AcceptEULA="TRUE" />
   <Updates Enabled="TRUE" />
+  <PIDKEY Value="PNB29Y9TKPBJFD2RBCXRDJ4XQ" />
 </Configuration>
