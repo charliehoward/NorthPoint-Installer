@@ -1,5 +1,5 @@
-# NorthPoint Installer 3.5.5.0
-###### Copyright (c) Charlie Howard 2016-2020 All rights reserved.
+# NorthPoint Installer 3.6.0.0
+###### Copyright (c) Charlie Howard 2016-2021 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
 
@@ -12,6 +12,10 @@ Changes wallpaper to a selection of HD landscape images.
 Sets the default browser to either Google Chrome or Mozilla Firefox depending on what has been selected, or Firefox if both are selected.
 
 ### Changelog
+
+###### Update 3.6.0.0
+
+Updated for 2021 and added option to install Microsoft Office 2019 Volume License.
 
 ###### Update 3.5.5.0
 

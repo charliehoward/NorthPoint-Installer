@@ -1,4 +1,4 @@
-## -- Copyright (c) Charlie Howard 2016-2020 All rights reserved
+## -- Copyright (c) Charlie Howard 2016-2021 All rights reserved
 
 
 ## -- Download files
@@ -52,6 +52,14 @@ function download {
 			$skypePath = "C:\Computer Repair Centre\skype.ico"
 			$teamViewerURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/teamViewer.ico"
 			$teamViewerPath = "C:\Computer Repair Centre\teamViewer.ico"
+			$microsoftOfficeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/microsoftOffice.ico"
+			$microsoftOfficePath = "C:\Computer Repair Centre\microsoftOffice.ico"
+			$microsoftOfficeXMLURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/office/ProPlusVLK2019.xml"
+			$microsoftOfficeXMLPath = "C:\Computer Repair Centre\ProPlusVLK2019.xml"
+			$microsoftOfficeSetupURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/office/setup.exe"
+			$microsoftOfficeSetupPath = "C:\Computer Repair Centre\setup.exe"
+			$microsoftOfficeKeyURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/office/productkey.txt"
+			$microsoftOfficeKeyPath = "C:\Computer Repair Centre\Microsoft Office 2019 Product Key.txt"
 			$uBlockOriginURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/uBlockOrigin.ico"
 			$uBlockOriginPath = "C:\Computer Repair Centre\uBlockOrigin.ico"
 			$vlcMediaPlayerURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/vlcMediaPlayer.ico"
@@ -142,6 +150,14 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $setDefaultBrowserURL -OutFile $setDefaultBrowserPath
 			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $microsoftOfficeURL -OutFile $microsoftOfficePath
+			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $microsoftOfficeKeyURL -OutFile $microsoftOfficeKeyPath
+			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $microsoftOfficeSetupURL -OutFile $microsoftOfficeSetupPath
+			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $microsoftOfficeXMLURL -OutFile $microsoftOfficeXMLPath
+			$syncHash.progressBar.PerformStep()
 			$syncHash.downloadBox.Close()
 		})
 	$psCmd.Runspace = $processRunspace
@@ -185,7 +201,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 28
+	$progressBar.Maximum = 32
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$progressBar.Style = "Continuous"
@@ -230,6 +246,7 @@ function computerRepairCentreInstaller {
 	$kaspersky = New-Object System.Windows.Forms.CheckBox
 	$vlc = New-Object System.Windows.Forms.CheckBox
 	$libreOffice = New-Object System.Windows.Forms.CheckBox
+	$microsoftOffice = New-Object System.Windows.Forms.CheckBox
 	$skype = New-Object System.Windows.Forms.CheckBox
 	$teamViewer = New-Object System.Windows.Forms.CheckBox
 	$iTunes = New-Object System.Windows.Forms.CheckBox
@@ -249,6 +266,7 @@ function computerRepairCentreInstaller {
 	$syncHash.kaspersky = $kaspersky
 	$syncHash.vlc = $vlc
 	$syncHash.libreOffice = $libreOffice
+	$syncHash.microsoftOffice = $microsoftOffice
 	$syncHash.skype = $skype
 	$syncHash.teamViewer = $teamViewer
 	$syncHash.iTunes = $iTunes
@@ -278,7 +296,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.5.5.0 (10/10/2020)")
+				$syncHash.progress.Items.Add("Current version: 3.6.0.0 (18/12/2020)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 7
@@ -296,6 +314,7 @@ function computerRepairCentreInstaller {
 				if ($syncHash.wallpaper.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.pin.Checked) { $syncHash.progressBar.Maximum += 4 }
 				if ($syncHash.nightMode.Checked) { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.microsoftOffice.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.uBlockOrigin.Checked) {
 					if ($syncHash.googleChrome.Checked) { $syncHash.progressBar.Maximum += 1 }
 					if ($syncHash.mozillaFirefox.Checked) { $syncHash.progressBar.Maximum += 1 }
@@ -488,6 +507,24 @@ function computerRepairCentreInstaller {
 						$syncHash.progressBar.PerformStep()
 					}
 				}
+###
+				if ($syncHash.microsoftOffice.Checked) {
+					$syncHash.progress.Items.Add("Microsoft Office 2019 is selected.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Installing Microsoft Office 2019...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$DesktopPath = [Environment]::GetFolderPath("Desktop")
+					& 'C:\Computer Repair Centre\setup.exe' /configure 'C:\Computer Repair Centre\ProPlusVLK2019.xml'
+					Copy-Item "C:\Computer Repair Centre\Microsoft Office 2019 Product Key.txt" -Destination "$DesktopPath\Microsoft Office 2019 Product Key.txt"
+					$syncHash.progress.Items.Add("Completed installation of Microsoft Office 2019.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progressBar.PerformStep()
+					}
+				}
+####
 				if ($syncHash.mozillaFirefox.Checked) {
 					$syncHash.progress.Items.Add("Mozilla Firefox is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -865,7 +902,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.5.5.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.6.0.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1120,6 +1157,25 @@ function computerRepairCentreInstaller {
 	$crcInstaller.Controls.Add($libreOffice)
 
 
+	## -- Microsoft Office
+
+	$microsoftOffice.UseVisualStyleBackColor = $True
+	$System_Drawing_Size = New-Object System.Drawing.Size
+	$System_Drawing_Size.Width = 36
+	$System_Drawing_Size.Height = 36
+	$microsoftOffice.Size = $System_Drawing_Size
+	$microsoftOffice.TabIndex = 1
+	$System_Drawing_Point = New-Object System.Drawing.Point
+	$System_Drawing_Point.X = 16 + (45 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
+	$microsoftOffice.location = $System_Drawing_Point
+	$microsoftOffice.DataBindings.DefaultDataSourceUpdateMode = 0
+	$microsoftOffice.Name = "microsoftOffice"
+	$microsoftOffice.Checked = 0
+	$microsoftOffice.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\microsoftOffice.ico")
+	$crcInstaller.Controls.Add($microsoftOffice)
+
+
 	## -- Mozilla Firefox
 
 	$mozillaFirefox.UseVisualStyleBackColor = $True
@@ -1130,7 +1186,7 @@ function computerRepairCentreInstaller {
 	$mozillaFirefox.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 3)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
 	$mozillaFirefox.location = $System_Drawing_Point
 	$mozillaFirefox.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaFirefox.Name = "mozillaFirefox"
@@ -1149,7 +1205,7 @@ function computerRepairCentreInstaller {
 	$mozillaThunderbird.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 4)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
 	$mozillaThunderbird.location = $System_Drawing_Point
 	$mozillaThunderbird.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaThunderbird.Name = "mozillaThunderbird"
@@ -1168,7 +1224,7 @@ function computerRepairCentreInstaller {
 	$skype.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$System_Drawing_Point.Y = 5 + (31 * 6)
 	$skype.location = $System_Drawing_Point
 	$skype.DataBindings.DefaultDataSourceUpdateMode = 0
 	$skype.Name = "skype"
@@ -1186,8 +1242,8 @@ function computerRepairCentreInstaller {
 	$teamViewer.Size = $System_Drawing_Size
 	$teamViewer.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 6)
+	$System_Drawing_Point.X = 16 + (45 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 1)
 	$teamViewer.location = $System_Drawing_Point
 	$teamViewer.DataBindings.DefaultDataSourceUpdateMode = 0
 	$teamViewer.Name = "teamViewer"
@@ -1206,7 +1262,7 @@ function computerRepairCentreInstaller {
 	$uBlockOrigin.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
 	$uBlockOrigin.location = $System_Drawing_Point
 	$uBlockOrigin.DataBindings.DefaultDataSourceUpdateMode = 0
 	$uBlockOrigin.Name = "uBlockOrigin"
@@ -1225,7 +1281,7 @@ function computerRepairCentreInstaller {
 	$vlc.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$vlc.location = $System_Drawing_Point
 	$vlc.DataBindings.DefaultDataSourceUpdateMode = 0
 	$vlc.Name = "vlc"
