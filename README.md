@@ -15,7 +15,7 @@ Sets the default browser to either Google Chrome or Mozilla Firefox depending on
 
 ###### Update 3.6.0.0
 
-Updated for 2021 and added option to install Microsoft Office 2019 Volume License.
+Updated for 2021, added option to install Microsoft Office 2019 Volume License and changed Chandler's Ford IP.
 
 ###### Update 3.5.5.0
 
