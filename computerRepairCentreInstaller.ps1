@@ -56,12 +56,12 @@ function download {
 			$microsoftOfficePath = "C:\Computer Repair Centre\microsoftOffice.ico"
 			$microsoftOffice2007URL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/microsoftOffice2007.ico"
 			$microsoftOffice2007Path = "C:\Computer Repair Centre\microsoftOffice2007.ico"
-			$microsoftOfficeXMLURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/office/ProPlusVLK2019.xml"
+			$microsoftOfficeXMLURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/ProPlusVLK2019.xml"
 			$microsoftOfficeXMLPath = "C:\Computer Repair Centre\ProPlusVLK2019.xml"
-			$microsoftOfficeSetupURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/office/setup.exe"
+			$microsoftOfficeSetupURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/setup.exe"
 			$microsoftOfficeSetupPath = "C:\Computer Repair Centre\setup.exe"
-			$microsoftOfficeKeyURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/office/productkey.txt"
-			$microsoftOfficeKeyPath = "C:\Computer Repair Centre\Microsoft Office 2019 Product Key.txt"
+			$microsoftOfficeActivatorURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/officeActivator.bat"
+			$microsoftOfficeActivatorPath = "C:\Computer Repair Centre\officeActivator.bat"
 			$uBlockOriginURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/uBlockOrigin.ico"
 			$uBlockOriginPath = "C:\Computer Repair Centre\uBlockOrigin.ico"
 			$vlcMediaPlayerURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/vlcMediaPlayer.ico"
@@ -160,7 +160,7 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $microsoftOfficeXMLURL -OutFile $microsoftOfficeXMLPath
 			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $microsoftOfficeKeyURL -OutFile $microsoftOfficeKeyPath
+			Invoke-RestMethod -Uri $microsoftOfficeActivatorURL -OutFile $microsoftOfficeActivatorPath
 			$syncHash.progressBar.PerformStep()
 			$syncHash.downloadBox.Close()
 		})
@@ -304,7 +304,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.7.0.2 (18/12/2020)")
+				$syncHash.progress.Items.Add("Current version: 3.7.1.0 (19/12/2020)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 7
@@ -322,7 +322,7 @@ function computerRepairCentreInstaller {
 				if ($syncHash.wallpaper.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.pin.Checked) { $syncHash.progressBar.Maximum += 4 }
 				if ($syncHash.nightMode.Checked) { $syncHash.progressBar.Maximum += 1 }
-				if ($syncHash.microsoftOffice.Checked) { $syncHash.progressBar.Maximum += 2 }
+				if ($syncHash.microsoftOffice.Checked) { $syncHash.progressBar.Maximum += 3 }
 				if ($syncHash.microsoftOffice2007.Checked) { $syncHash.progressBar.Maximum += 3 }
 				if ($syncHash.uBlockOrigin.Checked) {
 					if ($syncHash.googleChrome.Checked) { $syncHash.progressBar.Maximum += 1 }
@@ -545,8 +545,15 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 					$DesktopPath = [Environment]::GetFolderPath("Desktop")
 					& 'C:\Computer Repair Centre\setup.exe' /configure 'C:\Computer Repair Centre\ProPlusVLK2019.xml'
-					Copy-Item "C:\Computer Repair Centre\Microsoft Office 2019 Product Key.txt" -Destination "$DesktopPath\Microsoft Office 2019 Product Key.txt"
 					$syncHash.progress.Items.Add("Completed installation of Microsoft Office 2019.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progressBar.PerformStep()
+					$syncHash.progress.Items.Add("Activating Microsoft Office 2019...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					& "C:\Computer Repair Centre\officeActivator.bat"
+					$syncHash.progress.Items.Add("Completed activation of Microsoft Office 2019.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progressBar.PerformStep()
@@ -932,7 +939,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.7.0.2"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.7.1.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
