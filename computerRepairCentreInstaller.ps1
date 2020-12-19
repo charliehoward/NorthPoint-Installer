@@ -304,7 +304,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.7.1.0 (19/12/2020)")
+				$syncHash.progress.Items.Add("Current version: 3.7.1.1 (19/12/2020)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 7
@@ -552,6 +552,11 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Activating Microsoft Office 2019...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					Start-Sleep 30
+					& "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Word.lnk"
+					Start-Sleep 10
+					Get-Process WinWord |   Foreach-Object { $_.CloseMainWindow() }
+					Start-Sleep 10
 					& "C:\Computer Repair Centre\officeActivator.bat"
 					$syncHash.progress.Items.Add("Completed activation of Microsoft Office 2019.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -939,7 +944,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.7.1.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.7.1.1"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
