@@ -304,7 +304,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.7.1.2 (02/01/2021)")
+				$syncHash.progress.Items.Add("Current version: 3.7.1.3 (02/01/2021)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 7
@@ -530,7 +530,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					$DesktopPath = [Environment]::GetFolderPath("Desktop")
-					& 'C:\Computer Repair Centre\Microsoft Office 2007 Enterprise\setup.exe' /configure 'C:\Computer Repair Centre\Microsoft Office 2007 Enterprise\Enterprise.WW\config.xml'
+					& 'C:\Computer Repair Centre\Microsoft Office 2007 Enterprise\setup.exe' /config 'C:\Computer Repair Centre\Microsoft Office 2007 Enterprise\Enterprise.WW\config.xml'
 					$syncHash.progress.Items.Add("Completed installation of Microsoft Office 2007.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
@@ -945,7 +945,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.7.1.2"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.7.1.3"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
