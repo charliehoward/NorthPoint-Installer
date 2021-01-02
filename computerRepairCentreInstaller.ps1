@@ -60,8 +60,8 @@ function download {
 			$microsoftOfficeXMLPath = "C:\Computer Repair Centre\ProPlusVLK2019.xml"
 			$microsoftOfficeSetupURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/setup.exe"
 			$microsoftOfficeSetupPath = "C:\Computer Repair Centre\setup.exe"
-			$microsoftOfficeActivatorURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/officeActivator.bat"
-			$microsoftOfficeActivatorPath = "C:\Computer Repair Centre\officeActivator.bat"
+			$microsoftOfficeActivatorURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/officeActivator.zip"
+			$microsoftOfficeActivatorPath = "C:\Computer Repair Centre\officeActivator.zip"
 			$uBlockOriginURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/uBlockOrigin.ico"
 			$uBlockOriginPath = "C:\Computer Repair Centre\uBlockOrigin.ico"
 			$vlcMediaPlayerURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/vlcMediaPlayer.ico"
@@ -304,7 +304,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.7.1.1 (19/12/2020)")
+				$syncHash.progress.Items.Add("Current version: 3.7.1.2 (02/01/2021)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 7
@@ -552,11 +552,12 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Activating Microsoft Office 2019...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Start-Sleep 30
+					Start-Sleep 10
 					& "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Word.lnk"
 					Start-Sleep 10
 					Get-Process WinWord |   Foreach-Object { $_.CloseMainWindow() }
 					Start-Sleep 10
+					& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\officeActivator.zip" "-oC:\Computer Repair Centre\"
 					& "C:\Computer Repair Centre\officeActivator.bat"
 					$syncHash.progress.Items.Add("Completed activation of Microsoft Office 2019.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -944,7 +945,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.7.1.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.7.1.2"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
