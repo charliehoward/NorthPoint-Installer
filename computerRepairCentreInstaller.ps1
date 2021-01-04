@@ -304,7 +304,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.7.1.3 (02/01/2021)")
+				$syncHash.progress.Items.Add("Current version: 3.7.2.0 (04/01/2021)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 7
@@ -923,6 +923,16 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					if ($syncHash.microsoftOffice.Checked) {
+						$syncHash.progress.Items.Add("The system requires a restart to complete the activation of Microsoft Office 2019.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progress.Items.Add("The system will restart in 1 minute, if you need to cancel this press "Close".")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						cmd /c shutdown.exe /r /f /t 60
+					}
+
 					$syncHash.progressBar.PerformStep()
 				}
 			})
@@ -935,6 +945,7 @@ function computerRepairCentreInstaller {
 	}
 	$handler_close_Click =
 	{
+		cmd /c shutdown.exe /a
 		$syncHash.crcInstaller.Close()
 	}
 	$OnLoadForm_StateCorrection =
@@ -945,7 +956,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.7.1.3"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.7.2.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
