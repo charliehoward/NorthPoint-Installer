@@ -927,7 +927,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("The system requires a restart to complete the activation of Microsoft Office 2019.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progress.Items.Add("The system will restart in 1 minute, if you need to cancel this press "Close".")
+						$syncHash.progress.Items.Add("The system will restart in 1 minute, if you need to cancel this press close.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						cmd /c shutdown.exe /r /f /t 60
