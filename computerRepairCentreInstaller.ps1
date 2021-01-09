@@ -261,6 +261,7 @@ function computerRepairCentreInstaller {
 	$wallpaper = New-Object System.Windows.Forms.CheckBox
 	$pin = New-Object System.Windows.Forms.CheckBox
 	$nightMode = New-Object System.Windows.Forms.CheckBox
+	$rebootBox = New-Object System.Windows.Forms.CheckBox
 	$InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState
 	$syncHash = [hashtable]::Synchronized(@{})
 	$syncHash.crcInstaller = $crcInstaller
@@ -289,6 +290,8 @@ function computerRepairCentreInstaller {
 	$syncHash.progressBarValue = $progressBarValue
 	$syncHash.wallpapersURL = $wallpapersURL
 	$syncHash.wallpapersPath = $wallpapersPath
+	$syncHash.rebootBox = $rebootBox
+	$syncHash.reboot = $reboot
 	$b1 = $false
 	$b2 = $false
 	$b3 = $false
@@ -304,7 +307,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.7.2.1 (05/01/2021)")
+				$syncHash.progress.Items.Add("Current version: 3.8.0.0 (09/01/2021)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 7
@@ -930,10 +933,197 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("The system will restart in 1 minute, if you need to cancel this press close.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						cmd /c shutdown.exe /r /f /t 60
+						shutdown /r /f /t 60
+						$syncHash.reboot.Text = "Reboot (60)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (59)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (58)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (57)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (56)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (55)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (54)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (53)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (52)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (51)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (50)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (49)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (48)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (47)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (46)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (45)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (44)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (43)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (42)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (41)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (40)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (39)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (38)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (37)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (36)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (35)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (34)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (33)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (32)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (31)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (30)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (29)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (28)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (27)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (26)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (25)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (24)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (23)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (22)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (21)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (20)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (19)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (18)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (17)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (16)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (15)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (14)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (13)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (12)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (11)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (10)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (9)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (8)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (7)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (6)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (5)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (4)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (3)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (2)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (1)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (0)"
 					}
-
 					$syncHash.progressBar.PerformStep()
+				}
+				if ($syncHash.rebootBox.Checked) {
+					$syncHash.progress.Items.Add("The system will restart in 30 seconds, if you need to cancel this press close.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					shutdown /r /f /t 30
+					$syncHash.reboot.Text = "Reboot (30)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (29)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (28)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (27)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (26)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (25)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (24)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (23)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (22)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (21)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (20)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (19)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (18)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (17)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (16)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (15)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (14)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (13)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (12)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (11)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (10)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (9)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (8)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (7)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (6)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (5)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (4)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (3)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (2)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (1)"
+					Start-Sleep 1
+					$syncHash.reboot.Text = "Reboot (0)"
 				}
 			})
 		$psCmd.Runspace = $processRunspace
@@ -945,7 +1135,7 @@ function computerRepairCentreInstaller {
 	}
 	$handler_close_Click =
 	{
-		cmd /c shutdown.exe /a
+		shutdown /a
 		$syncHash.crcInstaller.Close()
 	}
 	$OnLoadForm_StateCorrection =
@@ -956,12 +1146,12 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.7.2.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.8.0.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 550
-	$System_Drawing_Size.Height = 240
+	$System_Drawing_Size.Width = 610
+	$System_Drawing_Size.Height = 260
 	$crcInstaller.ClientSize = $System_Drawing_Size
 	$crcInstaller.Icon = "C:\Computer Repair Centre\computerRepairCentreIcon.ico"
 
@@ -971,7 +1161,7 @@ function computerRepairCentreInstaller {
 	$install.TabIndex = 4
 	$install.Name = "install"
 	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 160
+	$System_Drawing_Size.Width = 185
 	$System_Drawing_Size.Height = 23
 	$install.Size = $System_Drawing_Size
 	$install.UseVisualStyleBackColor = $True
@@ -990,13 +1180,13 @@ function computerRepairCentreInstaller {
 	$reboot.TabIndex = 4
 	$reboot.Name = "reboot"
 	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 160
+	$System_Drawing_Size.Width = 185
 	$System_Drawing_Size.Height = 23
 	$reboot.Size = $System_Drawing_Size
 	$reboot.UseVisualStyleBackColor = $True
 	$reboot.Text = "Reboot"
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 195
+	$System_Drawing_Point.X = 212.5
 	$System_Drawing_Point.Y = 13
 	$reboot.location = $System_Drawing_Point
 	$reboot.DataBindings.DefaultDataSourceUpdateMode = 0
@@ -1009,13 +1199,13 @@ function computerRepairCentreInstaller {
 	$close.TabIndex = 4
 	$close.Name = "close"
 	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 160
+	$System_Drawing_Size.Width = 185
 	$System_Drawing_Size.Height = 23
 	$close.Size = $System_Drawing_Size
 	$close.UseVisualStyleBackColor = $True
 	$close.Text = "Close"
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 375
+	$System_Drawing_Point.X = 410
 	$System_Drawing_Point.Y = 13
 	$close.location = $System_Drawing_Point
 	$close.DataBindings.DefaultDataSourceUpdateMode = 0
@@ -1033,7 +1223,7 @@ function computerRepairCentreInstaller {
 	$progressBar.Name = "progressBar"
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Height = 15
-	$System_Drawing_Size.Width = 365
+	$System_Drawing_Size.Width = 425
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
@@ -1047,8 +1237,8 @@ function computerRepairCentreInstaller {
 
 	$progress.FormattingEnabled = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 365
-	$System_Drawing_Size.Height = 170
+	$System_Drawing_Size.Width = 425
+	$System_Drawing_Size.Height = 160
 	$progress.Size = $System_Drawing_Size
 	$progress.DataBindings.DefaultDataSourceUpdateMode = 0
 	$progress.Name = "listBox1"
@@ -1182,8 +1372,8 @@ function computerRepairCentreInstaller {
 	$kaspersky.Size = $System_Drawing_Size
 	$kaspersky.TabIndex = 3
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 1)
+	$System_Drawing_Point.X = 16 + (45 * 0)
+	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$kaspersky.location = $System_Drawing_Point
 	$kaspersky.DataBindings.DefaultDataSourceUpdateMode = 0
 	$kaspersky.Name = "kaspersky"
@@ -1202,7 +1392,7 @@ function computerRepairCentreInstaller {
 	$libreOffice.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 1)
 	$libreOffice.location = $System_Drawing_Point
 	$libreOffice.DataBindings.DefaultDataSourceUpdateMode = 0
 	$libreOffice.Name = "libreOffice"
@@ -1221,7 +1411,7 @@ function computerRepairCentreInstaller {
 	$microsoftOffice2007.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 3)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
 	$microsoftOffice2007.location = $System_Drawing_Point
 	$microsoftOffice2007.DataBindings.DefaultDataSourceUpdateMode = 0
 	$microsoftOffice2007.Name = "microsoftOffice2007"
@@ -1240,7 +1430,7 @@ function computerRepairCentreInstaller {
 	$microsoftOffice.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 4)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$microsoftOffice.location = $System_Drawing_Point
 	$microsoftOffice.DataBindings.DefaultDataSourceUpdateMode = 0
 	$microsoftOffice.Name = "microsoftOffice"
@@ -1259,7 +1449,7 @@ function computerRepairCentreInstaller {
 	$mozillaFirefox.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
 	$mozillaFirefox.location = $System_Drawing_Point
 	$mozillaFirefox.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaFirefox.Name = "mozillaFirefox"
@@ -1278,7 +1468,7 @@ function computerRepairCentreInstaller {
 	$mozillaThunderbird.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 6)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
 	$mozillaThunderbird.location = $System_Drawing_Point
 	$mozillaThunderbird.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaThunderbird.Name = "mozillaThunderbird"
@@ -1296,8 +1486,8 @@ function computerRepairCentreInstaller {
 	$skype.Size = $System_Drawing_Size
 	$skype.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 1)
+	$System_Drawing_Point.X = 16 + (45 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 6)
 	$skype.location = $System_Drawing_Point
 	$skype.DataBindings.DefaultDataSourceUpdateMode = 0
 	$skype.Name = "skype"
@@ -1315,8 +1505,8 @@ function computerRepairCentreInstaller {
 	$teamViewer.Size = $System_Drawing_Size
 	$teamViewer.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 2)
+	$System_Drawing_Point.X = 16 + (45 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$teamViewer.location = $System_Drawing_Point
 	$teamViewer.DataBindings.DefaultDataSourceUpdateMode = 0
 	$teamViewer.Name = "teamViewer"
@@ -1335,7 +1525,7 @@ function computerRepairCentreInstaller {
 	$uBlockOrigin.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 3)
+	$System_Drawing_Point.Y = 5 + (31 * 1)
 	$uBlockOrigin.location = $System_Drawing_Point
 	$uBlockOrigin.DataBindings.DefaultDataSourceUpdateMode = 0
 	$uBlockOrigin.Name = "uBlockOrigin"
@@ -1354,13 +1544,32 @@ function computerRepairCentreInstaller {
 	$vlc.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 4)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
 	$vlc.location = $System_Drawing_Point
 	$vlc.DataBindings.DefaultDataSourceUpdateMode = 0
 	$vlc.Name = "vlc"
 	$vlc.Checked = 1
 	$vlc.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\vlcMediaPlayer.ico")
 	$crcInstaller.Controls.Add($vlc)
+
+
+	## -- Reboot Box
+
+	$rebootBox.UseVisualStyleBackColor = $True
+	$System_Drawing_Size = New-Object System.Drawing.Size
+	$System_Drawing_Size.Width = 300
+	$System_Drawing_Size.Height = 36
+	$rebootBox.Size = $System_Drawing_Size
+	$rebootBox.TabIndex = 6
+	$System_Drawing_Point = New-Object System.Drawing.Point
+	$System_Drawing_Point.X = 170
+	$System_Drawing_Point.Y = 5 + (31 * 7)
+	$rebootBox.location = $System_Drawing_Point
+	$rebootBox.DataBindings.DefaultDataSourceUpdateMode = 0
+	$rebootBox.Name = "rebootBox"
+	$rebootBox.Checked = 0
+	$rebootBox.Text = "Reboot when install is complete."
+	$crcInstaller.Controls.Add($rebootBox)
 
 
 	## -- Form

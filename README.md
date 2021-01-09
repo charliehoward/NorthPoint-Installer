@@ -1,4 +1,4 @@
-# NorthPoint Installer 3.7.2.1
+# NorthPoint Installer 3.8.0.0
 ###### Copyright (c) Charlie Howard 2016-2021 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -12,6 +12,11 @@ Changes wallpaper to a selection of HD landscape images.
 Sets the default browser to either Google Chrome or Mozilla Firefox depending on what has been selected, or Firefox if both are selected.
 
 ### Changelog
+
+###### Update 3.8.0.0
+
+Added a reboot box that if checked will reboot the computer once the installer has finished, with a 30 second delay so the user can cancel if required.
+Added a countdown timer to the reboot button if a reboot is pending to show user how much time they have until the compuer is rebooted.
 
 ###### Update 3.7.2.1
 
