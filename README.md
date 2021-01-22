@@ -1,4 +1,4 @@
-# NorthPoint Installer 3.8.0.0
+# NorthPoint Installer 3.8.1.0
 ###### Copyright (c) Charlie Howard 2016-2021 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -12,6 +12,11 @@ Changes wallpaper to a selection of HD landscape images.
 Sets the default browser to either Google Chrome or Mozilla Firefox depending on what has been selected, or Firefox if both are selected.
 
 ### Changelog
+
+###### Update 3.8.1.0
+
+Added a box to disable sleep mode on AC power.
+Installer will now instal various Visual C++ Runtimes as part of the prerequisites.
 
 ###### Update 3.8.0.0
 

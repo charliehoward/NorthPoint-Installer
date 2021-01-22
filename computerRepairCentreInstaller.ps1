@@ -96,6 +96,8 @@ function download {
 			$sysPinPath = "C:\Computer Repair Centre\sysPin.exe"
 			$setDefaultBrowserURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/SetDefaultBrowser.exe"
 			$setDefaultBrowserPath = "C:\Computer Repair Centre\setDefaultBrowser.exe"
+			$visualCRuntimesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/visualCRuntimes.zip"
+			$visualCRuntimesPath = "C:\Computer Repair Centre\visualCRuntimes.zip"
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $googleChromeURL -OutFile $googleChromePath
@@ -162,6 +164,8 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $microsoftOfficeActivatorURL -OutFile $microsoftOfficeActivatorPath
 			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $visualCRuntimesURL -OutFile $visualCRuntimesPath
+			$syncHash.progressBar.PerformStep()
 			$syncHash.downloadBox.Close()
 		})
 	$psCmd.Runspace = $processRunspace
@@ -205,7 +209,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 33
+	$progressBar.Maximum = 34
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$progressBar.Style = "Continuous"
@@ -262,6 +266,7 @@ function computerRepairCentreInstaller {
 	$pin = New-Object System.Windows.Forms.CheckBox
 	$nightMode = New-Object System.Windows.Forms.CheckBox
 	$rebootBox = New-Object System.Windows.Forms.CheckBox
+	$refurbBox = New-Object System.Windows.Forms.CheckBox
 	$InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState
 	$syncHash = [hashtable]::Synchronized(@{})
 	$syncHash.crcInstaller = $crcInstaller
@@ -292,6 +297,7 @@ function computerRepairCentreInstaller {
 	$syncHash.wallpapersPath = $wallpapersPath
 	$syncHash.rebootBox = $rebootBox
 	$syncHash.reboot = $reboot
+	$syncHash.refurbBox = $refurbBox
 	$b1 = $false
 	$b2 = $false
 	$b3 = $false
@@ -307,10 +313,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.8.0.0 (09/01/2021)")
+				$syncHash.progress.Items.Add("Current version: 3.8.1.0 (22/01/2021)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progressBar.Maximum = 7
+				$syncHash.progressBar.Maximum = 8
 				if ($syncHash.crc.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.mozillaFirefox.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.mozillaThunderbird.Checked) { $syncHash.progressBar.Maximum += 1 }
@@ -337,6 +343,7 @@ function computerRepairCentreInstaller {
 				if ($syncHash.operatingSystem -like '*10.0*') {
 					$syncHash.progressBar.Maximum += 11
 				}
+				if ($syncHash.refurbBox.Checked) { $syncHash.progressBar.Maximum += 1 }
 				$syncHash.progressBar.Refresh()
 				if ($syncHash.crc.Checked) {
 					$syncHash.progress.Items.Add("Computer Repair Centre OEM information is selected.")
@@ -409,6 +416,17 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				choco install 7zip.install -y --ignore-checksums
+				$syncHash.progressBar.PerformStep()
+				$syncHash.progress.Items.Add("Installing Visual C++ Runtimes")
+				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+				$syncHash.progress.SelectedIndex = -1;
+				& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\visualCRuntimes.zip" "-oC:\Computer Repair Centre\Visual C Runtimes"
+				start /wait 'C:\Computer Repair Centre\Visual C Runtimes\vcredist2005_x64.exe' /q
+				start /wait 'C:\Computer Repair Centre\Visual C Runtimes\vcredist2008_x64.exe' /qb
+				start /wait 'C:\Computer Repair Centre\Visual C Runtimes\vcredist2010_x64.exe' /passive /norestart
+				start /wait 'C:\Computer Repair Centre\Visual C Runtimes\vcredist2012_x64.exe' /passive /norestart
+				start /wait 'C:\Computer Repair Centre\Visual C Runtimes\vcredist2013_x64.exe' /passive /norestart
+				start /wait 'C:\Computer Repair Centre\Visual C Runtimes\vcredist2015_2017_2019_x64.exe' /passive /norestart
 				$syncHash.progressBar.PerformStep()
 				$syncHash.progress.Items.Add("Completed installation of all prerequisites...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -923,6 +941,17 @@ function computerRepairCentreInstaller {
 					else {
 						Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value 1
 					}
+					if ($syncHash.refurbBox.Checked) {
+						$syncHash.progress.Items.Add("Disabling sleep mode on AC power.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Powercfg /Change standby-timeout-ac 0
+						Powercfg /Change monitor-timeout-ac 0
+						$syncHash.progress.Items.Add("Sleep mode has been disabled on AC power.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
 					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
@@ -1146,7 +1175,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.8.0.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.8.1.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1557,7 +1586,7 @@ function computerRepairCentreInstaller {
 
 	$rebootBox.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 300
+	$System_Drawing_Size.Width = 190
 	$System_Drawing_Size.Height = 36
 	$rebootBox.Size = $System_Drawing_Size
 	$rebootBox.TabIndex = 6
@@ -1570,6 +1599,25 @@ function computerRepairCentreInstaller {
 	$rebootBox.Checked = 0
 	$rebootBox.Text = "Reboot when install is complete."
 	$crcInstaller.Controls.Add($rebootBox)
+
+
+	## -- Refurb Box
+
+	$refurbBox.UseVisualStyleBackColor = $True
+	$System_Drawing_Size = New-Object System.Drawing.Size
+	$System_Drawing_Size.Width = 300
+	$System_Drawing_Size.Height = 36
+	$refurbBox.Size = $System_Drawing_Size
+	$refurbBox.TabIndex = 6
+	$System_Drawing_Point = New-Object System.Drawing.Point
+	$System_Drawing_Point.X = 360
+	$System_Drawing_Point.Y = 5 + (31 * 7)
+	$refurbBox.location = $System_Drawing_Point
+	$refurbBox.DataBindings.DefaultDataSourceUpdateMode = 0
+	$refurbBox.Name = "refurbBox"
+	$refurbBox.Checked = 0
+	$refurbBox.Text = "Disable sleep on AC power."
+	$crcInstaller.Controls.Add($refurbBox)
 
 
 	## -- Form
