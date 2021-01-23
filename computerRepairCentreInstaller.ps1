@@ -313,10 +313,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.8.1.0 (22/01/2021)")
+				$syncHash.progress.Items.Add("Current version: 3.8.1.1 (23/01/2021)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progressBar.Maximum = 8
+				$syncHash.progressBar.Maximum = 7
 				if ($syncHash.crc.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.mozillaFirefox.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.mozillaThunderbird.Checked) { $syncHash.progressBar.Maximum += 1 }
@@ -417,17 +417,16 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.SelectedIndex = -1;
 				choco install 7zip.install -y --ignore-checksums
 				$syncHash.progressBar.PerformStep()
-				$syncHash.progress.Items.Add("Installing Visual C++ Runtimes")
-				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-				$syncHash.progress.SelectedIndex = -1;
-				& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\visualCRuntimes.zip" "-oC:\Computer Repair Centre\Visual C Runtimes"
-				start /wait 'C:\Computer Repair Centre\Visual C Runtimes\vcredist2005_x64.exe' /q
-				start /wait 'C:\Computer Repair Centre\Visual C Runtimes\vcredist2008_x64.exe' /qb
-				start /wait 'C:\Computer Repair Centre\Visual C Runtimes\vcredist2010_x64.exe' /passive /norestart
-				start /wait 'C:\Computer Repair Centre\Visual C Runtimes\vcredist2012_x64.exe' /passive /norestart
-				start /wait 'C:\Computer Repair Centre\Visual C Runtimes\vcredist2013_x64.exe' /passive /norestart
-				start /wait 'C:\Computer Repair Centre\Visual C Runtimes\vcredist2015_2017_2019_x64.exe' /passive /norestart
-				$syncHash.progressBar.PerformStep()
+#				$syncHash.progress.Items.Add("Installing Visual C++ Runtimes")
+#				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+#				$syncHash.progress.SelectedIndex = -1;
+#				& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\visualCRuntimes.zip" "-oC:\Computer Repair Centre\Visual C Runtimes"
+#				start /wait 'C:\Computer Repair Centre\Visual C Runtimes\vcredist2005_x64.exe' /q
+#				start /wait 'C:\Computer Repair Centre\Visual C Runtimes\vcredist2008_x64.exe' /qb
+#				start /wait 'C:\Computer Repair Centre\Visual C Runtimes\vcredist2010_x64.exe' /passive /norestart
+#				start /wait 'C:\Computer Repair Centre\Visual C Runtimes\vcredist2013_x64.exe' /passive /norestart
+#				start /wait 'C:\Computer Repair Centre\Visual C Runtimes\vcredist2015_2017_2019_x64.exe' /passive /norestart
+#				$syncHash.progressBar.PerformStep()
 				$syncHash.progress.Items.Add("Completed installation of all prerequisites...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
@@ -1175,7 +1174,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.8.1.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.8.1.1"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
