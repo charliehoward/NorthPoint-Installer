@@ -1,4 +1,4 @@
-# NorthPoint Installer 3.8.1.1
+# NorthPoint Installer 3.9.0.0
 ###### Copyright (c) Charlie Howard 2016-2021 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -12,6 +12,13 @@ Changes wallpaper to a selection of HD landscape images.
 Sets the default browser to either Google Chrome or Mozilla Firefox depending on what has been selected, or Firefox if both are selected.
 
 ### Changelog
+
+###### Update 3.9.0.0
+
+Updated Chandler's Ford IP address.
+Removed custom wallpaper and theme installation.
+Wallpaper option has been replaced with the option to install Bing wallpaper that will grab a new wallpaper everyday.
+Removed wallpaper support on Windows 7.
 
 ###### Update 3.8.1.1
 

@@ -6,17 +6,7 @@
 $computerRepairCentreIconURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/computerRepairCentreIcon.ico"
 $computerRepairCentreIconPath = "C:\Computer Repair Centre\computerRepairCentreIcon.ico"
 $seconds = Get-Date -Format ss
-if(($seconds -ge 0) -and ($seconds -le 30))
-{
-	$wallpapersURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/wallpapers1.zip"
-}
-if(($seconds -ge 31) -and ($seconds -le 60))
-{
-	$wallpapersURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/wallpapers2.zip"
-}
-$wallpapersPath = "C:\Computer Repair Centre\wallpapers.zip"
 Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
-
 function download {
 	[reflection.assembly]::loadwithpartialname("System.Windows.Forms")
 	[reflection.assembly]::loadwithpartialname("System.Drawing")
@@ -66,22 +56,12 @@ function download {
 			$uBlockOriginPath = "C:\Computer Repair Centre\uBlockOrigin.ico"
 			$vlcMediaPlayerURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/vlcMediaPlayer.ico"
 			$vlcMediaPlayerPath = "C:\Computer Repair Centre\vlcMediaPlayer.ico"
-			$wallpaperURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/wallpaper.ico"
-			$wallpaperPath = "C:\Computer Repair Centre\wallpaper.ico"
+			$bingURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/bing.ico"
+			$bingPath = "C:\Computer Repair Centre\bing.ico"
 			$pinURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/pin.ico"
 			$pinPath = "C:\Computer Repair Centre\pin.ico"
 			$nightModeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/nightMode.ico"
 			$nightModePath = "C:\Computer Repair Centre\nightMode.ico"
-			$themeSwitcher7URL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/themeSwitcher7.exe"
-			$themeSwitcher7Path = "C:\Computer Repair Centre\themeSwitcher7.exe"
-			$themeSwitcher10URL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/themeSwitcher10.exe"
-			$themeSwitcher10Path = "C:\Computer Repair Centre\themeSwitcher10.exe"
-			$windows7ThemeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/computerRepairCentre7.theme"
-			$windows7ThemePath = "C:\Computer Repair Centre\computerRepairCentre7.theme"
-			$windows10ThemeLightURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/computerRepairCentre10Light.theme"
-			$windows10ThemeLightPath = "C:\Computer Repair Centre\computerRepairCentre10Light.theme"
-			$windows10ThemeDarkURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/computerRepairCentre10Dark.theme"
-			$windows10ThemeDarkPath = "C:\Computer Repair Centre\computerRepairCentre10Dark.theme"
 			$iTunesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/iTunes.ico"
 			$iTunesPath = "C:\Computer Repair Centre\iTunes.ico"
 			$chromeExtensionURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/chromeExtension.ps1"
@@ -96,8 +76,8 @@ function download {
 			$sysPinPath = "C:\Computer Repair Centre\sysPin.exe"
 			$setDefaultBrowserURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/SetDefaultBrowser.exe"
 			$setDefaultBrowserPath = "C:\Computer Repair Centre\setDefaultBrowser.exe"
-			$visualCRuntimesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/visualCRuntimes.zip"
-			$visualCRuntimesPath = "C:\Computer Repair Centre\visualCRuntimes.zip"
+			$bingWallpaperURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/bingWallpaper.ps1"
+			$bingWallpaperPath = "C:\Computer Repair Centre\bingWallpaper.ps1"
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $googleChromeURL -OutFile $googleChromePath
@@ -118,17 +98,13 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $iTunesURL -OutFile $iTunesPath
 			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $wallpaperURL -OutFile $wallpaperPath
+			Invoke-RestMethod -Uri $bingURL -OutFile $bingPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $pinURL -OutFile $pinPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $nightModeURL -OutFile $nightModePath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $uBlockOriginURL -OutFile $uBlockOriginPath
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $taskbarpin7URL -OutFile $taskbarpin7Path
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $taskbarpin10URL -OutFile $taskbarpin10Path
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $computerRepairCentreOEMURL -OutFile $computerRepairCentreOEMPath
 			$syncHash.progressBar.PerformStep()
@@ -139,16 +115,6 @@ function download {
 			Invoke-RestMethod -Uri $mozillaConfigURL -OutFile $mozillaConfigPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $mozillaLocalSettingsURL -OutFile $mozillaLocalSettingsPath
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $themeSwitcher7URL -OutFile $themeSwitcher7Path
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $windows7ThemeURL -OutFile $windows7ThemePath
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $themeSwitcher10URL -OutFile $themeSwitcher10Path
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $windows10ThemeLightURL -OutFile $windows10ThemeLightPath
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $windows10ThemeDarkURL -OutFile $windows10ThemeDarkPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $sysPinURL -OutFile $sysPinPath
 			$syncHash.progressBar.PerformStep()
@@ -164,7 +130,7 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $microsoftOfficeActivatorURL -OutFile $microsoftOfficeActivatorPath
 			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $visualCRuntimesURL -OutFile $visualCRuntimesPath
+			Invoke-RestMethod -Uri $bingWallpaperURL -OutFile $bingWallpaperPath
 			$syncHash.progressBar.PerformStep()
 			$syncHash.downloadBox.Close()
 		})
@@ -209,7 +175,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 34
+	$progressBar.Maximum = 27
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$progressBar.Style = "Continuous"
@@ -313,7 +279,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.8.1.1 (23/01/2021)")
+				$syncHash.progress.Items.Add("Current version: 3.9.0.0 (18/03/2021)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 7
@@ -733,19 +699,6 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("This computer is running Windows 7. You really need to move on Grandad.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					}
-					if ($syncHash.wallpaper.Checked) {
-						$syncHash.progress.Items.Add("Set wallpapers is selected.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progress.Items.Add("Setting wallpapers...")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						Invoke-RestMethod -Uri $syncHash.wallpapersURL -OutFile $syncHash.wallpapersPath
-						Remove-Item "C:\Computer Repair Centre\Wallpapers" -Recurse -Force
-						& 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
-						& 'C:\Computer Repair Centre\themeSwitcher7.exe' "C:\Computer Repair Centre\computerRepairCentre7.theme"
-						$syncHash.progressBar.PerformStep()
 					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
@@ -890,52 +843,31 @@ function computerRepairCentreInstaller {
 							$syncHash.progressBar.PerformStep()
 						}
 					}
-					if (($syncHash.wallpaper.Checked) -and ($syncHash.nightMode.Checked)) {
-						$syncHash.progress.Items.Add("Set wallpapers and dark mode has been selected.")
+					if ($syncHash.wallpaper.Checked) {
+						$syncHash.progress.Items.Add("Bing Wallpapers has been selected.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progress.Items.Add("Enabling wallpapers and dark mode...")
+						$syncHash.progress.Items.Add("Enabling Bing wallpapers and setting up daily schedule...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						Invoke-RestMethod -Uri $syncHash.wallpapersURL -OutFile $syncHash.wallpapersPath
-						Remove-Item "C:\Computer Repair Centre\Wallpapers" -Recurse -Force
-						& 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
-						& 'C:\Computer Repair Centre\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10Dark.theme"
+						& "C:\Computer Repair Centre\bingWallpaper.ps1"
 						$syncHash.progressBar.PerformStep()
-						$syncHash.progressBar.PerformStep()
-						$syncHash.progress.Items.Add("Completed installation of wallpapers and dark mode.")
+						$syncHash.progress.Items.Add("Completed installation of Bing Wallpapers.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 					}
-					if (($syncHash.wallpaper.Checked) -and ($syncHash.nightMode.Checked -eq 0)) {
-						$syncHash.progress.Items.Add("Set wallpapers is selected.")
+					if ($syncHash.nightMode.Checked) {
+						$syncHash.progress.Items.Add("Dark mode is selected.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progress.Items.Add("Setting wallpapers...")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$se
-						Invoke-RestMethod -Uri $syncHash.wallpapersURL -OutFile $syncHash.wallpapersPath
-						Remove-Item "C:\Computer Repair Centre\Wallpapers" -Recurse -Force
-						& 'C:\Program Files\7-Zip\7z.exe' e "C:\Computer Repair Centre\wallpapers.zip" "-oC:\Computer Repair Centre\Wallpapers"
-						& 'C:\Computer Repair Centre\themeSwitcher10.exe' "C:\Computer Repair Centre\computerRepairCentre10Light.theme"
-						$syncHash.progressBar.PerformStep()
-						$syncHash.progress.Items.Add("Completed installation of wallpapers.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-					}
-					if (($syncHash.nightMode.Checked) -and ($syncHash.wallpaper.Checked -eq 0)) {
-						$syncHash.progress.Items.Add("Set dark mode is selected.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progress.Items.Add("Enabling dark mode...")
+						$syncHash.progress.Items.Add("Enabling darkmode...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value 0
-						$syncHash.progress.Items.Add("Dark mode has been enabled.")
+						$syncHash.progressBar.PerformStep()
+						$syncHash.progress.Items.Add("Completed installation of darkmode.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
 					}
 					else {
 						Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value 1
@@ -1174,7 +1106,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.8.1.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.9.0.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1316,7 +1248,7 @@ function computerRepairCentreInstaller {
 	$crcInstaller.Controls.Add($pin)
 
 
-	## -- Wallpaper
+	## -- Bing Wallpaper
 
 	$wallpaper.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1331,7 +1263,7 @@ function computerRepairCentreInstaller {
 	$wallpaper.DataBindings.DefaultDataSourceUpdateMode = 0
 	$wallpaper.Name = "wallpaper"
 	$wallpaper.Checked = 1
-	$wallpaper.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\wallpaper.ico")
+	$wallpaper.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\bing.ico")
 	$crcInstaller.Controls.Add($wallpaper)
 
 
