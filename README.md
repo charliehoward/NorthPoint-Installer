@@ -1,4 +1,4 @@
-# NorthPoint Installer 3.10.0.0
+# NorthPoint Installer 3.10.0.1
 ###### Copyright (c) Charlie Howard 2016-2021 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -13,11 +13,18 @@ Sets the default browser to either Google Chrome or Mozilla Firefox depending on
 
 ### Changelog
 
+###### Update 3.10.0.1
+
+Stopped Zoom from being checked by default.
+
 ###### Update 3.10.0.0
 
 Added Zoom to installer options.
+
 If the user selects Kaspersky Internet Security they are now notified that the system requires a reboot.
+
 Updated Kaspersky Internet Security to 2021.
+
 Licensed under Mozilla Public License 2.0.
 
 ###### Update 3.9.0.2
@@ -31,8 +38,11 @@ Fixed issue with Bing wallpaper task not knowing what app to use.
 ###### Update 3.9.0.0
 
 Updated Chandler's Ford IP address.
+
 Removed custom wallpaper and theme installation.
+
 Wallpaper option has been replaced with the option to install Bing wallpaper that will grab a new wallpaper everyday.
+
 Removed wallpaper support on Windows 7.
 
 ###### Update 3.8.1.1
@@ -42,11 +52,13 @@ Removed Visual C++ Runtimes temporarily.
 ###### Update 3.8.1.0
 
 Added a box to disable sleep mode on AC power.
+
 Installer will now instal various Visual C++ Runtimes as part of the prerequisites.
 
 ###### Update 3.8.0.0
 
 Added a reboot box that if checked will reboot the computer once the installer has finished, with a 30 second delay so the user can cancel if required.
+
 Added a countdown timer to the reboot button if a reboot is pending to show user how much time they have until the compuer is rebooted.
 
 ###### Update 3.7.2.1
@@ -160,7 +172,9 @@ When installing prerequisites the installer will now show what is being installe
 ###### Update 3.5.0.0
 
 Removed most of the support for Windows 7, no future features will come to 7 but programs will continue to install and wallpapers will continue to be set.
+
 Removed official support for Windows 8 & 8.1 but basic programs will continue to install.
+
 Default browser will change to Google Chrome if installed, Mozilla Firefox if installed or Mozilla Firefox is both Chrome and Firefox are installed.
 
 ###### Update 3.4.1.1
@@ -189,7 +203,9 @@ Fixed another issue with light mode. Take the hint old people.
 
 ###### Update 3.3.5.1
 
-Fixed issue with dark mode being enabled even with box not ticked. Because old people. Fixed issue with installer only working on second launch, it should now work on first launch.
+Fixed issue with dark mode being enabled even with box not ticked. Because old people.
+
+Fixed issue with installer only working on second launch, it should now work on first launch.
 
 ###### Update 3.3.5.0
 
@@ -225,7 +241,11 @@ Enabled VLC by default.
 
 ###### Update 3.3.0.0
 
-Fixed Google Chrome and Mozilla Firefox uBlock Origin installs with the new version of Windows 1903. Temporarily disabled taskbar pining until a new solution is found for Windows 1903. Moved night mode to its own check box so it can be disabled. Fixed theme for Windows 1903.
+Fixed Google Chrome and Mozilla Firefox uBlock Origin installs with the new version of Windows 1903.
+
+Temporarily disabled taskbar pining until a new solution is found for Windows 1903.
+
+Moved night mode to its own check box so it can be disabled. Fixed theme for Windows 1903.
 
 ###### Update 3.2.2.2
 
@@ -237,7 +257,9 @@ Removed left over code.
 
 ###### Update 3.2.2.0
 
-Birthday feature now says the name of whose birthday it is. Added close button.
+Birthday feature now says the name of whose birthday it is.
+
+Added close button.
 
 ###### Update 3.2.1.0
 
