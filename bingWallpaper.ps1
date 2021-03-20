@@ -133,7 +133,7 @@ function Register-Schedule($taskPath, $taskName) {
     if ($mkt -ne "en-GB") { $argument += " -mkt $mkt" }
     if ($wallpaperStyle -ne "NoChange") { $argument += " -wallpaperStyle $wallpaperStyle" }
     $trigger = New-ScheduledTaskTrigger -AtLogon
-    $action = New-ScheduledTaskAction -Execute "PowerShell.exe" -Argument '-windowStyle hidden "C:\Computer Repair Centre\bingWallpaper.ps1"'
+    $action = New-ScheduledTaskAction -Execute "PowerShell.exe" -Argument '-noProfile -executionPolicy bypass -windowStyle hidden -file "C:\Computer Repair Centre\bingWallpaper.ps1"'
     $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries
     $task = Register-ScheduledTask -TaskPath $taskPath -TaskName $taskName -Trigger $trigger -Action $action -Settings $settings -RunLevel Highest
     Write-Output "    Scheduled task registered."
