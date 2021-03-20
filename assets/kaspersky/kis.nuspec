@@ -2,10 +2,10 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>kis</id>
-    <version>20.2.14.1085</version>
+    <version>21.2.16.590</version>
     <title>Kaspersky Internet Security</title>
     <authors>Kaspersky Lab</authors>
-    <owners>dtgm</owners>
+    <owners>choward</owners>
     <licenseUrl>https://www.kaspersky.co.uk/end-user-license-agreement</licenseUrl>
     <projectUrl>https://usa.kaspersky.com/downloads/free-home-trials/internet-security</projectUrl>
     <iconUrl>https://chocolatey.org/content/packageimages/kvrt.2019.06.24.1824.png</iconUrl>

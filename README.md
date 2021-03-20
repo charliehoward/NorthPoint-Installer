@@ -1,9 +1,9 @@
-# NorthPoint Installer 3.9.0.2
+# NorthPoint Installer 3.10.0.0
 ###### Copyright (c) Charlie Howard 2016-2021 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
 
-Can install the Computer Repair Centre OEM information, 7-zip, Google Chrome, iTunes, Kaspersky Internet Security 2020 (uninstalls Kaspersky Secure Connection), LibreOffice, Mozilla Firefox, Mozilla Thunderbird, Skype, TeamViewer, uBlock Origin & VLC Media Player.
+Has the option to install the Computer Repair Centre OEM information, Microsoft .NET (3.5, 4.5, 4.6.1, 4.6.2), 7-zip, Bing Wallpapers, Google Chrome, iTunes, Kaspersky Internet Security 2021 (uninstalls Kaspersky Secure Connection), LibreOffice, Mozilla Firefox, Mozilla Thunderbird, Skype, TeamViewer, uBlock Origin (for Mozilla Firefox & Google Chrome), VLC Media Player, Windows 10 darkmode & Zoom.
 
 If run on Windows 10 it also disables Windows 10 hibernation mode, Wi-Fi sense, changes the default Explorer page to "This PC", and auto-arranges Desktop icons.
 
@@ -12,6 +12,13 @@ Changes wallpaper to a selection of HD landscape images.
 Sets the default browser to either Google Chrome or Mozilla Firefox depending on what has been selected, or Firefox if both are selected.
 
 ### Changelog
+
+###### Update 3.10.0.0
+
+Added Zoom to installer options.
+If the user selects Kaspersky Internet Security they are now notified that the system requires a reboot.
+Updated Kaspersky Internet Security to 2021.
+Licensed under Mozilla Public License 2.0.
 
 ###### Update 3.9.0.2
 

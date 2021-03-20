@@ -78,6 +78,8 @@ function download {
 			$setDefaultBrowserPath = "C:\Computer Repair Centre\setDefaultBrowser.exe"
 			$bingWallpaperURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/bingWallpaper.ps1"
 			$bingWallpaperPath = "C:\Computer Repair Centre\bingWallpaper.ps1"
+			$bingWallpaperURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/zoom.ico"
+			$bingWallpaperPath = "C:\Computer Repair Centre\zoom.ico"
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $googleChromeURL -OutFile $googleChromePath
@@ -132,6 +134,8 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $bingWallpaperURL -OutFile $bingWallpaperPath
 			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $zoomURL -OutFile $zoomPath
+			$syncHash.progressBar.PerformStep()
 			$syncHash.downloadBox.Close()
 		})
 	$psCmd.Runspace = $processRunspace
@@ -175,7 +179,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 27
+	$progressBar.Maximum = 28
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$progressBar.Style = "Continuous"
@@ -233,6 +237,7 @@ function computerRepairCentreInstaller {
 	$nightMode = New-Object System.Windows.Forms.CheckBox
 	$rebootBox = New-Object System.Windows.Forms.CheckBox
 	$refurbBox = New-Object System.Windows.Forms.CheckBox
+	$zoom = New-Object System.Windows.Forms.CheckBox
 	$InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState
 	$syncHash = [hashtable]::Synchronized(@{})
 	$syncHash.crcInstaller = $crcInstaller
@@ -264,6 +269,7 @@ function computerRepairCentreInstaller {
 	$syncHash.rebootBox = $rebootBox
 	$syncHash.reboot = $reboot
 	$syncHash.refurbBox = $refurbBox
+	$syncHash.zoom = $zoom
 	$b1 = $false
 	$b2 = $false
 	$b3 = $false
@@ -279,7 +285,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.9.0.2 (20/03/2021)")
+				$syncHash.progress.Items.Add("Current version: 3.10.0.0 (20/03/2021)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 7
@@ -383,16 +389,6 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.SelectedIndex = -1;
 				choco install 7zip.install -y --ignore-checksums
 				$syncHash.progressBar.PerformStep()
-#				$syncHash.progress.Items.Add("Installing Visual C++ Runtimes")
-#				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-#				$syncHash.progress.SelectedIndex = -1;
-#				& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\visualCRuntimes.zip" "-oC:\Computer Repair Centre\Visual C Runtimes"
-#				start /wait 'C:\Computer Repair Centre\Visual C Runtimes\vcredist2005_x64.exe' /q
-#				start /wait 'C:\Computer Repair Centre\Visual C Runtimes\vcredist2008_x64.exe' /qb
-#				start /wait 'C:\Computer Repair Centre\Visual C Runtimes\vcredist2010_x64.exe' /passive /norestart
-#				start /wait 'C:\Computer Repair Centre\Visual C Runtimes\vcredist2013_x64.exe' /passive /norestart
-#				start /wait 'C:\Computer Repair Centre\Visual C Runtimes\vcredist2015_2017_2019_x64.exe' /passive /norestart
-#				$syncHash.progressBar.PerformStep()
 				$syncHash.progress.Items.Add("Completed installation of all prerequisites...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
@@ -442,10 +438,10 @@ function computerRepairCentreInstaller {
 					}
 				}
 				if ($syncHash.kaspersky.Checked) {
-					$syncHash.progress.Items.Add("Kaspersky Internet Security 2020 is selected.")
+					$syncHash.progress.Items.Add("Kaspersky Internet Security 2021 is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progress.Items.Add("Installing Kaspersky Internet Security 2020...")
+					$syncHash.progress.Items.Add("Installing Kaspersky Internet Security 2021...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					choco install kis -y --ignore-checksums --force
@@ -455,7 +451,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 					Remove-Item "C:\Users\Public\Desktop\Safe Money.lnk"
 					if ($programList -like '*kis*') {
-						$syncHash.progress.Items.Add("Completed installation of Kaspersky Internet Security 2020.")
+						$syncHash.progress.Items.Add("Completed installation of Kaspersky Internet Security 2021.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
@@ -473,7 +469,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progressBar.PerformStep()
 					}
 					else {
-						$syncHash.progress.Items.Add("The installation of Kaspersky Internet Security 2020 has failed.")
+						$syncHash.progress.Items.Add("The installation of Kaspersky Internet Security 2021 has failed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
@@ -695,6 +691,28 @@ function computerRepairCentreInstaller {
 						$syncHash.progressBar.PerformStep()
 					}
 				}
+				if ($syncHash.zoom.Checked) {
+					$syncHash.progress.Items.Add("Zoom is selected.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Installing Zoom...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					choco install zoom -y --ignore-checksums
+					$programList = choco list --localonly
+					if ($programList -like '*zoom*') {
+						$syncHash.progress.Items.Add("Completed installation of Zoom.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+					else {
+						$syncHash.progress.Items.Add("The installation of Zoom has failed.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+				}
 				if ($syncHash.operatingSystem -like '*6.1*') {
 					$syncHash.progress.Items.Add("This computer is running Windows 7. You really need to move on Grandad.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -886,6 +904,11 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					if ($syncHash.kaspersky.Checked) {
+						$syncHash.progress.Items.Add("The system requires a restart to complete the installation of Kaspersky Internet Security.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+					}
 					if ($syncHash.microsoftOffice.Checked) {
 						$syncHash.progress.Items.Add("The system requires a restart to complete the activation of Microsoft Office 2019.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1106,7 +1129,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.9.0.2"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.10.0.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1511,6 +1534,24 @@ function computerRepairCentreInstaller {
 	$vlc.Checked = 1
 	$vlc.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\vlcMediaPlayer.ico")
 	$crcInstaller.Controls.Add($vlc)
+
+	## -- Zoom
+
+	$zoom.UseVisualStyleBackColor = $True
+	$System_Drawing_Size = New-Object System.Drawing.Size
+	$System_Drawing_Size.Width = 36
+	$System_Drawing_Size.Height = 36
+	$zoom.Size = $System_Drawing_Size
+	$zoom.TabIndex = 6
+	$System_Drawing_Point = New-Object System.Drawing.Point
+	$System_Drawing_Point.X = 16 + (45 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
+	$zoom.location = $System_Drawing_Point
+	$zoom.DataBindings.DefaultDataSourceUpdateMode = 0
+	$zoom.Name = "zoom"
+	$zoom.Checked = 1
+	$zoom.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\zoom.ico")
+	$crcInstaller.Controls.Add($zoom)
 
 
 	## -- Reboot Box
