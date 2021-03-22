@@ -78,8 +78,8 @@ function download {
 			$setDefaultBrowserPath = "C:\Computer Repair Centre\setDefaultBrowser.exe"
 			$bingWallpaperURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/bingWallpaper.ps1"
 			$bingWallpaperPath = "C:\Computer Repair Centre\bingWallpaper.ps1"
-			$bingWallpaperURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/zoom.ico"
-			$bingWallpaperPath = "C:\Computer Repair Centre\zoom.ico"
+			$zoomURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/zoom.ico"
+			$zoomPath = "C:\Computer Repair Centre\zoom.ico"
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $googleChromeURL -OutFile $googleChromePath
@@ -285,7 +285,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.10.1.2 (22/03/2021)")
+				$syncHash.progress.Items.Add("Current version: 3.10.1.3 (22/03/2021)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 7
@@ -1129,7 +1129,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.10.1.2"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.10.1.3"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
