@@ -78,6 +78,8 @@ function download {
 			$setDefaultBrowserPath = "C:\Computer Repair Centre\setDefaultBrowser.exe"
 			$bingWallpaperURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/bingWallpaper.ps1"
 			$bingWallpaperPath = "C:\Computer Repair Centre\bingWallpaper.ps1"
+			$bingWallpaperVBSURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/bingWallpaper.vbs"
+			$bingWallpaperVBSPath = "C:\Computer Repair Centre\bingWallpaper.vbs"
 			$zoomURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/zoom.ico"
 			$zoomPath = "C:\Computer Repair Centre\zoom.ico"
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
@@ -134,6 +136,8 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $bingWallpaperURL -OutFile $bingWallpaperPath
 			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $bingWallpaperVBSURL -OutFile $bingWallpaperVBSPath
+			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $zoomURL -OutFile $zoomPath
 			$syncHash.progressBar.PerformStep()
 			$syncHash.downloadBox.Close()
@@ -179,7 +183,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 28
+	$progressBar.Maximum = 29
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$progressBar.Style = "Continuous"
@@ -285,7 +289,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.10.1.3 (22/03/2021)")
+				$syncHash.progress.Items.Add("Current version: 3.10.1.4 (22/03/2021)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 7
@@ -1129,7 +1133,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.10.1.3"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.10.1.4"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
