@@ -1,4 +1,4 @@
-# NorthPoint Installer 3.10.1.0
+# NorthPoint Installer 3.10.1.1
 ###### Copyright (c) Charlie Howard 2016-2021 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -13,9 +13,13 @@ Sets the default browser to either Google Chrome or Mozilla Firefox depending on
 
 ### Changelog
 
+###### Update 3.10.1.1
+
+Fixed Kaspersky Internet Security URL issue.
+
 ###### Update 3.10.1.0
 
-Updated Kaspersky Internet Security 2021 to
+Updated Kaspersky Internet Security 2021 to 21.3.10.391.
 
 ###### Update 3.10.0.1
 
