@@ -82,6 +82,10 @@ function download {
 			$bingWallpaperVBSPath = "C:\Computer Repair Centre\bingWallpaper.vbs"
 			$zoomURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/zoom.ico"
 			$zoomPath = "C:\Computer Repair Centre\zoom.ico"
+			$themeSwitcherURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/themeSwitcher.exe"
+			$themeSwitcherPath = "C:\Computer Repair Centre\themeSwitcher.exe"
+			$bingWallpapersThemeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/bingWallpapers.theme"
+			$bingWallpapersThemePath = "C:\Computer Repair Centre\bingWallpapers.theme"
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $googleChromeURL -OutFile $googleChromePath
@@ -140,6 +144,10 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $zoomURL -OutFile $zoomPath
 			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $themeSwitcherURL -OutFile $themeSwitcherPath
+			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $bingWallpapersThemeURL -OutFile $bingWallpapersThemePath
+			$syncHash.progressBar.PerformStep()
 			$syncHash.downloadBox.Close()
 		})
 	$psCmd.Runspace = $processRunspace
@@ -183,7 +191,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 29
+	$progressBar.Maximum = 31
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$progressBar.Style = "Continuous"
@@ -289,7 +297,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.10.2.0 (22/03/2021)")
+				$syncHash.progress.Items.Add("Current version: 3.10.3.0 (21/04/2021)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 7
@@ -877,7 +885,9 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Enabling Bing wallpapers and setting up daily schedule...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
+						New-Item -Path 'C:\Computer Repair Centre\BingWallpapers' -ItemType Directory
 						& "C:\Computer Repair Centre\bingWallpaper.ps1"
+						& 'C:\Computer Repair Centre\themeSwitcher.exe' "C:\Computer Repair Centre\bingWallpapers.theme"
 						$syncHash.progressBar.PerformStep()
 						$syncHash.progress.Items.Add("Completed installation of Bing Wallpapers.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1138,7 +1148,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.10.2.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.10.3.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
