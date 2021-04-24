@@ -77,25 +77,31 @@ Function Get-Image($imageSize, $idx, $mkt) {
     $urlImageBasePath = ""
     $urlImage = ""
     $savelocation = ""
+    Write-Debug ("Feed URL: " + $urlBingImageFeed)
     $webClient = New-Object System.Net.WebClient
     $page = $webClient.DownloadString($urlBingImageFeed)
     $regex = [regex] '<urlBase>(.*)</urlBase>'
     $match = $regex.Match($page)
     $urlImageBasePath = $match.Groups[1].Value
+    Write-Debug ("Image base path: $urlImageBasePath") -Verbose
     $urlImage = "{0}{1}_{2}.jpg" -f $urlBing, $urlImageBasePath, $imageSize
+    Write-Debug "Image URL: $urlImage"
     if ($savePath -eq "") {
-        $myPicturesFolder = "C:\Computer Repair Centre\BingWallpapers"
+        $myPicturesFolder = [Environment]::GetFolderPath("MyPictures")
     } else {
         $myPicturesFolder = $savePath
     }
     $savelocation = [io.path]::combine($myPicturesFolder, 'bingimageoftheday.jpg')
     Try {
+        Write-Debug ("Downloading image: " + $urlImage) -Verbose
         $webClient.DownloadFile($urlImage, $savelocation)
         if (!(Test-Path $savelocation) -or ((Get-Item $savelocation).length -lt 1kb)) {
+            Write-Warning "There was a problem downloading the image $urlImage"
             $savelocation = ""
         }
     }
     Catch [System.Net.WebException] {
+        Write-Warning "Unable to download image $urlImage"
         $savelocation = ""
     }
     return $savelocation
@@ -130,19 +136,27 @@ function Register-Schedule($taskPath, $taskName) {
     $action = New-ScheduledTaskAction -Execute "wscript.exe" -Argument '"C:\Computer Repair Centre\bingWallpaper.vbs" "C:\Computer Repair Centre\bingWallpaper.ps1"'
     $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries
     $task = Register-ScheduledTask -TaskPath $taskPath -TaskName $taskName -Trigger $trigger -Action $action -Settings $settings -RunLevel Highest
+    Write-Output "    Scheduled task registered."
 }
 function Unregister-Schedule($taskPath, $taskName) {
     $existingTask = Get-ScheduledTask | where { $_.TaskName -eq $taskName -and $_.TaskPath -eq $taskPath}
     if ($existingTask) {
         Unregister-ScheduledTask -TaskName $taskName -Confirm:$false
+        Write-Output "    Scheduled task unregistered"
+    } else {
+        Write-Output "    Scheduled task doesn't currently exist"
     }
 }
 $taskPath = "\"
 $taskName = "Bing Wallpaperer Daily Update"
+Write-Output ""
+Write-Output ">>> Bing Image of the Day Wallpaper Updater <<<"
 if ($UnregisterSchedule) {
+    Write-Output "... Unregistering daily schedule task"
     Unregister-Schedule $taskPath $taskName
 }
 if ($RegisterSchedule) {
+    Write-Output "... Registering daily schedule task"
     Register-Schedule $taskPath $taskName
 }
 if ($size -eq "") {
@@ -150,9 +164,14 @@ if ($size -eq "") {
 }
 $imageSizes = Get-IdealImageDimensionsArray $size
 foreach ($imageSize in $imageSizes) {
+    Write-Output "... Trying to get image - size: $imageSize, idx: $idx, mkt: $mkt"
     $saveLocation = Get-Image $imageSize $idx $mkt
 
     if ($saveLocation -ne "") {
+        Write-Output "... Image successfully saved to: $saveLocation"
+        [Wallpaper.Setter]::SetWallpaper($saveLocation, $wallpaperStyle)
+        Write-Output "... Wallpaper set with style of $wallpaperStyle"
         break
     }
+    Write-Warning "Unable to download image at this size: $imageSize"
 }
