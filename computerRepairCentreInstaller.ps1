@@ -80,8 +80,12 @@ function download {
 			$bingWallpaperInitialPath = "C:\Computer Repair Centre\bingWallpaperInitial.ps1"
 			$bingWallpaperTaskURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/bingWallpaperTask.ps1"
 			$bingWallpaperTaskPath = "C:\Computer Repair Centre\bingWallpaperTask.ps1"
-			$bingWallpaperVBSURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/bingWallpaper.vbs"
-			$bingWallpaperVBSPath = "C:\Computer Repair Centre\bingWallpaper.vbs"
+			$hiddenVBSURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/hidden.vbs"
+			$hiddenVBSPath = "C:\Computer Repair Centre\hidden.vbs"
+			$deleteFilesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFiles.ps1"
+			$deleteFilesPath = "C:\Computer Repair Centre\deleteFiles.ps1"
+			$deleteFilesTaskURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFilesTask.ps1"
+			$deleteFilesTaskPath = "C:\Computer Repair Centre\deleteFilesTask.ps1"
 			$zoomURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/zoom.ico"
 			$zoomPath = "C:\Computer Repair Centre\zoom.ico"
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
@@ -140,9 +144,13 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $bingWallpaperTaskURL -OutFile $bingWallpaperTaskPath
 			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $bingWallpaperVBSURL -OutFile $bingWallpaperVBSPath
+			Invoke-RestMethod -Uri $hiddenVBSURL -OutFile $hiddenVBSPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $zoomURL -OutFile $zoomPath
+			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $deleteFilesURL -OutFile $deleteFilesPath
+			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $deleteFilesTaskURL -OutFile $deleteFilesTaskPath
 			$syncHash.progressBar.PerformStep()
 			$syncHash.downloadBox.Close()
 		})
@@ -187,7 +195,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 30
+	$progressBar.Maximum = 32
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$progressBar.Style = "Continuous"
@@ -293,7 +301,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.10.4.1 (24/04/2021)")
+				$syncHash.progress.Items.Add("Current version: 3.10.5.0 (30/04/2021)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 7
@@ -827,7 +835,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						Remove-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Recurse -Force
-						Sleep(3)
+						Start-Sleep(3)
 						& "C:\Computer Repair Centre\sysPin.exe" "C:\Program Files\Mozilla Firefox\firefox.exe" "Pin to taskbar"
 						& "C:\Computer Repair Centre\sysPin.exe" "C:\Program Files\Google\Chrome\Application\chrome.exe" "Pin to taskbar"
 						& "C:\Computer Repair Centre\sysPin.exe" "C:\Windows\explorer.exe" "Pin to taskbar"
@@ -913,7 +921,8 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
-					}
+					}	
+					& 'C:\Computer Repair Centre\deleteFilesTask.ps1'
 					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
@@ -1142,7 +1151,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.10.4.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.10.5.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size

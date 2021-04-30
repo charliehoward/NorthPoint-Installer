@@ -129,7 +129,7 @@ function Register-Schedule($taskPath, $taskName) {
     if ($mkt -ne "en-GB") { $argument += " -mkt $mkt" }
     if ($wallpaperStyle -ne "NoChange") { $argument += " -wallpaperStyle $wallpaperStyle" }
     $trigger = New-ScheduledTaskTrigger -AtLogon
-    $action = New-ScheduledTaskAction -Execute "wscript.exe" -Argument '"C:\Computer Repair Centre\bingWallpaper.vbs" "C:\Computer Repair Centre\bingWallpaperTask.ps1"'
+    $action = New-ScheduledTaskAction -Execute "wscript.exe" -Argument '"C:\Computer Repair Centre\hidden.vbs" "C:\Computer Repair Centre\bingWallpaperTask.ps1"'
     $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries
     $task = Register-ScheduledTask -TaskPath $taskPath -TaskName $taskName -Trigger $trigger -Action $action -Settings $settings -RunLevel Highest
 }
