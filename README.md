@@ -1,4 +1,4 @@
-# NorthPoint Installer 3.10.5.0
+# NorthPoint Installer 3.10.6.0
 ###### Copyright (c) Charlie Howard 2016-2021 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -12,6 +12,10 @@ Changes wallpaper to a selection of HD landscape images.
 Sets the default browser to either Google Chrome or Mozilla Firefox depending on what has been selected, or Firefox if both are selected.
 
 ### Changelog
+
+###### Update 3.10.6.0
+
+Bing Wallpapers task will now run at 1AM incase user leaves the device on and will run at earliest opportunity if not.
 
 ###### Update 3.10.5.0
 
