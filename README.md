@@ -1,4 +1,4 @@
-# NorthPoint Installer 3.10.6.0
+# NorthPoint Installer 3.10.7.0
 ###### Copyright (c) Charlie Howard 2016-2021 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -12,6 +12,10 @@ Changes wallpaper to a selection of HD landscape images.
 Sets the default browser to either Google Chrome or Mozilla Firefox depending on what has been selected, or Firefox if both are selected.
 
 ### Changelog
+
+###### Update 3.10.7.0
+
+The installer now disables the weather taskbar widget.
 
 ###### Update 3.10.6.0
 
