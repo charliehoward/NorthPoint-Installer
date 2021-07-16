@@ -227,10 +227,10 @@ else {
 }
 $computerSystem = (Get-WmiObject -Class:Win32_ComputerSystem)
 if ($computerSystem.Model -like '*EliteBook*'){
-	$eliteBook = 1
+	$isRefurb = 1
 }
 else {
-	$eliteBook = 0
+	$isRefurb = 0
 }
 function computerRepairCentreInstaller {
 	[reflection.assembly]::loadwithpartialname("System.Windows.Forms")
@@ -293,6 +293,7 @@ function computerRepairCentreInstaller {
 	$syncHash.reboot = $reboot
 	$syncHash.refurbBox = $refurbBox
 	$syncHash.zoom = $zoom
+	$syncHash.isRefurb = $isRefurb
 	$b1 = $false
 	$b2 = $false
 	$b3 = $false
@@ -308,7 +309,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.10.8.0 (16/07/2021)")
+				$syncHash.progress.Items.Add("Current version: 3.10.8.1 (16/07/2021)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 7
@@ -337,6 +338,11 @@ function computerRepairCentreInstaller {
 				if ($syncHash.operatingSystem -like '*6.3*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*10.0*') {
 					$syncHash.progressBar.Maximum += 12
+				}
+				if ($syncHash.isRefurb -like '*1*' ) {
+					$syncHash.progress.Items.Add("This computer is indicated to be a refurb so will disable sleep on AC power and reboot.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
 				}
 				if ($syncHash.refurbBox.Checked) { $syncHash.progressBar.Maximum += 1 }
 				$syncHash.progressBar.Refresh()
@@ -1164,7 +1170,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.10.8.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.10.8.1"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1603,7 +1609,7 @@ function computerRepairCentreInstaller {
 	$rebootBox.location = $System_Drawing_Point
 	$rebootBox.DataBindings.DefaultDataSourceUpdateMode = 0
 	$rebootBox.Name = "rebootBox"
-	$rebootBox.Checked = $eliteBook
+	$rebootBox.Checked = $isRefurb
 	$rebootBox.Text = "Reboot when install is complete."
 	$crcInstaller.Controls.Add($rebootBox)
 
@@ -1622,7 +1628,7 @@ function computerRepairCentreInstaller {
 	$refurbBox.location = $System_Drawing_Point
 	$refurbBox.DataBindings.DefaultDataSourceUpdateMode = 0
 	$refurbBox.Name = "refurbBox"
-	$refurbBox.Checked = $eliteBook
+	$refurbBox.Checked = $isRefurb
 	$refurbBox.Text = "Disable sleep on AC power."
 	$crcInstaller.Controls.Add($refurbBox)
 
