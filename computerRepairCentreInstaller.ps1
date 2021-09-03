@@ -44,6 +44,8 @@ function download {
 			$teamViewerPath = "C:\Computer Repair Centre\teamViewer.ico"
 			$teamsURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/teams.ico"
 			$teamsPath = "C:\Computer Repair Centre\teams.ico"
+			$malwareBytesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/malwareBytes.ico"
+			$malwareBytesPath = "C:\Computer Repair Centre\malwareBytes.ico"
 			$microsoftOfficeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/microsoftOffice.ico"
 			$microsoftOfficePath = "C:\Computer Repair Centre\microsoftOffice.ico"
 			$microsoftOffice2007URL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/microsoftOffice2007.ico"
@@ -97,6 +99,8 @@ function download {
 			Invoke-RestMethod -Uri $kasperskyInternetSecurityURL -OutFile $kasperskyInternetSecurityPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $libreOfficeURL -OutFile $libreOfficePath
+			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $malwareBytesURL -OutFile $malwareBytesPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $mozillaFirefoxURL -OutFile $mozillaFirefoxPath
 			$syncHash.progressBar.PerformStep()
@@ -247,6 +251,7 @@ function computerRepairCentreInstaller {
 	$progress = New-Object System.Windows.Forms.ListBox
 	$progressBar = New-Object System.Windows.Forms.ProgressBar
 	$crc = New-Object System.Windows.Forms.CheckBox
+	$malwareBytes = New-Object System.Windows.Forms.CheckBox
 	$mozillaFirefox = New-Object System.Windows.Forms.CheckBox
 	$mozillaThunderbird = New-Object System.Windows.Forms.CheckBox
 	$googleChrome = New-Object System.Windows.Forms.CheckBox
@@ -278,6 +283,7 @@ function computerRepairCentreInstaller {
 	$syncHash.kaspersky = $kaspersky
 	$syncHash.vlc = $vlc
 	$syncHash.libreOffice = $libreOffice
+	$syncHash.malwareBytes = $malwareBytes
 	$syncHash.microsoftOffice = $microsoftOffice
 	$syncHash.microsoftOffice2007 = $microsoftOffice2007
 	$syncHash.skype = $skype
@@ -315,7 +321,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.10.10.0 (03/09/2021)")
+				$syncHash.progress.Items.Add("Current version: 3.10.11.0 (03/09/2021)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 8
@@ -627,6 +633,34 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progressBar.PerformStep()
 				}
+				if ($syncHash.malwareBytes.Checked) {
+					$syncHash.progress.Items.Add("MalwareBytes is selected.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Installing MalwareBytes...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					choco install malwarebytes -y
+					$programList = choco list --localonly
+					if ($programList -like '*malwarebytes*') {
+						$syncHash.progress.Items.Add("Completed installation of MalwareBytes.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+					else {
+						$syncHash.progress.Items.Add("The installation of MalwareBytes has failed.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+						$syncHash.progress.Items.Add("Retrying the installation of MalwareBytes.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+						choco install malwarebytes -y --ignore-checksums
+					}
+				}
+				
 				if ($syncHash.mozillaFirefox.Checked) {
 					$syncHash.progress.Items.Add("Mozilla Firefox is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -733,6 +767,33 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
 						choco install teamviewer -y --ignore-checksums
+					}
+				}
+				if ($syncHash.teamViewer.Checked) {
+					$syncHash.progress.Items.Add("Teams is selected.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Installing Teams...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					choco install microsoft-teams.install -y
+					$programList = choco list --localonly
+					if ($programList -like '*microsoft-teams*') {
+						$syncHash.progress.Items.Add("Completed installation of Teams.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+					else {
+						$syncHash.progress.Items.Add("The installation of Teams has failed.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+						$syncHash.progress.Items.Add("Retrying the installation of Teams.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+						choco install microsoft-teams.install -y --ignore-checksums
 					}
 				}
 				if ($syncHash.uBlockOrigin.Checked) {
@@ -1271,7 +1332,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.10.10.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.10.11.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1526,6 +1587,25 @@ function computerRepairCentreInstaller {
 	$crcInstaller.Controls.Add($libreOffice)
 
 
+	## -- MalwareBytes
+
+	$malwareBytes.UseVisualStyleBackColor = $True
+	$System_Drawing_Size = New-Object System.Drawing.Size
+	$System_Drawing_Size.Width = 36
+	$System_Drawing_Size.Height = 36
+	$malwareBytes.Size = $System_Drawing_Size
+	$malwareBytes.TabIndex = 1
+	$System_Drawing_Point = New-Object System.Drawing.Point
+	$System_Drawing_Point.X = 16 + (45 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
+	$malwareBytes.location = $System_Drawing_Point
+	$malwareBytes.DataBindings.DefaultDataSourceUpdateMode = 0
+	$malwareBytes.Name = "malwareBytes"
+	$malwareBytes.Checked = $locationOpposite
+	$malwareBytes.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\malwareBytes.ico")
+	$crcInstaller.Controls.Add($malwareBytes)
+
+	
 	## -- Microsoft Office 2007
 
 	$microsoftOffice2007.UseVisualStyleBackColor = $True
@@ -1536,7 +1616,7 @@ function computerRepairCentreInstaller {
 	$microsoftOffice2007.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$microsoftOffice2007.location = $System_Drawing_Point
 	$microsoftOffice2007.DataBindings.DefaultDataSourceUpdateMode = 0
 	$microsoftOffice2007.Name = "microsoftOffice2007"
@@ -1555,7 +1635,7 @@ function computerRepairCentreInstaller {
 	$microsoftOffice.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 3)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
 	$microsoftOffice.location = $System_Drawing_Point
 	$microsoftOffice.DataBindings.DefaultDataSourceUpdateMode = 0
 	$microsoftOffice.Name = "microsoftOffice"
@@ -1574,7 +1654,7 @@ function computerRepairCentreInstaller {
 	$mozillaFirefox.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 4)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
 	$mozillaFirefox.location = $System_Drawing_Point
 	$mozillaFirefox.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaFirefox.Name = "mozillaFirefox"
@@ -1593,7 +1673,7 @@ function computerRepairCentreInstaller {
 	$mozillaThunderbird.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$System_Drawing_Point.Y = 5 + (31 * 6)
 	$mozillaThunderbird.location = $System_Drawing_Point
 	$mozillaThunderbird.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaThunderbird.Name = "mozillaThunderbird"
@@ -1612,7 +1692,7 @@ function computerRepairCentreInstaller {
 	$skype.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 6)
+	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$skype.location = $System_Drawing_Point
 	$skype.DataBindings.DefaultDataSourceUpdateMode = 0
 	$skype.Name = "skype"
@@ -1630,8 +1710,8 @@ function computerRepairCentreInstaller {
 	$teams.Size = $System_Drawing_Size
 	$teams.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 7)
+	$System_Drawing_Point.X = 16 + (45 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 1)
 	$teams.location = $System_Drawing_Point
 	$teams.DataBindings.DefaultDataSourceUpdateMode = 0
 	$teams.Name = "teams"
@@ -1650,7 +1730,7 @@ function computerRepairCentreInstaller {
 	$teamViewer.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
 	$teamViewer.location = $System_Drawing_Point
 	$teamViewer.DataBindings.DefaultDataSourceUpdateMode = 0
 	$teamViewer.Name = "teamViewer"
@@ -1669,7 +1749,7 @@ function computerRepairCentreInstaller {
 	$uBlockOrigin.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$uBlockOrigin.location = $System_Drawing_Point
 	$uBlockOrigin.DataBindings.DefaultDataSourceUpdateMode = 0
 	$uBlockOrigin.Name = "uBlockOrigin"
@@ -1688,7 +1768,7 @@ function computerRepairCentreInstaller {
 	$vlc.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 3)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
 	$vlc.location = $System_Drawing_Point
 	$vlc.DataBindings.DefaultDataSourceUpdateMode = 0
 	$vlc.Name = "vlc"
@@ -1706,7 +1786,7 @@ function computerRepairCentreInstaller {
 	$zoom.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 4)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
 	$zoom.location = $System_Drawing_Point
 	$zoom.DataBindings.DefaultDataSourceUpdateMode = 0
 	$zoom.Name = "zoom"

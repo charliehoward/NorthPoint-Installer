@@ -1,4 +1,4 @@
-# NorthPoint Installer 3.10.10.0
+# NorthPoint Installer 3.10.11.0
 ###### Copyright (c) Charlie Howard 2016-2021 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -12,6 +12,11 @@ Changes wallpaper to a selection of HD landscape images.
 Sets the default browser to either Google Chrome or Mozilla Firefox depending on what has been selected, or Firefox if both are selected.
 
 ### Changelog
+
+###### Updated 3.10.11.0
+
+Added MalwareBytes as install option.
+Fixed Teams icon.
 
 ###### Update 3.10.10.0
 
