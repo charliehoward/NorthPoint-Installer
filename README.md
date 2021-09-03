@@ -1,4 +1,4 @@
-# NorthPoint Installer 3.10.9.0
+# NorthPoint Installer 3.10.10.0
 ###### Copyright (c) Charlie Howard 2016-2021 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -12,6 +12,16 @@ Changes wallpaper to a selection of HD landscape images.
 Sets the default browser to either Google Chrome or Mozilla Firefox depending on what has been selected, or Firefox if both are selected.
 
 ### Changelog
+
+###### Update 3.10.10.0
+
+Fixed Kaspersky mailing list issue.
+Installer will now check software MD5 checksums before installation.
+Added initial support for Windows 11.
+Installer now installs Microsoft Visual C++ Redistributable as part of the prerequisites.
+Added Teams as an install option.
+Removed some Windows 10 tweaks to make it run nicer for the end user.
+Added Windows 11 tweaks to match Windows 10. More to come later on release.
 
 ###### Update 3.10.9.0
 

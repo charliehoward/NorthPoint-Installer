@@ -42,6 +42,8 @@ function download {
 			$skypePath = "C:\Computer Repair Centre\skype.ico"
 			$teamViewerURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/teamViewer.ico"
 			$teamViewerPath = "C:\Computer Repair Centre\teamViewer.ico"
+			$teamsURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/teams.ico"
+			$teamsPath = "C:\Computer Repair Centre\teams.ico"
 			$microsoftOfficeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/microsoftOffice.ico"
 			$microsoftOfficePath = "C:\Computer Repair Centre\microsoftOffice.ico"
 			$microsoftOffice2007URL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/microsoftOffice2007.ico"
@@ -103,6 +105,8 @@ function download {
 			Invoke-RestMethod -Uri $skypeURL -OutFile $skypePath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $teamViewerURL -OutFile $teamViewerPath
+			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $teamsURL -OutFile $teamsPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $vlcMediaPlayerURL -OutFile $vlcMediaPlayerPath
 			$syncHash.progressBar.PerformStep()
@@ -195,7 +199,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 32
+	$progressBar.Maximum = 33
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$progressBar.Style = "Continuous"
@@ -253,6 +257,7 @@ function computerRepairCentreInstaller {
 	$microsoftOffice2007 = New-Object System.Windows.Forms.CheckBox
 	$skype = New-Object System.Windows.Forms.CheckBox
 	$teamViewer = New-Object System.Windows.Forms.CheckBox
+	$teams = New-Object System.Windows.Forms.CheckBox
 	$iTunes = New-Object System.Windows.Forms.CheckBox
 	$uBlockOrigin = New-Object System.Windows.Forms.CheckBox
 	$wallpaper = New-Object System.Windows.Forms.CheckBox
@@ -277,6 +282,7 @@ function computerRepairCentreInstaller {
 	$syncHash.microsoftOffice2007 = $microsoftOffice2007
 	$syncHash.skype = $skype
 	$syncHash.teamViewer = $teamViewer
+	$syncHash.teams = $teams
 	$syncHash.iTunes = $iTunes
 	$syncHash.uBlockOrigin = $uBlockOrigin
 	$syncHash.wallpaper = $wallpaper
@@ -309,10 +315,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.10.9.0 (03/09/2021)")
+				$syncHash.progress.Items.Add("Current version: 3.10.10.0 (03/09/2021)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progressBar.Maximum = 7
+				$syncHash.progressBar.Maximum = 8
 				if ($syncHash.crc.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.mozillaFirefox.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.mozillaThunderbird.Checked) { $syncHash.progressBar.Maximum += 1 }
@@ -336,9 +342,8 @@ function computerRepairCentreInstaller {
 				if ($syncHash.operatingSystem -like '*6.1*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*6.2*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*6.3*') { $syncHash.progressBar.Maximum += 1 }
-				if ($syncHash.operatingSystem -like '*10.0*') {
-					$syncHash.progressBar.Maximum += 12
-				}
+				if ($syncHash.operatingSystem -like '*10.0.1*') { $syncHash.progressBar.Maximum += 6 }
+				if ($syncHash.operatingSystem -like '*10.0.2*') { $syncHash.progressBar.Maximum += 6 }
 				if ($syncHash.isRefurb -like '*1*' ) {
 					$syncHash.progress.Items.Add("This computer is indicated to be a refurb so will disable sleep on AC power and reboot.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -407,6 +412,11 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				choco install dotnet4.6.2 -y
+				$syncHash.progress.Items.Add("Installing Microsoft Visual C++ Redistributable...")
+				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+				$syncHash.progress.SelectedIndex = -1;
+				choco install vcredist140 -y
+				choco install vcredist2015 -y
 				$syncHash.progressBar.PerformStep()
 				$syncHash.progress.Items.Add("Updating PowerShell...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -416,8 +426,26 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.Items.Add("Installing 7-zip...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				choco install 7zip.install -y --ignore-checksums
+				choco install 7zip.install -y
 				$syncHash.progressBar.PerformStep()
+				$programList = choco list --localonly
+					if ($programList -like '*7zip*') {
+						$syncHash.progress.Items.Add("Completed installation of 7-zip.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+					else {
+						$syncHash.progress.Items.Add("The installation of 7-zip has failed.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+						$syncHash.progress.Items.Add("Retrying the installation of 7-zip.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+						choco install 7zip.install -y --ignore-checksums
+					}
 				$syncHash.progress.Items.Add("Completed installation of all prerequisites...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
@@ -429,7 +457,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Installing Google Chrome...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					choco install googlechrome -y --ignore-checksums
+					choco install googlechrome -y
 					$programList = choco list --localonly
 					if ($programList -like '*GoogleChrome*') {
 						$syncHash.progress.Items.Add("Completed installation of Google Chrome.")
@@ -442,6 +470,11 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
+						$syncHash.progress.Items.Add("Retrying the installation of Google Chrome.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+						choco install googlechrome -y --ignore-checksums
 					}
 				}
 				if ($syncHash.iTunes.Checked) {
@@ -451,7 +484,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Installing iTunes...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					choco install itunes -y --ignore-checksums
+					choco install itunes -y
 					$programList = choco list --localonly
 					if ($programList -like '*iTunes*') {
 						$syncHash.progress.Items.Add("Completed installation of iTunes.")
@@ -464,6 +497,11 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
+						$syncHash.progress.Items.Add("Retrying the installation of iTunes.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+						choco install itunes -y --ignore-checksums
 					}
 				}
 				if ($syncHash.kaspersky.Checked) {
@@ -473,7 +511,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Installing Kaspersky Internet Security 2021...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					choco install kis -y --ignore-checksums
+					choco install kis -y
 					$programList = choco list --localonly
 					$syncHash.progress.Items.Add("Removing Safe Money icon from Desktop...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -507,7 +545,11 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
+						$syncHash.progress.Items.Add("Retrying the installation of Kaspersky Internet Security 2021.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
+						choco install kis -y --ignore-checksums
 					}
 				}
 				if ($syncHash.libreOffice.Checked) {
@@ -517,7 +559,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Installing LibreOffice...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					choco install libreoffice-fresh -y --ignore-checksums
+					choco install libreoffice-fresh -y
 					$programList = choco list --localonly
 					if ($programList -like '*libreoffice-fresh*') {
 						$syncHash.progress.Items.Add("Completed installation of LibreOffice.")
@@ -530,6 +572,11 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
+						$syncHash.progress.Items.Add("Retrying the installation of LibreOffice.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+						choco install libreoffice-fresh -y --ignore-checksums
 					}
 				}
 				if ($syncHash.microsoftOffice2007.Checked) {
@@ -587,7 +634,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Installing Mozilla Firefox...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					choco install firefox -y --ignore-checksums
+					choco install firefox -y
 					$programList = choco list --localonly
 					if ($programList -like '*Firefox*') {
 						$syncHash.progress.Items.Add("Completed installation of Mozilla Firefox.")
@@ -600,6 +647,11 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
+						$syncHash.progress.Items.Add("Retrying the installation of Mozilla Firefox.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+						choco install firefox -y --ignore-checksums
 					}
 				}
 				if ($syncHash.mozillaThunderbird.Checked) {
@@ -609,7 +661,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Installing Mozilla Thunderbird...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					choco install thunderbird -y --ignore-checksums
+					choco install thunderbird -y
 					$programList = choco list --localonly
 					if ($programList -like '*thunderbird*') {
 						$syncHash.progress.Items.Add("Completed installation of Mozilla Thunderbird.")
@@ -622,6 +674,11 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
+						$syncHash.progress.Items.Add("Retrying the installation of Mozilla Thunderbird.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+						choco install thunderbird -y --ignore-checksums
 					}
 				}
 				if ($syncHash.skype.Checked) {
@@ -631,7 +688,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Installing Skype...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					choco install skype -y --ignore-checksums
+					choco install skype -y
 					$programList = choco list --localonly
 					if ($programList -like '*skype*') {
 						$syncHash.progress.Items.Add("Completed installation of Skype.")
@@ -644,6 +701,11 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
+						$syncHash.progress.Items.Add("Retrying the installation of Skype.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+						choco install skype -y --ignore-checksums
 					}
 				}
 				if ($syncHash.teamViewer.Checked) {
@@ -653,7 +715,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Installing TeamViewer...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					choco install teamviewer -y --ignore-checksums
+					choco install teamviewer -y
 					$programList = choco list --localonly
 					if ($programList -like '*teamviewer*') {
 						$syncHash.progress.Items.Add("Completed installation of TeamViewer.")
@@ -666,6 +728,11 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
+						$syncHash.progress.Items.Add("Retrying the installation of TeamViewer.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+						choco install teamviewer -y --ignore-checksums
 					}
 				}
 				if ($syncHash.uBlockOrigin.Checked) {
@@ -710,7 +777,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Installing VLC Media Player...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					choco install vlc -y --ignore-checksums
+					choco install vlc -y
 					$programList = choco list --localonly
 					if ($programList -like '*vlc*') {
 						$syncHash.progress.Items.Add("Completed installation of VLC Media Player.")
@@ -723,6 +790,11 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
+						$syncHash.progress.Items.Add("Retrying the installation of VLC Media Player.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+						choco install vlc -y --ignore-checksums
 					}
 				}
 				if ($syncHash.zoom.Checked) {
@@ -732,7 +804,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Installing Zoom...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					choco install zoom -y --ignore-checksums
+					choco install zoom -y
 					$programList = choco list --localonly
 					if ($programList -like '*zoom*') {
 						$syncHash.progress.Items.Add("Completed installation of Zoom.")
@@ -745,6 +817,11 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
+						$syncHash.progress.Items.Add("Retrying the installation of Zoom.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+						choco install zoom -y --ignore-checksums
 					}
 				}
 				if ($syncHash.operatingSystem -like '*6.1*') {
@@ -757,7 +834,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progressBar.PerformStep()
 				}
 				if ($syncHash.operatingSystem -like '*6.2*') {
-					$syncHash.progress.Items.Add("This computer is running Windows 8. This OS is no longer supported by this software.")
+					$syncHash.progress.Items.Add("This computer is running OS 8. This OS is no longer supported by this software.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
@@ -766,7 +843,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progressBar.PerformStep()
 				}
 				if ($syncHash.operatingSystem -like '*6.3*') {
-					$syncHash.progress.Items.Add("This computer is running Windows 8.1. This OS is no longer supported by this software.")
+					$syncHash.progress.Items.Add("This computer is running OS 8.1. This OS is no longer supported by this software.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
@@ -774,7 +851,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progressBar.PerformStep()
 				}
-				if ($syncHash.operatingSystem -like '*10.0*') {
+				if ($syncHash.operatingSystem -like '*10.0.1*') {
 					$syncHash.progress.Items.Add("This computer is running Windows 10.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
@@ -788,60 +865,17 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 					Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -Name HiberbootEnabled -Value 0
 					$syncHash.progressBar.PerformStep()
-					$syncHash.progress.Items.Add("Disabling Wi-Fi Sense...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					New-Item -Path HKLM:\Software\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting -Force
-					Set-ItemProperty -Path "HKLM:\Software\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting" -Name "Value" -Type DWord -Value 0
-					Set-ItemProperty -Path "HKLM:\Software\Microsoft\PolicyManager\default\WiFi\AllowAutoConnectToWiFiSenseHotspots" -Name "Value" -Type DWord -Value 0
-					$syncHash.progressBar.PerformStep()
-					$syncHash.progress.Items.Add("Disabling telemetry...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
-					Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
-					Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
-					$syncHash.progressBar.PerformStep()
-					$syncHash.progress.Items.Add("Disabling Bing in start menu...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\" -Name "BingEnabled" -Type DWord -Value 0
-					if (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows ")) {
-						New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows " -Force | Out-Null
-					}
-					Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "DisableWebSearch" -Type DWord -Value 1
-					$syncHash.progressBar.PerformStep()
-					$syncHash.progress.Items.Add("Disabling start menu suggestions...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "SystemPaneSuggestionsEnabled" -Type DWord -Value 0
-					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "SilentInstalledAppsEnabled" -Type DWord -Value 0
-					$syncHash.progressBar.PerformStep()
 					$syncHash.progress.Items.Add("Disabling location tracking...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sensor\Overrides\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}" -Name "SensorPermissionState" -Type DWord -Value 0
 					Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\lfsvc\Service\Configuration" -Name "Status" -Type DWord -Value 0
 					$syncHash.progressBar.PerformStep()
-					$syncHash.progress.Items.Add("Disabling advertising ID...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					if (!(Test-Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo")) {
-						New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo" | Out-Null
-					}
-					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo" -Name "Enabled" -Type DWord -Value 0
-					$syncHash.progressBar.PerformStep()
 					$syncHash.progress.Items.Add("Disabling People icon...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People"
 					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" -Name "PeopleBand" -Type DWord -Value 0
-					$syncHash.progressBar.PerformStep()
-					$syncHash.progress.Items.Add("Disabling Weather widget...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Feeds"
-					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Feeds" -Name "ShellFeedsTaskbarViewMode" -Type DWord -Value 2
 					$syncHash.progressBar.PerformStep()
 					$syncHash.progress.Items.Add("Hiding recently used files and folders in File Explorer...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -926,9 +960,6 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Completed installation of darkmode.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-					}
-					else {
-						Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value 1
 					}
 					if ($syncHash.refurbBox.Checked) {
 						$syncHash.progress.Items.Add("Disabling sleep mode on AC power.")
@@ -1082,6 +1113,76 @@ function computerRepairCentreInstaller {
 					}
 					$syncHash.progressBar.PerformStep()
 				}
+				if ($syncHash.operatingSystem -like '*10.0.2*') {
+					$syncHash.progress.Items.Add("This computer is running Windows 11.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Setting explorer to open to This PC...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name LaunchTo -Value 1
+					$syncHash.progressBar.PerformStep()
+					$syncHash.progress.Items.Add("Disabling fastboot mode...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -Name HiberbootEnabled -Value 0
+					$syncHash.progressBar.PerformStep()
+					$syncHash.progress.Items.Add("Disabling location tracking...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sensor\Overrides\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}" -Name "SensorPermissionState" -Type DWord -Value 0
+					Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\lfsvc\Service\Configuration" -Name "Status" -Type DWord -Value 0
+					$syncHash.progressBar.PerformStep()
+					$syncHash.progress.Items.Add("Disabling People icon...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People"
+					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" -Name "PeopleBand" -Type DWord -Value 0
+					$syncHash.progressBar.PerformStep()
+					$syncHash.progress.Items.Add("Hiding recently used files and folders in File Explorer...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowRecent" -Type DWord -Value 0
+					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowFrequent" -Type DWord -Value 0
+					$syncHash.progressBar.PerformStep()
+					if ($syncHash.wallpaper.Checked) {
+						$syncHash.progress.Items.Add("Bing Wallpapers has been selected.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progress.Items.Add("Enabling Bing wallpapers and setting up daily schedule...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						& "C:\Computer Repair Centre\bingWallpaperInitial.ps1"
+						$syncHash.progressBar.PerformStep()
+						$syncHash.progress.Items.Add("Completed installation of Bing Wallpapers.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+					}
+					if ($syncHash.nightMode.Checked) {
+						$syncHash.progress.Items.Add("Dark mode is selected.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progress.Items.Add("Enabling darkmode...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value 0
+						$syncHash.progressBar.PerformStep()
+						$syncHash.progress.Items.Add("Completed installation of darkmode.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+					}
+					if ($syncHash.refurbBox.Checked) {
+						$syncHash.progress.Items.Add("Disabling sleep mode on AC power.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Powercfg /Change standby-timeout-ac 0
+						Powercfg /Change monitor-timeout-ac 0
+						$syncHash.progress.Items.Add("Sleep mode has been disabled on AC power.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+				}
 				if ($syncHash.rebootBox.Checked) {
 					$syncHash.progress.Items.Add("The system will restart in 30 seconds, if you need to cancel this press close.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1170,7 +1271,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.10.9.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.10.10.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1520,6 +1621,25 @@ function computerRepairCentreInstaller {
 	$crcInstaller.Controls.Add($skype)
 
 
+	## -- Teams
+
+	$teams.UseVisualStyleBackColor = $True
+	$System_Drawing_Size = New-Object System.Drawing.Size
+	$System_Drawing_Size.Width = 36
+	$System_Drawing_Size.Height = 36
+	$teams.Size = $System_Drawing_Size
+	$teams.TabIndex = 7
+	$System_Drawing_Point = New-Object System.Drawing.Point
+	$System_Drawing_Point.X = 16 + (45 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 7)
+	$teams.location = $System_Drawing_Point
+	$teams.DataBindings.DefaultDataSourceUpdateMode = 0
+	$teams.Name = "teams"
+	$teams.Checked = 0
+	$teams.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\teams.ico")
+	$crcInstaller.Controls.Add($teams)
+
+	
 	## -- TeamViewer
 
 	$teamViewer.UseVisualStyleBackColor = $True
@@ -1529,8 +1649,8 @@ function computerRepairCentreInstaller {
 	$teamViewer.Size = $System_Drawing_Size
 	$teamViewer.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 7)
+	$System_Drawing_Point.X = 16 + (45 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 1)
 	$teamViewer.location = $System_Drawing_Point
 	$teamViewer.DataBindings.DefaultDataSourceUpdateMode = 0
 	$teamViewer.Name = "teamViewer"
@@ -1549,7 +1669,7 @@ function computerRepairCentreInstaller {
 	$uBlockOrigin.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
 	$uBlockOrigin.location = $System_Drawing_Point
 	$uBlockOrigin.DataBindings.DefaultDataSourceUpdateMode = 0
 	$uBlockOrigin.Name = "uBlockOrigin"
@@ -1568,7 +1688,7 @@ function computerRepairCentreInstaller {
 	$vlc.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$vlc.location = $System_Drawing_Point
 	$vlc.DataBindings.DefaultDataSourceUpdateMode = 0
 	$vlc.Name = "vlc"
@@ -1586,7 +1706,7 @@ function computerRepairCentreInstaller {
 	$zoom.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 3)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
 	$zoom.location = $System_Drawing_Point
 	$zoom.DataBindings.DefaultDataSourceUpdateMode = 0
 	$zoom.Name = "zoom"

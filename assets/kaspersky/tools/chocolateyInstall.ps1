@@ -1,7 +1,7 @@
 ﻿$packageName = 'kis'
 $installerType = 'exe'
 $silentArgs = "/s /noreboot"
-$url = 'https://github.com/charliehoward/Kaspersky-Internet-Security/releases/download/kis21.3.16.590/kis21.3.16.590_en-gb_full.exe'
+$url = 'https://www.dropbox.com/s/prhkwn9gydkeml3/kis21.2.16.590_en-gb_full.exe?dl=1'
 $checksum = '60b850caffc06ff03114360d1c3c8588'
 $checksumType = 'md5'
 $validExitCodes = @(0,3010)
