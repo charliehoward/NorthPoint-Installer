@@ -1,4 +1,4 @@
-# NorthPoint Installer 3.10.11.0
+# NorthPoint Installer 3.10.11.1
 ###### Copyright (c) Charlie Howard 2016-2021 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -13,7 +13,11 @@ Sets the default browser to either Google Chrome or Mozilla Firefox depending on
 
 ### Changelog
 
-###### Updated 3.10.11.0
+###### Update 3.10.11.1
+
+Fixed issue with Teams being installed with TeamViewer.
+
+###### Update 3.10.11.0
 
 Added MalwareBytes as install option.
 Fixed Teams icon.
