@@ -225,7 +225,7 @@ download
 $operatingSystem = (Get-WmiObject -Class Win32_OperatingSystem).version
 $internetProtocol = Invoke-RestMethod http://ipinfo.io/json | Select-Object -exp ip
 $user = $env:UserName
-if ($internetProtocol -like '*82.22.149.63*') {
+if ($internetProtocol -like '*82.23.153.218*') {
 	$location = 0
 	$locationOpposite = 1
 }
@@ -375,7 +375,7 @@ function computerRepairCentreInstaller {
 						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportPhone -Value "01794 517142" -Force
 						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportURL -Value "https://www.firstforitrepairs.co.uk" -Force
 					}
-					elseif ($syncHash.internetProtocol -like '*82.22.149.63*') {
+					elseif ($syncHash.internetProtocol -like '*82.23.153.218*') {
 						$syncHash.progress.Items.Add("Installer being run from Chandlers Ford.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;

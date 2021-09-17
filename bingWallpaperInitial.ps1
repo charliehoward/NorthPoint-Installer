@@ -139,7 +139,7 @@ function Unregister-Schedule($taskPath, $taskName) {
     }
 }
 $taskPath = "\"
-$taskName = "Bing Wallpaperer Daily Update"
+$taskName = "Bing Wallpaper Daily Update"
 if ($UnregisterSchedule) {
     Unregister-Schedule "$taskPath" $taskName
 }
