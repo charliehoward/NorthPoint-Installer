@@ -321,7 +321,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.10.11.1 (04/09/2021)")
+				$syncHash.progress.Items.Add("Current version: 3.10.11.2 (24/09/2021)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 8
@@ -397,7 +397,8 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.Items.Add("Installing Chocolatey...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+				Set-ExecutionPolicy AllSigned
+				Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 				$syncHash.progressBar.PerformStep()
 				$syncHash.progress.Items.Add("Installing Microsoft .NET 3.5...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1332,7 +1333,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.10.11.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.10.11.2"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
