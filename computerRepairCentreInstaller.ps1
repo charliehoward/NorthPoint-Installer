@@ -80,16 +80,10 @@ function download {
 			$sysPinPath = "C:\Computer Repair Centre\sysPin.exe"
 			$setDefaultBrowserURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/SetDefaultBrowser.exe"
 			$setDefaultBrowserPath = "C:\Computer Repair Centre\setDefaultBrowser.exe"
-			$bingWallpaperInitialURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/bingWallpaperInitial.ps1"
-			$bingWallpaperInitialPath = "C:\Computer Repair Centre\bingWallpaperInitial.ps1"
-			$bingWallpaperTaskURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/bingWallpaperTask.ps1"
-			$bingWallpaperTaskPath = "C:\Computer Repair Centre\bingWallpaperTask.ps1"
-			$hiddenVBSURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/hidden.vbs"
-			$hiddenVBSPath = "C:\Computer Repair Centre\hidden.vbs"
-			$deleteFilesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFiles.ps1"
-			$deleteFilesPath = "C:\Computer Repair Centre\deleteFiles.ps1"
-			$deleteFilesTaskURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFilesTask.ps1"
-			$deleteFilesTaskPath = "C:\Computer Repair Centre\deleteFilesTask.ps1"
+			$bingWallpaperURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/bingWallpaper.zip"
+			$bingWallpaperPath = "C:\Computer Repair Centre\bingWallpaper.zip"
+			$deleteFilesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/deleteFiles.zip"
+			$deleteFilesPath = "C:\Computer Repair Centre\deleteFiles.zip"
 			$zoomURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/zoom.ico"
 			$zoomPath = "C:\Computer Repair Centre\zoom.ico"
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
@@ -203,7 +197,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 33
+	$progressBar.Maximum = 30
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$progressBar.Style = "Continuous"
@@ -321,7 +315,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.10.11.2 (24/09/2021)")
+				$syncHash.progress.Items.Add("Current version: 3.10.12.0 (19/10/2021)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 8
@@ -1004,6 +998,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Enabling Bing wallpapers and setting up daily schedule...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
+						& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\bingWallpapers.zip" "-oC:\Computer Repair Centre"
 						& "C:\Computer Repair Centre\bingWallpaperInitial.ps1"
 						$syncHash.progressBar.PerformStep()
 						$syncHash.progress.Items.Add("Completed installation of Bing Wallpapers.")
@@ -1033,7 +1028,8 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
-					}	
+					}
+					& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\deleteFiles.zip" "-oC:\Computer Repair Centre"
 					& 'C:\Computer Repair Centre\deleteFilesTask.ps1'
 					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1214,6 +1210,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Enabling Bing wallpapers and setting up daily schedule...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
+						& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\bingWallpaper.zip" "-oC:\Computer Repair Centre"
 						& "C:\Computer Repair Centre\bingWallpaperInitial.ps1"
 						$syncHash.progressBar.PerformStep()
 						$syncHash.progress.Items.Add("Completed installation of Bing Wallpapers.")
@@ -1244,6 +1241,147 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
 					}
+					& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\deleteFiles.zip" "-oC:\Computer Repair Centre"
+					& 'C:\Computer Repair Centre\deleteFilesTask.ps1'
+					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					if ($syncHash.kaspersky.Checked) {
+						$syncHash.progress.Items.Add("The system requires a reboot to complete the installation of Kaspersky.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+					}
+					if ($syncHash.microsoftOffice.Checked) {
+						$syncHash.progress.Items.Add("The system requires a restart to complete the activation of Microsoft Office 2019.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progress.Items.Add("The system will restart in 1 minute, if you need to cancel this press close.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						shutdown /r /f /t 60
+						$syncHash.reboot.Text = "Reboot (60)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (59)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (58)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (57)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (56)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (55)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (54)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (53)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (52)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (51)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (50)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (49)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (48)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (47)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (46)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (45)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (44)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (43)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (42)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (41)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (40)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (39)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (38)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (37)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (36)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (35)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (34)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (33)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (32)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (31)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (30)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (29)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (28)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (27)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (26)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (25)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (24)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (23)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (22)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (21)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (20)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (19)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (18)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (17)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (16)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (15)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (14)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (13)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (12)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (11)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (10)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (9)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (8)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (7)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (6)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (5)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (4)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (3)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (2)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (1)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (0)"
+					}
+					$syncHash.progressBar.PerformStep()
 				}
 				if ($syncHash.rebootBox.Checked) {
 					$syncHash.progress.Items.Add("The system will restart in 30 seconds, if you need to cancel this press close.")
@@ -1333,7 +1471,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.10.11.2"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.10.12.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size

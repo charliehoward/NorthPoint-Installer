@@ -89,7 +89,8 @@ Function Get-Image($imageSize, $idx, $mkt) {
     } else {
         $myPicturesFolder = $savePath
     }
-    $savelocation = [io.path]::combine($myPicturesFolder, 'bingimageoftheday.jpg')
+    $fileName = "bingimageoftheday-" + (Get-Date -Format yyyyMMdd) + ".jpg"
+    $savelocation = [io.path]::combine($myPicturesFolder, $fileName)
     Try {
         $webClient.DownloadFile($urlImage, $savelocation)
         if (!(Test-Path $savelocation) -or ((Get-Item $savelocation).length -lt 1kb)) {
