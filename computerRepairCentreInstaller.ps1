@@ -309,7 +309,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.10.12.3 (20/10/2021)")
+				$syncHash.progress.Items.Add("Current version: 3.10.12.4 (20/10/2021)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 8
@@ -441,8 +441,6 @@ function computerRepairCentreInstaller {
 						$syncHash.progressBar.PerformStep()
 						choco install 7zip.install -y --ignore-checksums
 					}
-				& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\bingWallpapers.zip" "-oC:\Computer Repair Centre"
-				& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\deleteFiles.zip" "-oC:\Computer Repair Centre"
 				$syncHash.progress.Items.Add("Completed installation of all prerequisites...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
@@ -994,7 +992,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Enabling Bing wallpapers and setting up daily schedule...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\bingWallpapers.zip" "-oC:\Computer Repair Centre"
+						& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\bingWallpaper.zip" "-oC:\Computer Repair Centre"
 						& "C:\Computer Repair Centre\bingWallpaperInitial.ps1"
 						$syncHash.progressBar.PerformStep()
 						$syncHash.progress.Items.Add("Completed installation of Bing Wallpapers.")
@@ -1467,7 +1465,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.10.12.3"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.10.12.4"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
