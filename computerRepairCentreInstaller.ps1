@@ -142,17 +142,11 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $microsoftOfficeActivatorURL -OutFile $microsoftOfficeActivatorPath
 			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $bingWallpaperInitialURL -OutFile $bingWallpaperInitialPath
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $bingWallpaperTaskURL -OutFile $bingWallpaperTaskPath
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $hiddenVBSURL -OutFile $hiddenVBSPath
+			Invoke-RestMethod -Uri $bingWallpaperURL -OutFile $bingWallpaperPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $zoomURL -OutFile $zoomPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $deleteFilesURL -OutFile $deleteFilesPath
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $deleteFilesTaskURL -OutFile $deleteFilesTaskPath
 			$syncHash.progressBar.PerformStep()
 			$syncHash.downloadBox.Close()
 		})
@@ -315,7 +309,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.10.12.1 (20/10/2021)")
+				$syncHash.progress.Items.Add("Current version: 3.10.12.2 (20/10/2021)")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 8
@@ -1471,7 +1465,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.10.12.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.10.12.2"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
