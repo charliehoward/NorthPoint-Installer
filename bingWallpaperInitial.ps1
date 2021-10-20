@@ -86,11 +86,15 @@ Function Get-Image($imageSize, $idx, $mkt) {
     Write-Debug "Image URL: $urlImage"
     if ($savePath -eq "") {
         $myPicturesFolder = [Environment]::GetFolderPath("MyPictures")
+        $myPicturesFolderBing = ($myPicturesFolder) + "\Bing Wallpapers"
+        New-Item -Path $myPicturesFolderBing -ItemType Directory
     } else {
         $myPicturesFolder = $savePath
+        $myPicturesFolderBing = ($myPicturesFolder) + "\Bing Wallpapers"
+        New-Item -Path $myPicturesFolderBing -ItemType Directory
     }
     $fileName = "bingimageoftheday-" + (Get-Date -Format yyyyMMdd) + ".jpg"
-    $savelocation = [io.path]::combine($myPicturesFolder, $fileName)
+    $savelocation = [io.path]::combine($myPicturesFolderBing, $fileName)
     Try {
         $webClient.DownloadFile($urlImage, $savelocation)
         if (!(Test-Path $savelocation) -or ((Get-Item $savelocation).length -lt 1kb)) {
