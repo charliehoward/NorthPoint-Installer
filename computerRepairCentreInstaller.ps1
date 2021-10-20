@@ -993,6 +993,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\bingWallpaper.zip" "-oC:\Computer Repair Centre"
+						Start-Sleep 10
 						& "C:\Computer Repair Centre\bingWallpaperInitial.ps1"
 						$syncHash.progressBar.PerformStep()
 						$syncHash.progress.Items.Add("Completed installation of Bing Wallpapers.")
@@ -1024,6 +1025,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progressBar.PerformStep()
 					}
 					& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\deleteFiles.zip" "-oC:\Computer Repair Centre"
+					Start-Sleep 10
 					& 'C:\Computer Repair Centre\deleteFilesTask.ps1'
 					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1205,6 +1207,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\bingWallpaper.zip" "-oC:\Computer Repair Centre"
+						Start-Sleep 10
 						& "C:\Computer Repair Centre\bingWallpaperInitial.ps1"
 						$syncHash.progressBar.PerformStep()
 						$syncHash.progress.Items.Add("Completed installation of Bing Wallpapers.")
@@ -1236,6 +1239,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progressBar.PerformStep()
 					}
 					& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\deleteFiles.zip" "-oC:\Computer Repair Centre"
+					Start-Sleep 10
 					& 'C:\Computer Repair Centre\deleteFilesTask.ps1'
 					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
