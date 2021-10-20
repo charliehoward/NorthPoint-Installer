@@ -88,11 +88,9 @@ Function Get-Image($imageSize, $idx, $mkt) {
     if ($savePath -eq "") {
         $myPicturesFolder = [Environment]::GetFolderPath("MyPictures")
         $myPicturesFolderBing = ($myPicturesFolder) + "\Bing Wallpapers"
-        New-Item -Path $myPicturesFolderBing -ItemType Directory
     } else {
         $myPicturesFolder = $savePath
         $myPicturesFolderBing = ($myPicturesFolder) + "\Bing Wallpapers"
-        New-Item -Path $myPicturesFolderBing -ItemType Directory
     }
     $fileName = "bingimageoftheday-" + (Get-Date -Format yyyyMMdd) + ".jpg"
     $savelocation = [io.path]::combine($myPicturesFolderBing, $fileName)
