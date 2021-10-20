@@ -146,7 +146,7 @@ function Unregister-Schedule($taskPath, $taskName) {
     }
 }
 $taskPath = "\"
-$taskName = "Bing Wallpaperer Daily Update"
+$taskName = "Bing Wallpaper Daily Update"
 if ($currentWallpaper -like '*bingimageoftheday*') {
     Register-Schedule $taskPath $taskName
 }
