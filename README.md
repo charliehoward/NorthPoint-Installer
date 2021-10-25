@@ -1,4 +1,4 @@
-# NorthPoint Installer 3.10.12.9
+# NorthPoint Installer 3.2021.10.25.0
 ###### Copyright (c) Charlie Howard 2016-2021 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -12,6 +12,11 @@ Changes wallpaper to a selection of HD landscape images.
 Sets the default browser to either Google Chrome or Mozilla Firefox depending on what has been selected, or Firefox if both are selected.
 
 ### Changelog
+
+###### Update 3.2021.10.25.0
+
+Changed version format to keep track of when it was updated easier.
+Added 4K support to Bing Wallpapers.
 
 ###### Update 3.10.12.9
 

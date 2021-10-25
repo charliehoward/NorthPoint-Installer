@@ -62,6 +62,7 @@ namespace Wallpaper
 "@
 Function Get-IdealImageDimensionsArray($idealSize) {
     $validImageDimensionArray = New-Object System.Collections.ArrayList
+    $validImageDimensionArray.Add("UHD") | Out-Null
     $validImageDimensionArray.Add("1920x1200") | Out-Null
     $validImageDimensionArray.Add("1920x1080") | Out-Null
     $validImageDimensionArray.Add("1366x768") | Out-Null
