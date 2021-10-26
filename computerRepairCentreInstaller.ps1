@@ -309,10 +309,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.10.12.9 (20/10/2021)")
+				$syncHash.progress.Items.Add("Current version: 3.2021.10.26.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progressBar.Maximum = 10
+				$syncHash.progressBar.Maximum = 11
 				if ($syncHash.crc.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.mozillaFirefox.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.mozillaThunderbird.Checked) { $syncHash.progressBar.Maximum += 1 }
@@ -412,6 +412,11 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.SelectedIndex = -1;
 				choco install vcredist140 -y
 				choco install vcredist2015 -y
+				$syncHash.progressBar.PerformStep()
+				$syncHash.progress.Items.Add("Installing HashTab...")
+				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+				$syncHash.progress.SelectedIndex = -1;
+				choco install hashtab -y
 				$syncHash.progressBar.PerformStep()
 				$syncHash.progress.Items.Add("Updating PowerShell...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1477,7 +1482,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.10.12.9"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.2021.10.26.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
