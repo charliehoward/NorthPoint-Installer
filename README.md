@@ -1,4 +1,4 @@
-# NorthPoint Installer 3.2021.10.26.0
+# NorthPoint Installer 3.2021.12.13.0
 ###### Copyright (c) Charlie Howard 2016-2021 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -12,6 +12,10 @@ Changes wallpaper to a selection of HD landscape images.
 Sets the default browser to either Google Chrome or Mozilla Firefox depending on what has been selected, or Firefox if both are selected.
 
 ### Changelog
+
+###### Update 3.2021.12.13.0
+
+Will now remove old installations of Chocolatey to prevent issues with programs not installing correctly if there is a crash or other issues.
 
 ###### Update 3.2021.10.26.0
 
