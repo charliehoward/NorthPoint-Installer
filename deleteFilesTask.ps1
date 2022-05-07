@@ -1,3 +1,6 @@
+## -- Copyright (c) Charlie Howard 2016-2022 All rights reserved
+
+
 $taskPathDelete = "\"
 $taskTriggerDelete= New-ScheduledTaskTrigger -AtLogon
 $taskActionDelete= New-ScheduledTaskAction -Execute "powershell.exe" -Argument '-File "C:\Computer Repair Centre\deleteFiles.ps1"'

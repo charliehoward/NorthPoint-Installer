@@ -1,19 +1,29 @@
 [![built-in-PowerShell](https://img.shields.io/badge/Built%20in-PowerShell-blue)](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2) ![Choco](https://img.shields.io/badge/Powered%20by-Chocolatey-brown) ![Arch](https://img.shields.io/badge/Arch-x86%20|%20AMD64-blue) ![OS](https://img.shields.io/badge/OS-Windows%2010%20|%20Windows%2011-green)
 
-## NorthPoint Installer 3.2021.12.13.1
+## NorthPoint Installer 3.2022.05.07.0
 ###### Copyright (c) Charlie Howard 2016-2022 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
 
-Has the option to install the Computer Repair Centre OEM information, Microsoft .NET (3.5, 4.5, 4.6.1, 4.6.2), 7-zip, Bing Wallpapers, Google Chrome, iTunes, Kaspersky Internet Security 2021 (uninstalls Kaspersky Secure Connection), LibreOffice, Mozilla Firefox, Mozilla Thunderbird, Skype, TeamViewer, uBlock Origin (for Mozilla Firefox & Google Chrome), VLC Media Player, Windows 10 darkmode & Zoom.
+When run it will install Microsoft .NET (3.5, 4.5, 4.6.1, 4.6.2), Microsoft Visual C++ Redistributable, HashTab and 7-zip by default as these are needed or recommended for the installer to work correctly.
 
-If run on Windows 10 it also disables Windows 10 hibernation mode, Wi-Fi sense, changes the default Explorer page to "This PC", and auto-arranges Desktop icons.
+Has the option to install the Computer Repair Centre OEM information, Bing Wallpapers, Dark mode, Google Chrome, iTunes, Kaspersky Internet Security 2022 (uninstalls Kaspersky Secure Connection & Kaspersky VPN), LibreOffice, MalwareBytes, Microsoft Office 2007, Microsoft Office 2019, Mozilla Firefox, Mozilla Thunderbird, Skype, Teams, TeamViewer, uBlock Origin (for Mozilla Firefox & Google Chrome), VLC Media Player, Zoom.
 
-Changes wallpaper to a selection of HD landscape images.
+If run on Windows 10 or Windows 11 it disables hibernation mode, Wi-Fi sense and changes the default Explorer page to "This PC".
 
 Sets the default browser to either Google Chrome or Mozilla Firefox depending on what has been selected, or Firefox if both are selected.
 
+Can disable sleep and screen timeout if plugged into DC power.
+
 ### Changelog
+
+**Update 3.2022.05.07.0**
+
+Updated download link for Kaspersky.
+Updated the readme to include new features I previously forgot to add.
+Corrected some typos.
+Removed taskbar pin as this currently doesn't work on Windows 11.
+uBlock Origin is now disabled by default due to some customer complaints about removing it.
 
 **Update 3.2021.12.13.1**
 

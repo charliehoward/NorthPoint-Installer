@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>kis</id>
-    <version>21.4.16.590</version>
+    <version>21.6.16.590</version>
     <title>Kaspersky Internet Security</title>
     <authors>Kaspersky Lab</authors>
     <owners>choward</owners>
@@ -32,6 +32,6 @@ This package installs the Free 30-day trial version of Kaspersky Internet Securi
     <tags>trial security firewall antivirus antispyware admin</tags>
     <packageSourceUrl>https://github.com/dtgm/chocolatey-packages/tree/master/automatic/kis/</packageSourceUrl>
     <docsUrl>https://support.kaspersky.com/kis2016</docsUrl>
-    <mailingListUrl>https://community.kaspersky.com/</mailingListUrl>
+    <mailingListUrl>https://forum.kaspersky.com/</mailingListUrl>
   </metadata>
 </package>

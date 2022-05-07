@@ -1,3 +1,6 @@
+## -- Copyright (c) Charlie Howard 2016-2022 All rights reserved
+
+
 Remove-Item 'C:\Computer Repair Centre\*.ico'
 Remove-Item 'C:\Computer Repair Centre\*.exe'
 Remove-Item 'C:\Computer Repair Centre\*.zip'

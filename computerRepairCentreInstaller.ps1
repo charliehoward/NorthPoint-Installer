@@ -1,4 +1,4 @@
-## -- Copyright (c) Charlie Howard 2016-2021 All rights reserved
+## -- Copyright (c) Charlie Howard 2016-2022 All rights reserved
 
 
 ## -- Download files
@@ -62,8 +62,6 @@ function download {
 			$vlcMediaPlayerPath = "C:\Computer Repair Centre\vlcMediaPlayer.ico"
 			$bingURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/bing.ico"
 			$bingPath = "C:\Computer Repair Centre\bing.ico"
-			$pinURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/pin.ico"
-			$pinPath = "C:\Computer Repair Centre\pin.ico"
 			$nightModeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/nightMode.ico"
 			$nightModePath = "C:\Computer Repair Centre\nightMode.ico"
 			$iTunesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/iTunes.ico"
@@ -76,8 +74,6 @@ function download {
 			$mozillaLocalSettingsPath = "C:\Computer Repair Centre\local-settings.js"
 			$mozillaConfigURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/mozilla.cfg"
 			$mozillaConfigPath = "C:\Computer Repair Centre\mozilla.cfg"
-			$sysPinURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sysPin.exe"
-			$sysPinPath = "C:\Computer Repair Centre\sysPin.exe"
 			$setDefaultBrowserURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/SetDefaultBrowser.exe"
 			$setDefaultBrowserPath = "C:\Computer Repair Centre\setDefaultBrowser.exe"
 			$bingWallpaperURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/bingWallpaper.zip"
@@ -112,8 +108,6 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $bingURL -OutFile $bingPath
 			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $pinURL -OutFile $pinPath
-			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $nightModeURL -OutFile $nightModePath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $uBlockOriginURL -OutFile $uBlockOriginPath
@@ -127,8 +121,6 @@ function download {
 			Invoke-RestMethod -Uri $mozillaConfigURL -OutFile $mozillaConfigPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $mozillaLocalSettingsURL -OutFile $mozillaLocalSettingsPath
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $sysPinURL -OutFile $sysPinPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $setDefaultBrowserURL -OutFile $setDefaultBrowserPath
 			$syncHash.progressBar.PerformStep()
@@ -191,7 +183,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 30
+	$progressBar.Maximum = 28
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$progressBar.Style = "Continuous"
@@ -254,7 +246,6 @@ function computerRepairCentreInstaller {
 	$iTunes = New-Object System.Windows.Forms.CheckBox
 	$uBlockOrigin = New-Object System.Windows.Forms.CheckBox
 	$wallpaper = New-Object System.Windows.Forms.CheckBox
-	$pin = New-Object System.Windows.Forms.CheckBox
 	$nightMode = New-Object System.Windows.Forms.CheckBox
 	$rebootBox = New-Object System.Windows.Forms.CheckBox
 	$refurbBox = New-Object System.Windows.Forms.CheckBox
@@ -280,7 +271,6 @@ function computerRepairCentreInstaller {
 	$syncHash.iTunes = $iTunes
 	$syncHash.uBlockOrigin = $uBlockOrigin
 	$syncHash.wallpaper = $wallpaper
-	$syncHash.pin = $pin
 	$syncHash.nightMode = $nightMode
 	$syncHash.operatingSystem = $operatingSystem
 	$syncHash.internetProtocol = $internetProtocol
@@ -309,7 +299,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.2021.12.13.1")
+				$syncHash.progress.Items.Add("Current version: 3.2022.05.07.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 11
@@ -325,7 +315,6 @@ function computerRepairCentreInstaller {
 				if ($syncHash.teamViewer.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.iTunes.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.wallpaper.Checked) { $syncHash.progressBar.Maximum += 1 }
-				if ($syncHash.pin.Checked) { $syncHash.progressBar.Maximum += 4 }
 				if ($syncHash.nightMode.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.microsoftOffice.Checked) { $syncHash.progressBar.Maximum += 3 }
 				if ($syncHash.microsoftOffice2007.Checked) { $syncHash.progressBar.Maximum += 3 }
@@ -443,7 +432,6 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("The installation of 7-zip has failed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
 						$syncHash.progress.Items.Add("Retrying the installation of 7-zip.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
@@ -519,10 +507,10 @@ function computerRepairCentreInstaller {
 					}
 				}
 				if ($syncHash.kaspersky.Checked) {
-					$syncHash.progress.Items.Add("Kaspersky Internet Security 2021 is selected.")
+					$syncHash.progress.Items.Add("Kaspersky Internet Security 2022 is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progress.Items.Add("Installing Kaspersky Internet Security 2021...")
+					$syncHash.progress.Items.Add("Installing Kaspersky Internet Security 2022...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					choco install kis -y
@@ -532,7 +520,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 					Remove-Item "C:\Users\Public\Desktop\Safe Money.lnk"
 					if ($programList -like '*kis*') {
-						$syncHash.progress.Items.Add("Completed installation of Kaspersky Internet Security 2021.")
+						$syncHash.progress.Items.Add("Completed installation of Kaspersky Internet Security 2022.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
@@ -555,11 +543,11 @@ function computerRepairCentreInstaller {
 						$syncHash.progressBar.PerformStep()
 					}
 					else {
-						$syncHash.progress.Items.Add("The installation of Kaspersky Internet Security 2021 has failed.")
+						$syncHash.progress.Items.Add("The installation of Kaspersky Internet Security 2022 has failed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
-						$syncHash.progress.Items.Add("Retrying the installation of Kaspersky Internet Security 2021.")
+						$syncHash.progress.Items.Add("Retrying the installation of Kaspersky Internet Security 2022.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
@@ -952,27 +940,6 @@ function computerRepairCentreInstaller {
 					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowRecent" -Type DWord -Value 0
 					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowFrequent" -Type DWord -Value 0
 					$syncHash.progressBar.PerformStep()
-					if ($syncHash.pin.Checked) {
-						$syncHash.progress.Items.Add("Setting taskbar icons...")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						Remove-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Recurse -Force
-						Start-Sleep(3)
-						& "C:\Computer Repair Centre\sysPin.exe" "C:\Program Files\Mozilla Firefox\firefox.exe" "Pin to taskbar"
-						& "C:\Computer Repair Centre\sysPin.exe" "C:\Program Files\Google\Chrome\Application\chrome.exe" "Pin to taskbar"
-						& "C:\Computer Repair Centre\sysPin.exe" "C:\Windows\explorer.exe" "Pin to taskbar"
-						$syncHash.progressBar.PerformStep()
-						$syncHash.progress.Items.Add("Disabling task view icon...")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Type DWord -Value 0
-						$syncHash.progressBar.PerformStep()
-						$syncHash.progress.Items.Add("Disabling Cortana icon...")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowCortanaButton" -Type DWord -Value 0
-						$syncHash.progressBar.PerformStep()
-					}
 					if ($syncHash.microsoftOffice2007.Checked) {
 						Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office Word 2007.lnk" -Destination "$DesktopPath\Microsoft Office Word 2007.lnk"
 						Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office Excel 2007.lnk" -Destination "$DesktopPath\Microsoft Office Excel 2007.lnk"
@@ -1486,7 +1453,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.2021.12.13.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.2022.05.07.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1609,25 +1576,6 @@ function computerRepairCentreInstaller {
 	$crcInstaller.Controls.Add($crc)
 
 
-	## -- Pin
-
-	$pin.UseVisualStyleBackColor = $True
-	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 36
-	$System_Drawing_Size.Height = 36
-	$pin.Size = $System_Drawing_Size
-	$pin.TabIndex = 4
-	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 0)
-	$System_Drawing_Point.Y = 5 + (31 * 2)
-	$pin.location = $System_Drawing_Point
-	$pin.DataBindings.DefaultDataSourceUpdateMode = 0
-	$pin.Name = "pin"
-	$pin.Checked = 1
-	$pin.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\pin.ico")
-	$crcInstaller.Controls.Add($pin)
-
-
 	## -- Bing Wallpaper
 
 	$wallpaper.UseVisualStyleBackColor = $True
@@ -1638,7 +1586,7 @@ function computerRepairCentreInstaller {
 	$wallpaper.TabIndex = 4
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 0)
-	$System_Drawing_Point.Y = 5 + (31 * 3)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
 	$wallpaper.location = $System_Drawing_Point
 	$wallpaper.DataBindings.DefaultDataSourceUpdateMode = 0
 	$wallpaper.Name = "wallpaper"
@@ -1647,7 +1595,7 @@ function computerRepairCentreInstaller {
 	$crcInstaller.Controls.Add($wallpaper)
 
 
-	## -- Night Mode
+	## -- Dark Mode
 
 	$nightMode.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1657,7 +1605,7 @@ function computerRepairCentreInstaller {
 	$nightMode.TabIndex = 4
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 0)
-	$System_Drawing_Point.Y = 5 + (31 * 4)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$nightMode.location = $System_Drawing_Point
 	$nightMode.DataBindings.DefaultDataSourceUpdateMode = 0
 	$nightMode.Name = "nightMode"
@@ -1676,7 +1624,7 @@ function computerRepairCentreInstaller {
 	$googleChrome.TabIndex = 2
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 0)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
 	$googleChrome.location = $System_Drawing_Point
 	$googleChrome.DataBindings.DefaultDataSourceUpdateMode = 0
 	$googleChrome.Name = "googleChrome"
@@ -1694,7 +1642,7 @@ function computerRepairCentreInstaller {
 	$iTunes.TabIndex = 2
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 0)
-	$System_Drawing_Point.Y = 5 + (31 * 6)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
 	$iTunes.location = $System_Drawing_Point
 	$iTunes.DataBindings.DefaultDataSourceUpdateMode = 0
 	$iTunes.Name = "iTunes"
@@ -1713,7 +1661,7 @@ function computerRepairCentreInstaller {
 	$kaspersky.TabIndex = 3
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 0)
-	$System_Drawing_Point.Y = 5 + (31 * 7)
+	$System_Drawing_Point.Y = 5 + (31 * 6)
 	$kaspersky.location = $System_Drawing_Point
 	$kaspersky.DataBindings.DefaultDataSourceUpdateMode = 0
 	$kaspersky.Name = "kaspersky"
@@ -1731,8 +1679,8 @@ function computerRepairCentreInstaller {
 	$libreOffice.Size = $System_Drawing_Size
 	$libreOffice.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 1)
+	$System_Drawing_Point.X = 16 + (45 * 0)
+	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$libreOffice.location = $System_Drawing_Point
 	$libreOffice.DataBindings.DefaultDataSourceUpdateMode = 0
 	$libreOffice.Name = "libreOffice"
@@ -1751,7 +1699,7 @@ function computerRepairCentreInstaller {
 	$malwareBytes.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 1)
 	$malwareBytes.location = $System_Drawing_Point
 	$malwareBytes.DataBindings.DefaultDataSourceUpdateMode = 0
 	$malwareBytes.Name = "malwareBytes"
@@ -1770,7 +1718,7 @@ function computerRepairCentreInstaller {
 	$microsoftOffice2007.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 3)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
 	$microsoftOffice2007.location = $System_Drawing_Point
 	$microsoftOffice2007.DataBindings.DefaultDataSourceUpdateMode = 0
 	$microsoftOffice2007.Name = "microsoftOffice2007"
@@ -1789,7 +1737,7 @@ function computerRepairCentreInstaller {
 	$microsoftOffice.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 4)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$microsoftOffice.location = $System_Drawing_Point
 	$microsoftOffice.DataBindings.DefaultDataSourceUpdateMode = 0
 	$microsoftOffice.Name = "microsoftOffice"
@@ -1808,7 +1756,7 @@ function computerRepairCentreInstaller {
 	$mozillaFirefox.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
 	$mozillaFirefox.location = $System_Drawing_Point
 	$mozillaFirefox.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaFirefox.Name = "mozillaFirefox"
@@ -1827,7 +1775,7 @@ function computerRepairCentreInstaller {
 	$mozillaThunderbird.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 6)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
 	$mozillaThunderbird.location = $System_Drawing_Point
 	$mozillaThunderbird.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaThunderbird.Name = "mozillaThunderbird"
@@ -1846,7 +1794,7 @@ function computerRepairCentreInstaller {
 	$skype.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 7)
+	$System_Drawing_Point.Y = 5 + (31 * 6)
 	$skype.location = $System_Drawing_Point
 	$skype.DataBindings.DefaultDataSourceUpdateMode = 0
 	$skype.Name = "skype"
@@ -1864,8 +1812,8 @@ function computerRepairCentreInstaller {
 	$teams.Size = $System_Drawing_Size
 	$teams.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 1)
+	$System_Drawing_Point.X = 16 + (45 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$teams.location = $System_Drawing_Point
 	$teams.DataBindings.DefaultDataSourceUpdateMode = 0
 	$teams.Name = "teams"
@@ -1884,7 +1832,7 @@ function computerRepairCentreInstaller {
 	$teamViewer.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 1)
 	$teamViewer.location = $System_Drawing_Point
 	$teamViewer.DataBindings.DefaultDataSourceUpdateMode = 0
 	$teamViewer.Name = "teamViewer"
@@ -1903,11 +1851,11 @@ function computerRepairCentreInstaller {
 	$uBlockOrigin.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 3)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
 	$uBlockOrigin.location = $System_Drawing_Point
 	$uBlockOrigin.DataBindings.DefaultDataSourceUpdateMode = 0
 	$uBlockOrigin.Name = "uBlockOrigin"
-	$uBlockOrigin.Checked = 1
+	$uBlockOrigin.Checked = 0
 	$uBlockOrigin.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\uBlockOrigin.ico")
 	$crcInstaller.Controls.Add($uBlockOrigin)
 
@@ -1922,7 +1870,7 @@ function computerRepairCentreInstaller {
 	$vlc.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 4)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$vlc.location = $System_Drawing_Point
 	$vlc.DataBindings.DefaultDataSourceUpdateMode = 0
 	$vlc.Name = "vlc"
@@ -1940,7 +1888,7 @@ function computerRepairCentreInstaller {
 	$zoom.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
 	$zoom.location = $System_Drawing_Point
 	$zoom.DataBindings.DefaultDataSourceUpdateMode = 0
 	$zoom.Name = "zoom"
