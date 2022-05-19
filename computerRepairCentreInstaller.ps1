@@ -299,7 +299,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.2022.05.08.0")
+				$syncHash.progress.Items.Add("Current version: 3.2022.05.19.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 11
@@ -1207,7 +1207,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Enabling darkmode...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value 0
+						start-process -filepath "C:\Windows\Resources\Themes\dark.theme"; timeout /t 3; taskkill /im "systemsettings.exe" /f
 						$syncHash.progressBar.PerformStep()
 						$syncHash.progress.Items.Add("Completed installation of darkmode.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1453,7 +1453,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.2022.05.08.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.2022.05.19.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1607,7 +1607,7 @@ function computerRepairCentreInstaller {
 	$System_Drawing_Point.X = 16 + (45 * 0)
 	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$nightMode.location = $System_Drawing_Point
-	$nightMode.DataBindings.DefaultDataSourceUpdateMode = 0
+	$nightMode.DataBindings.DefaultDataSourceUpdateMode = 1
 	$nightMode.Name = "nightMode"
 	$nightMode.Checked = 0
 	$nightMode.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\nightMode.ico")
