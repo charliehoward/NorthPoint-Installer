@@ -299,7 +299,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.2022.05.19.0")
+				$syncHash.progress.Items.Add("Current version: 3.2022.05.19.1")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 11
@@ -1184,6 +1184,19 @@ function computerRepairCentreInstaller {
 					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowRecent" -Type DWord -Value 0
 					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowFrequent" -Type DWord -Value 0
 					$syncHash.progressBar.PerformStep()
+					if ($syncHash.nightMode.Checked) {
+						$syncHash.progress.Items.Add("Dark mode is selected.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progress.Items.Add("Enabling darkmode...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						start-process -filepath "C:\Windows\Resources\Themes\dark.theme"; timeout /t 3; taskkill /im "systemsettings.exe" /f
+						$syncHash.progressBar.PerformStep()
+						$syncHash.progress.Items.Add("Completed installation of darkmode.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+					}
 					if ($syncHash.wallpaper.Checked) {
 						$syncHash.progress.Items.Add("Bing Wallpapers has been selected.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1197,19 +1210,6 @@ function computerRepairCentreInstaller {
 						& "C:\Computer Repair Centre\bingWallpaperInitial.ps1"
 						$syncHash.progressBar.PerformStep()
 						$syncHash.progress.Items.Add("Completed installation of Bing Wallpapers.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-					}
-					if ($syncHash.nightMode.Checked) {
-						$syncHash.progress.Items.Add("Dark mode is selected.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progress.Items.Add("Enabling darkmode...")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						start-process -filepath "C:\Windows\Resources\Themes\dark.theme"; timeout /t 3; taskkill /im "systemsettings.exe" /f
-						$syncHash.progressBar.PerformStep()
-						$syncHash.progress.Items.Add("Completed installation of darkmode.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 					}
@@ -1453,7 +1453,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.2022.05.19.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.2022.05.19.1"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1607,9 +1607,9 @@ function computerRepairCentreInstaller {
 	$System_Drawing_Point.X = 16 + (45 * 0)
 	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$nightMode.location = $System_Drawing_Point
-	$nightMode.DataBindings.DefaultDataSourceUpdateMode = 1
+	$nightMode.DataBindings.DefaultDataSourceUpdateMode = 0
 	$nightMode.Name = "nightMode"
-	$nightMode.Checked = 0
+	$nightMode.Checked = 1
 	$nightMode.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\nightMode.ico")
 	$crcInstaller.Controls.Add($nightMode)
 
