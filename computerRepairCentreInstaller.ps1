@@ -205,13 +205,13 @@ download
 $operatingSystem = (Get-WmiObject -Class Win32_OperatingSystem).version
 $internetProtocol = Invoke-RestMethod http://ipinfo.io/json | Select-Object -exp ip
 $user = $env:UserName
-if ($internetProtocol -like '*82.24.21.184*') {
-	$location = 0
-	$locationOpposite = 1
-}
-else {
+if ($internetProtocol -like '*212.159.116.68*') {
 	$location = 1
 	$locationOpposite = 0
+}
+else {
+	$location = 0
+	$locationOpposite = 1
 }
 $computerSystem = (Get-WmiObject -Class:Win32_ComputerSystem)
 if ($computerSystem.Model -like '*EliteBook*'){
@@ -299,7 +299,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.2022.05.19.1")
+				$syncHash.progress.Items.Add("Current version: 3.2022.05.22.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 11
@@ -1453,7 +1453,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.2022.05.19.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.2022.05.22.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
