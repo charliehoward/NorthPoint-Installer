@@ -299,10 +299,11 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.2022.05.22.0")
+				$syncHash.progress.Items.Add("Current version: 3.2022.07.01.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progressBar.Maximum = 11
+				$syncHash.progressBar.Maximum = 9
+				if ($syncHash.refurbBox.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.crc.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.mozillaFirefox.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.mozillaThunderbird.Checked) { $syncHash.progressBar.Maximum += 1 }
@@ -316,8 +317,8 @@ function computerRepairCentreInstaller {
 				if ($syncHash.iTunes.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.wallpaper.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.nightMode.Checked) { $syncHash.progressBar.Maximum += 1 }
-				if ($syncHash.microsoftOffice.Checked) { $syncHash.progressBar.Maximum += 3 }
-				if ($syncHash.microsoftOffice2007.Checked) { $syncHash.progressBar.Maximum += 3 }
+				if ($syncHash.microsoftOffice.Checked) { $syncHash.progressBar.Maximum += 2 }
+				if ($syncHash.microsoftOffice2007.Checked) { $syncHash.progressBar.Maximum += 2 }
 				if ($syncHash.uBlockOrigin.Checked) {
 					if ($syncHash.googleChrome.Checked) { $syncHash.progressBar.Maximum += 1 }
 					if ($syncHash.mozillaFirefox.Checked) { $syncHash.progressBar.Maximum += 1 }
@@ -325,18 +326,18 @@ function computerRepairCentreInstaller {
 				if ($syncHash.operatingSystem -like '*6.1*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*6.2*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*6.3*') { $syncHash.progressBar.Maximum += 1 }
-				if ($syncHash.operatingSystem -like '*10.0.1*') { $syncHash.progressBar.Maximum += 6 }
-				if ($syncHash.operatingSystem -like '*10.0.2*') { $syncHash.progressBar.Maximum += 6 }
+				if ($syncHash.operatingSystem -like '*10.0.1*') { $syncHash.progressBar.Maximum += 5 }
+				if ($syncHash.operatingSystem -like '*10.0.2*') { $syncHash.progressBar.Maximum += 5 }
 				$syncHash.progress.Items.Add("Removing previous installations of Chocolatey.")
 				Remove-Item -Path "C:\ProgramData\chocolatey" -Force -Recurse
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
+				$syncHash.progressBar.Refresh()
 				if ($syncHash.isRefurb -like '*1*' ) {
-					$syncHash.progress.Items.Add("This computer is indicated to be a refurb so will disable sleep on AC power and reboot.")
+					$syncHash.progress.Items.Add("This computer is a refurb, disable sleep on AC power and will reboot.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 				}
-				if ($syncHash.refurbBox.Checked) { $syncHash.progressBar.Maximum += 1 }
 				$syncHash.progressBar.Refresh()
 				if ($syncHash.crc.Checked) {
 					$syncHash.progress.Items.Add("Computer Repair Centre OEM information is selected.")
@@ -384,33 +385,83 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.Items.Add("Installing Microsoft .NET 3.5...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				choco install dotnet3.5 -y
-				$syncHash.progressBar.PerformStep()
+				if ($programList -like '*DotNet3.5*') { 
+					$syncHash.progress.Items.Add("Microsoft .NET 3.5 is already installed.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progressBar.PerformStep()
+				}
+				else {
+					choco install dotnet3.5 -y
+					$syncHash.progressBar.PerformStep()
+				}
 				$syncHash.progress.Items.Add("Installing Microsoft .NET 4.5...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				choco install dotnet4.5 -y
-				$syncHash.progressBar.PerformStep()
+				if ($programList -like '*DotNet4.5*') { 
+					$syncHash.progress.Items.Add("Microsoft .NET 4.5 is already installed.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progressBar.PerformStep()
+				}
+				else {
+					choco install dotnet4.5 -y
+					$syncHash.progressBar.PerformStep()
+				}
 				$syncHash.progress.Items.Add("Installing Microsoft .NET 4.6.1...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				choco install dotnet4.6.1 -y
-				$syncHash.progressBar.PerformStep()
+				if ($programList -like '*DotNet4.6.1*') { 
+					$syncHash.progress.Items.Add("Microsoft .NET 4.6.1 is already installed.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progressBar.PerformStep()
+				}
+				else {
+					choco install dotnet4.6.1 -y
+					$syncHash.progressBar.PerformStep()
+				}
 				$syncHash.progress.Items.Add("Installing Microsoft .NET 4.6.2...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				choco install dotnet4.6.2 -y
+				if ($programList -like '*DotNet4.6.2*') { 
+					$syncHash.progress.Items.Add("Microsoft .NET 4.6.2 is already installed.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progressBar.PerformStep()
+				}
+				else {
+					choco install dotnet4.6.2 -y
+					$syncHash.progressBar.PerformStep()
+				}
 				$syncHash.progress.Items.Add("Installing Microsoft Visual C++ Redistributable...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				choco install vcredist140 -y
-				choco install vcredist2015 -y
-				$syncHash.progressBar.PerformStep()
+				if ($programList -like '*vcredist140*') { 
+					$syncHash.progress.Items.Add("Microsoft Visual C++ Redistributable is already installed.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progressBar.PerformStep()
+				}
+				else {
+					choco install vcredist140 -y
+					choco install vcredist2015 -y
+					$syncHash.progressBar.PerformStep()
+				}
+								$syncHash.progressBar.PerformStep()
 				$syncHash.progress.Items.Add("Installing HashTab...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				choco install hashtab -y
-				$syncHash.progressBar.PerformStep()
+				if ($programList -like '*hashtab*') { 
+					$syncHash.progress.Items.Add("HashTab is already installed.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progressBar.PerformStep()
+				}
+				else {
+					choco install hashtab -y
+					$syncHash.progressBar.PerformStep()
+				}
 				$syncHash.progress.Items.Add("Updating PowerShell...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
@@ -419,9 +470,16 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.Items.Add("Installing 7-zip...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				choco install 7zip.install -y
-				$syncHash.progressBar.PerformStep()
-				$programList = choco list --localonly
+				if ($programList -like '*7zip*') { 
+						$syncHash.progress.Items.Add("7-zip is already installed.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+				else {
+					choco install 7zip.install -y
+					$syncHash.progressBar.PerformStep()
+					$programList = choco list --localonly
 					if ($programList -like '*7zip*') {
 						$syncHash.progress.Items.Add("Completed installation of 7-zip.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -438,6 +496,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progressBar.PerformStep()
 						choco install 7zip.install -y --ignore-checksums
 					}
+				}
 				$syncHash.progress.Items.Add("Unzipping all Bing Wallpaper files.")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
@@ -456,129 +515,157 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Google Chrome is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progress.Items.Add("Installing Google Chrome...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					choco install googlechrome -y
-					$programList = choco list --localonly
-					if ($programList -like '*GoogleChrome*') {
-						$syncHash.progress.Items.Add("Completed installation of Google Chrome.")
+					if ($programList -like '*GoogleChrome*') { 
+						$syncHash.progress.Items.Add("Google Chrome is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
 					}
 					else {
-						$syncHash.progress.Items.Add("The installation of Google Chrome has failed.")
+						$syncHash.progress.Items.Add("Installing Google Chrome...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						$syncHash.progress.Items.Add("Retrying the installation of Google Chrome.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						choco install googlechrome -y --ignore-checksums
+						choco install googlechrome -y
+						$programList = choco list --localonly
+						if ($programList -like '*GoogleChrome*') {
+							$syncHash.progress.Items.Add("Completed installation of Google Chrome.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+						}
+						else {
+							$syncHash.progress.Items.Add("The installation of Google Chrome has failed.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progress.Items.Add("Retrying the installation of Google Chrome.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+							choco install googlechrome -y --ignore-checksums
+						}
 					}
 				}
 				if ($syncHash.iTunes.Checked) {
 					$syncHash.progress.Items.Add("iTunes is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progress.Items.Add("Installing iTunes...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					choco install itunes -y
-					$programList = choco list --localonly
-					if ($programList -like '*iTunes*') {
-						$syncHash.progress.Items.Add("Completed installation of iTunes.")
+					if ($programList -like '*iTunes*') { 
+						$syncHash.progress.Items.Add("iTunes is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
 					}
 					else {
-						$syncHash.progress.Items.Add("The installation of iTunes has failed.")
+						$syncHash.progress.Items.Add("Installing iTunes...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						$syncHash.progress.Items.Add("Retrying the installation of iTunes.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						choco install itunes -y --ignore-checksums
+						choco install itunes -y
+						$programList = choco list --localonly
+						if ($programList -like '*iTunes*') {
+							$syncHash.progress.Items.Add("Completed installation of iTunes.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+						}
+						else {
+							$syncHash.progress.Items.Add("The installation of iTunes has failed.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progress.Items.Add("Retrying the installation of iTunes.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+							choco install itunes -y --ignore-checksums
+						}
 					}
 				}
 				if ($syncHash.kaspersky.Checked) {
-					$syncHash.progress.Items.Add("Kaspersky Internet Security 2022 is selected.")
+					$syncHash.progress.Items.Add("Kaspersky Internet Security is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progress.Items.Add("Installing Kaspersky Internet Security 2022...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					choco install kis -y
-					$programList = choco list --localonly
-					$syncHash.progress.Items.Add("Removing Safe Money icon from Desktop...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					Remove-Item "C:\Users\Public\Desktop\Safe Money.lnk"
-					if ($programList -like '*kis*') {
-						$syncHash.progress.Items.Add("Completed installation of Kaspersky Internet Security 2022.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						$syncHash.progress.Items.Add("Uninstalling Kaspersky Secure Connection & Kaspersky VPN...")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$kasperskySecureConnection = Get-ChildItem "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall" | ForEach-Object { Get-ItemProperty $_.PSPath } | Where-Object { $_ -match "Kaspersky Secure Connection" } | Select-Object UninstallString
-						$kasperskySecureConnection = $kasperskySecureConnection.UninstallString -replace "msiexec.exe","" -replace "/I","" -replace "/X",""
-						$kasperskySecureConnection = $kasperskySecureConnection.Trim()
-						$kasperskySecureConnection = $kasperskySecureConnection | Select-Object -Skip 1
-						$kasperskyVPN = Get-ChildItem "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall" | ForEach-Object { Get-ItemProperty $_.PSPath } | Where-Object { $_ -match "Kaspersky VPN" } | Select-Object UninstallString
-						$kasperskyVPN = $kasperskyVPN.UninstallString -replace "msiexec.exe","" -replace "/I","" -replace "/X",""
-						$kasperskyVPN = $kasperskyVPN.Trim()
-						$kasperskyVPN = $kasperskyVPN | Select-Object -Skip 1
-						cmd /c "C:\Windows\SysWOW64\msiexec.exe /i$kasperskySecureConnection REMOVE=ALL /passive"
-						cmd /c "C:\Windows\SysWOW64\msiexec.exe /i$kasperskyVPN REMOVE=ALL /passive"
-						$syncHash.progress.Items.Add("Completed uninstallation of Kaspersky Secure Connection & Kaspersky VPN.")
+					if ($programList -like '*kis*') { 
+						$syncHash.progress.Items.Add("Kaspersky Internet Security is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
 					}
 					else {
-						$syncHash.progress.Items.Add("The installation of Kaspersky Internet Security 2022 has failed.")
+						$syncHash.progress.Items.Add("Installing Kaspersky Internet Security...")
+				 		$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						choco install kis -y
+						$programList = choco list --localonly
+						$syncHash.progress.Items.Add("Removing Safe Money icon from Desktop...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						$syncHash.progress.Items.Add("Retrying the installation of Kaspersky Internet Security 2022.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						choco install kis -y --ignore-checksums
+						Remove-Item "C:\Users\Public\Desktop\Safe Money.lnk"
+						if ($programList -like '*kis*') {
+							$syncHash.progress.Items.Add("Completed installation of Kaspersky Internet Security.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+							$syncHash.progress.Items.Add("Uninstalling Kaspersky Secure Connection & Kaspersky VPN...")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$kasperskySecureConnection = Get-ChildItem "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall" | ForEach-Object { Get-ItemProperty $_.PSPath } | Where-Object { $_ -match "Kaspersky Secure Connection" } | Select-Object UninstallString
+							$kasperskySecureConnection = $kasperskySecureConnection.UninstallString -replace "msiexec.exe","" -replace "/I","" -replace "/X",""
+							$kasperskySecureConnection = $kasperskySecureConnection.Trim()
+							$kasperskySecureConnection = $kasperskySecureConnection | Select-Object -Skip 1
+							$kasperskyVPN = Get-ChildItem "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall" | ForEach-Object { Get-ItemProperty $_.PSPath } | Where-Object { $_ -match "Kaspersky VPN" } | Select-Object UninstallString
+							$kasperskyVPN = $kasperskyVPN.UninstallString -replace "msiexec.exe","" -replace "/I","" -replace "/X",""
+							$kasperskyVPN = $kasperskyVPN.Trim()
+							$kasperskyVPN = $kasperskyVPN | Select-Object -Skip 1
+							cmd /c "C:\Windows\SysWOW64\msiexec.exe /i$kasperskySecureConnection REMOVE=ALL /passive"
+							cmd /c "C:\Windows\SysWOW64\msiexec.exe /i$kasperskyVPN REMOVE=ALL /passive"
+							$syncHash.progress.Items.Add("Completed uninstallation of Kaspersky Secure Connection & Kaspersky VPN.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+						}
+						else {
+							$syncHash.progress.Items.Add("The installation of Kaspersky Internet Security has failed.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progress.Items.Add("Retrying the installation of Kaspersky Internet Security.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+							choco install kis -y --ignore-checksums
+						}
 					}
 				}
 				if ($syncHash.libreOffice.Checked) {
 					$syncHash.progress.Items.Add("LibreOffice is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progress.Items.Add("Installing LibreOffice...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					choco install libreoffice-fresh -y
-					$programList = choco list --localonly
-					if ($programList -like '*libreoffice-fresh*') {
-						$syncHash.progress.Items.Add("Completed installation of LibreOffice.")
+					if ($programList -like '*libreoffice-fresh*') { 
+						$syncHash.progress.Items.Add("LibreOffice is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
 					}
 					else {
-						$syncHash.progress.Items.Add("The installation of LibreOffice has failed.")
+						$syncHash.progress.Items.Add("Installing LibreOffice...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						$syncHash.progress.Items.Add("Retrying the installation of LibreOffice.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						choco install libreoffice-fresh -y --ignore-checksums
+						choco install libreoffice-fresh -y
+						$programList = choco list --localonly
+						if ($programList -like '*libreoffice-fresh*') {
+							$syncHash.progress.Items.Add("Completed installation of LibreOffice.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+						}
+						else {
+							$syncHash.progress.Items.Add("The installation of LibreOffice has failed.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progress.Items.Add("Retrying the installation of LibreOffice.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+							choco install libreoffice-fresh -y --ignore-checksums
+						}
 					}
 				}
 				if ($syncHash.microsoftOffice2007.Checked) {
@@ -596,6 +683,11 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 					$DesktopPath = [Environment]::GetFolderPath("Desktop")
 					& 'C:\Computer Repair Centre\Microsoft Office 2007 Enterprise\setup.exe' /config 'C:\Computer Repair Centre\Microsoft Office 2007 Enterprise\Enterprise.WW\config.xml'
+					Start-Sleep 30
+					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office Word 2007.lnk" "$DesktopPath\Word.lnk"
+					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office Excel 2007.lnk" "$DesktopPath\Excel.lnk"
+					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office PowerPoint 2007.lnk" "$DesktopPath\PowerPoint.lnk"
+					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office Outlook 2007.lnk" "$DesktopPath\Outlook.lnk"
 					$syncHash.progress.Items.Add("Completed installation of Microsoft Office 2007.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
@@ -617,13 +709,13 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Activating Microsoft Office 2019...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Start-Sleep 10
-					& "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Word.lnk"
-					Start-Sleep 10
-					Get-Process WinWord |   Foreach-Object { $_.CloseMainWindow() }
-					Start-Sleep 10
+					Start-Sleep 30
 					& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\officeActivator.zip" "-oC:\Computer Repair Centre\" -aoa
 					& "C:\Computer Repair Centre\officeActivator.bat"
+					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Word.lnk" "$DesktopPath\Word.lnk"
+					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Excel.lnk" "$DesktopPath\Excel.lnk"
+					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\PowerPoint.lnk" "$DesktopPath\PowerPoint.lnk"
+					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Outlook.lnk" "$DesktopPath\Outlook.lnk"
 					$syncHash.progress.Items.Add("Completed activation of Microsoft Office 2019.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
@@ -633,163 +725,204 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("MalwareBytes is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progress.Items.Add("Installing MalwareBytes...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					choco install malwarebytes -y
-					$programList = choco list --localonly
-					if ($programList -like '*malwarebytes*') {
-						$syncHash.progress.Items.Add("Completed installation of MalwareBytes.")
+					if ($programList -like '*malwarebytes*') { 
+						$syncHash.progress.Items.Add("MalwareBytes is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
 					}
 					else {
-						$syncHash.progress.Items.Add("The installation of MalwareBytes has failed.")
+						$syncHash.progress.Items.Add("Installing MalwareBytes...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						$syncHash.progress.Items.Add("Retrying the installation of MalwareBytes.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						choco install malwarebytes -y --ignore-checksums
+						choco install malwarebytes -y
+						$programList = choco list --localonly
+						if ($programList -like '*malwarebytes*') {
+							$syncHash.progress.Items.Add("Completed installation of MalwareBytes.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+						}
+						else {
+							$syncHash.progress.Items.Add("The installation of MalwareBytes has failed.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progress.Items.Add("Retrying the installation of MalwareBytes.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+							choco install malwarebytes -y --ignore-checksums
+						}
 					}
-				}
-				
+				}	
 				if ($syncHash.mozillaFirefox.Checked) {
 					$syncHash.progress.Items.Add("Mozilla Firefox is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progress.Items.Add("Installing Mozilla Firefox...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					choco install firefox -y
-					$programList = choco list --localonly
-					if ($programList -like '*Firefox*') {
-						$syncHash.progress.Items.Add("Completed installation of Mozilla Firefox.")
+					if ($programList -like '*Firefox*') { 
+						$syncHash.progress.Items.Add("Mozilla Firefox is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
 					}
 					else {
-						$syncHash.progress.Items.Add("The installation of Mozilla Firefox has failed.")
+						$syncHash.progress.Items.Add("Installing Mozilla Firefox...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						$syncHash.progress.Items.Add("Retrying the installation of Mozilla Firefox.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						choco install firefox -y --ignore-checksums
+						choco install firefox -y
+						$programList = choco list --localonly
+						if ($programList -like '*Firefox*') {
+							$syncHash.progress.Items.Add("Completed installation of Mozilla Firefox.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+						}
+						else {
+							$syncHash.progress.Items.Add("The installation of Mozilla Firefox has failed.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progress.Items.Add("Retrying the installation of Mozilla Firefox.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+							choco install firefox -y --ignore-checksums
+						}
 					}
 				}
 				if ($syncHash.mozillaThunderbird.Checked) {
 					$syncHash.progress.Items.Add("Mozilla Thunderbird is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progress.Items.Add("Installing Mozilla Thunderbird...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					choco install thunderbird -y
-					$programList = choco list --localonly
-					if ($programList -like '*thunderbird*') {
-						$syncHash.progress.Items.Add("Completed installation of Mozilla Thunderbird.")
+					if ($programList -like '*thunderbird*') { 
+						$syncHash.progress.Items.Add("Mozilla Thunderbird is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
 					}
 					else {
-						$syncHash.progress.Items.Add("The installation of Mozilla Thunderbird has failed.")
+						$syncHash.progress.Items.Add("Installing Mozilla Thunderbird...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						$syncHash.progress.Items.Add("Retrying the installation of Mozilla Thunderbird.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						choco install thunderbird -y --ignore-checksums
+						choco install thunderbird -y
+						$programList = choco list --localonly
+							if ($programList -like '*thunderbird*') {
+							$syncHash.progress.Items.Add("Completed installation of Mozilla Thunderbird.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+						}
+						else {
+							$syncHash.progress.Items.Add("The installation of Mozilla Thunderbird has failed.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progress.Items.Add("Retrying the installation of Mozilla Thunderbird.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+							choco install thunderbird -y --ignore-checksums
+						}
 					}
 				}
 				if ($syncHash.skype.Checked) {
 					$syncHash.progress.Items.Add("Skype is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progress.Items.Add("Installing Skype...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					choco install skype -y
-					$programList = choco list --localonly
-					if ($programList -like '*skype*') {
-						$syncHash.progress.Items.Add("Completed installation of Skype.")
+					if ($programList -like '*skype*') { 
+						$syncHash.progress.Items.Add("Skype is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
 					}
 					else {
-						$syncHash.progress.Items.Add("The installation of Skype has failed.")
+						$syncHash.progress.Items.Add("Installing Skype...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						$syncHash.progress.Items.Add("Retrying the installation of Skype.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						choco install skype -y --ignore-checksums
+						choco install skype -y
+						$programList = choco list --localonly
+						if ($programList -like '*skype*') {
+							$syncHash.progress.Items.Add("Completed installation of Skype.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+						}
+						else {
+							$syncHash.progress.Items.Add("The installation of Skype has failed.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progress.Items.Add("Retrying the installation of Skype.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+							choco install skype -y --ignore-checksums
+						}
 					}
 				}
 				if ($syncHash.teamViewer.Checked) {
 					$syncHash.progress.Items.Add("TeamViewer is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progress.Items.Add("Installing TeamViewer...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					choco install teamviewer -y
-					$programList = choco list --localonly
-					if ($programList -like '*teamviewer*') {
-						$syncHash.progress.Items.Add("Completed installation of TeamViewer.")
+					if ($programList -like '*teamviewer*') { 
+						$syncHash.progress.Items.Add("TeamViewer is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
 					}
 					else {
-						$syncHash.progress.Items.Add("The installation of TeamViewer has failed.")
+						$syncHash.progress.Items.Add("Installing TeamViewer...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						$syncHash.progress.Items.Add("Retrying the installation of TeamViewer.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						choco install teamviewer -y --ignore-checksums
+						choco install teamviewer -y
+						$programList = choco list --localonly
+						if ($programList -like '*teamviewer*') {
+							$syncHash.progress.Items.Add("Completed installation of TeamViewer.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+						}
+						else {
+							$syncHash.progress.Items.Add("The installation of TeamViewer has failed.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progress.Items.Add("Retrying the installation of TeamViewer.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+							choco install teamviewer -y --ignore-checksums
+						}
 					}
 				}
 				if ($syncHash.teams.Checked) {
-					$syncHash.progress.Items.Add("Teams is selected.")
+					$syncHash.progress.Items.Add("Microsoft Teams is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progress.Items.Add("Installing Teams...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					choco install microsoft-teams.install -y
-					$programList = choco list --localonly
-					if ($programList -like '*microsoft-teams*') {
-						$syncHash.progress.Items.Add("Completed installation of Teams.")
+					if ($programList -like '*microsoft-teams*') { 
+						$syncHash.progress.Items.Add("Microsoft Teams is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
 					}
 					else {
-						$syncHash.progress.Items.Add("The installation of Teams has failed.")
+						$syncHash.progress.Items.Add("Installing Microsoft Teams...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						$syncHash.progress.Items.Add("Retrying the installation of Teams.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						choco install microsoft-teams.install -y --ignore-checksums
+						choco install microsoft-teams.install -y
+						$programList = choco list --localonly
+						if ($programList -like '*microsoft-teams*') {
+							$syncHash.progress.Items.Add("Completed installation of Microsoft Teams.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+						}
+						else {
+							$syncHash.progress.Items.Add("The installation of Microsoft Teams has failed.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progress.Items.Add("Retrying the installation of Microsoft Teams.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+							choco install microsoft-teams.install -y --ignore-checksums
+						}
 					}
 				}
 				if ($syncHash.uBlockOrigin.Checked) {
@@ -831,54 +964,68 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("VLC Media Player is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progress.Items.Add("Installing VLC Media Player...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					choco install vlc -y
-					$programList = choco list --localonly
-					if ($programList -like '*vlc*') {
-						$syncHash.progress.Items.Add("Completed installation of VLC Media Player.")
+					if ($programList -like '*vlc*') { 
+						$syncHash.progress.Items.Add("VLC Media Player is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
 					}
 					else {
-						$syncHash.progress.Items.Add("The installation of VLC Media Player has failed.")
+						$syncHash.progress.Items.Add("Installing VLC Media Player...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						$syncHash.progress.Items.Add("Retrying the installation of VLC Media Player.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						choco install vlc -y --ignore-checksums
+						choco install vlc -y
+						$programList = choco list --localonly
+						if ($programList -like '*vlc*') {
+							$syncHash.progress.Items.Add("Completed installation of VLC Media Player.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+						}
+						else {
+							$syncHash.progress.Items.Add("The installation of VLC Media Player has failed.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progress.Items.Add("Retrying the installation of VLC Media Player.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+							choco install vlc -y --ignore-checksums
+						}
 					}
 				}
 				if ($syncHash.zoom.Checked) {
 					$syncHash.progress.Items.Add("Zoom is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progress.Items.Add("Installing Zoom...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					choco install zoom -y
-					$programList = choco list --localonly
-					if ($programList -like '*zoom*') {
-						$syncHash.progress.Items.Add("Completed installation of Zoom.")
+					if ($programList -like '*zoom*') { 
+						$syncHash.progress.Items.Add("Zoom is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
 					}
 					else {
-						$syncHash.progress.Items.Add("The installation of Zoom has failed.")
+						$syncHash.progress.Items.Add("Installing Zoom...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						$syncHash.progress.Items.Add("Retrying the installation of Zoom.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						choco install zoom -y --ignore-checksums
+						choco install zoom -y
+						$programList = choco list --localonly
+						if ($programList -like '*zoom*') {
+							$syncHash.progress.Items.Add("Completed installation of Zoom.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+						}
+						else {
+							$syncHash.progress.Items.Add("The installation of Zoom has failed.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progress.Items.Add("Retrying the installation of Zoom.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+							choco install zoom -y --ignore-checksums
+						}
 					}
 				}
 				if ($syncHash.operatingSystem -like '*6.1*') {
@@ -900,7 +1047,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progressBar.PerformStep()
 				}
 				if ($syncHash.operatingSystem -like '*6.3*') {
-					$syncHash.progress.Items.Add("This computer is running OS 8.1. This OS is no longer supported by this software.")
+					$syncHash.progress.Items.Add("This computer is running Windows 8.1. This OS is no longer supported by this software.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
@@ -940,20 +1087,6 @@ function computerRepairCentreInstaller {
 					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowRecent" -Type DWord -Value 0
 					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowFrequent" -Type DWord -Value 0
 					$syncHash.progressBar.PerformStep()
-					if ($syncHash.microsoftOffice2007.Checked) {
-						Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office Word 2007.lnk" -Destination "$DesktopPath\Microsoft Office Word 2007.lnk"
-						Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office Excel 2007.lnk" -Destination "$DesktopPath\Microsoft Office Excel 2007.lnk"
-						Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office PowerPoint 2007.lnk" -Destination "$DesktopPath\Microsoft Office PowerPoint 2007.lnk"
-						Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office Outlook 2007.lnk" -Destination "$DesktopPath\Microsoft Office Outlook 2007.lnk"
-						$syncHash.progressBar.PerformStep()
-					}
-					if ($syncHash.microsoftOffice.Checked) {
-						Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Word.lnk" -Destination "$DesktopPath\Word.lnk"
-						Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Excel.lnk" -Destination "$DesktopPath\Excel.lnk"
-						Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\PowerPoint.lnk" -Destination "$DesktopPath\PowerPoint.lnk"
-						Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Outlook.lnk" -Destination "$DesktopPath\Outlook.lnk"
-						$syncHash.progressBar.PerformStep()
-					}
 					$programList = choco list --localonly
 					if (($programList -like '*Firefox*') -or ($programList -notlike '*Chrome*')) {
 						if ($programList -like '*Firefox*') {
@@ -1369,68 +1502,128 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("The system will restart in 30 seconds, if you need to cancel this press close.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					shutdown /r /f /t 30
-					$syncHash.reboot.Text = "Reboot (30)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (29)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (28)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (27)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (26)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (25)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (24)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (23)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (22)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (21)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (20)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (19)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (18)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (17)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (16)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (15)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (14)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (13)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (12)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (11)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (10)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (9)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (8)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (7)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (6)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (5)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (4)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (3)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (2)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (1)"
-					Start-Sleep 1
-					$syncHash.reboot.Text = "Reboot (0)"
+					shutdown /r /f /t 60
+						$syncHash.reboot.Text = "Reboot (60)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (59)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (58)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (57)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (56)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (55)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (54)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (53)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (52)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (51)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (50)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (49)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (48)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (47)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (46)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (45)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (44)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (43)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (42)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (41)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (40)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (39)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (38)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (37)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (36)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (35)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (34)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (33)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (32)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (31)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (30)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (29)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (28)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (27)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (26)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (25)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (24)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (23)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (22)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (21)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (20)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (19)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (18)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (17)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (16)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (15)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (14)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (13)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (12)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (11)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (10)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (9)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (8)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (7)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (6)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (5)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (4)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (3)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (2)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (1)"
+						Start-Sleep 1
+						$syncHash.reboot.Text = "Reboot (0)"
 				}
 			})
 		$psCmd.Runspace = $processRunspace
@@ -1453,7 +1646,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.2022.05.22.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.2022.07.01.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
