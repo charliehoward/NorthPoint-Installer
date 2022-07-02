@@ -299,7 +299,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.2022.07.02.0")
+				$syncHash.progress.Items.Add("Current version: 3.2022.07.02.1")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 9
@@ -721,7 +721,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					Start-Sleep 15
-					& "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Word.lnk"
+					& "C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE"
 					Start-Sleep 20
 					taskkill /F /IM winword.exe
 					Start-Sleep 20
@@ -1669,7 +1669,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.2022.07.02.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.2022.07.02.1"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
