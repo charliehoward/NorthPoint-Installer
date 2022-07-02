@@ -1,6 +1,6 @@
 [![built-in-PowerShell](https://img.shields.io/badge/Built%20in-PowerShell-blue)](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2) ![Choco](https://img.shields.io/badge/Powered%20by-Chocolatey-brown) ![Arch](https://img.shields.io/badge/Arch-x86%20|%20AMD64-blue) ![OS](https://img.shields.io/badge/OS-Windows%2010%20|%20Windows%2011-green)
 
-## NorthPoint Installer 3.2022.07.02.1
+## NorthPoint Installer 3.2022.07.02.2
 ###### Copyright (c) Charlie Howard 2016-2022 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -16,6 +16,12 @@ Sets the default browser to either Google Chrome or Mozilla Firefox depending on
 Can disable sleep and screen timeout if plugged into DC power.
 
 ### Changelog
+
+**Update 3.2022.07.02.2**
+
+Added last updated line when installer is run.
+Stopped the installer from deleting choco on every run.
+Will now remove CRC Installer x64.exe from Desktop on reboot.
 
 **Update 3.2022.07.02.1**
 

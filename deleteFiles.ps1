@@ -1,6 +1,8 @@
 ## -- Copyright (c) Charlie Howard 2016-2022 All rights reserved
 
 
+$DesktopPath = [Environment]::GetFolderPath("Desktop")
+Remove-Item "$DesktopPath\CRC Installer x64.exe"
 Remove-Item 'C:\Computer Repair Centre\*.ico'
 Remove-Item 'C:\Computer Repair Centre\*.exe'
 Remove-Item 'C:\Computer Repair Centre\*.zip'
