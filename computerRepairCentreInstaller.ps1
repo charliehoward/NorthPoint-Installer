@@ -299,7 +299,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.2022.07.01.0")
+				$syncHash.progress.Items.Add("Current version: 3.2022.07.02.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 9
@@ -385,6 +385,7 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.Items.Add("Installing Microsoft .NET 3.5...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
+				$programList = choco list --localonly
 				if ($programList -like '*DotNet3.5*') { 
 					$syncHash.progress.Items.Add("Microsoft .NET 3.5 is already installed.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -398,6 +399,7 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.Items.Add("Installing Microsoft .NET 4.5...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
+				$programList = choco list --localonly
 				if ($programList -like '*DotNet4.5*') { 
 					$syncHash.progress.Items.Add("Microsoft .NET 4.5 is already installed.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -411,6 +413,7 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.Items.Add("Installing Microsoft .NET 4.6.1...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
+				$programList = choco list --localonly
 				if ($programList -like '*DotNet4.6.1*') { 
 					$syncHash.progress.Items.Add("Microsoft .NET 4.6.1 is already installed.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -424,6 +427,7 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.Items.Add("Installing Microsoft .NET 4.6.2...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
+				$programList = choco list --localonly
 				if ($programList -like '*DotNet4.6.2*') { 
 					$syncHash.progress.Items.Add("Microsoft .NET 4.6.2 is already installed.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -437,6 +441,7 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.Items.Add("Installing Microsoft Visual C++ Redistributable...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
+				$programList = choco list --localonly
 				if ($programList -like '*vcredist140*') { 
 					$syncHash.progress.Items.Add("Microsoft Visual C++ Redistributable is already installed.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -448,10 +453,11 @@ function computerRepairCentreInstaller {
 					choco install vcredist2015 -y
 					$syncHash.progressBar.PerformStep()
 				}
-								$syncHash.progressBar.PerformStep()
+				$syncHash.progressBar.PerformStep()
 				$syncHash.progress.Items.Add("Installing HashTab...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
+				$programList = choco list --localonly
 				if ($programList -like '*hashtab*') { 
 					$syncHash.progress.Items.Add("HashTab is already installed.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -470,6 +476,7 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.Items.Add("Installing 7-zip...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
+				$programList = choco list --localonly
 				if ($programList -like '*7zip*') { 
 						$syncHash.progress.Items.Add("7-zip is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -515,6 +522,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Google Chrome is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					$programList = choco list --localonly
 					if ($programList -like '*GoogleChrome*') { 
 						$syncHash.progress.Items.Add("Google Chrome is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -549,6 +557,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("iTunes is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					$programList = choco list --localonly
 					if ($programList -like '*iTunes*') { 
 						$syncHash.progress.Items.Add("iTunes is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -583,6 +592,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Kaspersky Internet Security is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					$programList = choco list --localonly
 					if ($programList -like '*kis*') { 
 						$syncHash.progress.Items.Add("Kaspersky Internet Security is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -638,6 +648,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("LibreOffice is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					$programList = choco list --localonly
 					if ($programList -like '*libreoffice-fresh*') { 
 						$syncHash.progress.Items.Add("LibreOffice is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -709,7 +720,11 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Activating Microsoft Office 2019...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Start-Sleep 30
+					Start-Sleep 15
+					& "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Word.lnk"
+					Start-Sleep 20
+					taskkill /F /IM winword.exe
+					Start-Sleep 20
 					& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\officeActivator.zip" "-oC:\Computer Repair Centre\" -aoa
 					& "C:\Computer Repair Centre\officeActivator.bat"
 					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Word.lnk" "$DesktopPath\Word.lnk"
@@ -725,6 +740,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("MalwareBytes is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					$programList = choco list --localonly
 					if ($programList -like '*malwarebytes*') { 
 						$syncHash.progress.Items.Add("MalwareBytes is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -759,6 +775,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Mozilla Firefox is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					$programList = choco list --localonly
 					if ($programList -like '*Firefox*') { 
 						$syncHash.progress.Items.Add("Mozilla Firefox is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -793,6 +810,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Mozilla Thunderbird is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					$programList = choco list --localonly
 					if ($programList -like '*thunderbird*') { 
 						$syncHash.progress.Items.Add("Mozilla Thunderbird is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -827,6 +845,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Skype is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					$programList = choco list --localonly
 					if ($programList -like '*skype*') { 
 						$syncHash.progress.Items.Add("Skype is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -861,6 +880,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("TeamViewer is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					$programList = choco list --localonly
 					if ($programList -like '*teamviewer*') { 
 						$syncHash.progress.Items.Add("TeamViewer is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -895,6 +915,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Microsoft Teams is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					$programList = choco list --localonly
 					if ($programList -like '*microsoft-teams*') { 
 						$syncHash.progress.Items.Add("Microsoft Teams is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -964,6 +985,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("VLC Media Player is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					$programList = choco list --localonly
 					if ($programList -like '*vlc*') { 
 						$syncHash.progress.Items.Add("VLC Media Player is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -998,6 +1020,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Zoom is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					$programList = choco list --localonly
 					if ($programList -like '*zoom*') { 
 						$syncHash.progress.Items.Add("Zoom is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1646,7 +1669,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.2022.07.01.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.2022.07.02.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
