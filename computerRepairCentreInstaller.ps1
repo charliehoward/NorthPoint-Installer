@@ -299,7 +299,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 3.2022.07.02.3")
+				$syncHash.progress.Items.Add("Current version: 3.2022.07.02.4")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 2nd of July 2022")
@@ -721,7 +721,8 @@ function computerRepairCentreInstaller {
 					Start-Sleep 15
 					& "C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE"
 					Start-Sleep 20
-					taskkill /F /IM winword.exe
+					taskkill /F /IM WINWORD.EXE
+					taskkill /F /IM OfficeC2RClient.exe
 					Start-Sleep 20
 					& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\officeActivator.zip" "-oC:\Computer Repair Centre\" -aoa
 					& "C:\Computer Repair Centre\officeActivator.bat"
@@ -1667,7 +1668,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 3.2022.07.02.3"
+	$crcInstaller.Text = "Computer Repair Centre Installer 3.2022.07.02.4"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
