@@ -1,7 +1,0 @@
-﻿  pch.cpp
-  ComputerRepairCentreInstaller.cpp
-  Generating code
-  Previous IPDB not found, fall back to full compilation.
-  All 43 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
-  Finished generating code
-  ComputerRepairCentreInstaller.vcxproj -> D:\Google Drive Work\Documents\NorthPoint-Installer\ComputerRepairCentreInstaller\Release\ComputerRepairCentreInstaller.exe

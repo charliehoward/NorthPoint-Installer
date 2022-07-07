@@ -2,6 +2,6 @@
   ComputerRepairCentreInstaller.cpp
   Generating code
   Previous IPDB not found, fall back to full compilation.
-  All 43 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  All 47 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
-  ComputerRepairCentreInstaller.vcxproj -> D:\Google Drive Work\Documents\NorthPoint-Installer\ComputerRepairCentreInstaller\x64\Release\ComputerRepairCentreInstaller.exe
+  ComputerRepairCentreInstaller.vcxproj -> D:\NextCloud\Spyro\Documents\Projects\NorthPoint-Installer\ComputerRepairCentreInstaller\x64\Release\ComputerRepairCentreInstaller.exe

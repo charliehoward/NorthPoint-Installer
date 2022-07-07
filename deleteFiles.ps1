@@ -2,7 +2,7 @@
 
 
 $DesktopPath = [Environment]::GetFolderPath("Desktop")
-Remove-Item "$DesktopPath\CRC Installer x64.exe"
+Remove-Item '$DesktopPath\Computer Repair Centre Installer.exe'
 Remove-Item 'C:\Computer Repair Centre\*.ico'
 Remove-Item 'C:\Computer Repair Centre\*.exe'
 Remove-Item 'C:\Computer Repair Centre\*.zip'
