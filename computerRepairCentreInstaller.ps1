@@ -10,7 +10,6 @@ Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCent
 function download {
 	[reflection.assembly]::loadwithpartialname("System.Windows.Forms")
 	[reflection.assembly]::loadwithpartialname("System.Drawing")
-	[System.Windows.Forms.Application]::EnableVisualStyles()
 	$downloadBox = New-Object System.Windows.Forms.Form
 	$downloadText = New-Object system.Windows.Forms.Label
 	$progressBar = New-Object System.Windows.Forms.ProgressBar
@@ -148,7 +147,7 @@ function download {
 
 	## -- Download box
 
-	$downloadBox.Text = "Downloading files please wait..."
+	$downloadBox.Text = "Downloading files, please wait..."
 	$downloadBox.Name = "form1"
 	$downloadBox.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -156,18 +155,22 @@ function download {
 	$System_Drawing_Size.Height = 130
 	$downloadBox.ClientSize = $System_Drawing_Size
 	$downloadBox.Icon = "C:\Computer Repair Centre\computerRepairCentreIcon.ico"
+	$downloadBox.BackColor = "#2c2c2c"
+	$downloadBox.ForeColor = "White"
 
 
 	## -- Downloading text
 
-	$downloadText.Text = "Downloading files please wait..."
+	$downloadText.Text = "Downloading files, please wait..."
 	$downloadText.AutoSize = $true
 	$downloadText.Width = 25
 	$downloadText.Height = 10
 	$downloadText.location = New-Object System.Drawing.Point (180,17)
 	$downloadText.Font = 'Microsoft Sans Serif,10'
 	$downloadBox.Controls.Add($downloadText)
-
+	$downloadText.BackColor = "#2c2c2c"
+	$downloadText.ForeColor = "White"
+7th
 
 	## -- Progress bar
 
@@ -186,9 +189,10 @@ function download {
 	$progressBar.Maximum = 28
 	$progressBar.Step = 1
 	$progressBar.Value = 0
-	$progressBar.Style = "Continuous"
 	$downloadBox.Controls.Add($progressBar)
-
+	$progressBar.Style  = "Continuous"
+	$progressBar.ForeColor = "#00b9ff"
+	
 
 	## -- Form
 
@@ -206,24 +210,36 @@ $operatingSystem = (Get-WmiObject -Class Win32_OperatingSystem).version
 $internetProtocol = Invoke-RestMethod http://ipinfo.io/json | Select-Object -exp ip
 $user = $env:UserName
 if ($internetProtocol -like '*212.159.116.68*') {
+	$chandlersFordIP = 0
+	$romseyIP = 1
+	$highcliffeIP = 0
+	$location = 1
+	$locationOpposite = 0
+}
+elseif ($internetProtocol -like '*0.0.0.0*') {
+	$chandlersFordIP = 0
+	$romseyIP = 0
+	$highcliffeIP = 1
 	$location = 1
 	$locationOpposite = 0
 }
 else {
+	$chandlersFordIP = 1
+	$romseyIP = 0
+	$highcliffeIP = 0
 	$location = 0
 	$locationOpposite = 1
 }
 $computerSystem = (Get-WmiObject -Class:Win32_ComputerSystem)
 if ($computerSystem.Model -like '*EliteBook*'){
-	$isRefurb = 1
+	$sleep = 1
 }
 else {
-	$isRefurb = 0
+	$sleep = 0
 }
 function computerRepairCentreInstaller {
 	[reflection.assembly]::loadwithpartialname("System.Windows.Forms")
 	[reflection.assembly]::loadwithpartialname("System.Drawing")
-	[System.Windows.Forms.Application]::EnableVisualStyles()
 	$crcInstaller = New-Object System.Windows.Forms.Form
 	$install = New-Object System.Windows.Forms.Button
 	$reboot = New-Object System.Windows.Forms.Button
@@ -248,8 +264,11 @@ function computerRepairCentreInstaller {
 	$wallpaper = New-Object System.Windows.Forms.CheckBox
 	$nightMode = New-Object System.Windows.Forms.CheckBox
 	$rebootBox = New-Object System.Windows.Forms.CheckBox
-	$refurbBox = New-Object System.Windows.Forms.CheckBox
+	$sleep = New-Object System.Windows.Forms.CheckBox
 	$zoom = New-Object System.Windows.Forms.CheckBox
+	$romsey = New-Object System.Windows.Forms.CheckBox
+	$chandlersFord = New-Object System.Windows.Forms.CheckBox
+	$highcliffe = New-Object System.Windows.Forms.CheckBox
 	$InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState
 	$syncHash = [hashtable]::Synchronized(@{})
 	$syncHash.crcInstaller = $crcInstaller
@@ -281,9 +300,12 @@ function computerRepairCentreInstaller {
 	$syncHash.wallpapersPath = $wallpapersPath
 	$syncHash.rebootBox = $rebootBox
 	$syncHash.reboot = $reboot
-	$syncHash.refurbBox = $refurbBox
+	$syncHash.sleep = $sleep
 	$syncHash.zoom = $zoom
-	$syncHash.isRefurb = $isRefurb
+	$syncHash.sleep = $sleep
+	$syncHash.romsey = $romsey
+	$syncHash.chandlersFord = $chandlersFord
+	$syncHash.highcliffe = $highcliffe
 	$b1 = $false
 	$b2 = $false
 	$b3 = $false
@@ -299,14 +321,14 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.07.07.0")
+				$syncHash.progress.Items.Add("Current version: 4.2022.07.07.1")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Last updated: 2nd of July 2022")
+				$syncHash.progress.Items.Add("Last updated: 7th of July 2022")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 12
-				if ($syncHash.refurbBox.Checked) { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.sleep.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.crc.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.mozillaFirefox.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.mozillaThunderbird.Checked) { $syncHash.progressBar.Maximum += 1 }
@@ -331,7 +353,7 @@ function computerRepairCentreInstaller {
 				if ($syncHash.operatingSystem -like '*6.3*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*10.0.1*') { $syncHash.progressBar.Maximum += 5 }
 				if ($syncHash.operatingSystem -like '*10.0.2*') { $syncHash.progressBar.Maximum += 5 }
-				if ($syncHash.isRefurb -like '*1*' ) {
+				if ($syncHash.sleep -like '*1*' ) {
 					$syncHash.progress.Items.Add("This computer is a refurb, disable sleep on AC power and will reboot.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
@@ -344,7 +366,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Installing Computer Repair Centre OEM information...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					if ($syncHash.internetProtocol -like '*212.159.116.68*') {
+					if ($syncHash.romsey.Checked) {
 						$syncHash.progress.Items.Add("Installer being run from Romsey.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
@@ -355,7 +377,7 @@ function computerRepairCentreInstaller {
 						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportPhone -Value "01794 517142" -Force
 						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportURL -Value "https://www.firstforitrepairs.co.uk" -Force
 					}
-					elseif ($syncHash.internetProtocol -like '*82.24.21.184*') {
+					elseif ($syncHash.chandlersFord.Checked) {
 						$syncHash.progress.Items.Add("Installer being run from Chandlers Ford.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
@@ -365,6 +387,17 @@ function computerRepairCentreInstaller {
 						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportHours -Value "Mon-Fri 9am-5pm - Sat 9am-4pm" -Force
 						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportPhone -Value "08712 244129" -Force
 						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportURL -Value "https://www.brmcomputers.co.uk" -Force
+					}
+					elseif ($syncHash.highcliffe.Checked) {
+						$syncHash.progress.Items.Add("Installer being run from Highcliffe.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						New-Item -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Force
+						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name Logo -Value "C:\Computer Repair Centre\computerRepairCentreOEM.bmp" -Force
+						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name Manufacturer -Value "Computer Repair Centre" -Force
+						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportHours -Value "TBD" -Force
+						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportPhone -Value "TBD" -Force
+						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportURL -Value "TBD" -Force
 					}
 					$syncHash.progress.Items.Add("Completed installation of Computer Repair Centre OEM information.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1668,7 +1701,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.07.07.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.07.07.1"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1676,6 +1709,8 @@ function computerRepairCentreInstaller {
 	$System_Drawing_Size.Height = 260
 	$crcInstaller.ClientSize = $System_Drawing_Size
 	$crcInstaller.Icon = "C:\Computer Repair Centre\computerRepairCentreIcon.ico"
+	$crcInstaller.BackColor = "#2c2c2c"
+	$crcInstaller.ForeColor = "White"
 
 
 	## -- Install button
@@ -1683,10 +1718,12 @@ function computerRepairCentreInstaller {
 	$install.TabIndex = 4
 	$install.Name = "install"
 	$System_Drawing_Size = New-Object System.Drawing.Size
+	$install.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$install.FlatAppearance.BorderSize=0
 	$System_Drawing_Size.Width = 185
 	$System_Drawing_Size.Height = 23
 	$install.Size = $System_Drawing_Size
-	$install.UseVisualStyleBackColor = $True
+	$install.
 	$install.Text = "Install"
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 15
@@ -1695,6 +1732,8 @@ function computerRepairCentreInstaller {
 	$install.DataBindings.DefaultDataSourceUpdateMode = 0
 	$install.add_Click($handler_install_Click)
 	$crcInstaller.Controls.Add($install)
+	$install.BackColor = "#00b9ff"
+	$install.ForeColor = "White"
 
 
 	## -- Reboot button
@@ -1702,10 +1741,12 @@ function computerRepairCentreInstaller {
 	$reboot.TabIndex = 4
 	$reboot.Name = "reboot"
 	$System_Drawing_Size = New-Object System.Drawing.Size
+	$reboot.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$reboot.FlatAppearance.BorderSize=0
 	$System_Drawing_Size.Width = 185
 	$System_Drawing_Size.Height = 23
 	$reboot.Size = $System_Drawing_Size
-	$reboot.UseVisualStyleBackColor = $True
+	$reboot.
 	$reboot.Text = "Reboot"
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 212.5
@@ -1714,6 +1755,8 @@ function computerRepairCentreInstaller {
 	$reboot.DataBindings.DefaultDataSourceUpdateMode = 0
 	$reboot.add_Click($handler_reboot_Click)
 	$crcInstaller.Controls.Add($reboot)
+	$reboot.BackColor = "#00b9ff"
+	$reboot.ForeColor = "White"
 
 
   ## -- Close button
@@ -1721,10 +1764,12 @@ function computerRepairCentreInstaller {
 	$close.TabIndex = 4
 	$close.Name = "close"
 	$System_Drawing_Size = New-Object System.Drawing.Size
+	$close.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$close.FlatAppearance.BorderSize=0
 	$System_Drawing_Size.Width = 185
 	$System_Drawing_Size.Height = 23
 	$close.Size = $System_Drawing_Size
-	$close.UseVisualStyleBackColor = $True
+	$close.
 	$close.Text = "Close"
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 410
@@ -1733,6 +1778,8 @@ function computerRepairCentreInstaller {
 	$close.DataBindings.DefaultDataSourceUpdateMode = 0
 	$close.add_Click($handler_close_Click)
 	$crcInstaller.Controls.Add($close)
+	$close.BackColor = "#00b9ff"
+	$close.ForeColor = "White"
 
 
 	## -- Progress bar
@@ -1753,6 +1800,7 @@ function computerRepairCentreInstaller {
 	$progressBar.Value = 0
 	$progressBar.Style = "Continuous"
 	$crcInstaller.Controls.Add($progressBar)
+	$progressBar.ForeColor = "#00b9ff"
 
 
 	## -- Progress box
@@ -1770,11 +1818,13 @@ function computerRepairCentreInstaller {
 	$progress.location = $System_Drawing_Point
 	$progress.TabIndex = 3
 	$crcInstaller.Controls.Add($progress)
+	$progress.BackColor = "#2c2c2c"
+	$progress.ForeColor = "White"
+
 
 
 	## -- Computer Repair Centre OEM Information
 
-	$crc.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
@@ -1789,11 +1839,13 @@ function computerRepairCentreInstaller {
 	$crc.Checked = 1
 	$crc.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\computerRepairCentreIcon.ico")
 	$crcInstaller.Controls.Add($crc)
+	$crc.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$crc.FlatAppearance.BorderSize=0
+	
 
 
 	## -- Bing Wallpaper
 
-	$wallpaper.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
@@ -1808,11 +1860,12 @@ function computerRepairCentreInstaller {
 	$wallpaper.Checked = 1
 	$wallpaper.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\bing.ico")
 	$crcInstaller.Controls.Add($wallpaper)
+	$wallpaper.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$wallpaper.FlatAppearance.BorderSize=0
 
 
 	## -- Dark Mode
 
-	$nightMode.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
@@ -1827,11 +1880,12 @@ function computerRepairCentreInstaller {
 	$nightMode.Checked = 1
 	$nightMode.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\nightMode.ico")
 	$crcInstaller.Controls.Add($nightMode)
+	$nightMode.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$nightMode.FlatAppearance.BorderSize=0
 
 
 	## -- Google Chrome
 
-	$googleChrome.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
@@ -1846,10 +1900,11 @@ function computerRepairCentreInstaller {
 	$googleChrome.Checked = 1
 	$googleChrome.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\googleChrome.ico")
 	$crcInstaller.Controls.Add($googleChrome)
+	$googleChrome.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$googleChrome.FlatAppearance.BorderSize=0
 
 	## -- iTunes
 
-	$iTunes.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
@@ -1864,11 +1919,12 @@ function computerRepairCentreInstaller {
 	$iTunes.Checked = 0
 	$iTunes.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\iTunes.ico")
 	$crcInstaller.Controls.Add($iTunes)
+	$iTunes.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$iTunes.FlatAppearance.BorderSize=0
 
 
 	## -- Kaspersky Internet Security
 
-	$kaspersky.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
@@ -1883,11 +1939,12 @@ function computerRepairCentreInstaller {
 	$kaspersky.Checked = 1
 	$kaspersky.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\kasperskyInternetSecurity.ico")
 	$crcInstaller.Controls.Add($kaspersky)
+	$kaspersky.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$kaspersky.FlatAppearance.BorderSize=0
 
 
 	## -- LibreOffice
 
-	$libreOffice.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
@@ -1902,11 +1959,12 @@ function computerRepairCentreInstaller {
 	$libreOffice.Checked = $location
 	$libreOffice.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\libreOffice.ico")
 	$crcInstaller.Controls.Add($libreOffice)
+	$libreOffice.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$libreOffice.FlatAppearance.BorderSize=0
 
 
 	## -- MalwareBytes
 
-	$malwareBytes.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
@@ -1921,11 +1979,12 @@ function computerRepairCentreInstaller {
 	$malwareBytes.Checked = $locationOpposite
 	$malwareBytes.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\malwareBytes.ico")
 	$crcInstaller.Controls.Add($malwareBytes)
+	$malwareBytes.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$malwareBytes.FlatAppearance.BorderSize=0
 
 	
 	## -- Microsoft Office 2007
 
-	$microsoftOffice2007.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
@@ -1940,11 +1999,12 @@ function computerRepairCentreInstaller {
 	$microsoftOffice2007.Checked = $locationOpposite
 	$microsoftOffice2007.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\microsoftOffice2007.ico")
 	$crcInstaller.Controls.Add($microsoftOffice2007)
+	$microsoftOffice2007.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$microsoftOffice2007.FlatAppearance.BorderSize=0
 
 
 	## -- Microsoft Office 2019
 
-	$microsoftOffice.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
@@ -1959,11 +2019,12 @@ function computerRepairCentreInstaller {
 	$microsoftOffice.Checked = 0
 	$microsoftOffice.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\microsoftOffice.ico")
 	$crcInstaller.Controls.Add($microsoftOffice)
+	$microsoftOffice.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$microsoftOffice.FlatAppearance.BorderSize=0
 
 
 	## -- Mozilla Firefox
 
-	$mozillaFirefox.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
@@ -1978,11 +2039,12 @@ function computerRepairCentreInstaller {
 	$mozillaFirefox.Checked = 1
 	$mozillaFirefox.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\mozillaFirefox.ico")
 	$crcInstaller.Controls.Add($mozillaFirefox)
+	$mozillaFirefox.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$mozillaFirefox.FlatAppearance.BorderSize=0
 
 
 	## -- Mozilla Thunderbird
 
-	$mozillaThunderbird.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
@@ -1997,11 +2059,12 @@ function computerRepairCentreInstaller {
 	$mozillaThunderbird.Checked = 0
 	$mozillaThunderbird.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\mozillaThunderbird.ico")
 	$crcInstaller.Controls.Add($mozillaThunderbird)
+	$mozillaThunderbird.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$mozillaThunderbird.FlatAppearance.BorderSize=0
 
 
 	## -- Skype
 
-	$skype.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
@@ -2016,11 +2079,12 @@ function computerRepairCentreInstaller {
 	$skype.Checked = 0
 	$skype.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\skype.ico")
 	$crcInstaller.Controls.Add($skype)
+	$skype.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$skype.FlatAppearance.BorderSize=0
 
 
 	## -- Teams
 
-	$teams.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
@@ -2035,11 +2099,12 @@ function computerRepairCentreInstaller {
 	$teams.Checked = 0
 	$teams.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\teams.ico")
 	$crcInstaller.Controls.Add($teams)
+	$teams.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$teams.FlatAppearance.BorderSize=0
 
 	
 	## -- TeamViewer
 
-	$teamViewer.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
@@ -2054,11 +2119,12 @@ function computerRepairCentreInstaller {
 	$teamViewer.Checked = 1
 	$teamViewer.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\teamViewer.ico")
 	$crcInstaller.Controls.Add($teamViewer)
+	$teamViewer.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$teamViewer.FlatAppearance.BorderSize=0
 
 
 	## -- uBlock Origin
 
-	$uBlockOrigin.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
@@ -2073,11 +2139,12 @@ function computerRepairCentreInstaller {
 	$uBlockOrigin.Checked = 0
 	$uBlockOrigin.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\uBlockOrigin.ico")
 	$crcInstaller.Controls.Add($uBlockOrigin)
+	$uBlockOrigin.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$uBlockOrigin.FlatAppearance.BorderSize=0
 
 
 	## -- VLC Media Player
 
-	$vlc.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
@@ -2092,10 +2159,12 @@ function computerRepairCentreInstaller {
 	$vlc.Checked = 1
 	$vlc.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\vlcMediaPlayer.ico")
 	$crcInstaller.Controls.Add($vlc)
+	$vlc.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$vlc.FlatAppearance.BorderSize=0
+
 
 	## -- Zoom
 
-	$zoom.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
@@ -2110,44 +2179,108 @@ function computerRepairCentreInstaller {
 	$zoom.Checked = 0
 	$zoom.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\zoom.ico")
 	$crcInstaller.Controls.Add($zoom)
+	$zoom.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$zoom.FlatAppearance.BorderSize=0
 
 
 	## -- Reboot Box
 
-	$rebootBox.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 190
+	$System_Drawing_Size.Width = 75
 	$System_Drawing_Size.Height = 36
 	$rebootBox.Size = $System_Drawing_Size
 	$rebootBox.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 170
+	$System_Drawing_Point.X = 170 + (75 * 0)
 	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$rebootBox.location = $System_Drawing_Point
 	$rebootBox.DataBindings.DefaultDataSourceUpdateMode = 0
 	$rebootBox.Name = "rebootBox"
-	$rebootBox.Checked = $isRefurb
-	$rebootBox.Text = "Reboot when install is complete."
+	$rebootBox.Checked = $sleep
+	$rebootBox.Text = "Reboot"
 	$crcInstaller.Controls.Add($rebootBox)
+	$rebootBox.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$rebootBox.FlatAppearance.BorderSize=0
 
 
-	## -- Refurb Box
+	## -- Sleep Box
 
-	$refurbBox.UseVisualStyleBackColor = $True
 	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 300
+	$System_Drawing_Size.Width = 100
 	$System_Drawing_Size.Height = 36
-	$refurbBox.Size = $System_Drawing_Size
-	$refurbBox.TabIndex = 6
+	$sleep.Size = $System_Drawing_Size
+	$sleep.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 360
+	$System_Drawing_Point.X = 170 + (75 * 1)
 	$System_Drawing_Point.Y = 5 + (31 * 7)
-	$refurbBox.location = $System_Drawing_Point
-	$refurbBox.DataBindings.DefaultDataSourceUpdateMode = 0
-	$refurbBox.Name = "refurbBox"
-	$refurbBox.Checked = $isRefurb
-	$refurbBox.Text = "Disable sleep on AC power."
-	$crcInstaller.Controls.Add($refurbBox)
+	$sleep.location = $System_Drawing_Point
+	$sleep.DataBindings.DefaultDataSourceUpdateMode = 0
+	$sleep.Name = "sleep"
+	$sleep.Checked = $sleep
+	$sleep.Text = "Disable sleep"
+	$crcInstaller.Controls.Add($sleep)
+	$sleep.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$sleep.FlatAppearance.BorderSize=0
+
+
+	## -- Chandlers Ford Box
+
+	$System_Drawing_Size = New-Object System.Drawing.Size
+	$System_Drawing_Size.Width = 110
+	$System_Drawing_Size.Height = 36
+	$chandlersFord.Size = $System_Drawing_Size
+	$chandlersFord.TabIndex = 6
+	$System_Drawing_Point = New-Object System.Drawing.Point
+	$System_Drawing_Point.X = 170 + (75 * 2) + (25 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 7)
+	$chandlersFord.location = $System_Drawing_Point
+	$chandlersFord.DataBindings.DefaultDataSourceUpdateMode = 0
+	$chandlersFord.Name = "chandlersFord"
+	$chandlersFord.Checked = $chandlersFordIP
+	$chandlersFord.Text = "Chandlers Ford"
+	$crcInstaller.Controls.Add($chandlersFord)
+	$chandlersFord.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$chandlersFord.FlatAppearance.BorderSize=0
+
+	
+	## -- Romsey Box
+
+	$System_Drawing_Size = New-Object System.Drawing.Size
+	$System_Drawing_Size.Width = 75
+	$System_Drawing_Size.Height = 36
+	$romsey.Size = $System_Drawing_Size
+	$romsey.TabIndex = 6
+	$System_Drawing_Point = New-Object System.Drawing.Point
+	$System_Drawing_Point.X = 170 + (75 * 3) + (25 * 2) + 10
+	$System_Drawing_Point.Y = 5 + (31 * 7)
+	$romsey.location = $System_Drawing_Point
+	$romsey.DataBindings.DefaultDataSourceUpdateMode = 0
+	$romsey.Name = "romsey"
+	$romsey.Checked = $romseyIP
+	$romsey.Text = "Romsey"
+	$crcInstaller.Controls.Add($romsey)
+	$romsey.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$romsey.FlatAppearance.BorderSize=0
+
+
+	## -- Highcliffe Box
+
+	$System_Drawing_Size = New-Object System.Drawing.Size
+	$System_Drawing_Size.Width = 100
+	$System_Drawing_Size.Height = 36
+	$highcliffe.Size = $System_Drawing_Size
+	$highcliffe.TabIndex = 6
+	$System_Drawing_Point = New-Object System.Drawing.Point
+	$System_Drawing_Point.X = 170 + (75 * 4) + (25 * 2) + 10
+	$System_Drawing_Point.Y = 5 + (31 * 7)
+	$highcliffe.location = $System_Drawing_Point
+	$highcliffe.DataBindings.DefaultDataSourceUpdateMode = 0
+	$highcliffe.Name = "highcliffe"
+	$highcliffe.Checked = $highcliffeIP
+	$highcliffe.Text = "Highcliffe"
+#	$crcInstaller.Controls.Add($highcliffe)
+	$highcliffe.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$highcliffe.FlatAppearance.BorderSize=0
 
 
 	## -- Form
