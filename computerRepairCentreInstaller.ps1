@@ -170,7 +170,7 @@ function download {
 	$downloadBox.Controls.Add($downloadText)
 	$downloadText.BackColor = "#2c2c2c"
 	$downloadText.ForeColor = "White"
-7th
+
 
 	## -- Progress bar
 
@@ -321,10 +321,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.07.07.1")
+				$syncHash.progress.Items.Add("Current version: 4.2022.07.08.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Last updated: 7th of July 2022")
+				$syncHash.progress.Items.Add("Last updated: 8th of July 2022")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.Maximum = 12
@@ -1701,7 +1701,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.07.07.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.07.08.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1723,7 +1723,6 @@ function computerRepairCentreInstaller {
 	$System_Drawing_Size.Width = 185
 	$System_Drawing_Size.Height = 23
 	$install.Size = $System_Drawing_Size
-	$install.
 	$install.Text = "Install"
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 15
@@ -1746,7 +1745,6 @@ function computerRepairCentreInstaller {
 	$System_Drawing_Size.Width = 185
 	$System_Drawing_Size.Height = 23
 	$reboot.Size = $System_Drawing_Size
-	$reboot.
 	$reboot.Text = "Reboot"
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 212.5
@@ -1769,7 +1767,6 @@ function computerRepairCentreInstaller {
 	$System_Drawing_Size.Width = 185
 	$System_Drawing_Size.Height = 23
 	$close.Size = $System_Drawing_Size
-	$close.
 	$close.Text = "Close"
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 410
