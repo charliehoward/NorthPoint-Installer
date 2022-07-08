@@ -81,6 +81,16 @@ function download {
 			$deleteFilesPath = "C:\Computer Repair Centre\deleteFiles.zip"
 			$zoomURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/zoom.ico"
 			$zoomPath = "C:\Computer Repair Centre\zoom.ico"
+			$sleepURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sleep.ico"
+			$sleepPath = "C:\Computer Repair Centre\sleep.ico"
+			$restartURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/restart.ico"
+			$restartPath = "C:\Computer Repair Centre\restart.ico"
+			$chandlersFordURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/chandlersFord.ico"
+			$chandlersFordPath = "C:\Computer Repair Centre\chandlersFord.ico"
+			$romseyURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/romsey.ico"
+			$romseyPath = "C:\Computer Repair Centre\romsey.ico"
+			$highcliffeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/highcliffe.ico"
+			$highcliffePath = "C:\Computer Repair Centre\highcliffe.ico"
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $googleChromeURL -OutFile $googleChromePath
@@ -139,6 +149,16 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $deleteFilesURL -OutFile $deleteFilesPath
 			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $sleepURL -OutFile $sleepPath
+			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $restartURL -OutFile $restartPath
+			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $chandlersFordURL -OutFile $chandlersFordPath
+			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $romseyURL -OutFile $romseyPath
+			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $highcliffeURL -OutFile $highcliffePath
+			$syncHash.progressBar.PerformStep()
 			$syncHash.downloadBox.Close()
 		})
 	$psCmd.Runspace = $processRunspace
@@ -148,7 +168,7 @@ function download {
 	## -- Download box
 
 	$downloadBox.Text = "Downloading files, please wait..."
-	$downloadBox.Name = "form1"
+	$downloadBox.Name = "downloader"
 	$downloadBox.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 550
@@ -186,7 +206,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 28
+	$progressBar.Maximum = 33
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$downloadBox.Controls.Add($progressBar)
@@ -236,6 +256,27 @@ if ($computerSystem.Model -like '*EliteBook*'){
 }
 else {
 	$sleep = 0
+}
+$date = Get-Date -Format "dd/MM"
+if ($date -like '*06/04*') {
+	$birthday = 1
+	$birthdayName = "Charlie"
+}
+if ($date -like '*21/04*') {
+	$birthday = 1
+	$birthdayName = "Dean"
+}
+if ($date -like '*16/05*') {
+	$birthday = 1
+	$birthdayName = "Howard"
+}
+if ($date -like '*09/06*') {
+	$birthday = 1
+	$birthdayName = "Adam"
+}
+if ($date -like '*24/06*') {
+	$birthday = 1
+	$birthdayName = "Steve"
 }
 function computerRepairCentreInstaller {
 	[reflection.assembly]::loadwithpartialname("System.Windows.Forms")
@@ -306,6 +347,8 @@ function computerRepairCentreInstaller {
 	$syncHash.romsey = $romsey
 	$syncHash.chandlersFord = $chandlersFord
 	$syncHash.highcliffe = $highcliffe
+	$syncHash.birthday = $birthday
+	$syncHash.birthdayName = $birthdayName
 	$b1 = $false
 	$b2 = $false
 	$b3 = $false
@@ -321,12 +364,20 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.07.08.0")
+				$syncHash.progress.Items.Add("Current version: 4.2022.07.08.1")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 8th of July 2022")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
+				if ($birthday -like '*1*') { 
+					$syncHash.progress.Items.Add("Today is $birthdayName's birthday!")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Happy birthday $birthdayName!")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+				}
 				$syncHash.progressBar.Maximum = 12
 				if ($syncHash.sleep.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.crc.Checked) { $syncHash.progressBar.Maximum += 1 }
@@ -1216,127 +1267,31 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						shutdown /r /f /t 60
-						$syncHash.reboot.Text = "Reboot (60)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (59)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (58)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (57)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (56)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (55)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (54)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (53)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (52)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (51)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (50)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (49)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (48)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (47)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (46)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (45)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (44)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (43)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (42)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (41)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (40)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (39)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (38)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (37)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (36)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (35)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (34)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (33)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (32)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (31)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (30)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (29)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (28)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (27)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (26)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (25)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (24)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (23)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (22)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (21)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (20)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (19)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (18)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (17)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (16)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (15)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (14)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (13)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (12)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (11)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (10)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (9)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (8)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (7)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (6)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (5)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (4)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (3)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (2)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (1)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (0)"
+						Start-Sleep 10
+						$syncHash.progress.Items.Add("The system will restart in 50 seconds, if you need to cancel this press close.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 10
+						$syncHash.progress.Items.Add("The system will restart in 40 seconds, if you need to cancel this press close.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 10
+						$syncHash.progress.Items.Add("The system will restart in 30 seconds, if you need to cancel this press close.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 10
+						$syncHash.progress.Items.Add("The system will restart in 20 seconds, if you need to cancel this press close.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 10
+						$syncHash.progress.Items.Add("The system will restart in 10 seconds, if you need to cancel this press close.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 5
+						$syncHash.progress.Items.Add("The system will restart in 5 seconds, if you need to cancel this press close.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 5
 					}
 					$syncHash.progressBar.PerformStep()
 				}
@@ -1429,256 +1384,64 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						shutdown /r /f /t 60
-						$syncHash.reboot.Text = "Reboot (60)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (59)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (58)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (57)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (56)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (55)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (54)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (53)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (52)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (51)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (50)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (49)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (48)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (47)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (46)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (45)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (44)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (43)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (42)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (41)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (40)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (39)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (38)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (37)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (36)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (35)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (34)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (33)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (32)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (31)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (30)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (29)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (28)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (27)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (26)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (25)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (24)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (23)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (22)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (21)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (20)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (19)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (18)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (17)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (16)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (15)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (14)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (13)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (12)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (11)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (10)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (9)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (8)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (7)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (6)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (5)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (4)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (3)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (2)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (1)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (0)"
+						Start-Sleep 10
+						$syncHash.progress.Items.Add("The system will restart in 50 seconds, if you need to cancel this press close.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 10
+						$syncHash.progress.Items.Add("The system will restart in 40 seconds, if you need to cancel this press close.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 10
+						$syncHash.progress.Items.Add("The system will restart in 30 seconds, if you need to cancel this press close.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 10
+						$syncHash.progress.Items.Add("The system will restart in 20 seconds, if you need to cancel this press close.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 10
+						$syncHash.progress.Items.Add("The system will restart in 10 seconds, if you need to cancel this press close.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 5
+						$syncHash.progress.Items.Add("The system will restart in 5 seconds, if you need to cancel this press close.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 5
 					}
 					$syncHash.progressBar.PerformStep()
 				}
 				if ($syncHash.rebootBox.Checked) {
-					$syncHash.progress.Items.Add("The system will restart in 30 seconds, if you need to cancel this press close.")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					shutdown /r /f /t 60
-						$syncHash.reboot.Text = "Reboot (60)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (59)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (58)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (57)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (56)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (55)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (54)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (53)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (52)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (51)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (50)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (49)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (48)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (47)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (46)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (45)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (44)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (43)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (42)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (41)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (40)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (39)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (38)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (37)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (36)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (35)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (34)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (33)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (32)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (31)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (30)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (29)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (28)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (27)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (26)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (25)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (24)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (23)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (22)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (21)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (20)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (19)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (18)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (17)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (16)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (15)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (14)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (13)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (12)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (11)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (10)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (9)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (8)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (7)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (6)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (5)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (4)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (3)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (2)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (1)"
-						Start-Sleep 1
-						$syncHash.reboot.Text = "Reboot (0)"
+					$syncHash.progress.Items.Add("The system will restart in 1 minute, if you need to cancel this press close.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						shutdown /r /f /t 60
+						Start-Sleep 10
+						$syncHash.progress.Items.Add("The system will restart in 50 seconds, if you need to cancel this press close.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 10
+						$syncHash.progress.Items.Add("The system will restart in 40 seconds, if you need to cancel this press close.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 10
+						$syncHash.progress.Items.Add("The system will restart in 30 seconds, if you need to cancel this press close.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 10
+						$syncHash.progress.Items.Add("The system will restart in 20 seconds, if you need to cancel this press close.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 10
+						$syncHash.progress.Items.Add("The system will restart in 10 seconds, if you need to cancel this press close.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 5
+						$syncHash.progress.Items.Add("The system will restart in 5 seconds, if you need to cancel this press close.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 5
 				}
 			})
 		$psCmd.Runspace = $processRunspace
@@ -1701,7 +1464,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.07.08.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.07.08.1"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -2183,18 +1946,18 @@ function computerRepairCentreInstaller {
 	## -- Reboot Box
 
 	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 75
+	$System_Drawing_Size.Width = 50
 	$System_Drawing_Size.Height = 36
 	$rebootBox.Size = $System_Drawing_Size
 	$rebootBox.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 170 + (75 * 0)
+	$System_Drawing_Point.X = 170 + (50 * 0)
 	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$rebootBox.location = $System_Drawing_Point
 	$rebootBox.DataBindings.DefaultDataSourceUpdateMode = 0
 	$rebootBox.Name = "rebootBox"
 	$rebootBox.Checked = $sleep
-	$rebootBox.Text = "Reboot"
+	$rebootBox.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\restart.ico")
 	$crcInstaller.Controls.Add($rebootBox)
 	$rebootBox.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$rebootBox.FlatAppearance.BorderSize=0
@@ -2203,18 +1966,18 @@ function computerRepairCentreInstaller {
 	## -- Sleep Box
 
 	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 100
+	$System_Drawing_Size.Width = 50
 	$System_Drawing_Size.Height = 36
 	$sleep.Size = $System_Drawing_Size
 	$sleep.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 170 + (75 * 1)
+	$System_Drawing_Point.X = 170 + (50 * 1)
 	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$sleep.location = $System_Drawing_Point
 	$sleep.DataBindings.DefaultDataSourceUpdateMode = 0
 	$sleep.Name = "sleep"
 	$sleep.Checked = $sleep
-	$sleep.Text = "Disable sleep"
+	$sleep.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\sleep.ico")
 	$crcInstaller.Controls.Add($sleep)
 	$sleep.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$sleep.FlatAppearance.BorderSize=0
@@ -2223,18 +1986,18 @@ function computerRepairCentreInstaller {
 	## -- Chandlers Ford Box
 
 	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 110
+	$System_Drawing_Size.Width = 50
 	$System_Drawing_Size.Height = 36
 	$chandlersFord.Size = $System_Drawing_Size
 	$chandlersFord.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 170 + (75 * 2) + (25 * 1)
+	$System_Drawing_Point.X = 170 + (50 * 2)
 	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$chandlersFord.location = $System_Drawing_Point
 	$chandlersFord.DataBindings.DefaultDataSourceUpdateMode = 0
 	$chandlersFord.Name = "chandlersFord"
 	$chandlersFord.Checked = $chandlersFordIP
-	$chandlersFord.Text = "Chandlers Ford"
+	$chandlersFord.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\chandlersFord.ico")
 	$crcInstaller.Controls.Add($chandlersFord)
 	$chandlersFord.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$chandlersFord.FlatAppearance.BorderSize=0
@@ -2243,18 +2006,18 @@ function computerRepairCentreInstaller {
 	## -- Romsey Box
 
 	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 75
+	$System_Drawing_Size.Width = 50
 	$System_Drawing_Size.Height = 36
 	$romsey.Size = $System_Drawing_Size
 	$romsey.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 170 + (75 * 3) + (25 * 2) + 10
+	$System_Drawing_Point.X = 170 + (50 * 3)
 	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$romsey.location = $System_Drawing_Point
 	$romsey.DataBindings.DefaultDataSourceUpdateMode = 0
 	$romsey.Name = "romsey"
 	$romsey.Checked = $romseyIP
-	$romsey.Text = "Romsey"
+	$romsey.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\romsey.ico")
 	$crcInstaller.Controls.Add($romsey)
 	$romsey.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$romsey.FlatAppearance.BorderSize=0
@@ -2263,18 +2026,18 @@ function computerRepairCentreInstaller {
 	## -- Highcliffe Box
 
 	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 100
+	$System_Drawing_Size.Width = 50
 	$System_Drawing_Size.Height = 36
 	$highcliffe.Size = $System_Drawing_Size
 	$highcliffe.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 170 + (75 * 4) + (25 * 2) + 10
+	$System_Drawing_Point.X = 170 + (50 * 4)
 	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$highcliffe.location = $System_Drawing_Point
 	$highcliffe.DataBindings.DefaultDataSourceUpdateMode = 0
 	$highcliffe.Name = "highcliffe"
 	$highcliffe.Checked = $highcliffeIP
-	$highcliffe.Text = "Highcliffe"
+	$highcliffe.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\highcliffe.ico")
 #	$crcInstaller.Controls.Add($highcliffe)
 	$highcliffe.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$highcliffe.FlatAppearance.BorderSize=0
