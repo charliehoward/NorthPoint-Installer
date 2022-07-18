@@ -93,8 +93,6 @@ function download {
 			$highcliffePath = "C:\Computer Repair Centre\highcliffe.ico"
 			$solitareIconURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/solitare.ico"
 			$solitareIconPath = "C:\Computer Repair Centre\solitare.ico"
-			$solitareURL = "https://github.com/charliehoward/NorthPoint-Installer/releases/download/windows7games/Windows7Games.zip"
-			$solitarePath = "C:\Computer Repair Centre\Windows7Games.zip"
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $googleChromeURL -OutFile $googleChromePath
@@ -165,8 +163,6 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $solitareIconURL -OutFile $solitareIconPath
 			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $solitareURL -OutFile $solitarePath
-			$syncHash.progressBar.PerformStep()
 			$syncHash.downloadBox.Close()
 		})
 	$psCmd.Runspace = $processRunspace
@@ -214,7 +210,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 35
+	$progressBar.Maximum = 34
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$downloadBox.Controls.Add($progressBar)
@@ -318,7 +314,7 @@ function computerRepairCentreInstaller {
 	$romsey = New-Object System.Windows.Forms.CheckBox
 	$chandlersFord = New-Object System.Windows.Forms.CheckBox
 	$highcliffe = New-Object System.Windows.Forms.CheckBox
-	$7Games = New-Object System.Windows.Forms.CheckBox
+	$solitare = New-Object System.Windows.Forms.CheckBox
 	$InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState
 	$syncHash = [hashtable]::Synchronized(@{})
 	$syncHash.crcInstaller = $crcInstaller
@@ -374,7 +370,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.07.18.1")
+				$syncHash.progress.Items.Add("Current version: 4.2022.07.18.2")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 18th of July 2022")
@@ -403,7 +399,7 @@ function computerRepairCentreInstaller {
 				if ($syncHash.iTunes.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.wallpaper.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.nightMode.Checked) { $syncHash.progressBar.Maximum += 1 }
-				if ($syncHash.solitare.Checked) { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.solitare.Checked) { $syncHash.progressBar.Maximum += 2 }
 				if ($syncHash.microsoftOffice.Checked) { $syncHash.progressBar.Maximum += 2 }
 				if ($syncHash.microsoftOffice2007.Checked) { $syncHash.progressBar.Maximum += 2 }
 				if ($syncHash.uBlockOrigin.Checked) {
@@ -1114,11 +1110,15 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Windows 7 Games are selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Downloading Windows 7 Games...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Invoke-RestMethod -Uri "https://github.com/charliehoward/NorthPoint-Installer/releases/download/windows7games/Windows7Games.zip" -OutFile "C:\Computer Repair Centre\Windows7Games.zip"
+					& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\Windows7Games.zip" "-oC:\Computer Repair Centre" -aoa
+					$syncHash.progressBar.PerformStep()
 					$syncHash.progress.Items.Add("Installing Windows 7 Games...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\Windows7Games.zip" "-oC:\Computer Repair Centre" -aoa
-					Start-Sleep 5
 					& 'C:\Computer Repair Centre\Windows7Games.exe' /S
 					$syncHash.progress.Items.Add("Completed installation of Windows 7 Games.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1490,7 +1490,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.07.18.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.07.18.2"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size

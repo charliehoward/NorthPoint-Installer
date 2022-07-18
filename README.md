@@ -1,6 +1,6 @@
 [![built-in-PowerShell](https://img.shields.io/badge/Built%20in-PowerShell-blue)](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2) ![Choco](https://img.shields.io/badge/Powered%20by-Chocolatey-brown) ![Arch](https://img.shields.io/badge/Arch-x86%20|%20AMD64-blue) ![OS](https://img.shields.io/badge/OS-Windows%2010%20|%20Windows%2011-green)
 
-## NorthPoint Installer 4.2022.07.18.1
+## NorthPoint Installer 4.2022.07.18.2
 ###### Copyright (c) Charlie Howard 2016-2022 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -17,13 +17,17 @@ Can disable sleep and screen timeout if plugged into DC power.
 
 ### Changelog
 
+**Update 4.2022.07.18.2**
+
+Only downloads Windows 7 Games if it is selected to speed up loading the program.
+
 **Update 4.2022.07.18.1**
 
-Fixed Windows 7 games check box from overlapping with Zoom.
+Fixed Windows 7 Games check box from overlapping with Zoom.
 
 **Update 4.2022.07.18.0**
 
-Added Windows 7 games as an install option.
+Added Windows 7 Games as an install option.
 
 **Update 4.2022.07.08.2**
 
