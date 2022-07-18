@@ -91,6 +91,10 @@ function download {
 			$romseyPath = "C:\Computer Repair Centre\romsey.ico"
 			$highcliffeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/highcliffe.ico"
 			$highcliffePath = "C:\Computer Repair Centre\highcliffe.ico"
+			$solitareIconURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/solitare.ico"
+			$solitareIconPath = "C:\Computer Repair Centre\solitare.ico"
+			$solitareURL = "https://github.com/charliehoward/NorthPoint-Installer/releases/download/windows7games/Windows7Games.zip"
+			$solitarePath = "C:\Computer Repair Centre\Windows7Games.zip"
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $googleChromeURL -OutFile $googleChromePath
@@ -159,6 +163,10 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $highcliffeURL -OutFile $highcliffePath
 			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $solitareIconURL -OutFile $solitareIconPath
+			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $solitareURL -OutFile $solitarePath
+			$syncHash.progressBar.PerformStep()
 			$syncHash.downloadBox.Close()
 		})
 	$psCmd.Runspace = $processRunspace
@@ -206,7 +214,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 33
+	$progressBar.Maximum = 35
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$downloadBox.Controls.Add($progressBar)
@@ -310,6 +318,7 @@ function computerRepairCentreInstaller {
 	$romsey = New-Object System.Windows.Forms.CheckBox
 	$chandlersFord = New-Object System.Windows.Forms.CheckBox
 	$highcliffe = New-Object System.Windows.Forms.CheckBox
+	$7Games = New-Object System.Windows.Forms.CheckBox
 	$InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState
 	$syncHash = [hashtable]::Synchronized(@{})
 	$syncHash.crcInstaller = $crcInstaller
@@ -349,6 +358,7 @@ function computerRepairCentreInstaller {
 	$syncHash.highcliffe = $highcliffe
 	$syncHash.birthday = $birthday
 	$syncHash.birthdayName = $birthdayName
+	$syncHash.solitare = $solitare
 	$b1 = $false
 	$b2 = $false
 	$b3 = $false
@@ -364,10 +374,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.07.08.2")
+				$syncHash.progress.Items.Add("Current version: 4.2022.07.18.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Last updated: 8th of July 2022")
+				$syncHash.progress.Items.Add("Last updated: 18th of July 2022")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -393,6 +403,7 @@ function computerRepairCentreInstaller {
 				if ($syncHash.iTunes.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.wallpaper.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.nightMode.Checked) { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.solitare.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.microsoftOffice.Checked) { $syncHash.progressBar.Maximum += 2 }
 				if ($syncHash.microsoftOffice2007.Checked) { $syncHash.progressBar.Maximum += 2 }
 				if ($syncHash.uBlockOrigin.Checked) {
@@ -1099,6 +1110,21 @@ function computerRepairCentreInstaller {
 						}
 					}
 				}
+				if ($syncHash.solitare.Checked) {
+					$syncHash.progress.Items.Add("Windows 7 Games are selected.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Installing Windows 7 Games...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\Windows7Games.zip" "-oC:\Computer Repair Centre" -aoa
+					Start-Sleep 5
+					& 'C:\Computer Repair Centre\Windows7Games.exe' /S
+					$syncHash.progress.Items.Add("Completed installation of Windows 7 Games.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progressBar.PerformStep()
+				}
 				if ($syncHash.zoom.Checked) {
 					$syncHash.progress.Items.Add("Zoom is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1464,7 +1490,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.07.08.2"
+	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.07.18.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1923,6 +1949,26 @@ function computerRepairCentreInstaller {
 	$vlc.FlatAppearance.BorderSize=0
 
 
+	## -- Windows 7 Games
+
+	$System_Drawing_Size = New-Object System.Drawing.Size
+	$System_Drawing_Size.Width = 36
+	$System_Drawing_Size.Height = 36
+	$solitare.Size = $System_Drawing_Size
+	$solitare.TabIndex = 6
+	$System_Drawing_Point = New-Object System.Drawing.Point
+	$System_Drawing_Point.X = 16 + (45 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$solitare.location = $System_Drawing_Point
+	$solitare.DataBindings.DefaultDataSourceUpdateMode = 0
+	$solitare.Name = "solitare"
+	$solitare.Checked = 0
+	$solitare.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\solitare.ico")
+	$crcInstaller.Controls.Add($solitare)
+	$solitare.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$solitare.FlatAppearance.BorderSize=0
+
+	
 	## -- Zoom
 
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1932,7 +1978,7 @@ function computerRepairCentreInstaller {
 	$zoom.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 4)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
 	$zoom.location = $System_Drawing_Point
 	$zoom.DataBindings.DefaultDataSourceUpdateMode = 0
 	$zoom.Name = "zoom"
