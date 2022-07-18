@@ -374,7 +374,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.07.18.0")
+				$syncHash.progress.Items.Add("Current version: 4.2022.07.18.1")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 18th of July 2022")
@@ -1490,7 +1490,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.07.18.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.07.18.1"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1958,7 +1958,7 @@ function computerRepairCentreInstaller {
 	$solitare.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
 	$solitare.location = $System_Drawing_Point
 	$solitare.DataBindings.DefaultDataSourceUpdateMode = 0
 	$solitare.Name = "solitare"
