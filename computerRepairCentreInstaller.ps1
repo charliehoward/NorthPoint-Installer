@@ -289,6 +289,7 @@ function computerRepairCentreInstaller {
 	$install = New-Object System.Windows.Forms.Button
 	$reboot = New-Object System.Windows.Forms.Button
 	$close = New-Object System.Windows.Forms.Button
+	$chocoReset = New-Object System.Windows.Forms.Button
 	$progress = New-Object System.Windows.Forms.ListBox
 	$progressBar = New-Object System.Windows.Forms.ProgressBar
 	$crc = New-Object System.Windows.Forms.CheckBox
@@ -346,6 +347,7 @@ function computerRepairCentreInstaller {
 	$syncHash.wallpapersPath = $wallpapersPath
 	$syncHash.rebootBox = $rebootBox
 	$syncHash.reboot = $reboot
+	$syncHash.chocoReset = $chocoReset
 	$syncHash.sleep = $sleep
 	$syncHash.zoom = $zoom
 	$syncHash.sleep = $sleep
@@ -370,7 +372,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.07.18.2")
+				$syncHash.progress.Items.Add("Current version: 4.2022.07.21.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 18th of July 2022")
@@ -1473,6 +1475,13 @@ function computerRepairCentreInstaller {
 		$psCmd.Runspace = $processRunspace
 		$data = $psCmd.BeginInvoke()
 	}
+	$handler_chocoReset_Click =
+	{
+		$syncHash.progress.Items.Add("Removing previous installations of Chocolatey.")
+		Remove-Item -Path "C:\ProgramData\chocolatey" -Force -Recurse
+		$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+		$syncHash.progress.SelectedIndex = -1;
+	}
 	$handler_reboot_Click =
 	{
 		Restart-Computer -Force
@@ -1490,7 +1499,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.07.18.2"
+	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.07.21.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1509,12 +1518,12 @@ function computerRepairCentreInstaller {
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$install.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$install.FlatAppearance.BorderSize=0
-	$System_Drawing_Size.Width = 185
+	$System_Drawing_Size.Width = 130
 	$System_Drawing_Size.Height = 23
 	$install.Size = $System_Drawing_Size
 	$install.Text = "Install"
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 15
+	$System_Drawing_Point.X = 15 + (150 * 0)
 	$System_Drawing_Point.Y = 13
 	$install.location = $System_Drawing_Point
 	$install.DataBindings.DefaultDataSourceUpdateMode = 0
@@ -1524,6 +1533,28 @@ function computerRepairCentreInstaller {
 	$install.ForeColor = "White"
 
 
+	## -- Choco Reset button
+
+	$chocoReset.TabIndex = 4
+	$chocoReset.Name = "chocoReset"
+	$System_Drawing_Size = New-Object System.Drawing.Size
+	$chocoReset.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$chocoReset.FlatAppearance.BorderSize=0
+	$System_Drawing_Size.Width = 130
+	$System_Drawing_Size.Height = 23
+	$chocoReset.Size = $System_Drawing_Size
+	$chocoReset.Text = "Reset chocolatey"
+	$System_Drawing_Point = New-Object System.Drawing.Point
+	$System_Drawing_Point.X = 15 + (150 * 1)
+	$System_Drawing_Point.Y = 13
+	$chocoReset.location = $System_Drawing_Point
+	$chocoReset.DataBindings.DefaultDataSourceUpdateMode = 0
+	$chocoReset.add_Click($handler_chocoReset_Click)
+	$crcInstaller.Controls.Add($chocoReset)
+	$chocoReset.BackColor = "#00b9ff"
+	$chocoReset.ForeColor = "White"
+
+
 	## -- Reboot button
 
 	$reboot.TabIndex = 4
@@ -1531,12 +1562,12 @@ function computerRepairCentreInstaller {
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$reboot.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$reboot.FlatAppearance.BorderSize=0
-	$System_Drawing_Size.Width = 185
+	$System_Drawing_Size.Width = 130
 	$System_Drawing_Size.Height = 23
 	$reboot.Size = $System_Drawing_Size
 	$reboot.Text = "Reboot"
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 212.5
+	$System_Drawing_Point.X = 15 + (150 * 2)
 	$System_Drawing_Point.Y = 13
 	$reboot.location = $System_Drawing_Point
 	$reboot.DataBindings.DefaultDataSourceUpdateMode = 0
@@ -1546,19 +1577,19 @@ function computerRepairCentreInstaller {
 	$reboot.ForeColor = "White"
 
 
-  ## -- Close button
+    ## -- Close button
 
 	$close.TabIndex = 4
 	$close.Name = "close"
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$close.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$close.FlatAppearance.BorderSize=0
-	$System_Drawing_Size.Width = 185
+	$System_Drawing_Size.Width = 130
 	$System_Drawing_Size.Height = 23
 	$close.Size = $System_Drawing_Size
 	$close.Text = "Close"
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 410
+	$System_Drawing_Point.X = 15 + (150 * 3)
 	$System_Drawing_Point.Y = 13
 	$close.location = $System_Drawing_Point
 	$close.DataBindings.DefaultDataSourceUpdateMode = 0
