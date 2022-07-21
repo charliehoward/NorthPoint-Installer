@@ -372,7 +372,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.07.21.0")
+				$syncHash.progress.Items.Add("Current version: 4.2022.07.21.1")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 18th of July 2022")
@@ -705,23 +705,6 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							$syncHash.progress.Items.Add("Uninstalling Kaspersky Secure Connection & Kaspersky VPN...")
-							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							$syncHash.progress.SelectedIndex = -1;
-							$kasperskySecureConnection = Get-ChildItem "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall" | ForEach-Object { Get-ItemProperty $_.PSPath } | Where-Object { $_ -match "Kaspersky Secure Connection" } | Select-Object UninstallString
-							$kasperskySecureConnection = $kasperskySecureConnection.UninstallString -replace "msiexec.exe","" -replace "/I","" -replace "/X",""
-							$kasperskySecureConnection = $kasperskySecureConnection.Trim()
-							$kasperskySecureConnection = $kasperskySecureConnection | Select-Object -Skip 1
-							$kasperskyVPN = Get-ChildItem "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall" | ForEach-Object { Get-ItemProperty $_.PSPath } | Where-Object { $_ -match "Kaspersky VPN" } | Select-Object UninstallString
-							$kasperskyVPN = $kasperskyVPN.UninstallString -replace "msiexec.exe","" -replace "/I","" -replace "/X",""
-							$kasperskyVPN = $kasperskyVPN.Trim()
-							$kasperskyVPN = $kasperskyVPN | Select-Object -Skip 1
-							cmd /c "C:\Windows\SysWOW64\msiexec.exe /i$kasperskySecureConnection REMOVE=ALL /passive"
-							cmd /c "C:\Windows\SysWOW64\msiexec.exe /i$kasperskyVPN REMOVE=ALL /passive"
-							$syncHash.progress.Items.Add("Completed uninstallation of Kaspersky Secure Connection & Kaspersky VPN.")
-							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							$syncHash.progress.SelectedIndex = -1;
-							$syncHash.progressBar.PerformStep()
 						}
 						else {
 							$syncHash.progress.Items.Add("The installation of Kaspersky Internet Security has failed.")
@@ -733,6 +716,23 @@ function computerRepairCentreInstaller {
 							$syncHash.progressBar.PerformStep()
 							choco install kis -y --ignore-checksums
 						}
+						$syncHash.progress.Items.Add("Uninstalling Kaspersky Secure Connection & Kaspersky VPN...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$kasperskySecureConnection = Get-ChildItem "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall" | ForEach-Object { Get-ItemProperty $_.PSPath } | Where-Object { $_ -match "Kaspersky Secure Connection" } | Select-Object UninstallString
+						$kasperskySecureConnection = $kasperskySecureConnection.UninstallString -replace "msiexec.exe","" -replace "/I","" -replace "/X",""
+						$kasperskySecureConnection = $kasperskySecureConnection.Trim()
+						$kasperskySecureConnection = $kasperskySecureConnection | Select-Object -Skip 1
+						$kasperskyVPN = Get-ChildItem "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall" | ForEach-Object { Get-ItemProperty $_.PSPath } | Where-Object { $_ -match "Kaspersky VPN" } | Select-Object UninstallString
+						$kasperskyVPN = $kasperskyVPN.UninstallString -replace "msiexec.exe","" -replace "/I","" -replace "/X",""
+						$kasperskyVPN = $kasperskyVPN.Trim()
+						$kasperskyVPN = $kasperskyVPN | Select-Object -Skip 1
+						cmd /c "C:\Windows\SysWOW64\msiexec.exe /i$kasperskySecureConnection REMOVE=ALL /passive"
+						cmd /c "C:\Windows\SysWOW64\msiexec.exe /i$kasperskyVPN REMOVE=ALL /passive"
+						$syncHash.progress.Items.Add("Completed uninstallation of Kaspersky Secure Connection & Kaspersky VPN.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
 					}
 				}
 				if ($syncHash.libreOffice.Checked) {
@@ -1499,7 +1499,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.07.21.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.07.21.1"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
