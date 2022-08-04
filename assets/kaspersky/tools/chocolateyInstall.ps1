@@ -1,7 +1,7 @@
 ﻿$packageName = 'kis'
 $installerType = 'exe'
 $silentArgs = "/s /noreboot"
-$url = 'https://cloud.howardgb.com/s/xMrwGy76Es4p8nq/download/kis21.2.16.590_en-gb_full.exe'
+$url = 'https://files.crchq.net/installer/kis21.2.16.590_en-gb_full.exe'
 $checksum = '60b850caffc06ff03114360d1c3c8588'
 $checksumType = 'md5'
 $validExitCodes = @(0,3010)

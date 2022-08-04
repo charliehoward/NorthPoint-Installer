@@ -372,10 +372,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.07.21.2")
+				$syncHash.progress.Items.Add("Current version: 4.2022.08.04.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Last updated: 21st of July 2022")
+				$syncHash.progress.Items.Add("Last updated: 4th of August 2022")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -777,14 +777,14 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Downloading Microsoft Office 2007...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Invoke-RestMethod -Uri "https://github.com/charliehoward/NorthPoint-Installer/releases/download/office2007/Office.2007.Enterprise.zip" -OutFile "C:\Computer Repair Centre\Microsoft Office 2007 Enterprise.zip"
-					& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\Microsoft Office 2007 Enterprise.zip" "-oC:\Computer Repair Centre\Microsoft Office 2007 Enterprise" -aoa
+					Invoke-RestMethod -Uri "https://files.crchq.net/installer/Office2007.zip" -OutFile "C:\Computer Repair Centre\Office2007.zip"
+					& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\Office2007.zip" "-oC:\Computer Repair Centre\Office2007" -aoa
 					$syncHash.progressBar.PerformStep()
 					$syncHash.progress.Items.Add("Installing Microsoft Office 2007...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					$DesktopPath = [Environment]::GetFolderPath("Desktop")
-					& 'C:\Computer Repair Centre\Microsoft Office 2007 Enterprise\setup.exe' /config 'C:\Computer Repair Centre\Microsoft Office 2007 Enterprise\Enterprise.WW\config.xml'
+					& 'C:\Computer Repair Centre\Office2007\setup.exe' /config 'C:\Computer Repair Centre\Office2007\Enterprise.WW\config.xml'
 					Start-Sleep 30
 					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office Word 2007.lnk" "$DesktopPath\Word.lnk"
 					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office Excel 2007.lnk" "$DesktopPath\Excel.lnk"
@@ -1499,7 +1499,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.07.21.2"
+	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.08.04.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
