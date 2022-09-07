@@ -232,27 +232,30 @@ download
 
 $operatingSystem = (Get-WmiObject -Class Win32_OperatingSystem).version
 $internetProtocol = Invoke-RestMethod http://ipinfo.io/json | Select-Object -exp ip
+$internetProtocolCF = [System.Net.Dns]::GetHostAddresses("intranet.brmcomputers.co.uk")
+$internetProtocolR = [System.Net.Dns]::GetHostAddresses("intranet.firstforitrepairs.co.uk")
+$internetProtocolHC =[System.Net.Dns]::GetHostAddresses("intranet.fastitfix.co.uk")
 $user = $env:UserName
-if ($internetProtocol -like '*212.159.116.68*') {
+if ($internetProtocolCF -like $internetProtocol) {
+	$chandlersFordIP = 1
+	$romseyIP = 0
+	$highcliffeIP = 0
+	$location = 0
+	$locationOpposite = 1
+}
+if ($internetProtocolR -like $internetProtocol) {
 	$chandlersFordIP = 0
 	$romseyIP = 1
 	$highcliffeIP = 0
 	$location = 1
 	$locationOpposite = 0
 }
-elseif ($internetProtocol -like '*0.0.0.0*') {
+if ($internetProtocolHC -like $internetProtocol) {
 	$chandlersFordIP = 0
 	$romseyIP = 0
 	$highcliffeIP = 1
 	$location = 1
 	$locationOpposite = 0
-}
-else {
-	$chandlersFordIP = 1
-	$romseyIP = 0
-	$highcliffeIP = 0
-	$location = 0
-	$locationOpposite = 1
 }
 $computerSystem = (Get-WmiObject -Class:Win32_ComputerSystem)
 if ($computerSystem.Model -like '*EliteBook*'){
@@ -281,6 +284,10 @@ if ($date -like '*09/06*') {
 if ($date -like '*24/06*') {
 	$birthday = 1
 	$birthdayName = "Steve"
+}
+if ($date -like '*18/09*') {
+	$birthday = 1
+	$birthdayName = "Callum"
 }
 function computerRepairCentreInstaller {
 	[reflection.assembly]::loadwithpartialname("System.Windows.Forms")
@@ -372,10 +379,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.08.04.0")
+				$syncHash.progress.Items.Add("Current version: 4.2022.09.07.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Last updated: 4th of August 2022")
+				$syncHash.progress.Items.Add("Last updated: 7th of September 2022")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -1499,7 +1506,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.08.04.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.09.07.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -2115,7 +2122,7 @@ function computerRepairCentreInstaller {
 	$highcliffe.Name = "highcliffe"
 	$highcliffe.Checked = $highcliffeIP
 	$highcliffe.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\highcliffe.ico")
-#	$crcInstaller.Controls.Add($highcliffe)
+	$crcInstaller.Controls.Add($highcliffe)
 	$highcliffe.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$highcliffe.FlatAppearance.BorderSize=0
 
