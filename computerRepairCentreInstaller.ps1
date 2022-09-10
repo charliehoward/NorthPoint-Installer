@@ -261,10 +261,10 @@ if ($internetProtocolHC -like $internetProtocol) {
 	$location = 1
 	$locationOpposite = 0
 }
-$sleep = 0
+$HPEliteBook = 0
 $computerSystem = (Get-WmiObject -Class:Win32_ComputerSystem)
 if ($computerSystem.Model -like '*EliteBook*'){
-	$sleep = 1
+	$HPEliteBook = 1
 }
 $date = Get-Date -Format "dd/MM"
 if ($date -like '*06/04*') {
@@ -360,7 +360,7 @@ function computerRepairCentreInstaller {
 	$syncHash.chocoReset = $chocoReset
 	$syncHash.sleep = $sleep
 	$syncHash.zoom = $zoom
-	$syncHash.sleep = $sleep
+	$syncHash.HPEliteBook = $HPEliteBook
 	$syncHash.romsey = $romsey
 	$syncHash.chandlersFord = $chandlersFord
 	$syncHash.highcliffe = $highcliffe
@@ -383,7 +383,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.09.10.0")
+				$syncHash.progress.Items.Add("Current version: 4.2022.09.10.1")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 10th of September 2022")
@@ -1544,7 +1544,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.09.10.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.09.10.1"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1779,7 +1779,7 @@ function computerRepairCentreInstaller {
 	$HP.location = $System_Drawing_Point
 	$HP.DataBindings.DefaultDataSourceUpdateMode = 0
 	$HP.Name = "HP"
-	$HP.Checked = $sleep
+	$HP.Checked = $HPEliteBook
 	$HP.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\HP.ico")
 	$crcInstaller.Controls.Add($HP)
 	$HP.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
@@ -2099,7 +2099,7 @@ function computerRepairCentreInstaller {
 	$rebootBox.location = $System_Drawing_Point
 	$rebootBox.DataBindings.DefaultDataSourceUpdateMode = 0
 	$rebootBox.Name = "rebootBox"
-	$rebootBox.Checked = $sleep
+	$rebootBox.Checked = 1
 	$rebootBox.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\restart.ico")
 	$crcInstaller.Controls.Add($rebootBox)
 	$rebootBox.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
@@ -2119,7 +2119,7 @@ function computerRepairCentreInstaller {
 	$sleep.location = $System_Drawing_Point
 	$sleep.DataBindings.DefaultDataSourceUpdateMode = 0
 	$sleep.Name = "sleep"
-	$sleep.Checked = $sleep
+	$sleep.Checked = $HPEliteBook
 	$sleep.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\sleep.ico")
 	$crcInstaller.Controls.Add($sleep)
 	$sleep.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
