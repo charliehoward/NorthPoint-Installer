@@ -261,12 +261,10 @@ if ($internetProtocolHC -like $internetProtocol) {
 	$location = 1
 	$locationOpposite = 0
 }
+$sleep = 0
 $computerSystem = (Get-WmiObject -Class:Win32_ComputerSystem)
 if ($computerSystem.Model -like '*EliteBook*'){
 	$sleep = 1
-}
-else {
-	$sleep = 0
 }
 $date = Get-Date -Format "dd/MM"
 if ($date -like '*06/04*') {
@@ -385,10 +383,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.09.09.0")
+				$syncHash.progress.Items.Add("Current version: 4.2022.09.10.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Last updated: 9th of September 2022")
+				$syncHash.progress.Items.Add("Last updated: 10th of September 2022")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -1546,7 +1544,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.09.09.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.09.10.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
