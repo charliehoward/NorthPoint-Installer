@@ -383,7 +383,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.09.10.2")
+				$syncHash.progress.Items.Add("Current version: 4.2022.09.10.3")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 10th of September 2022")
@@ -1182,30 +1182,30 @@ function computerRepairCentreInstaller {
 							choco install zoom -y --ignore-checksums
 						}
 					}
-					if ($syncHash.HP.Checked) {
-						$syncHash.progress.Items.Add("HP Hotkey Support is selected.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progress.Items.Add("Downloading HP Hotkey Support...")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						Invoke-RestMethod -Uri "https://files.crchq.net/installer/HPHotkey.zip" -OutFile "C:\Computer Repair Centre\HPHotkey.zip"
-						& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\HPHotkey.zip" "-oC:\Computer Repair Centre" -aoa
-						$syncHash.progressBar.PerformStep()
-						$syncHash.progress.Items.Add("Installing HP Hotkey Support...")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						Invoke-Item 'C:\Computer Repair Centre\SP103615\src\install.cmd'
-						$syncHash.progressBar.PerformStep()
-						$syncHash.progress.Items.Add("Installing HP Framework...")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						& 'C:\Computer Repair Centre\hpswf.msi' /quiet
-						$syncHash.progress.Items.Add("Completed installation of HP Hotkey Support.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-					}
+				}
+				if ($syncHash.HP.Checked) {
+					$syncHash.progress.Items.Add("HP Hotkey Support is selected.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Downloading HP Hotkey Support...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Invoke-RestMethod -Uri "https://files.crchq.net/installer/HPHotkey.zip" -OutFile "C:\Computer Repair Centre\HPHotkey.zip"
+					& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\HPHotkey.zip" "-oC:\Computer Repair Centre" -aoa
+					$syncHash.progressBar.PerformStep()
+					$syncHash.progress.Items.Add("Installing HP Hotkey Support...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Invoke-Item 'C:\Computer Repair Centre\SP103615\src\install.cmd'
+					$syncHash.progressBar.PerformStep()
+					$syncHash.progress.Items.Add("Installing HP Framework...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					& 'C:\Computer Repair Centre\hpswf.msi' /quiet
+					$syncHash.progress.Items.Add("Completed installation of HP Hotkey Support.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progressBar.PerformStep()
 				}
 				if ($syncHash.operatingSystem -like '*6.1*') {
 					$syncHash.progress.Items.Add("This computer is running Windows 7. You really need to move on Grandad.")
@@ -1544,7 +1544,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.09.10.2"
+	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.09.10.3"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
