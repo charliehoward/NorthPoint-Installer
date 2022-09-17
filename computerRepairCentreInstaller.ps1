@@ -383,10 +383,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.09.14.0")
+				$syncHash.progress.Items.Add("Current version: 4.2022.09.17.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Last updated: 14th of September 2022")
+				$syncHash.progress.Items.Add("Last updated: 17th of September 2022")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -1433,7 +1433,9 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Disabling sleep mode on AC power.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
 						Powercfg /Change standby-timeout-ac 0
+						Start-Sleep 10
 						Powercfg /Change monitor-timeout-ac 0
 						$syncHash.progress.Items.Add("Sleep mode has been disabled on AC power.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1544,7 +1546,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.09.14.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.09.17.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
