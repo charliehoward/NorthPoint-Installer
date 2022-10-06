@@ -311,6 +311,7 @@ function computerRepairCentreInstaller {
 	$libreOffice = New-Object System.Windows.Forms.CheckBox
 	$microsoftOffice = New-Object System.Windows.Forms.CheckBox
 	$microsoftOffice2007 = New-Object System.Windows.Forms.CheckBox
+	$microsoftOffice2021 = New-Object System.Windows.Forms.CheckBox
 	$skype = New-Object System.Windows.Forms.CheckBox
 	$teamViewer = New-Object System.Windows.Forms.CheckBox
 	$teams = New-Object System.Windows.Forms.CheckBox
@@ -341,6 +342,7 @@ function computerRepairCentreInstaller {
 	$syncHash.malwareBytes = $malwareBytes
 	$syncHash.microsoftOffice = $microsoftOffice
 	$syncHash.microsoftOffice2007 = $microsoftOffice2007
+	$syncHash.microsoftOffice2021 = $microsoftOffice2021
 	$syncHash.skype = $skype
 	$syncHash.teamViewer = $teamViewer
 	$syncHash.teams = $teams
@@ -383,10 +385,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.09.24.0")
+				$syncHash.progress.Items.Add("Current version: 4.2022.10.05.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Last updated: 24th of September 2022")
+				$syncHash.progress.Items.Add("Last updated: 5th of October 2022")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -425,6 +427,7 @@ function computerRepairCentreInstaller {
 				if ($syncHash.HP.Checked) { $syncHash.progressBar.Maximum += 3 }
 				if ($syncHash.microsoftOffice.Checked) { $syncHash.progressBar.Maximum += 2 }
 				if ($syncHash.microsoftOffice2007.Checked) { $syncHash.progressBar.Maximum += 2 }
+				if ($syncHash.microsoftOffice2021.Checked) { $syncHash.progressBar.Maximum += 2 }
 				if ($syncHash.uBlockOrigin.Checked) {
 					if ($syncHash.googleChrome.Checked) { $syncHash.progressBar.Maximum += 1 }
 					if ($syncHash.mozillaFirefox.Checked) { $syncHash.progressBar.Maximum += 1 }
@@ -820,6 +823,16 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Microsoft Office 2019 is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					if ($syncHash.operatingSystem -like '*10.0.2*') {
+						$syncHash.progress.Items.Add("Sorry, Windows 11 22H2 and newer doesn't support Office 2019.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progress.Items.Add("Please select LibreOffice, Office 2007 or Office 2021.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+						$syncHash.progressBar.PerformStep()
+					}
 					$syncHash.progress.Items.Add("Installing Microsoft Office 2019...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
@@ -845,6 +858,34 @@ function computerRepairCentreInstaller {
 					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\PowerPoint.lnk" "$DesktopPath\PowerPoint.lnk"
 					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Outlook.lnk" "$DesktopPath\Outlook.lnk"
 					$syncHash.progress.Items.Add("Completed activation of Microsoft Office 2019.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progressBar.PerformStep()
+				}
+				if ($syncHash.microsoftOffice2021.Checked) {
+					$syncHash.progress.Items.Add("Microsoft Office 2021 is selected.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Downloading Microsoft Office 2021...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("This is a large file so can take a while.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Invoke-RestMethod -Uri "https://files.crchq.net/installer/Office2021.zip" -OutFile "C:\Computer Repair Centre\Office2021.zip"
+					& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\Office2021.zip" "-oC:\Computer Repair Centre\Office2021" -aoa
+					$syncHash.progressBar.PerformStep()
+					$syncHash.progress.Items.Add("Installing Microsoft Office 2021...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$DesktopPath = [Environment]::GetFolderPath("Desktop")
+					& 'C:\Computer Repair Centre\Office2021\setup.exe'
+					Start-Sleep 30
+					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Word.lnk" "$DesktopPath\Word.lnk"
+					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Excel.lnk" "$DesktopPath\Excel.lnk"
+					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\PowerPoint.lnk" "$DesktopPath\PowerPoint.lnk"
+					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Outlook.lnk" "$DesktopPath\Outlook.lnk"
+					$syncHash.progress.Items.Add("Completed installation of Microsoft Office 2021.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progressBar.PerformStep()
@@ -1546,7 +1587,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.09.24.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.10.05.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1908,6 +1949,26 @@ function computerRepairCentreInstaller {
 	$microsoftOffice.FlatAppearance.BorderSize=0
 
 
+	## -- Microsoft Office 2021
+
+	$System_Drawing_Size = New-Object System.Drawing.Size
+	$System_Drawing_Size.Width = 36
+	$System_Drawing_Size.Height = 36
+	$microsoftOffice2021.Size = $System_Drawing_Size
+	$microsoftOffice2021.TabIndex = 1
+	$System_Drawing_Point = New-Object System.Drawing.Point
+	$System_Drawing_Point.X = 16 + (45 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$microsoftOffice2021.location = $System_Drawing_Point
+	$microsoftOffice2021.DataBindings.DefaultDataSourceUpdateMode = 0
+	$microsoftOffice2021.Name = "microsoftOffice2021"
+	$microsoftOffice2021.Checked = 0
+	$microsoftOffice2021.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\microsoftOffice.ico")
+	$crcInstaller.Controls.Add($microsoftOffice2021)
+	$microsoftOffice2021.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$microsoftOffice2021.FlatAppearance.BorderSize=0
+
+
 	## -- Mozilla Firefox
 
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1917,7 +1978,7 @@ function computerRepairCentreInstaller {
 	$mozillaFirefox.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$System_Drawing_Point.Y = 5 + (31 * 6)
 	$mozillaFirefox.location = $System_Drawing_Point
 	$mozillaFirefox.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaFirefox.Name = "mozillaFirefox"
@@ -1937,7 +1998,7 @@ function computerRepairCentreInstaller {
 	$mozillaThunderbird.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 6)
+	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$mozillaThunderbird.location = $System_Drawing_Point
 	$mozillaThunderbird.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaThunderbird.Name = "mozillaThunderbird"
@@ -1956,8 +2017,8 @@ function computerRepairCentreInstaller {
 	$skype.Size = $System_Drawing_Size
 	$skype.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 7)
+	$System_Drawing_Point.X = 16 + (45 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 1)
 	$skype.location = $System_Drawing_Point
 	$skype.DataBindings.DefaultDataSourceUpdateMode = 0
 	$skype.Name = "skype"
@@ -1977,7 +2038,7 @@ function computerRepairCentreInstaller {
 	$teams.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
 	$teams.location = $System_Drawing_Point
 	$teams.DataBindings.DefaultDataSourceUpdateMode = 0
 	$teams.Name = "teams"
@@ -1997,7 +2058,7 @@ function computerRepairCentreInstaller {
 	$teamViewer.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$teamViewer.location = $System_Drawing_Point
 	$teamViewer.DataBindings.DefaultDataSourceUpdateMode = 0
 	$teamViewer.Name = "teamViewer"
@@ -2017,7 +2078,7 @@ function computerRepairCentreInstaller {
 	$uBlockOrigin.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 3)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
 	$uBlockOrigin.location = $System_Drawing_Point
 	$uBlockOrigin.DataBindings.DefaultDataSourceUpdateMode = 0
 	$uBlockOrigin.Name = "uBlockOrigin"
@@ -2037,7 +2098,7 @@ function computerRepairCentreInstaller {
 	$vlc.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 4)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
 	$vlc.location = $System_Drawing_Point
 	$vlc.DataBindings.DefaultDataSourceUpdateMode = 0
 	$vlc.Name = "vlc"
@@ -2057,7 +2118,7 @@ function computerRepairCentreInstaller {
 	$solitare.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$System_Drawing_Point.Y = 5 + (31 * 6)
 	$solitare.location = $System_Drawing_Point
 	$solitare.DataBindings.DefaultDataSourceUpdateMode = 0
 	$solitare.Name = "solitare"
@@ -2077,7 +2138,7 @@ function computerRepairCentreInstaller {
 	$zoom.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 6)
+	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$zoom.location = $System_Drawing_Point
 	$zoom.DataBindings.DefaultDataSourceUpdateMode = 0
 	$zoom.Name = "zoom"
