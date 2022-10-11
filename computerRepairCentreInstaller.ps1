@@ -236,9 +236,9 @@ download
 
 $operatingSystem = (Get-WmiObject -Class Win32_OperatingSystem).version
 $internetProtocol = Invoke-RestMethod http://ipinfo.io/json | Select-Object -exp ip
-$internetProtocolCF = [System.Net.Dns]::GetHostAddresses("intranet.brmcomputers.co.uk")
-$internetProtocolR = [System.Net.Dns]::GetHostAddresses("intranet.firstforitrepairs.co.uk")
-$internetProtocolHC =[System.Net.Dns]::GetHostAddresses("intranet.fastitfix.co.uk")
+$internetProtocolCF = [System.Net.Dns]::GetHostAddresses("brm.crchq.net")
+$internetProtocolR = [System.Net.Dns]::GetHostAddresses("first.crchq.net")
+$internetProtocolHC =[System.Net.Dns]::GetHostAddresses("fast.crchq.net")
 $user = $env:UserName
 if ($internetProtocolCF -like $internetProtocol) {
 	$chandlersFordIP = 1
@@ -385,10 +385,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.10.05.0")
+				$syncHash.progress.Items.Add("Current version: 4.2022.10.11.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Last updated: 5th of October 2022")
+				$syncHash.progress.Items.Add("Last updated: 11th of October 2022")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -1587,7 +1587,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.10.05.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.10.11.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
