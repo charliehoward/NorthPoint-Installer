@@ -16,4 +16,5 @@ Remove-Item 'C:\Computer Repair Centre\computerRepairCentreInstaller.ps1'
 Remove-Item 'C:\Computer Repair Centre\firefoxExtension.ps1'
 Remove-Item 'C:\Computer Repair Centre\deleteFilesTask.ps1'
 Remove-Item "C:\Computer Repair Centre\Office2007\*.*"
+Remove-Item "C:\Computer Repair Centre\Office2021\*.*"
 Unregister-ScheduledTask -TaskName "Computer Repair Centre Delete Files" -Confirm:$false
