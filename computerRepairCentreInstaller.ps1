@@ -385,7 +385,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.10.15.1")
+				$syncHash.progress.Items.Add("Current version: 4.2022.10.15.2")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 15th of October 2022")
@@ -874,18 +874,28 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 					Invoke-RestMethod -Uri "https://files.crchq.net/installer/Office2021Part1.zip" -OutFile "C:\Computer Repair Centre\Office2021Part1.zip"
 					& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\Office2021Part1.zip" "-oC:\Computer Repair Centre\Office2021" -aoa
+					$syncHash.progress.Items.Add("Downloaded part 1.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progressBar.PerformStep()
 					Invoke-RestMethod -Uri "https://files.crchq.net/installer/Office2021Part2.zip" -OutFile "C:\Computer Repair Centre\Office2021Part2.zip"
 					& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\Office2021Part2.zip" "-oC:\Computer Repair Centre\Office2021" -aoa
+					$syncHash.progress.Items.Add("Downloaded part 2.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progressBar.PerformStep()
 					Invoke-RestMethod -Uri "https://files.crchq.net/installer/Office2021Part3.zip" -OutFile "C:\Computer Repair Centre\Office2021Part3.zip"
 					& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\Office2021Part3.zip" "-oC:\Computer Repair Centre\Office2021" -aoa
+					$syncHash.progress.Items.Add("Downloaded part 3.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progressBar.PerformStep()
 					$syncHash.progress.Items.Add("Installing Microsoft Office 2021...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					Start-Sleep 10
 					$DesktopPath = [Environment]::GetFolderPath("Desktop")
-					& 'C:\Computer Repair Centre\Office2021\setup.exe'
+					& 'C:\Computer Repair Centre\Office2021\Setup.exe'
 					Start-Sleep 30
 					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Word.lnk" "$DesktopPath\Word.lnk"
 					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Excel.lnk" "$DesktopPath\Excel.lnk"
@@ -1593,7 +1603,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.10.15.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.10.15.2"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
