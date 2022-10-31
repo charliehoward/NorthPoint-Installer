@@ -291,6 +291,10 @@ if ($date -like '*18/09*') {
 	$birthday = 1
 	$birthdayName = "Callum"
 }
+if ($date -like '*31/10*') {
+	$birthday = 2
+	$birthdayName = "Boo! Happy Halloween!"
+}
 function computerRepairCentreInstaller {
 	[reflection.assembly]::loadwithpartialname("System.Windows.Forms")
 	[reflection.assembly]::loadwithpartialname("System.Drawing")
@@ -385,10 +389,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.10.17.1")
+				$syncHash.progress.Items.Add("Current version: 4.2022.10.31.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Last updated: 17th of October 2022")
+				$syncHash.progress.Items.Add("Last updated: 31st of October 2022, spooky!")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -405,6 +409,11 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progress.Items.Add("Happy Birthday to You")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+				}
+				if ($birthday -like '*2*') { 
+					$syncHash.progress.Items.Add("$birthdayName")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 				}
@@ -436,7 +445,7 @@ function computerRepairCentreInstaller {
 				if ($syncHash.operatingSystem -like '*6.2*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*6.3*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*10.0.1*') { $syncHash.progressBar.Maximum += 5 }
-				if ($syncHash.operatingSystem -like '*10.0.2*') { $syncHash.progressBar.Maximum += 5 }
+				if ($syncHash.operatingSystem -like '*10.0.2*') { $syncHash.progressBar.Maximum += 4 }
 				if ($syncHash.sleep -like '*1*' ) {
 					$syncHash.progress.Items.Add("This computer is a refurb, disable sleep on AC power and will reboot.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1413,11 +1422,6 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("This computer is running Windows 11.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progress.Items.Add("Setting explorer to open to This PC...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name LaunchTo -Value 1
-					$syncHash.progressBar.PerformStep()
 					$syncHash.progress.Items.Add("Disabling fastboot mode...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
@@ -1587,7 +1591,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.10.17.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.10.31.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
