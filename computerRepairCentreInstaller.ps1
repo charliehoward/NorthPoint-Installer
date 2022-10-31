@@ -266,6 +266,8 @@ $computerSystem = (Get-WmiObject -Class:Win32_ComputerSystem)
 if ($computerSystem.Model -like '*EliteBook*'){
 	$HPEliteBook = 1
 }
+$BackgroundColour = "#2c2c2c"
+$ButtonColour = "#00b9ff"
 $date = Get-Date -Format "dd/MM"
 if ($date -like '*06/04*') {
 	$birthday = 1
@@ -294,7 +296,10 @@ if ($date -like '*18/09*') {
 if ($date -like '*31/10*') {
 	$birthday = 2
 	$birthdayName = "Boo! Happy Halloween!"
+	$BackgroundColour = "#ed7014"
+	$ButtonColour = "#2c2c2c"
 }
+
 function computerRepairCentreInstaller {
 	[reflection.assembly]::loadwithpartialname("System.Windows.Forms")
 	[reflection.assembly]::loadwithpartialname("System.Drawing")
@@ -389,7 +394,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.10.31.0")
+				$syncHash.progress.Items.Add("Current version: 4.2022.10.31.1")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 31st of October 2022, spooky!")
@@ -1591,7 +1596,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.10.31.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.10.31.1"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1599,7 +1604,7 @@ function computerRepairCentreInstaller {
 	$System_Drawing_Size.Height = 260
 	$crcInstaller.ClientSize = $System_Drawing_Size
 	$crcInstaller.Icon = "C:\Computer Repair Centre\computerRepairCentreIcon.ico"
-	$crcInstaller.BackColor = "#2c2c2c"
+	$crcInstaller.BackColor = $BackgroundColour
 	$crcInstaller.ForeColor = "White"
 
 
@@ -1621,7 +1626,7 @@ function computerRepairCentreInstaller {
 	$install.DataBindings.DefaultDataSourceUpdateMode = 0
 	$install.add_Click($handler_install_Click)
 	$crcInstaller.Controls.Add($install)
-	$install.BackColor = "#00b9ff"
+	$install.BackColor = $ButtonColour
 	$install.ForeColor = "White"
 
 
@@ -1643,7 +1648,7 @@ function computerRepairCentreInstaller {
 	$chocoReset.DataBindings.DefaultDataSourceUpdateMode = 0
 	$chocoReset.add_Click($handler_chocoReset_Click)
 	$crcInstaller.Controls.Add($chocoReset)
-	$chocoReset.BackColor = "#00b9ff"
+	$chocoReset.BackColor = $ButtonColour
 	$chocoReset.ForeColor = "White"
 
 
@@ -1665,7 +1670,7 @@ function computerRepairCentreInstaller {
 	$reboot.DataBindings.DefaultDataSourceUpdateMode = 0
 	$reboot.add_Click($handler_reboot_Click)
 	$crcInstaller.Controls.Add($reboot)
-	$reboot.BackColor = "#00b9ff"
+	$reboot.BackColor = $ButtonColour
 	$reboot.ForeColor = "White"
 
 
@@ -1687,7 +1692,7 @@ function computerRepairCentreInstaller {
 	$close.DataBindings.DefaultDataSourceUpdateMode = 0
 	$close.add_Click($handler_close_Click)
 	$crcInstaller.Controls.Add($close)
-	$close.BackColor = "#00b9ff"
+	$close.BackColor = $ButtonColour
 	$close.ForeColor = "White"
 
 
@@ -1709,7 +1714,7 @@ function computerRepairCentreInstaller {
 	$progressBar.Value = 0
 	$progressBar.Style = "Continuous"
 	$crcInstaller.Controls.Add($progressBar)
-	$progressBar.ForeColor = "#00b9ff"
+	$progressBar.ForeColor = $ButtonColour
 
 
 	## -- Progress box
