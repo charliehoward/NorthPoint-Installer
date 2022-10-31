@@ -7,6 +7,44 @@ $computerRepairCentreIconURL = "https://github.com/charliehoward/NorthPoint-Inst
 $computerRepairCentreIconPath = "C:\Computer Repair Centre\computerRepairCentreIcon.ico"
 $seconds = Get-Date -Format ss
 Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
+$BackgroundColour = "#2c2c2c"
+$ButtonColour = "#00b9ff"
+$date = Get-Date -Format "dd/MM"
+if ($date -like '*06/04*') {
+	$birthday = 1
+	$birthdayName = "Charlie"
+}
+if ($date -like '*21/04*') {
+	$birthday = 1
+	$birthdayName = "Dean"
+}
+if ($date -like '*16/05*') {
+	$birthday = 1
+	$birthdayName = "Howard"
+}
+if ($date -like '*09/06*') {
+	$birthday = 1
+	$birthdayName = "Adam"
+}
+if ($date -like '*24/06*') {
+	$birthday = 1
+	$birthdayName = "Steve"
+}
+if ($date -like '*18/09*') {
+	$birthday = 1
+	$birthdayName = "Callum"
+}
+if ($date -like '*31/10*') {
+	$birthday = 2
+	$birthdayName = "Boo! Happy Halloween!"
+	$BackgroundColour = "#ed7014"
+	$ButtonColour = "#2c2c2c"
+}
+if ($date -like '*/12*') {
+	$BackgroundColour = "#00873E"
+	$ButtonColour = "#D6001C"
+	$christmas = 1
+}
 function download {
 	[reflection.assembly]::loadwithpartialname("System.Windows.Forms")
 	[reflection.assembly]::loadwithpartialname("System.Drawing")
@@ -183,7 +221,7 @@ function download {
 	$System_Drawing_Size.Height = 130
 	$downloadBox.ClientSize = $System_Drawing_Size
 	$downloadBox.Icon = "C:\Computer Repair Centre\computerRepairCentreIcon.ico"
-	$downloadBox.BackColor = "#2c2c2c"
+	$downloadBox.BackColor = $BackgroundColour
 	$downloadBox.ForeColor = "White"
 
 
@@ -196,7 +234,7 @@ function download {
 	$downloadText.location = New-Object System.Drawing.Point (180,17)
 	$downloadText.Font = 'Microsoft Sans Serif,10'
 	$downloadBox.Controls.Add($downloadText)
-	$downloadText.BackColor = "#2c2c2c"
+	$downloadText.BackColor = $BackgroundColour
 	$downloadText.ForeColor = "White"
 
 
@@ -219,7 +257,7 @@ function download {
 	$progressBar.Value = 0
 	$downloadBox.Controls.Add($progressBar)
 	$progressBar.Style  = "Continuous"
-	$progressBar.ForeColor = "#00b9ff"
+	$progressBar.ForeColor = $ButtonColour
 	
 
 	## -- Form
@@ -266,39 +304,7 @@ $computerSystem = (Get-WmiObject -Class:Win32_ComputerSystem)
 if ($computerSystem.Model -like '*EliteBook*'){
 	$HPEliteBook = 1
 }
-$BackgroundColour = "#2c2c2c"
-$ButtonColour = "#00b9ff"
-$date = Get-Date -Format "dd/MM"
-if ($date -like '*06/04*') {
-	$birthday = 1
-	$birthdayName = "Charlie"
-}
-if ($date -like '*21/04*') {
-	$birthday = 1
-	$birthdayName = "Dean"
-}
-if ($date -like '*16/05*') {
-	$birthday = 1
-	$birthdayName = "Howard"
-}
-if ($date -like '*09/06*') {
-	$birthday = 1
-	$birthdayName = "Adam"
-}
-if ($date -like '*24/06*') {
-	$birthday = 1
-	$birthdayName = "Steve"
-}
-if ($date -like '*18/09*') {
-	$birthday = 1
-	$birthdayName = "Callum"
-}
-if ($date -like '*31/10*') {
-	$birthday = 2
-	$birthdayName = "Boo! Happy Halloween!"
-	$BackgroundColour = "#ed7014"
-	$ButtonColour = "#2c2c2c"
-}
+
 
 function computerRepairCentreInstaller {
 	[reflection.assembly]::loadwithpartialname("System.Windows.Forms")
@@ -394,7 +400,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.10.31.1")
+				$syncHash.progress.Items.Add("Current version: 4.2022.10.31.2")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 31st of October 2022, spooky!")
@@ -419,6 +425,32 @@ function computerRepairCentreInstaller {
 				}
 				if ($birthday -like '*2*') { 
 					$syncHash.progress.Items.Add("$birthdayName")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+				}
+				if ($christmas -like '*1*') { 
+					$syncHash.progress.Items.Add("I don't want a lot for Christmas")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("There is just one thing I need")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("I don't care about the presents")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Underneath the Christmas tree")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("I just want you for my own")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("More than you could ever know")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Make my wish come true")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("All I want for Christmas is you")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 				}
@@ -1596,7 +1628,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.10.31.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.10.31.2"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
