@@ -399,7 +399,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.12.02.3")
+				$syncHash.progress.Items.Add("Current version: 4.2022.12.02.4")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 2nd of December 2022")
@@ -428,30 +428,39 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 				}
 				if ($synchash.christmas -like '*1*') { 
+					Start-Sleep 1
 					$syncHash.progress.Items.Add("I don't want a lot for Christmas")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					Start-Sleep 1
 					$syncHash.progress.Items.Add("There is just one thing I need")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					Start-Sleep 1
 					$syncHash.progress.Items.Add("I don't care about the presents")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					Start-Sleep 1
 					$syncHash.progress.Items.Add("Underneath the Christmas tree")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					Start-Sleep 1
 					$syncHash.progress.Items.Add("I just want you for my own")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					Start-Sleep 1
 					$syncHash.progress.Items.Add("More than you could ever know")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					Start-Sleep 1
 					$syncHash.progress.Items.Add("Make my wish come true")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					Start-Sleep 1
 					$syncHash.progress.Items.Add("All I want for Christmas is you")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					Start-Sleep 10
 				}
 				$syncHash.progressBar.Maximum = 12
 				if ($syncHash.sleep.Checked) { $syncHash.progressBar.Maximum += 1 }
@@ -1627,7 +1636,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.12.02.3"
+	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.12.02.4"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
