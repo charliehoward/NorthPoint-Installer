@@ -73,7 +73,7 @@ function download {
 			$mozillaFirefoxURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/mozillaFirefox.ico"
 			$mozillaFirefoxPath = "C:\Computer Repair Centre\mozillaFirefox.ico"
 			$mozillaThunderbirdURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/mozillaThunderbird.ico"
-			$mozillaThunderbirdPath = "C:\Computer Repair Centre\mozillaThunderbird.ico"610
+			$mozillaThunderbirdPath = "C:\Computer Repair Centre\mozillaThunderbird.ico"
 			$skypeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/skype.ico"
 			$skypePath = "C:\Computer Repair Centre\skype.ico"
 			$teamViewerURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/teamViewer.ico"
@@ -401,7 +401,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.12.02.1")
+				$syncHash.progress.Items.Add("Current version: 4.2022.12.02.2")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 2nd of December 2022")
@@ -1629,7 +1629,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.12.02.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.12.02.2"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
