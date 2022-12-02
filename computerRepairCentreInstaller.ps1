@@ -73,7 +73,7 @@ function download {
 			$mozillaFirefoxURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/mozillaFirefox.ico"
 			$mozillaFirefoxPath = "C:\Computer Repair Centre\mozillaFirefox.ico"
 			$mozillaThunderbirdURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/mozillaThunderbird.ico"
-			$mozillaThunderbirdPath = "C:\Computer Repair Centre\mozillaThunderbird.ico"
+			$mozillaThunderbirdPath = "C:\Computer Repair Centre\mozillaThunderbird.ico"610
 			$skypeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/skype.ico"
 			$skypePath = "C:\Computer Repair Centre\skype.ico"
 			$teamViewerURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/teamViewer.ico"
@@ -384,6 +384,8 @@ function computerRepairCentreInstaller {
 	$syncHash.birthdayName = $birthdayName
 	$syncHash.solitare = $solitare
 	$syncHash.HP = $HP
+	$synchash.christmas = $christmas
+	$synchash.halloween = $halloween
 	$b1 = $false
 	$b2 = $false
 	$b3 = $false
@@ -399,7 +401,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.10.31.3")
+				$syncHash.progress.Items.Add("Current version: 4.2022.12.02.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 31st of October 2022, spooky!")
@@ -422,12 +424,12 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 				}
-				if ($halloween -like '*1*') { 
+				if ($synchash.halloween -like '*1*') { 
 					$syncHash.progress.Items.Add("Boo! Happy Halloween!")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 				}
-				if ($christmas -like '*1*') { 
+				if ($synchash.christmas -like '*1*') { 
 					$syncHash.progress.Items.Add("I don't want a lot for Christmas")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
@@ -1627,7 +1629,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.10.31.3"
+	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.12.02.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
