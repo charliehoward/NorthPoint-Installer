@@ -10,30 +10,6 @@ Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCent
 $BackgroundColour = "#2c2c2c"
 $ButtonColour = "#00b9ff"
 $date = Get-Date -Format "dd/MM"
-if ($date -like '*06/04*') {
-	$birthday = 1
-	$birthdayName = "Charlie"
-}
-if ($date -like '*21/04*') {
-	$birthday = 1
-	$birthdayName = "Dean"
-}
-if ($date -like '*16/05*') {
-	$birthday = 1
-	$birthdayName = "Howard"
-}
-if ($date -like '*09/06*') {
-	$birthday = 1
-	$birthdayName = "Adam"
-}
-if ($date -like '*24/06*') {
-	$birthday = 1
-	$birthdayName = "Steve"
-}
-if ($date -like '*18/09*') {
-	$birthday = 1
-	$birthdayName = "Callum"
-}
 if ($date -like '*31/10*') {
 	$halloween = 1
 	$BackgroundColour = "#ed7014"
@@ -390,6 +366,28 @@ function computerRepairCentreInstaller {
 	$b2 = $false
 	$b3 = $false
 
+	$date = Get-Date -Format "dd/MM"
+	if ($date -like '*06/04*') {
+		$birthday = 1
+		$birthdayName = "Charlie"
+	}
+	if ($date -like '*21/04*') {
+		$birthday = 1
+		$birthdayName = "Dean"
+	}
+	if ($date -like '*16/05*') {
+		$birthday = 1
+		$birthdayName = "Howard"
+	}
+	if ($date -like '*09/06*') {
+		$birthday = 1
+		$birthdayName = "Adam"
+	}
+	if ($date -like '*24/06*') {
+		$birthday = 1
+		$birthdayName = "Steve"
+	}
+
 
 	## -- Install button click
 
@@ -401,7 +399,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.12.02.2")
+				$syncHash.progress.Items.Add("Current version: 4.2022.12.02.3")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 2nd of December 2022")
@@ -1629,7 +1627,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.12.02.2"
+	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.12.02.3"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
