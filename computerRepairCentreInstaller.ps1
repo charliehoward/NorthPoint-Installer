@@ -399,10 +399,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.12.02.4")
+				$syncHash.progress.Items.Add("Current version: 4.2022.12.19.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Last updated: 2nd of December 2022")
+				$syncHash.progress.Items.Add("Last updated: 19th of December 2022")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -1636,7 +1636,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.12.02.4"
+	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.12.19.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1831,7 +1831,7 @@ function computerRepairCentreInstaller {
 	$nightMode.location = $System_Drawing_Point
 	$nightMode.DataBindings.DefaultDataSourceUpdateMode = 0
 	$nightMode.Name = "nightMode"
-	$nightMode.Checked = 1
+	$nightMode.Checked = $location
 	$nightMode.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\nightMode.ico")
 	$crcInstaller.Controls.Add($nightMode)
 	$nightMode.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
