@@ -94,10 +94,12 @@ function download {
 			$HPPath = "C:\Computer Repair Centre\HP.ico"
 			$microsoftUIURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/Microsoft.UI.Xaml.2.7_7.2208.15002.0_x64__8wekyb3d8bbwe.Appx"
 			$microsoftUIPath = "C:\Computer Repair Centre\Microsoft.UI.Xaml.2.7_7.2208.15002.0_x64__8wekyb3d8bbwe.Appx"
-			$VCLibsURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/Microsoft.VCLibs.x64.14.00.Desktop.appx"
-			$VCLibsPath = "C:\Computer Repair Centre\Microsoft.VCLibs.x64.14.00.Desktop.appx"
+			$VCLibsURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/Microsoft.VCLibs.x64.14.00.Desktop.Appx"
+			$VCLibsPath = "C:\Computer Repair Centre\Microsoft.VCLibs.x64.14.00.Desktop.Appx"
 			$wingetURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/MicrosoftDesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 			$wingetPath = "C:\Computer Repair Centre\MicrosoftDesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
+			$kasperskyEXEURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/MicrosoftDesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
+			$kasperskyEXEPath = "C:\Computer Repair Centre\MicrosoftDesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $googleChromeURL -OutFile $googleChromePath
@@ -160,6 +162,8 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $wingetURL -OutFile $wingetPath
 			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $kasperskyEXEURL -OutFile $kasperskyEXEPath
+			$syncHash.progressBar.PerformStep()
 			$syncHash.downloadBox.Close()
 		})
 	$psCmd.Runspace = $processRunspace
@@ -207,7 +211,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 31
+	$progressBar.Maximum = 32
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$downloadBox.Controls.Add($progressBar)
@@ -371,7 +375,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.01.23.6")
+				$syncHash.progress.Items.Add("Current version: 5.2023.01.23.7")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 23rd of January 2023")
@@ -441,7 +445,7 @@ function computerRepairCentreInstaller {
 				if ($syncHash.mozillaThunderbird.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.googleChrome.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if (($syncHash.mozillaFirefox.Checked) -or ($syncHash.googleChrome.Checked)) { $syncHash.progressBar.Maximum += 1 }
-				if ($syncHash.kaspersky.Checked) { $syncHash.progressBar.Maximum += 2 }
+				if ($syncHash.kaspersky.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.vlc.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.libreOffice.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.skype.Checked) { $syncHash.progressBar.Maximum += 1 }
@@ -683,60 +687,16 @@ function computerRepairCentreInstaller {
 					}
 				}
 				if ($syncHash.kaspersky.Checked) {
-					$syncHash.progress.Items.Add("Kaspersky Internet Security is selected.")
+					$syncHash.progress.Items.Add("Kaspersky Standard is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$programList = winget list
-					if ($programList -like '*kis*') { 
-						$syncHash.progress.Items.Add("Kaspersky Internet Security is already installed.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-					}
-					else {
-						$syncHash.progress.Items.Add("Installing Kaspersky Internet Security...")
-				 		$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						choco install kis -y
-						$programList = winget list
-						$syncHash.progress.Items.Add("Removing Safe Money icon from Desktop...")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						Remove-Item "C:\Users\Public\Desktop\Safe Money.lnk"
-						if ($programList -like '*kis*') {
-							$syncHash.progress.Items.Add("Completed installation of Kaspersky Internet Security.")
-							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							$syncHash.progress.SelectedIndex = -1;
-							$syncHash.progressBar.PerformStep()
-						}
-						else {
-							$syncHash.progress.Items.Add("The installation of Kaspersky Internet Security has failed.")
-							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							$syncHash.progress.SelectedIndex = -1;
-							$syncHash.progress.Items.Add("Retrying the installation of Kaspersky Internet Security.")
-							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							$syncHash.progress.SelectedIndex = -1;
-							$syncHash.progressBar.PerformStep()
-							choco install kis -y --ignore-checksums
-						}
-						$syncHash.progress.Items.Add("Uninstalling Kaspersky Secure Connection & Kaspersky VPN...")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$kasperskySecureConnection = Get-ChildItem "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall" | ForEach-Object { Get-ItemProperty $_.PSPath } | Where-Object { $_ -match "Kaspersky Secure Connection" } | Select-Object UninstallString
-						$kasperskySecureConnection = $kasperskySecureConnection.UninstallString -replace "msiexec.exe","" -replace "/I","" -replace "/X",""
-						$kasperskySecureConnection = $kasperskySecureConnection.Trim()
-						$kasperskySecureConnection = $kasperskySecureConnection | Select-Object -Skip 1
-						$kasperskyVPN = Get-ChildItem "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall" | ForEach-Object { Get-ItemProperty $_.PSPath } | Where-Object { $_ -match "Kaspersky VPN" } | Select-Object UninstallString
-						$kasperskyVPN = $kasperskyVPN.UninstallString -replace "msiexec.exe","" -replace "/I","" -replace "/X",""
-						$kasperskyVPN = $kasperskyVPN.Trim()
-						$kasperskyVPN = $kasperskyVPN | Select-Object -Skip 1
-						cmd /c "C:\Windows\SysWOW64\msiexec.exe /i$kasperskySecureConnection REMOVE=ALL /passive"
-						cmd /c "C:\Windows\SysWOW64\msiexec.exe /i$kasperskyVPN REMOVE=ALL /passive"
-						$syncHash.progress.Items.Add("Completed uninstallation of Kaspersky Secure Connection & Kaspersky VPN.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-					}
+					$syncHash.progress.Items.Add("Moving Kaspersky Standard to the Desktop for manual installation...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Please run kaspersky.exe after installation.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progressBar.PerformStep()
 				}
 				if ($syncHash.libreOffice.Checked) {
 					$syncHash.progress.Items.Add("LibreOffice is selected.")
@@ -1230,7 +1190,9 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Disabling sleep mode on AC power.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
 						Powercfg /Change monitor-timeout-ac 0
+						Start-Sleep 10
 						Powercfg /Change standby-timeout-ac 0
 						$syncHash.progress.Items.Add("Sleep mode has been disabled on AC power.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1242,7 +1204,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					if ($syncHash.kaspersky.Checked) {
-						$syncHash.progress.Items.Add("The system requires a reboot to complete the installation of Kaspersky.")
+						$syncHash.progress.Items.Add("Please run kaspersky.exe after installation.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 					}
@@ -1309,9 +1271,9 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						Start-Sleep 2
-						Powercfg /Change standby-timeout-ac 0
-						Start-Sleep 10
 						Powercfg /Change monitor-timeout-ac 0
+						Start-Sleep 10
+						Powercfg /Change standby-timeout-ac 0
 						$syncHash.progress.Items.Add("Sleep mode has been disabled on AC power.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
@@ -1322,7 +1284,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					if ($syncHash.kaspersky.Checked) {
-						$syncHash.progress.Items.Add("The system requires a reboot to complete the installation of Kaspersky.")
+						$syncHash.progress.Items.Add("Please run kaspersky.exe after installation.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 					}
@@ -1387,7 +1349,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.01.23.6"
+	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.01.23.7"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1640,9 +1602,9 @@ function computerRepairCentreInstaller {
 	$kaspersky.location = $System_Drawing_Point
 	$kaspersky.DataBindings.DefaultDataSourceUpdateMode = 0
 	$kaspersky.Name = "kaspersky"
-	$kaspersky.Checked = 0
+	$kaspersky.Checked = 1
 	$kaspersky.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\kasperskyInternetSecurity.ico")
-#	$crcInstaller.Controls.Add($kaspersky)
+	$crcInstaller.Controls.Add($kaspersky)
 	$kaspersky.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$kaspersky.FlatAppearance.BorderSize=0
 
@@ -1655,8 +1617,8 @@ function computerRepairCentreInstaller {
 	$libreOffice.Size = $System_Drawing_Size
 	$libreOffice.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 0)
-	$System_Drawing_Point.Y = 5 + (31 * 8)
+	$System_Drawing_Point.X = 16 + (45 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 1)
 	$libreOffice.location = $System_Drawing_Point
 	$libreOffice.DataBindings.DefaultDataSourceUpdateMode = 0
 	$libreOffice.Name = "libreOffice"
@@ -1676,7 +1638,7 @@ function computerRepairCentreInstaller {
 	$malwareBytes.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
 	$malwareBytes.location = $System_Drawing_Point
 	$malwareBytes.DataBindings.DefaultDataSourceUpdateMode = 0
 	$malwareBytes.Name = "malwareBytes"
@@ -1696,7 +1658,7 @@ function computerRepairCentreInstaller {
 	$microsoftOffice2007.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$microsoftOffice2007.location = $System_Drawing_Point
 	$microsoftOffice2007.DataBindings.DefaultDataSourceUpdateMode = 0
 	$microsoftOffice2007.Name = "microsoftOffice2007"
@@ -1716,7 +1678,7 @@ function computerRepairCentreInstaller {
 	$mozillaFirefox.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 3)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
 	$mozillaFirefox.location = $System_Drawing_Point
 	$mozillaFirefox.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaFirefox.Name = "mozillaFirefox"
@@ -1736,7 +1698,7 @@ function computerRepairCentreInstaller {
 	$mozillaThunderbird.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 4)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
 	$mozillaThunderbird.location = $System_Drawing_Point
 	$mozillaThunderbird.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaThunderbird.Name = "mozillaThunderbird"
@@ -1756,7 +1718,7 @@ function computerRepairCentreInstaller {
 	$skype.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$System_Drawing_Point.Y = 5 + (31 * 6)
 	$skype.location = $System_Drawing_Point
 	$skype.DataBindings.DefaultDataSourceUpdateMode = 0
 	$skype.Name = "skype"
@@ -1776,7 +1738,7 @@ function computerRepairCentreInstaller {
 	$teams.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 6)
+	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$teams.location = $System_Drawing_Point
 	$teams.DataBindings.DefaultDataSourceUpdateMode = 0
 	$teams.Name = "teams"
@@ -1795,8 +1757,8 @@ function computerRepairCentreInstaller {
 	$teamViewer.Size = $System_Drawing_Size
 	$teamViewer.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 7)
+	$System_Drawing_Point.X = 16 + (45 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 1)
 	$teamViewer.location = $System_Drawing_Point
 	$teamViewer.DataBindings.DefaultDataSourceUpdateMode = 0
 	$teamViewer.Name = "teamViewer"
@@ -1815,8 +1777,8 @@ function computerRepairCentreInstaller {
 	$vlc.Size = $System_Drawing_Size
 	$vlc.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 8)
+	$System_Drawing_Point.X = 16 + (45 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
 	$vlc.location = $System_Drawing_Point
 	$vlc.DataBindings.DefaultDataSourceUpdateMode = 0
 	$vlc.Name = "vlc"
@@ -1836,7 +1798,7 @@ function computerRepairCentreInstaller {
 	$solitare.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$solitare.location = $System_Drawing_Point
 	$solitare.DataBindings.DefaultDataSourceUpdateMode = 0
 	$solitare.Name = "solitare"
@@ -1856,7 +1818,7 @@ function computerRepairCentreInstaller {
 	$zoom.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
 	$zoom.location = $System_Drawing_Point
 	$zoom.DataBindings.DefaultDataSourceUpdateMode = 0
 	$zoom.Name = "zoom"
