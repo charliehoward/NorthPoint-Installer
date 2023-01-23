@@ -1,13 +1,13 @@
 [![built-in-PowerShell](https://img.shields.io/badge/Built%20in-PowerShell-blue)](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2) ![Choco](https://img.shields.io/badge/Powered%20by-Chocolatey-brown) ![Arch](https://img.shields.io/badge/Arch-x86%20|%20AMD64-blue) ![OS](https://img.shields.io/badge/OS-Windows%2010%20|%20Windows%2011-green)
 
-## NorthPoint Installer 4.2022.12.28.0
+## NorthPoint Installer 5.2023.01.23.4
 ###### Copyright (c) Charlie Howard 2023 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
 
-When run it will install Microsoft .NET (3.5, 4.5, 4.6.1, 4.6.2), Microsoft Visual C++ Redistributable, HashTab and 7-zip by default as these are needed or recommended for the installer to work correctly.
+When run it will install Microsoft .NET (5.0, 6.0, 7.0) and 7-zip by default as these are needed or recommended for the nstaller to work correctly.
 
-Has the option to install the Computer Repair Centre OEM information, Bing Wallpapers, Dark mode, Google Chrome, iTunes, Kaspersky Internet Security 2022 (uninstalls Kaspersky Secure Connection & Kaspersky VPN), LibreOffice, MalwareBytes, Microsoft Office 2007, Microsoft Office 2019, Microsoft Office 2021, Mozilla Firefox, Mozilla Thunderbird, Skype, Teams, TeamViewer, uBlock Origin (for Mozilla Firefox & Google Chrome), VLC Media Player, Windows 7 Games & Zoom.
+Has the option to install the Computer Repair Centre OEM information, Bing Wallpapers, Dark mode, Google Chrome, iTunes, LibreOffice, MalwareBytes, Microsoft Office 2007, Mozilla Firefox, Mozilla Thunderbird, Skype, Teams, TeamViewer, VLC Media Player, Windows 7 Games & Zoom.
 
 If run on Windows 10 or Windows 11 it disables hibernation mode and Wi-Fi sense.
 
@@ -16,6 +16,32 @@ Sets the default browser to either Google Chrome or Mozilla Firefox depending on
 Can disable sleep and screen timeout if plugged into DC power.
 
 ### Changelog
+
+**Update 5.2023.01.23.4**
+
+If run on Windows 10 it will install winget and thge prerequisites.
+Fixed hanging issue. 
+
+**Update 5.2023.01.23.3**
+
+Removed Microsoft .NET Windows Desktop Runtime 3.1.
+Cleaned up checkboxes.
+
+**Update 5.2023.01.23.2**
+
+Changed the way winget installs.
+
+**Update 5.2023.01.23.1**
+
+Added winget installation for Windows 10.
+
+**Update 5.2023.01.23.0**
+
+Moved from chocolatey from to winget.
+Removed Microsoft Office 2019 and 2021.
+Removed HashTab.
+Removed uBlock Origin.
+Disabled Kaspersky for now until I can work out a silent install.
 
 **Update 4.2022.12.19.0**
 
