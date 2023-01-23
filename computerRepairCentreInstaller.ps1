@@ -288,7 +288,6 @@ function computerRepairCentreInstaller {
 	$install = New-Object System.Windows.Forms.Button
 	$reboot = New-Object System.Windows.Forms.Button
 	$close = New-Object System.Windows.Forms.Button
-	$chocoReset = New-Object System.Windows.Forms.Button
 	$progress = New-Object System.Windows.Forms.ListBox
 	$progressBar = New-Object System.Windows.Forms.ProgressBar
 	$crc = New-Object System.Windows.Forms.CheckBox
@@ -299,14 +298,11 @@ function computerRepairCentreInstaller {
 	$kaspersky = New-Object System.Windows.Forms.CheckBox
 	$vlc = New-Object System.Windows.Forms.CheckBox
 	$libreOffice = New-Object System.Windows.Forms.CheckBox
-	$microsoftOffice = New-Object System.Windows.Forms.CheckBox
 	$microsoftOffice2007 = New-Object System.Windows.Forms.CheckBox
-	$microsoftOffice2021 = New-Object System.Windows.Forms.CheckBox
 	$skype = New-Object System.Windows.Forms.CheckBox
 	$teamViewer = New-Object System.Windows.Forms.CheckBox
 	$teams = New-Object System.Windows.Forms.CheckBox
 	$iTunes = New-Object System.Windows.Forms.CheckBox
-	$uBlockOrigin = New-Object System.Windows.Forms.CheckBox
 	$wallpaper = New-Object System.Windows.Forms.CheckBox
 	$nightMode = New-Object System.Windows.Forms.CheckBox
 	$rebootBox = New-Object System.Windows.Forms.CheckBox
@@ -330,14 +326,11 @@ function computerRepairCentreInstaller {
 	$syncHash.vlc = $vlc
 	$syncHash.libreOffice = $libreOffice
 	$syncHash.malwareBytes = $malwareBytes
-	$syncHash.microsoftOffice = $microsoftOffice
 	$syncHash.microsoftOffice2007 = $microsoftOffice2007
-	$syncHash.microsoftOffice2021 = $microsoftOffice2021
 	$syncHash.skype = $skype
 	$syncHash.teamViewer = $teamViewer
 	$syncHash.teams = $teams
 	$syncHash.iTunes = $iTunes
-	$syncHash.uBlockOrigin = $uBlockOrigin
 	$syncHash.wallpaper = $wallpaper
 	$syncHash.nightMode = $nightMode
 	$syncHash.operatingSystem = $operatingSystem
@@ -349,7 +342,6 @@ function computerRepairCentreInstaller {
 	$syncHash.wallpapersPath = $wallpapersPath
 	$syncHash.rebootBox = $rebootBox
 	$syncHash.reboot = $reboot
-	$syncHash.chocoReset = $chocoReset
 	$syncHash.sleep = $sleep
 	$syncHash.zoom = $zoom
 	$syncHash.HPEliteBook = $HPEliteBook
@@ -399,10 +391,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 4.2022.12.28.0")
+				$syncHash.progress.Items.Add("Current version: 5.2023.01.23.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Last updated: 19th of December 2022")
+				$syncHash.progress.Items.Add("Last updated: 23rd of January 2023")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -462,7 +454,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 					Start-Sleep 10
 				}
-				$syncHash.progressBar.Maximum = 12
+				$syncHash.progressBar.Maximum = 8
 				if ($syncHash.sleep.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.crc.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.mozillaFirefox.Checked) { $syncHash.progressBar.Maximum += 1 }
@@ -479,13 +471,7 @@ function computerRepairCentreInstaller {
 				if ($syncHash.nightMode.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.solitare.Checked) { $syncHash.progressBar.Maximum += 2 }
 				if ($syncHash.HP.Checked) { $syncHash.progressBar.Maximum += 3 }
-				if ($syncHash.microsoftOffice.Checked) { $syncHash.progressBar.Maximum += 2 }
 				if ($syncHash.microsoftOffice2007.Checked) { $syncHash.progressBar.Maximum += 2 }
-				if ($syncHash.microsoftOffice2021.Checked) { $syncHash.progressBar.Maximum += 2 }
-				if ($syncHash.uBlockOrigin.Checked) {
-					if ($syncHash.googleChrome.Checked) { $syncHash.progressBar.Maximum += 1 }
-					if ($syncHash.mozillaFirefox.Checked) { $syncHash.progressBar.Maximum += 1 }
-				}
 				if ($syncHash.operatingSystem -like '*6.1*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*6.2*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*6.3*') { $syncHash.progressBar.Maximum += 1 }
@@ -545,107 +531,66 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.Items.Add("Installing all prerequisites...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Installing Chocolatey...")
+				$syncHash.progress.Items.Add("Installing Microsoft .NET Windows Desktop Runtime 3.1...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				Set-ExecutionPolicy AllSigned
-				Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-				$syncHash.progressBar.PerformStep()
-				$syncHash.progress.Items.Add("Installing Microsoft .NET 3.5...")
-				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-				$syncHash.progress.SelectedIndex = -1;
-				$programList = choco list --localonly
-				if ($programList -like '*DotNet3.5*') { 
-					$syncHash.progress.Items.Add("Microsoft .NET 3.5 is already installed.")
+				$programList = winget list
+				if ($programList -like '*Microsoft.DotNet.DesktopRuntime.3_1*') { 
+					$syncHash.progress.Items.Add("Microsoft .NET Windows Desktop Runtime 3.1 is already installed.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progressBar.PerformStep()
 				}
 				else {
-					choco install dotnet3.5 -y
+					winget install -e --id Microsoft.DotNet.DesktopRuntime.3_1 --accept-source-agreements --accept-package-agreements
 					$syncHash.progressBar.PerformStep()
 				}
-				$syncHash.progress.Items.Add("Installing Microsoft .NET 4.5...")
+				$syncHash.progress.Items.Add("Installing Microsoft .NET Windows Desktop Runtime 5.0...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$programList = choco list --localonly
-				if ($programList -like '*DotNet4.5*') { 
-					$syncHash.progress.Items.Add("Microsoft .NET 4.5 is already installed.")
+				$programList = winget list
+				if ($programList -like '*Microsoft.DotNet.DesktopRuntime.5*') { 
+					$syncHash.progress.Items.Add("Microsoft .NET Windows Desktop Runtime 5.0 is already installed.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progressBar.PerformStep()
 				}
 				else {
-					choco install dotnet4.5 -y
+					winget install -e --id Microsoft.DotNet.DesktopRuntime.5 --accept-source-agreements --accept-package-agreements
 					$syncHash.progressBar.PerformStep()
 				}
-				$syncHash.progress.Items.Add("Installing Microsoft .NET 4.6.1...")
+				$syncHash.progress.Items.Add("Installing Microsoft .NET Windows Desktop Runtime 6.0...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$programList = choco list --localonly
-				if ($programList -like '*DotNet4.6.1*') { 
-					$syncHash.progress.Items.Add("Microsoft .NET 4.6.1 is already installed.")
+				$programList = winget list
+				if ($programList -like '*Microsoft.DotNet.DesktopRuntime.6*') { 
+					$syncHash.progress.Items.Add("Microsoft .NET Windows Desktop Runtime 6.0 is already installed.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progressBar.PerformStep()
 				}
 				else {
-					choco install dotnet4.6.1 -y
+					winget install -e --id Microsoft.DotNet.DesktopRuntime.6 --accept-source-agreements --accept-package-agreements
 					$syncHash.progressBar.PerformStep()
 				}
-				$syncHash.progress.Items.Add("Installing Microsoft .NET 4.6.2...")
+				$syncHash.progress.Items.Add("Installing Microsoft .NET Windows Desktop Runtime 7.0...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$programList = choco list --localonly
-				if ($programList -like '*DotNet4.6.2*') { 
-					$syncHash.progress.Items.Add("Microsoft .NET 4.6.2 is already installed.")
+				$programList = winget list
+				if ($programList -like '*Microsoft.DotNet.DesktopRuntime.7*') { 
+					$syncHash.progress.Items.Add("Microsoft .NET Windows Desktop Runtime 7.0 is already installed.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progressBar.PerformStep()
 				}
 				else {
-					choco install dotnet4.6.2 -y
+					winget install -e --id Microsoft.DotNet.DesktopRuntime.7 --accept-source-agreements --accept-package-agreements
 					$syncHash.progressBar.PerformStep()
 				}
-				$syncHash.progress.Items.Add("Installing Microsoft Visual C++ Redistributable...")
-				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-				$syncHash.progress.SelectedIndex = -1;
-				$programList = choco list --localonly
-				if ($programList -like '*vcredist140*') { 
-					$syncHash.progress.Items.Add("Microsoft Visual C++ Redistributable is already installed.")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progressBar.PerformStep()
-				}
-				else {
-					choco install vcredist140 -y
-					choco install vcredist2015 -y
-					$syncHash.progressBar.PerformStep()
-				}
-				$syncHash.progressBar.PerformStep()
-				$syncHash.progress.Items.Add("Installing HashTab...")
-				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-				$syncHash.progress.SelectedIndex = -1;
-				$programList = choco list --localonly
-				if ($programList -like '*hashtab*') { 
-					$syncHash.progress.Items.Add("HashTab is already installed.")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progressBar.PerformStep()
-				}
-				else {
-					choco install hashtab -y
-					$syncHash.progressBar.PerformStep()
-				}
-				$syncHash.progress.Items.Add("Updating PowerShell...")
-				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-				$syncHash.progress.SelectedIndex = -1;
-				choco install powershell -y
-				$syncHash.progressBar.PerformStep()
 				$syncHash.progress.Items.Add("Installing 7-zip...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$programList = choco list --localonly
+				$programList = winget list
 				if ($programList -like '*7zip*') { 
 						$syncHash.progress.Items.Add("7-zip is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -653,9 +598,9 @@ function computerRepairCentreInstaller {
 						$syncHash.progressBar.PerformStep()
 					}
 				else {
-					choco install 7zip.install -y
+					winget install -e --id 7zip.7zip --accept-source-agreements --accept-package-agreements
 					$syncHash.progressBar.PerformStep()
-					$programList = choco list --localonly
+					$programList = winget list
 					if ($programList -like '*7zip*') {
 						$syncHash.progress.Items.Add("Completed installation of 7-zip.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -670,7 +615,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
-						choco install 7zip.install -y --ignore-checksums
+						winget install -e --id 7zip.7zip --accept-source-agreements --accept-package-agreements
 					}
 				}
 				$syncHash.progress.Items.Add("Unzipping all Bing Wallpaper files.")
@@ -691,8 +636,8 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Google Chrome is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$programList = choco list --localonly
-					if ($programList -like '*GoogleChrome*') { 
+					$programList = winget list
+					if ($programList -like '*Google.Chrome*') { 
 						$syncHash.progress.Items.Add("Google Chrome is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
@@ -702,9 +647,9 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing Google Chrome...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						choco install googlechrome -y
-						$programList = choco list --localonly
-						if ($programList -like '*GoogleChrome*') {
+						winget install -e --id Google.Chrome --accept-source-agreements --accept-package-agreements
+						$programList = winget list
+						if ($programList -like '*Google.Chrome*') {
 							$syncHash.progress.Items.Add("Completed installation of Google Chrome.")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
@@ -718,7 +663,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							choco install googlechrome -y --ignore-checksums
+							winget install -e --id Google.Chrome --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -726,7 +671,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("iTunes is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$programList = choco list --localonly
+					$programList = winget list
 					if ($programList -like '*iTunes*') { 
 						$syncHash.progress.Items.Add("iTunes is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -737,8 +682,8 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing iTunes...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						choco install itunes -y
-						$programList = choco list --localonly
+						winget install -e --id Apple.iTunes --accept-source-agreements --accept-package-agreements
+						$programList = winget list
 						if ($programList -like '*iTunes*') {
 							$syncHash.progress.Items.Add("Completed installation of iTunes.")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -753,7 +698,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							choco install itunes -y --ignore-checksums
+							winget install -e --id Apple.iTunes --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -761,7 +706,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Kaspersky Internet Security is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$programList = choco list --localonly
+					$programList = winget list
 					if ($programList -like '*kis*') { 
 						$syncHash.progress.Items.Add("Kaspersky Internet Security is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -773,7 +718,7 @@ function computerRepairCentreInstaller {
 				 		$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						choco install kis -y
-						$programList = choco list --localonly
+						$programList = winget list
 						$syncHash.progress.Items.Add("Removing Safe Money icon from Desktop...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
@@ -817,8 +762,8 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("LibreOffice is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$programList = choco list --localonly
-					if ($programList -like '*libreoffice-fresh*') { 
+					$programList = winget list
+					if ($programList -like '*LibreOffice*') { 
 						$syncHash.progress.Items.Add("LibreOffice is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
@@ -828,9 +773,9 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing LibreOffice...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						choco install libreoffice-fresh -y
-						$programList = choco list --localonly
-						if ($programList -like '*libreoffice-fresh*') {
+						winget install -e --id TheDocumentFoundation.LibreOffice --accept-source-agreements --accept-package-agreements
+						$programList = winget list
+						if ($programList -like '*LibreOffice*') {
 							$syncHash.progress.Items.Add("Completed installation of LibreOffice.")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
@@ -844,7 +789,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							choco install libreoffice-fresh -y --ignore-checksums
+							winget install -e --id TheDocumentFoundation.LibreOffice --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -873,83 +818,12 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progressBar.PerformStep()
 				}
-				if ($syncHash.microsoftOffice.Checked) {
-					$syncHash.progress.Items.Add("Microsoft Office 2019 is selected.")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					if ($syncHash.operatingSystem -like '*10.0.2*') {
-						$syncHash.progress.Items.Add("Sorry, Windows 11 22H2 and newer doesn't support Office 2019.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progress.Items.Add("Please select LibreOffice, Office 2007 or Office 2021.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						$syncHash.progressBar.PerformStep()
-					}
-					$syncHash.progress.Items.Add("Installing Microsoft Office 2019...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					$DesktopPath = [Environment]::GetFolderPath("Desktop")
-					& 'C:\Computer Repair Centre\setup.exe' /configure 'C:\Computer Repair Centre\ProPlusVLK2019.xml'
-					$syncHash.progress.Items.Add("Completed installation of Microsoft Office 2019.")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progressBar.PerformStep()
-					$syncHash.progress.Items.Add("Activating Microsoft Office 2019...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					Start-Sleep 15
-					& "C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE"
-					Start-Sleep 20
-					taskkill /F /IM WINWORD.EXE
-					taskkill /F /IM OfficeC2RClient.exe
-					Start-Sleep 20
-					& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\officeActivator.zip" "-oC:\Computer Repair Centre\" -aoa
-					& "C:\Computer Repair Centre\officeActivator.bat"
-					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Word.lnk" "$DesktopPath\Word.lnk"
-					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Excel.lnk" "$DesktopPath\Excel.lnk"
-					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\PowerPoint.lnk" "$DesktopPath\PowerPoint.lnk"
-					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Outlook.lnk" "$DesktopPath\Outlook.lnk"
-					$syncHash.progress.Items.Add("Completed activation of Microsoft Office 2019.")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progressBar.PerformStep()
-				}
-				if ($syncHash.microsoftOffice2021.Checked) {
-					$syncHash.progress.Items.Add("Microsoft Office 2021 is selected.")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progress.Items.Add("Downloading Microsoft Office 2021...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progress.Items.Add("This is a large file so can take a while.")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					Invoke-RestMethod -Uri "https://files.crchq.net/installer/Office2021.zip" -OutFile "C:\Computer Repair Centre\Office2021.zip"
-					& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\Office2021.zip" "-oC:\Computer Repair Centre\Office2021" -aoa
-					$syncHash.progress.Items.Add("Installing Microsoft Office 2021...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					Start-Sleep 10
-					$DesktopPath = [Environment]::GetFolderPath("Desktop")
-					& 'C:\Computer Repair Centre\Office2021\Setup.exe'
-					Start-Sleep 30
-					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Word.lnk" "$DesktopPath\Word.lnk"
-					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Excel.lnk" "$DesktopPath\Excel.lnk"
-					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\PowerPoint.lnk" "$DesktopPath\PowerPoint.lnk"
-					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Outlook.lnk" "$DesktopPath\Outlook.lnk"
-					$syncHash.progress.Items.Add("Completed installation of Microsoft Office 2021.")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progressBar.PerformStep()
-				}
 				if ($syncHash.malwareBytes.Checked) {
 					$syncHash.progress.Items.Add("MalwareBytes is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$programList = choco list --localonly
-					if ($programList -like '*malwarebytes*') { 
+					$programList = winget list
+					if ($programList -like '*Malwarebytes*') { 
 						$syncHash.progress.Items.Add("MalwareBytes is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
@@ -959,9 +833,9 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing MalwareBytes...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						choco install malwarebytes -y
-						$programList = choco list --localonly
-						if ($programList -like '*malwarebytes*') {
+						winget install -e --id Malwarebytes.Malwarebytes --accept-source-agreements --accept-package-agreements
+						$programList = winget list
+						if ($programList -like '*Malwarebytes*') {
 							$syncHash.progress.Items.Add("Completed installation of MalwareBytes.")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
@@ -975,7 +849,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							choco install malwarebytes -y --ignore-checksums
+							winget install -e --id Malwarebytes.Malwarebytes --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}	
@@ -983,8 +857,8 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Mozilla Firefox is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$programList = choco list --localonly
-					if ($programList -like '*Firefox*') { 
+					$programList = winget list
+					if ($programList -like '*Mozilla.Firefox*') { 
 						$syncHash.progress.Items.Add("Mozilla Firefox is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
@@ -994,9 +868,9 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing Mozilla Firefox...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						choco install firefox -y
-						$programList = choco list --localonly
-						if ($programList -like '*Firefox*') {
+						winget install -e --id Mozilla.Firefox --accept-source-agreements --accept-package-agreements
+						$programList = winget list
+						if ($programList -like '*Mozilla.Firefox*') {
 							$syncHash.progress.Items.Add("Completed installation of Mozilla Firefox.")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
@@ -1010,7 +884,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							choco install firefox -y --ignore-checksums
+							winget install -e --id Mozilla.Firefox --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -1018,8 +892,8 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Mozilla Thunderbird is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$programList = choco list --localonly
-					if ($programList -like '*thunderbird*') { 
+					$programList = winget list
+					if ($programList -like '*Mozilla.Thunderbird*') { 
 						$syncHash.progress.Items.Add("Mozilla Thunderbird is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
@@ -1029,9 +903,9 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing Mozilla Thunderbird...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						choco install thunderbird -y
-						$programList = choco list --localonly
-							if ($programList -like '*thunderbird*') {
+						winget install -e --id Mozilla.Thunderbird --accept-source-agreements --accept-package-agreements
+						$programList = winget list
+							if ($programList -like '*Mozilla.Thunderbird*') {
 							$syncHash.progress.Items.Add("Completed installation of Mozilla Thunderbird.")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
@@ -1045,7 +919,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							choco install thunderbird -y --ignore-checksums
+							winget install -e --id Mozilla.Thunderbird --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -1053,8 +927,8 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Skype is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$programList = choco list --localonly
-					if ($programList -like '*skype*') { 
+					$programList = winget list
+					if ($programList -like '*Skype*') { 
 						$syncHash.progress.Items.Add("Skype is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
@@ -1064,9 +938,9 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing Skype...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						choco install skype -y
-						$programList = choco list --localonly
-						if ($programList -like '*skype*') {
+						winget install -e --id Microsoft.Skype --accept-source-agreements --accept-package-agreements
+						$programList = winget list
+						if ($programList -like '*Skype*') {
 							$syncHash.progress.Items.Add("Completed installation of Skype.")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
@@ -1080,7 +954,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							choco install skype -y --ignore-checksums
+							winget install -e --id Microsoft.Skype --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -1088,8 +962,8 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("TeamViewer is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$programList = choco list --localonly
-					if ($programList -like '*teamviewer*') { 
+					$programList = winget list
+					if ($programList -like '*TeamViewer*') { 
 						$syncHash.progress.Items.Add("TeamViewer is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
@@ -1099,9 +973,9 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing TeamViewer...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						choco install teamviewer -y
-						$programList = choco list --localonly
-						if ($programList -like '*teamviewer*') {
+						winget install -e --id TeamViewer.TeamViewer --accept-source-agreements --accept-package-agreements
+						$programList = winget list
+						if ($programList -like '*TeamViewer*') {
 							$syncHash.progress.Items.Add("Completed installation of TeamViewer.")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
@@ -1115,7 +989,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							choco install teamviewer -y --ignore-checksums
+							winget install -e --id TeamViewer.TeamViewer --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -1123,8 +997,8 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Microsoft Teams is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$programList = choco list --localonly
-					if ($programList -like '*microsoft-teams*') { 
+					$programList = winget list
+					if ($programList -like '*Microsoft.Teams*') { 
 						$syncHash.progress.Items.Add("Microsoft Teams is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
@@ -1134,9 +1008,9 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing Microsoft Teams...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						choco install microsoft-teams.install -y
-						$programList = choco list --localonly
-						if ($programList -like '*microsoft-teams*') {
+						winget install -e --id Microsoft.Teams --accept-source-agreements --accept-package-agreements
+						$programList = winget list
+						if ($programList -like '*Microsoft.Teams*') {
 							$syncHash.progress.Items.Add("Completed installation of Microsoft Teams.")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
@@ -1150,51 +1024,16 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							choco install microsoft-teams.install -y --ignore-checksums
+							winget install -e --id Microsoft.Teams --accept-source-agreements --accept-package-agreements
 						}
-					}
-				}
-				if ($syncHash.uBlockOrigin.Checked) {
-					$syncHash.progress.Items.Add("uBlockOrigin is selected.")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					if ($syncHash.googleChrome.Checked) {
-						$syncHash.progress.Items.Add("Installing uBlockOrigin on Google Chrome...")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						Import-Module "C:\Computer Repair Centre\chromeExtension.ps1"
-						New-ChromeExtension -ExtensionID 'cjpalhdlnbpafiamejdnhcphjbkeiagm' -Mode Machine
-						$syncHash.progress.Items.Add("The installation of uBlockOrigin on Google Chrome has completed.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-					}
-					if ($syncHash.mozillaFirefox.Checked) {
-						$syncHash.progress.Items.Add("Installing uBlockOrigin on Mozilla Firefox...")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						New-Item -ItemType directory -Path "C:\Program Files\Mozilla Firefox\defaults\pref" -Force
-						Copy-Item "C:\Computer Repair Centre\mozilla.cfg" -Destination "C:\Program Files\Mozilla Firefox" -Force
-						Copy-Item "C:\Computer Repair Centre\local-settings.js" -Destination "C:\Program Files\Mozilla Firefox\defaults\pref" -Force
-						Import-Module "C:\Computer Repair Centre\firefoxExtension.ps1"
-						$firefoxParams = @{
-							'ExtensionUri' = 'https://addons.mozilla.org/firefox/downloads/file/985780/ublock_origin-1.16.10-an+fx.xpi?src=dp-btn-primary'
-							'ExtensionPath' = 'C:\FirefoxExtensions'
-							'Hive' = 'HKLM'
-						}
-						New-FirefoxExtension @firefoxParams
-						$syncHash.progress.Items.Add("The installation of uBlockOrigin on Mozilla Firefox has completed.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
 					}
 				}
 				if ($syncHash.vlc.Checked) {
 					$syncHash.progress.Items.Add("VLC Media Player is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$programList = choco list --localonly
-					if ($programList -like '*vlc*') { 
+					$programList = winget list
+					if ($programList -like '*VideoLAN.VLC*') { 
 						$syncHash.progress.Items.Add("VLC Media Player is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
@@ -1204,9 +1043,9 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing VLC Media Player...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						choco install vlc -y
-						$programList = choco list --localonly
-						if ($programList -like '*vlc*') {
+						winget install -e --id VideoLAN.VLC --accept-source-agreements --accept-package-agreements
+						$programList = winget list
+						if ($programList -like '*VideoLAN.VLC*') {
 							$syncHash.progress.Items.Add("Completed installation of VLC Media Player.")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
@@ -1220,7 +1059,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							choco install vlc -y --ignore-checksums
+							winget install -e --id VideoLAN.VLC --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -1247,8 +1086,8 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Zoom is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$programList = choco list --localonly
-					if ($programList -like '*zoom*') { 
+					$programList = winget list
+					if ($programList -like '*Zoom*') { 
 						$syncHash.progress.Items.Add("Zoom is already installed.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
@@ -1258,9 +1097,9 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing Zoom...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						choco install zoom -y
-						$programList = choco list --localonly
-						if ($programList -like '*zoom*') {
+						winget install -e --id Zoom.Zoom --accept-source-agreements --accept-package-agreements
+						$programList = winget list
+						if ($programList -like '*Zoom*') {
 							$syncHash.progress.Items.Add("Completed installation of Zoom.")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
@@ -1274,7 +1113,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							choco install zoom -y --ignore-checksums
+							winget install -e --id Zoom.Zoom --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -1361,7 +1200,7 @@ function computerRepairCentreInstaller {
 					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowRecent" -Type DWord -Value 0
 					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowFrequent" -Type DWord -Value 0
 					$syncHash.progressBar.PerformStep()
-					$programList = choco list --localonly
+					$programList = winget list
 					if (($programList -like '*Firefox*') -or ($programList -notlike '*Chrome*')) {
 						if ($programList -like '*Firefox*') {
 							$syncHash.progress.Items.Add("Setting Mozilla Firefox as the default browser...")
@@ -1636,7 +1475,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 4.2022.12.28.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.01.23.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1655,41 +1494,19 @@ function computerRepairCentreInstaller {
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$install.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$install.FlatAppearance.BorderSize=0
-	$System_Drawing_Size.Width = 130
+	$System_Drawing_Size.Width = 185
 	$System_Drawing_Size.Height = 23
 	$install.Size = $System_Drawing_Size
 	$install.Text = "Install"
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 15 + (150 * 0)
+	$System_Drawing_Point.X = 15
 	$System_Drawing_Point.Y = 13
 	$install.location = $System_Drawing_Point
 	$install.DataBindings.DefaultDataSourceUpdateMode = 0
 	$install.add_Click($handler_install_Click)
 	$crcInstaller.Controls.Add($install)
-	$install.BackColor = $ButtonColour
+	$install.BackColor = "#00b9ff"
 	$install.ForeColor = "White"
-
-
-	## -- Choco Reset button
-
-	$chocoReset.TabIndex = 4
-	$chocoReset.Name = "chocoReset"
-	$System_Drawing_Size = New-Object System.Drawing.Size
-	$chocoReset.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
-	$chocoReset.FlatAppearance.BorderSize=0
-	$System_Drawing_Size.Width = 130
-	$System_Drawing_Size.Height = 23
-	$chocoReset.Size = $System_Drawing_Size
-	$chocoReset.Text = "Reset chocolatey"
-	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 15 + (150 * 1)
-	$System_Drawing_Point.Y = 13
-	$chocoReset.location = $System_Drawing_Point
-	$chocoReset.DataBindings.DefaultDataSourceUpdateMode = 0
-	$chocoReset.add_Click($handler_chocoReset_Click)
-	$crcInstaller.Controls.Add($chocoReset)
-	$chocoReset.BackColor = $ButtonColour
-	$chocoReset.ForeColor = "White"
 
 
 	## -- Reboot button
@@ -1699,40 +1516,40 @@ function computerRepairCentreInstaller {
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$reboot.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$reboot.FlatAppearance.BorderSize=0
-	$System_Drawing_Size.Width = 130
+	$System_Drawing_Size.Width = 185
 	$System_Drawing_Size.Height = 23
 	$reboot.Size = $System_Drawing_Size
 	$reboot.Text = "Reboot"
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 15 + (150 * 2)
+	$System_Drawing_Point.X = 212.5
 	$System_Drawing_Point.Y = 13
 	$reboot.location = $System_Drawing_Point
 	$reboot.DataBindings.DefaultDataSourceUpdateMode = 0
 	$reboot.add_Click($handler_reboot_Click)
 	$crcInstaller.Controls.Add($reboot)
-	$reboot.BackColor = $ButtonColour
+	$reboot.BackColor = "#00b9ff"
 	$reboot.ForeColor = "White"
 
 
-    ## -- Close button
+  ## -- Close button
 
 	$close.TabIndex = 4
 	$close.Name = "close"
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$close.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$close.FlatAppearance.BorderSize=0
-	$System_Drawing_Size.Width = 130
+	$System_Drawing_Size.Width = 185
 	$System_Drawing_Size.Height = 23
 	$close.Size = $System_Drawing_Size
 	$close.Text = "Close"
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 15 + (150 * 3)
+	$System_Drawing_Point.X = 410
 	$System_Drawing_Point.Y = 13
 	$close.location = $System_Drawing_Point
 	$close.DataBindings.DefaultDataSourceUpdateMode = 0
 	$close.add_Click($handler_close_Click)
 	$crcInstaller.Controls.Add($close)
-	$close.BackColor = $ButtonColour
+	$close.BackColor = "#00b9ff"
 	$close.ForeColor = "White"
 
 
@@ -1913,7 +1730,7 @@ function computerRepairCentreInstaller {
 	$kaspersky.Name = "kaspersky"
 	$kaspersky.Checked = 1
 	$kaspersky.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\kasperskyInternetSecurity.ico")
-	$crcInstaller.Controls.Add($kaspersky)
+#	$crcInstaller.Controls.Add($kaspersky)
 	$kaspersky.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$kaspersky.FlatAppearance.BorderSize=0
 
@@ -1976,46 +1793,6 @@ function computerRepairCentreInstaller {
 	$crcInstaller.Controls.Add($microsoftOffice2007)
 	$microsoftOffice2007.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$microsoftOffice2007.FlatAppearance.BorderSize=0
-
-
-	## -- Microsoft Office 2019
-
-	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 36
-	$System_Drawing_Size.Height = 36
-	$microsoftOffice.Size = $System_Drawing_Size
-	$microsoftOffice.TabIndex = 1
-	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 4)
-	$microsoftOffice.location = $System_Drawing_Point
-	$microsoftOffice.DataBindings.DefaultDataSourceUpdateMode = 0
-	$microsoftOffice.Name = "microsoftOffice"
-	$microsoftOffice.Checked = 0
-	$microsoftOffice.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\microsoftOffice.ico")
-	$crcInstaller.Controls.Add($microsoftOffice)
-	$microsoftOffice.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
-	$microsoftOffice.FlatAppearance.BorderSize=0
-
-
-	## -- Microsoft Office 2021
-
-	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 36
-	$System_Drawing_Size.Height = 36
-	$microsoftOffice2021.Size = $System_Drawing_Size
-	$microsoftOffice2021.TabIndex = 1
-	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
-	$microsoftOffice2021.location = $System_Drawing_Point
-	$microsoftOffice2021.DataBindings.DefaultDataSourceUpdateMode = 0
-	$microsoftOffice2021.Name = "microsoftOffice2021"
-	$microsoftOffice2021.Checked = 0
-	$microsoftOffice2021.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\microsoftOffice.ico")
-	$crcInstaller.Controls.Add($microsoftOffice2021)
-	$microsoftOffice2021.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
-	$microsoftOffice2021.FlatAppearance.BorderSize=0
 
 
 	## -- Mozilla Firefox
@@ -2116,26 +1893,6 @@ function computerRepairCentreInstaller {
 	$crcInstaller.Controls.Add($teamViewer)
 	$teamViewer.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$teamViewer.FlatAppearance.BorderSize=0
-
-
-	## -- uBlock Origin
-
-	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 36
-	$System_Drawing_Size.Height = 36
-	$uBlockOrigin.Size = $System_Drawing_Size
-	$uBlockOrigin.TabIndex = 7
-	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 4)
-	$uBlockOrigin.location = $System_Drawing_Point
-	$uBlockOrigin.DataBindings.DefaultDataSourceUpdateMode = 0
-	$uBlockOrigin.Name = "uBlockOrigin"
-	$uBlockOrigin.Checked = 0
-	$uBlockOrigin.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\uBlockOrigin.ico")
-	$crcInstaller.Controls.Add($uBlockOrigin)
-	$uBlockOrigin.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
-	$uBlockOrigin.FlatAppearance.BorderSize=0
 
 
 	## -- VLC Media Player
