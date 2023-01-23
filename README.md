@@ -1,7 +1,12 @@
 [![built-in-PowerShell](https://img.shields.io/badge/Built%20in-PowerShell-blue)](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2) ![Choco](https://img.shields.io/badge/Powered%20by-Chocolatey-brown) ![Arch](https://img.shields.io/badge/Arch-x86%20|%20AMD64-blue) ![OS](https://img.shields.io/badge/OS-Windows%2010%20|%20Windows%2011-green)
 
+<<<<<<< HEAD
 ## NorthPoint Installer 5.2023.01.23.3
 ###### Copyright (c) Charlie Howard 2023 All rights reserved.
+=======
+## NorthPoint Installer 4.2022.12.19.0
+###### Copyright (c) Charlie Howard 2016-2022 All rights reserved.
+>>>>>>> parent of 8a830f9 (Update 4.2022.12.28.0)
 
 When run you will get a form that allows to select what programs you wish to install.
 
@@ -37,10 +42,6 @@ Removed Microsoft Office 2019 and 2021.
 Removed HashTab.
 Removed uBlock Origin.
 Disabled Kaspersky for now until I can work out a silent install.
-
-**Update 4.2022.12.19.0**
-
-Updated copyright.
 
 **Update 4.2022.12.19.0**
 
