@@ -62,14 +62,6 @@ function download {
 			$microsoftOfficePath = "C:\Computer Repair Centre\microsoftOffice.ico"
 			$microsoftOffice2007URL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/microsoftOffice2007.ico"
 			$microsoftOffice2007Path = "C:\Computer Repair Centre\microsoftOffice2007.ico"
-			$microsoftOfficeXMLURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/ProPlusVLK2019.xml"
-			$microsoftOfficeXMLPath = "C:\Computer Repair Centre\ProPlusVLK2019.xml"
-			$microsoftOfficeSetupURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/setup.exe"
-			$microsoftOfficeSetupPath = "C:\Computer Repair Centre\setup.exe"
-			$microsoftOfficeActivatorURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/officeActivator.zip"
-			$microsoftOfficeActivatorPath = "C:\Computer Repair Centre\officeActivator.zip"
-			$uBlockOriginURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/uBlockOrigin.ico"
-			$uBlockOriginPath = "C:\Computer Repair Centre\uBlockOrigin.ico"
 			$vlcMediaPlayerURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/vlcMediaPlayer.ico"
 			$vlcMediaPlayerPath = "C:\Computer Repair Centre\vlcMediaPlayer.ico"
 			$bingURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/bing.ico"
@@ -78,14 +70,6 @@ function download {
 			$nightModePath = "C:\Computer Repair Centre\nightMode.ico"
 			$iTunesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/iTunes.ico"
 			$iTunesPath = "C:\Computer Repair Centre\iTunes.ico"
-			$chromeExtensionURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/chromeExtension.ps1"
-			$chromeExtensionPath = "C:\Computer Repair Centre\chromeExtension.ps1"
-			$firefoxExtensionURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/firefoxExtension.ps1"
-			$firefoxExtensionPath = "C:\Computer Repair Centre\firefoxExtension.ps1"
-			$mozillaLocalSettingsURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/local-settings.js"
-			$mozillaLocalSettingsPath = "C:\Computer Repair Centre\local-settings.js"
-			$mozillaConfigURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/mozilla.cfg"
-			$mozillaConfigPath = "C:\Computer Repair Centre\mozilla.cfg"
 			$setDefaultBrowserURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/SetDefaultBrowser.exe"
 			$setDefaultBrowserPath = "C:\Computer Repair Centre\setDefaultBrowser.exe"
 			$bingWallpaperURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/bingWallpaper.zip"
@@ -108,8 +92,6 @@ function download {
 			$solitareIconPath = "C:\Computer Repair Centre\solitare.ico"
 			$HPURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/HP.ico"
 			$HPPath = "C:\Computer Repair Centre\HP.ico"
-			$wingetURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/winget.msixbundle"
-			$wingetPath = "C:\Computer Repair Centre\winget.msixbundle"
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $googleChromeURL -OutFile $googleChromePath
@@ -138,29 +120,13 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $nightModeURL -OutFile $nightModePath
 			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $uBlockOriginURL -OutFile $uBlockOriginPath
-			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $computerRepairCentreOEMURL -OutFile $computerRepairCentreOEMPath
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $chromeExtensionURL -OutFile $ChromeExtensionPath
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $firefoxExtensionURL -OutFile $firefoxExtensionPath
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $mozillaConfigURL -OutFile $mozillaConfigPath
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $mozillaLocalSettingsURL -OutFile $mozillaLocalSettingsPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $setDefaultBrowserURL -OutFile $setDefaultBrowserPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $microsoftOfficeURL -OutFile $microsoftOfficePath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $microsoftOffice2007URL -OutFile $microsoftOffice2007Path
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $microsoftOfficeSetupURL -OutFile $microsoftOfficeSetupPath
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $microsoftOfficeXMLURL -OutFile $microsoftOfficeXMLPath
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $microsoftOfficeActivatorURL -OutFile $microsoftOfficeActivatorPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $bingWallpaperURL -OutFile $bingWallpaperPath
 			$syncHash.progressBar.PerformStep()
@@ -181,8 +147,6 @@ function download {
 			Invoke-RestMethod -Uri $solitareIconURL -OutFile $solitareIconPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $HPURL -OutFile $HPPath
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $wingetURL -OutFile $wingetPath
 			$syncHash.progressBar.PerformStep()
 			$syncHash.downloadBox.Close()
 		})
@@ -231,7 +195,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 36
+	$progressBar.Maximum = 28
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$downloadBox.Controls.Add($progressBar)
@@ -395,7 +359,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.01.23.2")
+				$syncHash.progress.Items.Add("Current version: 5.2023.01.23.3")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 23rd of January 2023")
@@ -458,7 +422,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 					Start-Sleep 10
 				}
-				$syncHash.progressBar.Maximum = 9
+				$syncHash.progressBar.Maximum = 7
 				if ($syncHash.sleep.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.crc.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.mozillaFirefox.Checked) { $syncHash.progressBar.Maximum += 1 }
@@ -535,25 +499,6 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.Items.Add("Installing all prerequisites...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Installing winget...")
-				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-				$syncHash.progress.SelectedIndex = -1;
-				add-appxpackage -Path "C:\Computer Repair Centre\winget.msixbundle"
-				$syncHash.progressBar.PerformStep()
-				$syncHash.progress.Items.Add("Installing Microsoft .NET Windows Desktop Runtime 3.1...")
-				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-				$syncHash.progress.SelectedIndex = -1;
-				$programList = winget list
-				if ($programList -like '*Microsoft.DotNet.DesktopRuntime.3_1*') { 
-					$syncHash.progress.Items.Add("Microsoft .NET Windows Desktop Runtime 3.1 is already installed.")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progressBar.PerformStep()
-				}
-				else {
-					winget install -e --id Microsoft.DotNet.DesktopRuntime.3_1 --accept-source-agreements --accept-package-agreements
-					$syncHash.progressBar.PerformStep()
-				}
 				$syncHash.progress.Items.Add("Installing Microsoft .NET Windows Desktop Runtime 5.0...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
@@ -1484,7 +1429,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.01.23.2"
+	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.01.23.3"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1737,7 +1682,7 @@ function computerRepairCentreInstaller {
 	$kaspersky.location = $System_Drawing_Point
 	$kaspersky.DataBindings.DefaultDataSourceUpdateMode = 0
 	$kaspersky.Name = "kaspersky"
-	$kaspersky.Checked = 1
+	$kaspersky.Checked = 0
 	$kaspersky.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\kasperskyInternetSecurity.ico")
 #	$crcInstaller.Controls.Add($kaspersky)
 	$kaspersky.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
@@ -1752,8 +1697,8 @@ function computerRepairCentreInstaller {
 	$libreOffice.Size = $System_Drawing_Size
 	$libreOffice.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 1)
+	$System_Drawing_Point.X = 16 + (45 * 0)
+	$System_Drawing_Point.Y = 5 + (31 * 8)
 	$libreOffice.location = $System_Drawing_Point
 	$libreOffice.DataBindings.DefaultDataSourceUpdateMode = 0
 	$libreOffice.Name = "libreOffice"
@@ -1773,7 +1718,7 @@ function computerRepairCentreInstaller {
 	$malwareBytes.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 1)
 	$malwareBytes.location = $System_Drawing_Point
 	$malwareBytes.DataBindings.DefaultDataSourceUpdateMode = 0
 	$malwareBytes.Name = "malwareBytes"
@@ -1793,7 +1738,7 @@ function computerRepairCentreInstaller {
 	$microsoftOffice2007.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 3)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
 	$microsoftOffice2007.location = $System_Drawing_Point
 	$microsoftOffice2007.DataBindings.DefaultDataSourceUpdateMode = 0
 	$microsoftOffice2007.Name = "microsoftOffice2007"
@@ -1813,7 +1758,7 @@ function computerRepairCentreInstaller {
 	$mozillaFirefox.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 6)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$mozillaFirefox.location = $System_Drawing_Point
 	$mozillaFirefox.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaFirefox.Name = "mozillaFirefox"
@@ -1833,7 +1778,7 @@ function computerRepairCentreInstaller {
 	$mozillaThunderbird.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 7)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
 	$mozillaThunderbird.location = $System_Drawing_Point
 	$mozillaThunderbird.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaThunderbird.Name = "mozillaThunderbird"
@@ -1852,8 +1797,8 @@ function computerRepairCentreInstaller {
 	$skype.Size = $System_Drawing_Size
 	$skype.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 1)
+	$System_Drawing_Point.X = 16 + (45 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
 	$skype.location = $System_Drawing_Point
 	$skype.DataBindings.DefaultDataSourceUpdateMode = 0
 	$skype.Name = "skype"
@@ -1872,8 +1817,8 @@ function computerRepairCentreInstaller {
 	$teams.Size = $System_Drawing_Size
 	$teams.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 2)
+	$System_Drawing_Point.X = 16 + (45 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 6)
 	$teams.location = $System_Drawing_Point
 	$teams.DataBindings.DefaultDataSourceUpdateMode = 0
 	$teams.Name = "teams"
@@ -1892,8 +1837,8 @@ function computerRepairCentreInstaller {
 	$teamViewer.Size = $System_Drawing_Size
 	$teamViewer.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 3)
+	$System_Drawing_Point.X = 16 + (45 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$teamViewer.location = $System_Drawing_Point
 	$teamViewer.DataBindings.DefaultDataSourceUpdateMode = 0
 	$teamViewer.Name = "teamViewer"
@@ -1912,8 +1857,8 @@ function computerRepairCentreInstaller {
 	$vlc.Size = $System_Drawing_Size
 	$vlc.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$System_Drawing_Point.X = 16 + (45 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 8)
 	$vlc.location = $System_Drawing_Point
 	$vlc.DataBindings.DefaultDataSourceUpdateMode = 0
 	$vlc.Name = "vlc"
@@ -1933,7 +1878,7 @@ function computerRepairCentreInstaller {
 	$solitare.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 6)
+	$System_Drawing_Point.Y = 5 + (31 * 1)
 	$solitare.location = $System_Drawing_Point
 	$solitare.DataBindings.DefaultDataSourceUpdateMode = 0
 	$solitare.Name = "solitare"
@@ -1953,7 +1898,7 @@ function computerRepairCentreInstaller {
 	$zoom.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 7)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
 	$zoom.location = $System_Drawing_Point
 	$zoom.DataBindings.DefaultDataSourceUpdateMode = 0
 	$zoom.Name = "zoom"
