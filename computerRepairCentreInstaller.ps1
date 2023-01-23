@@ -108,8 +108,8 @@ function download {
 			$solitareIconPath = "C:\Computer Repair Centre\solitare.ico"
 			$HPURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/HP.ico"
 			$HPPath = "C:\Computer Repair Centre\HP.ico"
-			$wingetURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/winget.ps1"
-			$wingetPath = "C:\Computer Repair Centre\winget.ps1"
+			$wingetURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/winget.msixbundle"
+			$wingetPath = "C:\Computer Repair Centre\winget.msixbundle"
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $googleChromeURL -OutFile $googleChromePath
@@ -395,7 +395,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.01.23.1")
+				$syncHash.progress.Items.Add("Current version: 5.2023.01.23.2")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 23rd of January 2023")
@@ -538,7 +538,8 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.Items.Add("Installing winget...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				& 'C:\Computer Repair Centre\winget.ps1'
+				add-appxpackage -Path "C:\Computer Repair Centre\winget.msixbundle"
+				$syncHash.progressBar.PerformStep()
 				$syncHash.progress.Items.Add("Installing Microsoft .NET Windows Desktop Runtime 3.1...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
@@ -1483,7 +1484,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.01.23.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.01.23.2"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size

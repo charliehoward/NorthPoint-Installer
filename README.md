@@ -1,6 +1,6 @@
 [![built-in-PowerShell](https://img.shields.io/badge/Built%20in-PowerShell-blue)](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2) ![Choco](https://img.shields.io/badge/Powered%20by-Chocolatey-brown) ![Arch](https://img.shields.io/badge/Arch-x86%20|%20AMD64-blue) ![OS](https://img.shields.io/badge/OS-Windows%2010%20|%20Windows%2011-green)
 
-## NorthPoint Installer 5.2023.01.23.1
+## NorthPoint Installer 5.2023.01.23.2
 ###### Copyright (c) Charlie Howard 2023 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -16,6 +16,10 @@ Sets the default browser to either Google Chrome or Mozilla Firefox depending on
 Can disable sleep and screen timeout if plugged into DC power.
 
 ### Changelog
+
+**Update 5.2023.01.23.1**
+
+Changed the way winget installs.
 
 **Update 5.2023.01.23.1**
 
