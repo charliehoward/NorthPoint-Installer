@@ -1,6 +1,6 @@
 [![built-in-PowerShell](https://img.shields.io/badge/Built%20in-PowerShell-blue)](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2) ![Choco](https://img.shields.io/badge/Powered%20by-Chocolatey-brown) ![Arch](https://img.shields.io/badge/Arch-x86%20|%20AMD64-blue) ![OS](https://img.shields.io/badge/OS-Windows%2010%20|%20Windows%2011-green)
 
-## NorthPoint Installer 5.2023.01.23.4
+## NorthPoint Installer 5.2023.01.23.5
 ###### Copyright (c) Charlie Howard 2023 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -17,9 +17,14 @@ Can disable sleep and screen timeout if plugged into DC power.
 
 ### Changelog
 
+**Update 5.2023.01.23.5**
+
+Fixed issue with Microsoft .NET Windows Desktop Runtime 3.1.
+
 **Update 5.2023.01.23.4**
 
 If run on Windows 10 it will install winget and thge prerequisites.
+Added Microsoft .NET Windows Desktop Runtime 3.1.
 Fixed hanging issue. 
 
 **Update 5.2023.01.23.3**
