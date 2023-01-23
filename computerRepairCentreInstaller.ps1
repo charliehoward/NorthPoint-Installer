@@ -108,6 +108,8 @@ function download {
 			$solitareIconPath = "C:\Computer Repair Centre\solitare.ico"
 			$HPURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/HP.ico"
 			$HPPath = "C:\Computer Repair Centre\HP.ico"
+			$wingetURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/winget.ps1"
+			$wingetPath = "C:\Computer Repair Centre\winget.ps1"
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $googleChromeURL -OutFile $googleChromePath
@@ -180,6 +182,8 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $HPURL -OutFile $HPPath
 			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $wingetURL -OutFile $wingetPath
+			$syncHash.progressBar.PerformStep()
 			$syncHash.downloadBox.Close()
 		})
 	$psCmd.Runspace = $processRunspace
@@ -227,7 +231,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 35
+	$progressBar.Maximum = 36
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$downloadBox.Controls.Add($progressBar)
@@ -391,7 +395,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.01.23.0")
+				$syncHash.progress.Items.Add("Current version: 5.2023.01.23.1")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 23rd of January 2023")
@@ -454,7 +458,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 					Start-Sleep 10
 				}
-				$syncHash.progressBar.Maximum = 8
+				$syncHash.progressBar.Maximum = 9
 				if ($syncHash.sleep.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.crc.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.mozillaFirefox.Checked) { $syncHash.progressBar.Maximum += 1 }
@@ -531,6 +535,10 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.Items.Add("Installing all prerequisites...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
+				$syncHash.progress.Items.Add("Installing winget...")
+				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+				$syncHash.progress.SelectedIndex = -1;
+				& 'C:\Computer Repair Centre\winget.ps1'
 				$syncHash.progress.Items.Add("Installing Microsoft .NET Windows Desktop Runtime 3.1...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
