@@ -375,7 +375,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.01.24.3")
+				$syncHash.progress.Items.Add("Current version: 5.2023.01.24.4")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 24th of January 2023")
@@ -921,7 +921,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing TeamViewer...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						winget install -e --id TeamViewer.TeamViewer --accept-source-agreements --accept-package-agreements
+						winget install TeamViewer.TeamViewer --accept-source-agreements --accept-package-agreements
 						$programList = winget list
 						if ($programList -like '*TeamViewer*') {
 							$syncHash.progress.Items.Add("Completed installation of TeamViewer.")
@@ -937,7 +937,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install -e --id TeamViewer.TeamViewer --force --accept-source-agreements --accept-package-agreements
+							winget install TeamViewer.TeamViewer --force --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -1333,13 +1333,6 @@ function computerRepairCentreInstaller {
 		$psCmd.Runspace = $processRunspace
 		$data = $psCmd.BeginInvoke()
 	}
-	$handler_chocoReset_Click =
-	{
-		$syncHash.progress.Items.Add("Removing previous installations of Chocolatey.")
-		Remove-Item -Path "C:\ProgramData\chocolatey" -Force -Recurse
-		$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-		$syncHash.progress.SelectedIndex = -1;
-	}
 	$handler_reboot_Click =
 	{
 		Restart-Computer -Force
@@ -1357,7 +1350,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.01.24.3"
+	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.01.24.4"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
