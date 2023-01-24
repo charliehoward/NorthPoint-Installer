@@ -375,10 +375,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.01.23.9")
+				$syncHash.progress.Items.Add("Current version: 5.2023.01.24.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Last updated: 23rd of January 2023")
+				$syncHash.progress.Items.Add("Last updated: 24th of January 2023")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -568,7 +568,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progressBar.PerformStep()
 				}
 				else {
-					winget install -e --id Microsoft.DotNet.DesktopRuntime.7 --accept-source-agreements --accept-package-agreements
+					winget install -e --id Microsoft.DotNet.DesktopRuntime.7 --accept-source-agreements --accept-package-agreements 
 					$syncHash.progressBar.PerformStep()
 				}
 				$syncHash.progress.Items.Add("Installing 7-zip...")
@@ -599,7 +599,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
-						winget install -e --id 7zip.7zip --accept-source-agreements --accept-package-agreements
+						winget install -e --id 7zip.7zip --accept-source-agreements --accept-package-agreements --force
 					}
 				}
 				$syncHash.progress.Items.Add("Unzipping all Bing Wallpaper files.")
@@ -647,7 +647,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install -e --id Google.Chrome --accept-source-agreements --accept-package-agreements
+							winget install -e --id Google.Chrome --accept-source-agreements --accept-package-agreements --force
 						}
 					}
 				}
@@ -682,7 +682,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install -e --id Apple.iTunes --accept-source-agreements --accept-package-agreements
+							winget install -e --id Apple.iTunes --accept-source-agreements --accept-package-agreements --force
 						}
 					}
 				}
@@ -731,7 +731,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install -e --id TheDocumentFoundation.LibreOffice --accept-source-agreements --accept-package-agreements
+							winget install -e --id TheDocumentFoundation.LibreOffice --accept-source-agreements --accept-package-agreements --force
 						}
 					}
 				}
@@ -791,7 +791,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install -e --id Malwarebytes.Malwarebytes --accept-source-agreements --accept-package-agreements
+							winget install -e --id Malwarebytes.Malwarebytes --accept-source-agreements --accept-package-agreements --force
 						}
 					}
 				}	
@@ -826,7 +826,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install -e --id Mozilla.Firefox --accept-source-agreements --accept-package-agreements
+							winget install -e --id Mozilla.Firefox --accept-source-agreements --accept-package-agreements --force
 						}
 					}
 				}
@@ -861,7 +861,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install -e --id Mozilla.Thunderbird --accept-source-agreements --accept-package-agreements
+							winget install -e --id Mozilla.Thunderbird --accept-source-agreements --accept-package-agreements --force
 						}
 					}
 				}
@@ -896,7 +896,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install -e --id Microsoft.Skype --accept-source-agreements --accept-package-agreements
+							winget install -e --id Microsoft.Skype --accept-source-agreements --accept-package-agreements --force
 						}
 					}
 				}
@@ -931,7 +931,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install -e --id TeamViewer.TeamViewer --accept-source-agreements --accept-package-agreements
+							winget install -e --id TeamViewer.TeamViewer --accept-source-agreements --accept-package-agreements --force
 						}
 					}
 				}
@@ -966,7 +966,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install -e --id Microsoft.Teams --accept-source-agreements --accept-package-agreements
+							winget install -e --id Microsoft.Teams --accept-source-agreements --accept-package-agreements --force
 						}
 					}
 				}
@@ -1001,7 +1001,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install -e --id VideoLAN.VLC --accept-source-agreements --accept-package-agreements
+							winget install -e --id VideoLAN.VLC --accept-source-agreements --accept-package-agreements --force
 						}
 					}
 				}
@@ -1055,7 +1055,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install -e --id Zoom.Zoom --accept-source-agreements --accept-package-agreements
+							winget install -e --id Zoom.Zoom --accept-source-agreements --accept-package-agreements --force
 						}
 					}
 				}
@@ -1351,7 +1351,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.01.23.9"
+	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.01.24.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1591,7 +1591,7 @@ function computerRepairCentreInstaller {
 	$iTunes.FlatAppearance.BorderSize=0
 
 
-	## -- Kaspersky Internet Security
+	## -- Kaspersky Standard
 
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 36
