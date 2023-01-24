@@ -375,7 +375,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.01.24.0")
+				$syncHash.progress.Items.Add("Current version: 5.2023.01.24.1")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 24th of January 2023")
@@ -459,7 +459,7 @@ function computerRepairCentreInstaller {
 				if ($syncHash.operatingSystem -like '*6.1*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*6.2*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*6.3*') { $syncHash.progressBar.Maximum += 1 }
-				if ($syncHash.operatingSystem -like '*10.0.1*') { $syncHash.progressBar.Maximum += 6 }
+				if ($syncHash.operatingSystem -like '*10.0.1*') { $syncHash.progressBar.Maximum += 7 }
 				if ($syncHash.operatingSystem -like '*10.0.2*') { $syncHash.progressBar.Maximum += 4 }
 				if ($syncHash.sleep -like '*1*' ) {
 					$syncHash.progress.Items.Add("This computer is a refurb, disable sleep on AC power and will reboot.")
@@ -516,6 +516,12 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($syncHash.operatingSystem -like '*10.0.1*') { 
+					$syncHash.progress.Items.Add("Updating Windows Store...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Get-CimInstance -Namespace "Root\cimv2\mdm\dmmap" -ClassName "MDM_EnterpriseModernAppManagement_AppManagement01" | Invoke-CimMethod -MethodName UpdateScanMethod
+					$syncHash.progressBar.PerformStep()
+					Start-Sleep 5
 					$syncHash.progress.Items.Add("Installing winget...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
@@ -1351,7 +1357,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.01.24.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.01.24.1"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
