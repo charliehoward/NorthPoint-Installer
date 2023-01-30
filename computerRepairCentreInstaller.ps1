@@ -100,6 +100,8 @@ function download {
 			$wingetPath = "C:\Computer Repair Centre\MicrosoftDesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 			$kasperskyEXEURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/kaspersky.exe"
 			$kasperskyEXEPath = "C:\Computer Repair Centre\kaspersky.exe"
+			$powURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/noSleep.pow"
+			$powPath = "C:\Computer Repair Centre\noSleep.pow"
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $googleChromeURL -OutFile $googleChromePath
@@ -164,6 +166,8 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $kasperskyEXEURL -OutFile $kasperskyEXEPath
 			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $noSleepURL -OutFile $noSleepPath
+			$syncHash.progressBar.PerformStep()
 			$syncHash.downloadBox.Close()
 		})
 	$psCmd.Runspace = $processRunspace
@@ -211,7 +215,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 32
+	$progressBar.Maximum = 33
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$downloadBox.Controls.Add($progressBar)
@@ -375,10 +379,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.01.24.4")
+				$syncHash.progress.Items.Add("Current version: 5.2023.01.30.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Last updated: 24th of January 2023")
+				$syncHash.progress.Items.Add("Last updated: 30th of January 2023")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -529,6 +533,17 @@ function computerRepairCentreInstaller {
 					Add-AppxPackage -Path "C:\Computer Repair Centre\Microsoft.VCLibs.x64.14.00.Desktop.Appx"
 					Add-AppxPackage -Path "C:\Computer Repair Centre\MicrosoftDesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 					$syncHash.progressBar.PerformStep()
+				}
+				if ($syncHash.operatingSystem -like '*10.0.2*') { 
+					if ($syncHash.sleep.Checked) { 
+						$syncHash.progress.Items.Add("Disabling sleep on AC power...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						powercfg /import "C:\Computer Repair Centre\noSleep.pow" 381b4222-f694-41f0-9685-ff5bb260df2e
+						Start-Sleep 2
+						powercfg /setactive 381b4222-f694-41f0-9685-ff5bb260df2e
+						$syncHash.progressBar.PerformStep()
+					}
 				}
 				$syncHash.progress.Items.Add("Installing Microsoft .NET Windows Desktop Runtime 3.1...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1194,19 +1209,6 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 					}
-					if ($syncHash.refurbBox.Checked) {
-						$syncHash.progress.Items.Add("Disabling sleep mode on AC power.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						Start-Sleep 2
-						Powercfg /Change monitor-timeout-ac 0
-						Start-Sleep 10
-						Powercfg /Change standby-timeout-ac 0
-						$syncHash.progress.Items.Add("Sleep mode has been disabled on AC power.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-					}
 					& 'C:\Computer Repair Centre\deleteFilesTask.ps1'
 					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1274,19 +1276,6 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 					}
-					if ($syncHash.refurbBox.Checked) {
-						$syncHash.progress.Items.Add("Disabling sleep mode on AC power.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						Start-Sleep 2
-						Powercfg /Change monitor-timeout-ac 0
-						Start-Sleep 10
-						Powercfg /Change standby-timeout-ac 0
-						$syncHash.progress.Items.Add("Sleep mode has been disabled on AC power.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-					}
 					& 'C:\Computer Repair Centre\deleteFilesTask.ps1'
 					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1350,7 +1339,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.01.24.4"
+	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.01.30.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
