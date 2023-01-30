@@ -100,8 +100,6 @@ function download {
 			$wingetPath = "C:\Computer Repair Centre\MicrosoftDesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 			$kasperskyEXEURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/kaspersky.exe"
 			$kasperskyEXEPath = "C:\Computer Repair Centre\kaspersky.exe"
-			$powURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/noSleep.pow"
-			$powPath = "C:\Computer Repair Centre\noSleep.pow"
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $googleChromeURL -OutFile $googleChromePath
@@ -166,8 +164,6 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $kasperskyEXEURL -OutFile $kasperskyEXEPath
 			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $noSleepURL -OutFile $noSleepPath
-			$syncHash.progressBar.PerformStep()
 			$syncHash.downloadBox.Close()
 		})
 	$psCmd.Runspace = $processRunspace
@@ -215,7 +211,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 33
+	$progressBar.Maximum = 32
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$downloadBox.Controls.Add($progressBar)
@@ -294,7 +290,6 @@ function computerRepairCentreInstaller {
 	$wallpaper = New-Object System.Windows.Forms.CheckBox
 	$nightMode = New-Object System.Windows.Forms.CheckBox
 	$rebootBox = New-Object System.Windows.Forms.CheckBox
-	$sleep = New-Object System.Windows.Forms.CheckBox
 	$zoom = New-Object System.Windows.Forms.CheckBox
 	$romsey = New-Object System.Windows.Forms.CheckBox
 	$chandlersFord = New-Object System.Windows.Forms.CheckBox
@@ -330,7 +325,6 @@ function computerRepairCentreInstaller {
 	$syncHash.wallpapersPath = $wallpapersPath
 	$syncHash.rebootBox = $rebootBox
 	$syncHash.reboot = $reboot
-	$syncHash.sleep = $sleep
 	$syncHash.zoom = $zoom
 	$syncHash.HPEliteBook = $HPEliteBook
 	$syncHash.romsey = $romsey
@@ -379,7 +373,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.01.30.0")
+				$syncHash.progress.Items.Add("Current version: 5.2023.01.30.1")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 30th of January 2023")
@@ -442,8 +436,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 					Start-Sleep 10
 				}
-				$syncHash.progressBar.Maximum = 8
-				if ($syncHash.sleep.Checked) { $syncHash.progressBar.Maximum += 1 }
+				$syncHash.progressBar.Maximum = 9
 				if ($syncHash.crc.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.mozillaFirefox.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.mozillaThunderbird.Checked) { $syncHash.progressBar.Maximum += 1 }
@@ -534,17 +527,13 @@ function computerRepairCentreInstaller {
 					Add-AppxPackage -Path "C:\Computer Repair Centre\MicrosoftDesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 					$syncHash.progressBar.PerformStep()
 				}
-				if ($syncHash.operatingSystem -like '*10.0.2*') { 
-					if ($syncHash.sleep.Checked) { 
-						$syncHash.progress.Items.Add("Disabling sleep on AC power...")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						powercfg /import "C:\Computer Repair Centre\noSleep.pow" 381b4222-f694-41f0-9685-ff5bb260df2e
-						Start-Sleep 2
-						powercfg /setactive 381b4222-f694-41f0-9685-ff5bb260df2e
-						$syncHash.progressBar.PerformStep()
-					}
-				}
+				$syncHash.progress.Items.Add("Disabling sleep on AC power...")
+				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+				$syncHash.progress.SelectedIndex = -1;
+				powercfg /change monitor-timeout-ac 0
+				Start-Sleep 2
+				powercfg /change standby-timeout-ac 0
+				$syncHash.progressBar.PerformStep()
 				$syncHash.progress.Items.Add("Installing Microsoft .NET Windows Desktop Runtime 3.1...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
@@ -1339,7 +1328,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.01.30.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.01.30.1"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1839,26 +1828,6 @@ function computerRepairCentreInstaller {
 	$rebootBox.FlatAppearance.BorderSize=0
 
 
-	## -- Sleep Box
-
-	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 50
-	$System_Drawing_Size.Height = 36
-	$sleep.Size = $System_Drawing_Size
-	$sleep.TabIndex = 6
-	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 170 + (50 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 7)
-	$sleep.location = $System_Drawing_Point
-	$sleep.DataBindings.DefaultDataSourceUpdateMode = 0
-	$sleep.Name = "sleep"
-	$sleep.Checked = $HPEliteBook
-	$sleep.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\sleep.ico")
-	$crcInstaller.Controls.Add($sleep)
-	$sleep.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
-	$sleep.FlatAppearance.BorderSize=0
-
-
 	## -- Chandlers Ford Box
 
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1867,7 +1836,7 @@ function computerRepairCentreInstaller {
 	$chandlersFord.Size = $System_Drawing_Size
 	$chandlersFord.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 170 + (50 * 2)
+	$System_Drawing_Point.X = 170 + (50 * 1)
 	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$chandlersFord.location = $System_Drawing_Point
 	$chandlersFord.DataBindings.DefaultDataSourceUpdateMode = 0
@@ -1887,7 +1856,7 @@ function computerRepairCentreInstaller {
 	$romsey.Size = $System_Drawing_Size
 	$romsey.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 170 + (50 * 3)
+	$System_Drawing_Point.X = 170 + (50 * 2)
 	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$romsey.location = $System_Drawing_Point
 	$romsey.DataBindings.DefaultDataSourceUpdateMode = 0
@@ -1907,7 +1876,7 @@ function computerRepairCentreInstaller {
 	$highcliffe.Size = $System_Drawing_Size
 	$highcliffe.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 170 + (50 * 4)
+	$System_Drawing_Point.X = 170 + (50 * 3)
 	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$highcliffe.location = $System_Drawing_Point
 	$highcliffe.DataBindings.DefaultDataSourceUpdateMode = 0
