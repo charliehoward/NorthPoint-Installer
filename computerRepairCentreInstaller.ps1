@@ -78,8 +78,6 @@ function download {
 			$deleteFilesPath = "C:\Computer Repair Centre\deleteFiles.zip"
 			$zoomURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/zoom.ico"
 			$zoomPath = "C:\Computer Repair Centre\zoom.ico"
-			$sleepURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sleep.ico"
-			$sleepPath = "C:\Computer Repair Centre\sleep.ico"
 			$restartURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/restart.ico"
 			$restartPath = "C:\Computer Repair Centre\restart.ico"
 			$chandlersFordURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/chandlersFord.ico"
@@ -141,8 +139,6 @@ function download {
 			Invoke-RestMethod -Uri $zoomURL -OutFile $zoomPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $deleteFilesURL -OutFile $deleteFilesPath
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $sleepURL -OutFile $sleepPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $restartURL -OutFile $restartPath
 			$syncHash.progressBar.PerformStep()
@@ -211,7 +207,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 32
+	$progressBar.Maximum = 31
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$downloadBox.Controls.Add($progressBar)
@@ -373,7 +369,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.01.30.1")
+				$syncHash.progress.Items.Add("Current version: 5.2023.01.30.2")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 30th of January 2023")
@@ -1328,7 +1324,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.01.30.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.01.30.2"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1811,12 +1807,12 @@ function computerRepairCentreInstaller {
 	## -- Reboot Box
 
 	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 50
+	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
 	$rebootBox.Size = $System_Drawing_Size
 	$rebootBox.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 170 + (50 * 0)
+	$System_Drawing_Point.X = 170 + (50 * 7.7)
 	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$rebootBox.location = $System_Drawing_Point
 	$rebootBox.DataBindings.DefaultDataSourceUpdateMode = 0
@@ -1831,12 +1827,12 @@ function computerRepairCentreInstaller {
 	## -- Chandlers Ford Box
 
 	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 50
+	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
 	$chandlersFord.Size = $System_Drawing_Size
 	$chandlersFord.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 170 + (50 * 1)
+	$System_Drawing_Point.X = 170 + (50 * 0)
 	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$chandlersFord.location = $System_Drawing_Point
 	$chandlersFord.DataBindings.DefaultDataSourceUpdateMode = 0
@@ -1851,12 +1847,12 @@ function computerRepairCentreInstaller {
 	## -- Romsey Box
 
 	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 50
+	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
 	$romsey.Size = $System_Drawing_Size
 	$romsey.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 170 + (50 * 2)
+	$System_Drawing_Point.X = 170 + (50 * 1)
 	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$romsey.location = $System_Drawing_Point
 	$romsey.DataBindings.DefaultDataSourceUpdateMode = 0
@@ -1871,12 +1867,12 @@ function computerRepairCentreInstaller {
 	## -- Highcliffe Box
 
 	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 50
+	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
 	$highcliffe.Size = $System_Drawing_Size
 	$highcliffe.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 170 + (50 * 3)
+	$System_Drawing_Point.X = 170 + (50 * 2)
 	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$highcliffe.location = $System_Drawing_Point
 	$highcliffe.DataBindings.DefaultDataSourceUpdateMode = 0

@@ -1,11 +1,11 @@
 [![built-in-PowerShell](https://img.shields.io/badge/Built%20in-PowerShell-blue)](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2) ![winget](https://img.shields.io/badge/Powered%20by-Winget-blue) ![Arch](https://img.shields.io/badge/Arch-x86%20|%20AMD64-blue) ![OS](https://img.shields.io/badge/OS-Windows%2010%20|%20Windows%2011-green)
 
-## NorthPoint Installer 5.2023.01.30.1
+## NorthPoint Installer 5.2023.01.30.2
 ###### Copyright (c) Charlie Howard 2023 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
 
-When run it will install Microsoft .NET (5.0, 6.0, 7.0) and 7-zip by default as these are needed or recommended for the nstaller to work correctly.
+When run it will install Microsoft .NET (3.1, 5.0, 6.0, 7.0) and 7-zip by default as these are needed or recommended for the nstaller to work correctly.
 
 Has the option to install the Computer Repair Centre OEM information, Bing Wallpapers, Dark mode, Google Chrome, iTunes, LibreOffice, MalwareBytes, Microsoft Office 2007, Mozilla Firefox, Mozilla Thunderbird, Skype, Teams, TeamViewer, VLC Media Player, Windows 7 Games & Zoom.
 
@@ -13,9 +13,13 @@ If run on Windows 10 or Windows 11 it disables hibernation mode and Wi-Fi sense.
 
 Sets the default browser to either Google Chrome or Mozilla Firefox depending on what has been selected, or Firefox if both are selected.
 
-Can disable sleep and screen timeout if plugged into DC power.
+Will disable sleep and screen timeout if plugged into AC power.
 
 ### Changelog
+
+**Update 5.2023.01.30.2**
+
+That fixe worked so tied up check boxes and removed check box for sleep mode as who cares about carbon emissions.
 
 **Update 5.2023.01.30.1**
 
