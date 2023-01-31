@@ -42,8 +42,8 @@ function download {
 			$computerRepairCentreOEMPath = "C:\Computer Repair Centre\computerRepairCentreOEM.bmp"
 			$googleChromeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/googleChrome.ico"
 			$googleChromePath = "C:\Computer Repair Centre\googleChrome.ico"
-			$kasperskyInternetSecurityURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/kasperskyInternetSecurity.ico"
-			$kasperskyInternetSecurityPath = "C:\Computer Repair Centre\kasperskyInternetSecurity.ico"
+			$kasperskyStandardURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/kasperskyStandard.ico"
+			$kasperskyStandardPath = "C:\Computer Repair Centre\kasperskyStandard.ico"
 			$libreOfficeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/libreOffice.ico"
 			$libreOfficePath = "C:\Computer Repair Centre\libreOffice.ico"
 			$mozillaFirefoxURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/mozillaFirefox.ico"
@@ -96,13 +96,11 @@ function download {
 			$VCLibsPath = "C:\Computer Repair Centre\Microsoft.VCLibs.x64.14.00.Desktop.Appx"
 			$wingetURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/MicrosoftDesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 			$wingetPath = "C:\Computer Repair Centre\MicrosoftDesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
-			$kasperskyEXEURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/kaspersky.exe"
-			$kasperskyEXEPath = "C:\Computer Repair Centre\kaspersky.exe"
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $googleChromeURL -OutFile $googleChromePath
 			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $kasperskyInternetSecurityURL -OutFile $kasperskyInternetSecurityPath
+			Invoke-RestMethod -Uri $kasperskyStandardURL -OutFile $kasperskyStandardPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $libreOfficeURL -OutFile $libreOfficePath
 			$syncHash.progressBar.PerformStep()
@@ -158,8 +156,6 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $wingetURL -OutFile $wingetPath
 			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $kasperskyEXEURL -OutFile $kasperskyEXEPath
-			$syncHash.progressBar.PerformStep()
 			$syncHash.downloadBox.Close()
 		})
 	$psCmd.Runspace = $processRunspace
@@ -207,7 +203,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 31
+	$progressBar.Maximum = 30
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$downloadBox.Controls.Add($progressBar)
@@ -369,10 +365,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.01.30.3")
+				$syncHash.progress.Items.Add("Current version: 5.2023.01.31.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Last updated: 30th of January 2023")
+				$syncHash.progress.Items.Add("Last updated: 31st of January 2023")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -696,15 +692,32 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Kaspersky Standard is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progress.Items.Add("Moving Kaspersky Standard to the Desktop for manual installation...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					$DesktopPath = [Environment]::GetFolderPath("Desktop")
-					Move-Item -Path "C:\Computer Repair Centre\kaspersky.exe" -Destination "$DesktopPath\kaspersky.exe"
-					$syncHash.progress.Items.Add("Please run kaspersky.exe after installation.")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progressBar.PerformStep()
+					if ($programList -like '*Kaspersky*') { 
+						$syncHash.progress.Items.Add("Kaspersky Standard is already installed...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+					else {
+						$syncHash.progress.Items.Add("Downloading Kaspersky Standard installer...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Invoke-RestMethod -Uri "https://files.crchq.net/installer/kasStandard.exe" -OutFile "C:\Computer Repair Centre\kasStandard.exe"
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("Installing Kaspersky Standard.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						& 'C:\Computer Repair Centre\kasStandard.exe' /s /mybirthdate=1986‑12‑23 /pAGREETOEULA=1 /pAGREETOPRIVACYPOLICY=1
+						Do {
+							Start-Sleep 10
+							$programList = winget list
+						}
+						Until ($programList -like '*Kaspersky*')
+						$syncHash.progress.Items.Add("Completed installation of Kaspersky Standard.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
 				}
 				if ($syncHash.libreOffice.Checked) {
 					$syncHash.progress.Items.Add("LibreOffice is selected.")
@@ -1198,11 +1211,6 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					if ($syncHash.kaspersky.Checked) {
-						$syncHash.progress.Items.Add("Please run kaspersky.exe after installation.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-					}
 					$syncHash.progressBar.PerformStep()
 				}
 				if ($syncHash.operatingSystem -like '*10.0.2*') {
@@ -1265,11 +1273,6 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					if ($syncHash.kaspersky.Checked) {
-						$syncHash.progress.Items.Add("Please run kaspersky.exe after installation.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-					}
 					$syncHash.progressBar.PerformStep()
 				}
 				if ($syncHash.rebootBox.Checked) {
@@ -1324,7 +1327,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.01.30.3"
+	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.01.31.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1578,7 +1581,7 @@ function computerRepairCentreInstaller {
 	$kaspersky.DataBindings.DefaultDataSourceUpdateMode = 0
 	$kaspersky.Name = "kaspersky"
 	$kaspersky.Checked = 1
-	$kaspersky.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\kasperskyInternetSecurity.ico")
+	$kaspersky.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\kasperskyStandard.ico")
 	$crcInstaller.Controls.Add($kaspersky)
 	$kaspersky.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$kaspersky.FlatAppearance.BorderSize=0
