@@ -365,10 +365,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.01.31.0")
+				$syncHash.progress.Items.Add("Current version: 5.2023.02.16.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Last updated: 31st of January 2023")
+				$syncHash.progress.Items.Add("Last updated: 16th of February 2023")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -394,36 +394,20 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 				}
 				if ($synchash.christmas -like '*1*') { 
-					Start-Sleep 1
-					$syncHash.progress.Items.Add("I don't want a lot for Christmas")
+					Start-Sleep 2
+					$syncHash.progress.Items.Add("Oh, the weather outside is frightful")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Start-Sleep 1
-					$syncHash.progress.Items.Add("There is just one thing I need")
+					Start-Sleep 2
+					$syncHash.progress.Items.Add("But the fire is so delightful")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Start-Sleep 1
-					$syncHash.progress.Items.Add("I don't care about the presents")
+					Start-Sleep 2
+					$syncHash.progress.Items.Add("And since we've no place to go")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Start-Sleep 1
-					$syncHash.progress.Items.Add("Underneath the Christmas tree")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					Start-Sleep 1
-					$syncHash.progress.Items.Add("I just want you for my own")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					Start-Sleep 1
-					$syncHash.progress.Items.Add("More than you could ever know")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					Start-Sleep 1
-					$syncHash.progress.Items.Add("Make my wish come true")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					Start-Sleep 1
-					$syncHash.progress.Items.Add("All I want for Christmas is you")
+					Start-Sleep 2
+					$syncHash.progress.Items.Add("Let it snow, let it snow, let it snow")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					Start-Sleep 10
@@ -1327,7 +1311,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.01.31.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.02.16.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1371,7 +1355,7 @@ function computerRepairCentreInstaller {
 	$System_Drawing_Size.Width = 185
 	$System_Drawing_Size.Height = 23
 	$reboot.Size = $System_Drawing_Size
-	$reboot.Text = "Reboot"
+	$reboot.Text = "Restart"
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 212.5
 	$System_Drawing_Point.Y = 13
@@ -1807,26 +1791,6 @@ function computerRepairCentreInstaller {
 	$zoom.FlatAppearance.BorderSize=0
 
 
-	## -- Reboot Box
-
-	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 36
-	$System_Drawing_Size.Height = 36
-	$rebootBox.Size = $System_Drawing_Size
-	$rebootBox.TabIndex = 6
-	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 170 + (50 * 7.7)
-	$System_Drawing_Point.Y = 5 + (31 * 7)
-	$rebootBox.location = $System_Drawing_Point
-	$rebootBox.DataBindings.DefaultDataSourceUpdateMode = 0
-	$rebootBox.Name = "rebootBox"
-	$rebootBox.Checked = 1
-	$rebootBox.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\restart.ico")
-	$crcInstaller.Controls.Add($rebootBox)
-	$rebootBox.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
-	$rebootBox.FlatAppearance.BorderSize=0
-
-
 	## -- Chandlers Ford Box
 
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1885,6 +1849,26 @@ function computerRepairCentreInstaller {
 	$crcInstaller.Controls.Add($highcliffe)
 	$highcliffe.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$highcliffe.FlatAppearance.BorderSize=0
+
+
+	## -- Restart Box
+
+	$System_Drawing_Size = New-Object System.Drawing.Size
+	$System_Drawing_Size.Width = 70
+	$System_Drawing_Size.Height = 36
+	$rebootBox.Size = $System_Drawing_Size
+	$rebootBox.TabIndex = 6
+	$System_Drawing_Point = New-Object System.Drawing.Point
+	$System_Drawing_Point.X = 170 + (50 * 7.2)
+	$System_Drawing_Point.Y = 5 + (31 * 7)
+	$rebootBox.location = $System_Drawing_Point
+	$rebootBox.DataBindings.DefaultDataSourceUpdateMode = 0
+	$rebootBox.Name = "rebootBox"
+	$rebootBox.Checked = 1
+	$rebootBox.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\restart.ico")
+	$crcInstaller.Controls.Add($rebootBox)
+	$rebootBox.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$rebootBox.FlatAppearance.BorderSize=0
 
 
 	## -- Form
