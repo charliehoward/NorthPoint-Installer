@@ -54,6 +54,8 @@ function download {
 			$skypePath = "C:\Computer Repair Centre\skype.ico"
 			$teamViewerURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/teamViewer.ico"
 			$teamViewerPath = "C:\Computer Repair Centre\teamViewer.ico"
+			$anyDeskURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/anyDesk.ico"
+			$anyDeskPath = "C:\Computer Repair Centre\anyDesk.ico"
 			$teamsURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/teams.ico"
 			$teamsPath = "C:\Computer Repair Centre\teams.ico"
 			$malwareBytesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/malwareBytes.ico"
@@ -156,6 +158,8 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $wingetURL -OutFile $wingetPath
 			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $anyDeskURL -OutFile $anyDeskPath
+			$syncHash.progressBar.PerformStep()
 			$syncHash.downloadBox.Close()
 		})
 	$psCmd.Runspace = $processRunspace
@@ -203,7 +207,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 30
+	$progressBar.Maximum = 31
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$downloadBox.Controls.Add($progressBar)
@@ -287,6 +291,7 @@ function computerRepairCentreInstaller {
 	$chandlersFord = New-Object System.Windows.Forms.CheckBox
 	$highcliffe = New-Object System.Windows.Forms.CheckBox
 	$solitare = New-Object System.Windows.Forms.CheckBox
+	$anyDesk = New-Object System.Windows.Forms.CheckBox
 	$HP = New-Object System.Windows.Forms.CheckBox
 	$InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState
 	$syncHash = [hashtable]::Synchronized(@{})
@@ -326,6 +331,7 @@ function computerRepairCentreInstaller {
 	$syncHash.birthdayName = $birthdayName
 	$syncHash.solitare = $solitare
 	$syncHash.HP = $HP
+	$syncHash.anyDesk = $anyDesk
 	$synchash.christmas = $christmas
 	$synchash.halloween = $halloween
 	$b1 = $false
@@ -365,10 +371,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.03.10.0")
+				$syncHash.progress.Items.Add("Current version: 5.2023.04.21.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Last updated: 10th of March 2023")
+				$syncHash.progress.Items.Add("Last updated: 21st of April 2023")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -603,6 +609,44 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.PerformStep()
+
+				if ($syncHash.anyDesk.Checked) {
+					$syncHash.progress.Items.Add("AnyDesk is selected.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$programList = winget list
+					if ($programList -like '*AnyDesk*') { 
+						$syncHash.progress.Items.Add("anyDesk is already installed.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+					else {
+						$syncHash.progress.Items.Add("Installing AnyDesk...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						winget install -e --id AnyDeskSoftwareGmbH.AnyDesk --accept-source-agreements --accept-package-agreements
+						$programList = winget list
+						if ($programList -like '*AnyDesk*') {
+							$syncHash.progress.Items.Add("Completed installation of AnyDesk.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+						}
+						else {
+							$syncHash.progress.Items.Add("The installation of AnyDesk has failed.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progress.Items.Add("Retrying the installation of AnyDesk.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+							winget install -e --id AnyDeskSoftwareGmbH.AnyDesk --force --accept-source-agreements --accept-package-agreements
+						}
+					}
+				}
+
+
 				if ($syncHash.googleChrome.Checked) {
 					$syncHash.progress.Items.Add("Google Chrome is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1492,6 +1536,26 @@ function computerRepairCentreInstaller {
 	$nightMode.FlatAppearance.BorderSize=0
 
 
+	## -- AnyDesk
+
+	$System_Drawing_Size = New-Object System.Drawing.Size
+	$System_Drawing_Size.Width = 36
+	$System_Drawing_Size.Height = 36
+	$anyDesk.Size = $System_Drawing_Size
+	$anyDesk.TabIndex = 2
+	$System_Drawing_Point = New-Object System.Drawing.Point
+	$System_Drawing_Point.X = 16 + (45 * 0)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
+	$anyDesk.location = $System_Drawing_Point
+	$anyDesk.DataBindings.DefaultDataSourceUpdateMode = 0
+	$anyDesk.Name = "anyDesk"
+	$anyDesk.Checked = 1
+	$anyDesk.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\anyDesk.ico")
+	$crcInstaller.Controls.Add($anyDesk)
+	$anyDesk.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$anyDesk.FlatAppearance.BorderSize=0
+
+
 	## -- Google Chrome
 
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1501,7 +1565,7 @@ function computerRepairCentreInstaller {
 	$googleChrome.TabIndex = 2
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 0)
-	$System_Drawing_Point.Y = 5 + (31 * 4)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
 	$googleChrome.location = $System_Drawing_Point
 	$googleChrome.DataBindings.DefaultDataSourceUpdateMode = 0
 	$googleChrome.Name = "googleChrome"
@@ -1521,7 +1585,7 @@ function computerRepairCentreInstaller {
 	$HP.TabIndex = 2
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 0)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$System_Drawing_Point.Y = 5 + (31 * 6)
 	$HP.location = $System_Drawing_Point
 	$HP.DataBindings.DefaultDataSourceUpdateMode = 0
 	$HP.Name = "HP"
@@ -1541,7 +1605,7 @@ function computerRepairCentreInstaller {
 	$iTunes.TabIndex = 2
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 0)
-	$System_Drawing_Point.Y = 5 + (31 * 6)
+	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$iTunes.location = $System_Drawing_Point
 	$iTunes.DataBindings.DefaultDataSourceUpdateMode = 0
 	$iTunes.Name = "iTunes"
@@ -1560,8 +1624,8 @@ function computerRepairCentreInstaller {
 	$kaspersky.Size = $System_Drawing_Size
 	$kaspersky.TabIndex = 3
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 0)
-	$System_Drawing_Point.Y = 5 + (31 * 7)
+	$System_Drawing_Point.X = 16 + (45 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 1)
 	$kaspersky.location = $System_Drawing_Point
 	$kaspersky.DataBindings.DefaultDataSourceUpdateMode = 0
 	$kaspersky.Name = "kaspersky"
@@ -1581,7 +1645,7 @@ function computerRepairCentreInstaller {
 	$libreOffice.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
 	$libreOffice.location = $System_Drawing_Point
 	$libreOffice.DataBindings.DefaultDataSourceUpdateMode = 0
 	$libreOffice.Name = "libreOffice"
@@ -1601,7 +1665,7 @@ function computerRepairCentreInstaller {
 	$malwareBytes.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$malwareBytes.location = $System_Drawing_Point
 	$malwareBytes.DataBindings.DefaultDataSourceUpdateMode = 0
 	$malwareBytes.Name = "malwareBytes"
@@ -1621,7 +1685,7 @@ function computerRepairCentreInstaller {
 	$microsoftOffice2007.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 3)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
 	$microsoftOffice2007.location = $System_Drawing_Point
 	$microsoftOffice2007.DataBindings.DefaultDataSourceUpdateMode = 0
 	$microsoftOffice2007.Name = "microsoftOffice2007"
@@ -1641,7 +1705,7 @@ function computerRepairCentreInstaller {
 	$mozillaFirefox.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 4)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
 	$mozillaFirefox.location = $System_Drawing_Point
 	$mozillaFirefox.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaFirefox.Name = "mozillaFirefox"
@@ -1661,7 +1725,7 @@ function computerRepairCentreInstaller {
 	$mozillaThunderbird.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$System_Drawing_Point.Y = 5 + (31 * 6)
 	$mozillaThunderbird.location = $System_Drawing_Point
 	$mozillaThunderbird.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaThunderbird.Name = "mozillaThunderbird"
@@ -1681,7 +1745,7 @@ function computerRepairCentreInstaller {
 	$skype.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 6)
+	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$skype.location = $System_Drawing_Point
 	$skype.DataBindings.DefaultDataSourceUpdateMode = 0
 	$skype.Name = "skype"
@@ -1700,8 +1764,8 @@ function computerRepairCentreInstaller {
 	$teams.Size = $System_Drawing_Size
 	$teams.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 7)
+	$System_Drawing_Point.X = 16 + (45 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 1)
 	$teams.location = $System_Drawing_Point
 	$teams.DataBindings.DefaultDataSourceUpdateMode = 0
 	$teams.Name = "teams"
@@ -1721,11 +1785,11 @@ function computerRepairCentreInstaller {
 	$teamViewer.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
 	$teamViewer.location = $System_Drawing_Point
 	$teamViewer.DataBindings.DefaultDataSourceUpdateMode = 0
 	$teamViewer.Name = "teamViewer"
-	$teamViewer.Checked = 1
+	$teamViewer.Checked = 0
 	$teamViewer.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\teamViewer.ico")
 	$crcInstaller.Controls.Add($teamViewer)
 	$teamViewer.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
@@ -1741,7 +1805,7 @@ function computerRepairCentreInstaller {
 	$vlc.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$vlc.location = $System_Drawing_Point
 	$vlc.DataBindings.DefaultDataSourceUpdateMode = 0
 	$vlc.Name = "vlc"
@@ -1761,7 +1825,7 @@ function computerRepairCentreInstaller {
 	$solitare.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 3)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
 	$solitare.location = $System_Drawing_Point
 	$solitare.DataBindings.DefaultDataSourceUpdateMode = 0
 	$solitare.Name = "solitare"
@@ -1781,7 +1845,7 @@ function computerRepairCentreInstaller {
 	$zoom.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 4)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
 	$zoom.location = $System_Drawing_Point
 	$zoom.DataBindings.DefaultDataSourceUpdateMode = 0
 	$zoom.Name = "zoom"
