@@ -98,6 +98,8 @@ function download {
 			$VCLibsPath = "C:\Computer Repair Centre\Microsoft.VCLibs.x64.14.00.Desktop.Appx"
 			$wingetURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/MicrosoftDesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 			$wingetPath = "C:\Computer Repair Centre\MicrosoftDesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
+			$nanaZipURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/40174MouriNaruto.NanaZip_2.0.450.0_gnj4mf6z9tkrc"
+			$nanaZipPath = "C:\Computer Repair Centre\40174MouriNaruto.NanaZip_2.0.450.0_gnj4mf6z9tkrc"
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $googleChromeURL -OutFile $googleChromePath
@@ -160,6 +162,8 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $anyDeskURL -OutFile $anyDeskPath
 			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $nanaZipURL -OutFile $nanaZipPath
+			$syncHash.progressBar.PerformStep()
 			$syncHash.downloadBox.Close()
 		})
 	$psCmd.Runspace = $processRunspace
@@ -207,7 +211,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 31
+	$progressBar.Maximum = 32
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$downloadBox.Controls.Add($progressBar)
@@ -371,10 +375,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.04.29.0")
+				$syncHash.progress.Items.Add("Current version: 5.2023.07.17.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Last updated: 29th of April 2023")
+				$syncHash.progress.Items.Add("Last updated: 17th of July 2023")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -565,47 +569,27 @@ function computerRepairCentreInstaller {
 					winget install -e --id Microsoft.DotNet.DesktopRuntime.7 --accept-source-agreements --accept-package-agreements 
 					$syncHash.progressBar.PerformStep()
 				}
-				$syncHash.progress.Items.Add("Installing 7-zip...")
+
+				$syncHash.progress.Items.Add("Installing NanaZip...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$programList = winget list
-				if ($programList -like '*7zip*') { 
-						$syncHash.progress.Items.Add("7-zip is already installed.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-					}
-				else {
-					winget install -e --id 7zip.7zip --accept-source-agreements --accept-package-agreements
-					$syncHash.progressBar.PerformStep()
-					$programList = winget list
-					if ($programList -like '*7zip*') {
-						$syncHash.progress.Items.Add("Completed installation of 7-zip.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-					}
-					else {
-						$syncHash.progress.Items.Add("The installation of 7-zip has failed.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progress.Items.Add("Retrying the installation of 7-zip.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-						winget install -e --id 7zip.7zip --force --accept-source-agreements --accept-package-agreements
-					}
-				}
+				Add-AppxPackage -Path "C:\Computer Repair Centre\40174MouriNaruto.NanaZip_2.0.450.0_gnj4mf6z9tkrc.msixbundle"
+				Start-Sleep 5
+				$syncHash.progress.Items.Add("Completed installation of NanaZip.")
+				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+				$syncHash.progress.SelectedIndex = -1;
+				$syncHash.progressBar.PerformStep()
+
 				$syncHash.progress.Items.Add("Unzipping all Bing Wallpaper files.")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.PerformStep()
-				& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\bingWallpaper.zip" "-oC:\Computer Repair Centre" -aoa
+				& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZip_2.0.450.0_x64__gnj4mf6z9tkrc\NanaZipG.exe' x "C:\Computer Repair Centre\bingWallpaper.zip" "-oC:\Computer Repair Centre" -aoa
 				$syncHash.progress.Items.Add("Unzipping all cleanup files.")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.PerformStep()
-				& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\deleteFiles.zip" "-oC:\Computer Repair Centre" -aoa
+				& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZip_2.0.450.0_x64__gnj4mf6z9tkrc\NanaZipG.exe' x "C:\Computer Repair Centre\deleteFiles.zip" "-oC:\Computer Repair Centre" -aoa
 				$syncHash.progress.Items.Add("Completed installation of all prerequisites...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
@@ -843,7 +827,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					Invoke-RestMethod -Uri "https://files.crchq.net/installer/Office2007.zip" -OutFile "C:\Computer Repair Centre\Office2007.zip"
-					& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\Office2007.zip" "-oC:\Computer Repair Centre\Office2007" -aoa
+					& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZip_2.0.450.0_x64__gnj4mf6z9tkrc\NanaZipG.exe' x "C:\Computer Repair Centre\Office2007.zip" "-oC:\Computer Repair Centre\Office2007" -aoa
 					$syncHash.progressBar.PerformStep()
 					$syncHash.progress.Items.Add("Installing Microsoft Office 2007...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1078,7 +1062,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					Invoke-RestMethod -Uri "https://files.crchq.net/installer/Windows7Games.zip" -OutFile "C:\Computer Repair Centre\Windows7Games.zip"
-					& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\Windows7Games.zip" "-oC:\Computer Repair Centre" -aoa
+					& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZip_2.0.450.0_x64__gnj4mf6z9tkrc\NanaZipG.exe' x "C:\Computer Repair Centre\Windows7Games.zip" "-oC:\Computer Repair Centre" -aoa
 					$syncHash.progressBar.PerformStep()
 					$syncHash.progress.Items.Add("Installing Windows 7 Games...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1132,7 +1116,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					Invoke-RestMethod -Uri "https://files.crchq.net/installer/HPHotkey.zip" -OutFile "C:\Computer Repair Centre\HPHotkey.zip"
-					& 'C:\Program Files\7-Zip\7z.exe' x "C:\Computer Repair Centre\HPHotkey.zip" "-oC:\Computer Repair Centre" -aoa
+					& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZip_2.0.450.0_x64__gnj4mf6z9tkrc\NanaZipG.exe' x "C:\Computer Repair Centre\HPHotkey.zip" "-oC:\Computer Repair Centre" -aoa
 					$syncHash.progressBar.PerformStep()
 					$syncHash.progress.Items.Add("Installing HP Hotkey Support...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1373,7 +1357,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.04.29.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.07.17.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
