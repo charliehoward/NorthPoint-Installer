@@ -375,7 +375,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.07.17.0")
+				$syncHash.progress.Items.Add("Current version: 5.2023.07.17.1")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 17th of July 2023")
@@ -437,7 +437,7 @@ function computerRepairCentreInstaller {
 				if ($syncHash.iTunes.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.wallpaper.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.nightMode.Checked) { $syncHash.progressBar.Maximum += 1 }
-				if ($syncHash.solitare.Checked) { $syncHash.progressBar.Maximum += 2 }
+				if ($syncHash.solitare.Checked) { $syncHash.progressBar.Maximum += 3 }
 				if ($syncHash.HP.Checked) { $syncHash.progressBar.Maximum += 3 }
 				if ($syncHash.microsoftOffice2007.Checked) { $syncHash.progressBar.Maximum += 2 }
 				if ($syncHash.operatingSystem -like '*6.1*') { $syncHash.progressBar.Maximum += 1 }
@@ -1068,9 +1068,22 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					& 'C:\Computer Repair Centre\Windows7Games.exe' /S
+					Start-Sleep 30
+					$DesktopPath = [Environment]::GetFolderPath("Desktop")
 					$syncHash.progress.Items.Add("Completed installation of Windows 7 Games.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progressBar.PerformStep()
+					$syncHash.progress.Items.Add("Adding Desktop items...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games\Chess.lnk" "$DesktopPath\Chess.lnk"
+					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games\FreeCell.lnk" "$DesktopPath\FreeCell.lnk"
+					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games\Hearts.lnk" "$DesktopPath\Hearts.lnk"
+					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games\Mahjong.lnk" "$DesktopPath\Mahjong.lnk"
+					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games\Minesweeper.lnk" "$DesktopPath\Minesweeper.lnk"
+					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games\Solitaire.lnk" "$DesktopPath\Solitaire.lnk"
+					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games\SpiderSolitaire.lnk" "$DesktopPath\SpiderSolitaire.lnk"
 					$syncHash.progressBar.PerformStep()
 				}
 				if ($syncHash.zoom.Checked) {
@@ -1357,7 +1370,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.07.17.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.07.17.1"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
