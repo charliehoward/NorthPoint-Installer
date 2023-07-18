@@ -379,7 +379,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.07.18.0")
+				$syncHash.progress.Items.Add("Current version: 5.2023.07.18.1")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 18th of July 2023")
@@ -589,11 +589,13 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.PerformStep()
 				& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZip_2.0.450.0_x64__gnj4mf6z9tkrc\NanaZipG.exe' x "C:\Computer Repair Centre\bingWallpaper.zip" "-oC:\Computer Repair Centre" -aoa
+				Start-Sleep 10
 				$syncHash.progress.Items.Add("Unzipping all cleanup files.")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.PerformStep()
 				& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZip_2.0.450.0_x64__gnj4mf6z9tkrc\NanaZipG.exe' x "C:\Computer Repair Centre\deleteFiles.zip" "-oC:\Computer Repair Centre" -aoa
+				Start-Sleep 10
 				$syncHash.progress.Items.Add("Completed installation of all prerequisites...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
@@ -832,13 +834,14 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 					Invoke-RestMethod -Uri "https://files.crchq.net/installer/Office2007.zip" -OutFile "C:\Computer Repair Centre\Office2007.zip"
 					& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZip_2.0.450.0_x64__gnj4mf6z9tkrc\NanaZipG.exe' x "C:\Computer Repair Centre\Office2007.zip" "-oC:\Computer Repair Centre\Office2007" -aoa
+					Start-Sleep 20
 					$syncHash.progressBar.PerformStep()
 					$syncHash.progress.Items.Add("Installing Microsoft Office 2007...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					$DesktopPath = [Environment]::GetFolderPath("Desktop")
 					& 'C:\Computer Repair Centre\Office2007\setup.exe' /config 'C:\Computer Repair Centre\Office2007\Enterprise.WW\config.xml'
-					Start-Sleep 30
+					Start-Sleep 300
 					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office Word 2007.lnk" "$DesktopPath\Word.lnk"
 					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office Excel 2007.lnk" "$DesktopPath\Excel.lnk"
 					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office PowerPoint 2007.lnk" "$DesktopPath\PowerPoint.lnk"
@@ -1067,6 +1070,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 					Invoke-RestMethod -Uri "https://files.crchq.net/installer/Windows7Games.zip" -OutFile "C:\Computer Repair Centre\Windows7Games.zip"
 					& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZip_2.0.450.0_x64__gnj4mf6z9tkrc\NanaZipG.exe' x "C:\Computer Repair Centre\Windows7Games.zip" "-oC:\Computer Repair Centre" -aoa
+					Start-Sleep 10
 					$syncHash.progressBar.PerformStep()
 					$syncHash.progress.Items.Add("Installing Windows 7 Games...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1134,6 +1138,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 					Invoke-RestMethod -Uri "https://files.crchq.net/installer/HPHotkey.zip" -OutFile "C:\Computer Repair Centre\HPHotkey.zip"
 					& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZip_2.0.450.0_x64__gnj4mf6z9tkrc\NanaZipG.exe' x "C:\Computer Repair Centre\HPHotkey.zip" "-oC:\Computer Repair Centre" -aoa
+					Start-Sleep 10
 					$syncHash.progressBar.PerformStep()
 					$syncHash.progress.Items.Add("Installing HP Hotkey Support...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1374,7 +1379,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.07.18.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.07.18.1"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
