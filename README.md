@@ -1,6 +1,6 @@
 [![built-in-PowerShell](https://img.shields.io/badge/Built%20in-PowerShell-blue)](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2) ![winget](https://img.shields.io/badge/Powered%20by-Winget-blue) ![Arch](https://img.shields.io/badge/Arch-x86%20|%20AMD64-blue) ![OS](https://img.shields.io/badge/OS-Windows%2010%20|%20Windows%2011-green)
 
-## NorthPoint Installer 5.2023.07.17.1
+## NorthPoint Installer 5.2023.07.18.0
 ###### Copyright (c) Charlie Howard 2023 All rights reserved.
 
 When run you will get a form that allows to select what programs you wish to install.
@@ -17,6 +17,9 @@ Will disable sleep and screen timeout if plugged into AC power.
 
 ### Changelog
 
+**Update 5.2023.07.18.0**
+
+Fixed typo in NanaZip path and added Geeth's birthday.
 
 **Update 5.2023.07.17.1**
 

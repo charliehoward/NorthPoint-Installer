@@ -98,8 +98,8 @@ function download {
 			$VCLibsPath = "C:\Computer Repair Centre\Microsoft.VCLibs.x64.14.00.Desktop.Appx"
 			$wingetURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/MicrosoftDesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 			$wingetPath = "C:\Computer Repair Centre\MicrosoftDesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
-			$nanaZipURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/40174MouriNaruto.NanaZip_2.0.450.0_gnj4mf6z9tkrc"
-			$nanaZipPath = "C:\Computer Repair Centre\40174MouriNaruto.NanaZip_2.0.450.0_gnj4mf6z9tkrc"
+			$nanaZipURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/40174MouriNaruto.NanaZip_2.0.450.0_gnj4mf6z9tkrc.msixbundle"
+			$nanaZipPath = "C:\Computer Repair Centre\40174MouriNaruto.NanaZip_2.0.450.0_gnj4mf6z9tkrc.msixbundle"
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $googleChromeURL -OutFile $googleChromePath
@@ -363,6 +363,10 @@ function computerRepairCentreInstaller {
 		$birthday = 1
 		$birthdayName = "Steve"
 	}
+	if ($date -like '*25/07*') {
+		$birthday = 1
+		$birthdayName = "Geeth"
+	}
 
 
 	## -- Install button click
@@ -375,10 +379,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.07.17.1")
+				$syncHash.progress.Items.Add("Current version: 5.2023.07.18.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Last updated: 17th of July 2023")
+				$syncHash.progress.Items.Add("Last updated: 18th of July 2023")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -1370,7 +1374,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.07.17.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.07.18.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
