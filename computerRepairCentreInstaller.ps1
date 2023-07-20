@@ -379,7 +379,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.07.20.0")
+				$syncHash.progress.Items.Add("Current version: 5.2023.07.20.1")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 20th of July 2023")
@@ -437,7 +437,7 @@ function computerRepairCentreInstaller {
 				if ($syncHash.libreOffice.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.skype.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.teamViewer.Checked) { $syncHash.progressBar.Maximum += 1 }
-				if ($syncHash.anyDesk.Checked) { $syncHash.progressBar.Maximum += 2 }
+				if ($syncHash.anyDesk.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.iTunes.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.wallpaper.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.nightMode.Checked) { $syncHash.progressBar.Maximum += 1 }
@@ -650,45 +650,21 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing AnyDesk...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						winget install -e --id AnyDeskSoftwareGmbH.AnyDesk --accept-source-agreements --accept-package-agreements
-						$programList = winget list
-						if ($programList -like '*AnyDesk*') {
-							$syncHash.progress.Items.Add("Completed installation of AnyDesk.")
-							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							$syncHash.progress.SelectedIndex = -1;
-							$syncHash.progressBar.PerformStep()
+						Invoke-RestMethod -Uri "https://files.crchq.net/installer/AnyDesk.msi" -OutFile "C:\Computer Repair Centre\AnyDesk.msi"
+						& 'C:\Computer Repair Centre\AnyDesk.msi --create-shortcuts --create-desktop-icon --silent'
+						$timeout = New-TimeSpan -Minutes 5
+						$endTime = (Get-Date).Add($timeout)
+						Do {
+							Start-Sleep 10
+							$programList = winget list
 						}
-						else {
-							$syncHash.progress.Items.Add("The installation of AnyDesk has failed.")
-							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							$syncHash.progress.SelectedIndex = -1;
-							$syncHash.progress.Items.Add("Retrying the installation of AnyDesk.")
-							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							$syncHash.progress.SelectedIndex = -1;
-							$syncHash.progressBar.PerformStep()
-							winget install -e --id AnyDeskSoftwareGmbH.AnyDesk --force --accept-source-agreements --accept-package-agreements
-						}
-					}
-					$syncHash.progress.Items.Add("Checking if TeamViewer is also installed.")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					if ($programList -like '*TeamViewer*') {
-						$syncHash.progress.Items.Add("TeamViewer is installed. Removing TeamViewer...")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						winget uninstall TeamViewer.TeamViewer --accept-source-agreements --accept-package-agreements
-						$syncHash.progress.Items.Add("Uninstalled TeamViewer.")
+						Until ($programList -like '*AnyDesk*' -or ((Get-Date) -gt $endTime))
+						$syncHash.progress.Items.Add("Completed installation of AnyDesk.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						$syncHash.progressBar.PerformStep()
 					}
-					$syncHash.progress.Items.Add("TeamViewer is not installed.")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progressBar.PerformStep()
 				}
-
-
 				if ($syncHash.googleChrome.Checked) {
 					$syncHash.progress.Items.Add("Google Chrome is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1387,7 +1363,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.07.20.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.07.20.1"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
