@@ -379,7 +379,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.07.20.1")
+				$syncHash.progress.Items.Add("Current version: 5.2023.07.20.2")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 20th of July 2023")
@@ -600,41 +600,6 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.PerformStep()
-				if ($syncHash.teamViewer.Checked) {
-					$syncHash.progress.Items.Add("TeamViewer is selected.")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					$programList = winget list
-					if ($programList -like '*TeamViewer*') { 
-						$syncHash.progress.Items.Add("TeamViewer is already installed.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-					}
-					else {
-						$syncHash.progress.Items.Add("Installing TeamViewer...")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						winget install TeamViewer.TeamViewer --accept-source-agreements --accept-package-agreements
-						$programList = winget list
-						if ($programList -like '*TeamViewer*') {
-							$syncHash.progress.Items.Add("Completed installation of TeamViewer.")
-							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							$syncHash.progress.SelectedIndex = -1;
-							$syncHash.progressBar.PerformStep()
-						}
-						else {
-							$syncHash.progress.Items.Add("The installation of TeamViewer has failed.")
-							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							$syncHash.progress.SelectedIndex = -1;
-							$syncHash.progress.Items.Add("Retrying the installation of TeamViewer.")
-							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							$syncHash.progress.SelectedIndex = -1;
-							$syncHash.progressBar.PerformStep()
-							winget install TeamViewer.TeamViewer --force --accept-source-agreements --accept-package-agreements
-						}
-					}
-				}
 				if ($syncHash.anyDesk.Checked) {
 					$syncHash.progress.Items.Add("AnyDesk is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -650,7 +615,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing AnyDesk...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						Invoke-RestMethod -Uri "https://files.crchq.net/installer/AnyDesk.msi" -OutFile "C:\Computer Repair Centre\AnyDesk.msi"
+						Invoke-RestMethod -Uri "https://download.anydesk.com/AnyDesk.msi" -OutFile "C:\Computer Repair Centre\AnyDesk.msi"
 						& 'C:\Computer Repair Centre\AnyDesk.msi --create-shortcuts --create-desktop-icon --silent'
 						$timeout = New-TimeSpan -Minutes 5
 						$endTime = (Get-Date).Add($timeout)
@@ -1010,6 +975,41 @@ function computerRepairCentreInstaller {
 						}
 					}
 				}
+				if ($syncHash.teamViewer.Checked) {
+					$syncHash.progress.Items.Add("TeamViewer is selected.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$programList = winget list
+					if ($programList -like '*TeamViewer*') { 
+						$syncHash.progress.Items.Add("TeamViewer is already installed.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+					else {
+						$syncHash.progress.Items.Add("Installing TeamViewer...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						winget install TeamViewer.TeamViewer --accept-source-agreements --accept-package-agreements
+						$programList = winget list
+						if ($programList -like '*TeamViewer*') {
+							$syncHash.progress.Items.Add("Completed installation of TeamViewer.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+						}
+						else {
+							$syncHash.progress.Items.Add("The installation of TeamViewer has failed.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progress.Items.Add("Retrying the installation of TeamViewer.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+							winget install TeamViewer.TeamViewer --force --accept-source-agreements --accept-package-agreements
+						}
+					}
+				}
 				if ($syncHash.vlc.Checked) {
 					$syncHash.progress.Items.Add("VLC Media Player is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1363,7 +1363,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.07.20.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.07.20.2"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
