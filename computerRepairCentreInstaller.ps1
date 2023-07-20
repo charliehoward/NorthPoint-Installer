@@ -379,10 +379,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.07.18.1")
+				$syncHash.progress.Items.Add("Current version: 5.2023.07.20.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Last updated: 18th of July 2023")
+				$syncHash.progress.Items.Add("Last updated: 20th of July 2023")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -779,11 +779,13 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						& 'C:\Computer Repair Centre\kasStandard.exe' /s /mybirthdate=1986‑12‑23 /pAGREETOEULA=1 /pAGREETOPRIVACYPOLICY=1
+						$timeout = New-TimeSpan -Minutes 5
+						$endTime = (Get-Date).Add($timeout)
 						Do {
 							Start-Sleep 10
 							$programList = winget list
 						}
-						Until ($programList -like '*Kaspersky*')
+						Until ($programList -like '*Kaspersky*' -or ((Get-Date) -gt $endTime))
 						$syncHash.progress.Items.Add("Completed installation of Kaspersky Standard.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
@@ -841,7 +843,13 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 					$DesktopPath = [Environment]::GetFolderPath("Desktop")
 					& 'C:\Computer Repair Centre\Office2007\setup.exe' /config 'C:\Computer Repair Centre\Office2007\Enterprise.WW\config.xml'
-					Start-Sleep 300
+					$timeout = New-TimeSpan -Minutes 5
+						$endTime = (Get-Date).Add($timeout)
+						Do {
+							Start-Sleep 10
+							$programList = winget list
+						}
+						Until ($programList -like '*Microsoft Office Enterprise 2007*' -or ((Get-Date) -gt $endTime))
 					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office Word 2007.lnk" "$DesktopPath\Word.lnk"
 					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office Excel 2007.lnk" "$DesktopPath\Excel.lnk"
 					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office PowerPoint 2007.lnk" "$DesktopPath\PowerPoint.lnk"
@@ -1379,7 +1387,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.07.18.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.07.20.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
