@@ -379,7 +379,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.07.21.0")
+				$syncHash.progress.Items.Add("Current version: 5.2023.07.21.1")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 21st of July 2023")
@@ -616,7 +616,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						Invoke-RestMethod -Uri "https://download.anydesk.com/AnyDesk.exe" -OutFile "C:\Computer Repair Centre\AnyDesk.exe"
-						& 'C:\Computer Repair Centre\AnyDesk.exe --create-shortcuts --create-desktop-icon --silent'
+						& 'C:\Computer Repair Centre\AnyDesk.exe' --create-shortcuts --create-desktop-icon --silent
 						$timeout = New-TimeSpan -Minutes 5
 						$endTime = (Get-Date).Add($timeout)
 						Do {
@@ -1363,7 +1363,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.07.21.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.07.21.1"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
