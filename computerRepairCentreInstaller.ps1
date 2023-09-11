@@ -391,7 +391,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.09.11.0")
+				$syncHash.progress.Items.Add("Current version: 5.2023.09.11.1")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 11th of September 2023")
@@ -453,6 +453,10 @@ function computerRepairCentreInstaller {
 				if ($syncHash.iTunes.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.wallpaper.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.nightMode.Checked) { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.zoom.Checked) { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.teams.Checked) { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.steamPowered.Checked) { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.discord.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.solitare.Checked) { $syncHash.progressBar.Maximum += 3 }
 				if ($syncHash.HP.Checked) { $syncHash.progressBar.Maximum += 3 }
 				if ($syncHash.microsoftOffice2007.Checked) { $syncHash.progressBar.Maximum += 2 }
@@ -1445,7 +1449,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.09.11.0"
+	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.09.11.1"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
