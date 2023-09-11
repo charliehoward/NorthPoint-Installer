@@ -80,6 +80,10 @@ function download {
 			$deleteFilesPath = "C:\Computer Repair Centre\deleteFiles.zip"
 			$zoomURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/zoom.ico"
 			$zoomPath = "C:\Computer Repair Centre\zoom.ico"
+			$discordRL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/discord.ico"
+			$discordPath = "C:\Computer Repair Centre\discord.ico"
+			$steamURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/steam.ico"
+			$steamPath = "C:\Computer Repair Centre\steam.ico"
 			$restartURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/restart.ico"
 			$restartPath = "C:\Computer Repair Centre\restart.ico"
 			$chandlersFordURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/chandlersFord.ico"
@@ -164,6 +168,10 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $nanaZipURL -OutFile $nanaZipPath
 			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $steamURL -OutFile $steamPath
+			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $discordURL -OutFile $discordPath
+			$syncHash.progressBar.PerformStep()
 			$syncHash.downloadBox.Close()
 		})
 	$psCmd.Runspace = $processRunspace
@@ -211,7 +219,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 32
+	$progressBar.Maximum = 34
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$downloadBox.Controls.Add($progressBar)
@@ -296,6 +304,8 @@ function computerRepairCentreInstaller {
 	$highcliffe = New-Object System.Windows.Forms.CheckBox
 	$solitare = New-Object System.Windows.Forms.CheckBox
 	$anyDesk = New-Object System.Windows.Forms.CheckBox
+	$discord = New-Object System.Windows.Forms.CheckBox
+	$steamPowered = New-Object System.Windows.Forms.CheckBox
 	$HP = New-Object System.Windows.Forms.CheckBox
 	$InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState
 	$syncHash = [hashtable]::Synchronized(@{})
@@ -336,6 +346,8 @@ function computerRepairCentreInstaller {
 	$syncHash.solitare = $solitare
 	$syncHash.HP = $HP
 	$syncHash.anyDesk = $anyDesk
+	$syncHash.steamPowered = $steamPowered
+	$syncHash.discord = $discord
 	$synchash.christmas = $christmas
 	$synchash.halloween = $halloween
 	$b1 = $false
@@ -379,10 +391,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.07.21.2")
+				$syncHash.progress.Items.Add("Current version: 5.2023.09.11.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Last updated: 21st of July 2023")
+				$syncHash.progress.Items.Add("Last updated: 11th of September 2023")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -630,6 +642,41 @@ function computerRepairCentreInstaller {
 						$syncHash.progressBar.PerformStep()
 					}
 				}
+				if ($syncHash.discord.Checked) {
+					$syncHash.progress.Items.Add("Discord is selected.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$programList = winget list
+					if ($programList -like '*Discord*') { 
+						$syncHash.progress.Items.Add("Discord is already installed.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+					else {
+						$syncHash.progress.Items.Add("Installing Discord...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						winget install -e --id Discord.Discord --accept-source-agreements --accept-package-agreements
+						$programList = winget list
+						if ($programList -like '*Discord*') {
+							$syncHash.progress.Items.Add("Completed installation of Discord.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+						}
+						else {
+							$syncHash.progress.Items.Add("The installation of Discord has failed.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progress.Items.Add("Retrying the installation of Discord.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+							winget install -e --id Discord.Discord --force --accept-source-agreements --accept-package-agreements
+						}
+					}
+				}
 				if ($syncHash.googleChrome.Checked) {
 					$syncHash.progress.Items.Add("Google Chrome is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -785,12 +832,12 @@ function computerRepairCentreInstaller {
 					$DesktopPath = [Environment]::GetFolderPath("Desktop")
 					& 'C:\Computer Repair Centre\Office2007\setup.exe' /config 'C:\Computer Repair Centre\Office2007\Enterprise.WW\config.xml'
 					$timeout = New-TimeSpan -Minutes 5
-						$endTime = (Get-Date).Add($timeout)
-						Do {
-							Start-Sleep 10
-							$programList = winget list
-						}
-						Until ($programList -like '*Microsoft Office Enterprise 2007*' -or ((Get-Date) -gt $endTime))
+					$endTime = (Get-Date).Add($timeout)
+					Do {
+						Start-Sleep 10
+						$programList = winget list
+					}
+					Until ($programList -like '*Microsoft Office Enterprise 2007*' -or ((Get-Date) -gt $endTime))
 					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office Word 2007.lnk" "$DesktopPath\Word.lnk"
 					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office Excel 2007.lnk" "$DesktopPath\Excel.lnk"
 					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office PowerPoint 2007.lnk" "$DesktopPath\PowerPoint.lnk"
@@ -937,6 +984,41 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
 							winget install -e --id Microsoft.Skype --force --accept-source-agreements --accept-package-agreements
+						}
+					}
+				}
+				if ($syncHash.steamPowered.Checked) {
+					$syncHash.progress.Items.Add("Steam is selected.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$programList = winget list
+					if ($programList -like '*Steam*') { 
+						$syncHash.progress.Items.Add("Steam is already installed.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+					else {
+						$syncHash.progress.Items.Add("Installing Steam...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						winget install -e --id Valve.Steam --accept-source-agreements --accept-package-agreements
+						$programList = winget list
+						if ($programList -like '*Steam*') {
+							$syncHash.progress.Items.Add("Completed installation of Steam.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+						}
+						else {
+							$syncHash.progress.Items.Add("The installation of Steam has failed.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progress.Items.Add("Retrying the installation of Steam.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+							winget install -e --id Valve.Steam --force --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -1363,7 +1445,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.07.21.2"
+	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.09.11.0"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1563,6 +1645,26 @@ function computerRepairCentreInstaller {
 	$anyDesk.FlatAppearance.BorderSize=0
 
 
+	## -- Discord
+
+	$System_Drawing_Size = New-Object System.Drawing.Size
+	$System_Drawing_Size.Width = 36
+	$System_Drawing_Size.Height = 36
+	$discord.Size = $System_Drawing_Size
+	$discord.TabIndex = 6
+	$System_Drawing_Point = New-Object System.Drawing.Point
+	$System_Drawing_Point.X = 16 + (45 * 0)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$discord.location = $System_Drawing_Point
+	$discord.DataBindings.DefaultDataSourceUpdateMode = 0
+	$discord.Name = "discord"
+	$discord.Checked = 0
+	$discord.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\discord.ico")
+	$crcInstaller.Controls.Add($discord)
+	$discord.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$discord.FlatAppearance.BorderSize=0
+
+
 	## -- Google Chrome
 
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1572,7 +1674,7 @@ function computerRepairCentreInstaller {
 	$googleChrome.TabIndex = 2
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 0)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$System_Drawing_Point.Y = 5 + (31 * 6)
 	$googleChrome.location = $System_Drawing_Point
 	$googleChrome.DataBindings.DefaultDataSourceUpdateMode = 0
 	$googleChrome.Name = "googleChrome"
@@ -1592,7 +1694,7 @@ function computerRepairCentreInstaller {
 	$HP.TabIndex = 2
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 0)
-	$System_Drawing_Point.Y = 5 + (31 * 6)
+	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$HP.location = $System_Drawing_Point
 	$HP.DataBindings.DefaultDataSourceUpdateMode = 0
 	$HP.Name = "HP"
@@ -1611,8 +1713,8 @@ function computerRepairCentreInstaller {
 	$iTunes.Size = $System_Drawing_Size
 	$iTunes.TabIndex = 2
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 0)
-	$System_Drawing_Point.Y = 5 + (31 * 7)
+	$System_Drawing_Point.X = 16 + (45 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 1)
 	$iTunes.location = $System_Drawing_Point
 	$iTunes.DataBindings.DefaultDataSourceUpdateMode = 0
 	$iTunes.Name = "iTunes"
@@ -1632,11 +1734,11 @@ function computerRepairCentreInstaller {
 	$kaspersky.TabIndex = 3
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
 	$kaspersky.location = $System_Drawing_Point
 	$kaspersky.DataBindings.DefaultDataSourceUpdateMode = 0
 	$kaspersky.Name = "kaspersky"
-	$kaspersky.Checked = 1
+	$kaspersky.Checked = $locationOpposite
 	$kaspersky.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\kasperskyStandard.ico")
 	$crcInstaller.Controls.Add($kaspersky)
 	$kaspersky.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
@@ -1652,7 +1754,7 @@ function computerRepairCentreInstaller {
 	$libreOffice.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$libreOffice.location = $System_Drawing_Point
 	$libreOffice.DataBindings.DefaultDataSourceUpdateMode = 0
 	$libreOffice.Name = "libreOffice"
@@ -1672,7 +1774,7 @@ function computerRepairCentreInstaller {
 	$malwareBytes.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 3)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
 	$malwareBytes.location = $System_Drawing_Point
 	$malwareBytes.DataBindings.DefaultDataSourceUpdateMode = 0
 	$malwareBytes.Name = "malwareBytes"
@@ -1692,7 +1794,7 @@ function computerRepairCentreInstaller {
 	$microsoftOffice2007.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 4)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
 	$microsoftOffice2007.location = $System_Drawing_Point
 	$microsoftOffice2007.DataBindings.DefaultDataSourceUpdateMode = 0
 	$microsoftOffice2007.Name = "microsoftOffice2007"
@@ -1712,7 +1814,7 @@ function computerRepairCentreInstaller {
 	$mozillaFirefox.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$System_Drawing_Point.Y = 5 + (31 * 6)
 	$mozillaFirefox.location = $System_Drawing_Point
 	$mozillaFirefox.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaFirefox.Name = "mozillaFirefox"
@@ -1732,7 +1834,7 @@ function computerRepairCentreInstaller {
 	$mozillaThunderbird.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 6)
+	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$mozillaThunderbird.location = $System_Drawing_Point
 	$mozillaThunderbird.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaThunderbird.Name = "mozillaThunderbird"
@@ -1751,8 +1853,8 @@ function computerRepairCentreInstaller {
 	$skype.Size = $System_Drawing_Size
 	$skype.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 7)
+	$System_Drawing_Point.X = 16 + (45 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 1)
 	$skype.location = $System_Drawing_Point
 	$skype.DataBindings.DefaultDataSourceUpdateMode = 0
 	$skype.Name = "skype"
@@ -1761,6 +1863,26 @@ function computerRepairCentreInstaller {
 	$crcInstaller.Controls.Add($skype)
 	$skype.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$skype.FlatAppearance.BorderSize=0
+
+
+	## -- Steam
+
+	$System_Drawing_Size = New-Object System.Drawing.Size
+	$System_Drawing_Size.Width = 36
+	$System_Drawing_Size.Height = 36
+	$steamPowered.Size = $System_Drawing_Size
+	$steamPowered.TabIndex = 6
+	$System_Drawing_Point = New-Object System.Drawing.Point
+	$System_Drawing_Point.X = 16 + (45 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
+	$steamPowered.location = $System_Drawing_Point
+	$steamPowered.DataBindings.DefaultDataSourceUpdateMode = 0
+	$steamPowered.Name = "steamPowered"
+	$steamPowered.Checked = 0
+	$steamPowered.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\steam.ico")
+	$crcInstaller.Controls.Add($steamPowered)
+	$steamPowered.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$steamPowered.FlatAppearance.BorderSize=0
 
 
 	## -- Teams
@@ -1772,7 +1894,7 @@ function computerRepairCentreInstaller {
 	$teams.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$teams.location = $System_Drawing_Point
 	$teams.DataBindings.DefaultDataSourceUpdateMode = 0
 	$teams.Name = "teams"
@@ -1792,7 +1914,7 @@ function computerRepairCentreInstaller {
 	$teamViewer.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
 	$teamViewer.location = $System_Drawing_Point
 	$teamViewer.DataBindings.DefaultDataSourceUpdateMode = 0
 	$teamViewer.Name = "teamViewer"
@@ -1812,7 +1934,7 @@ function computerRepairCentreInstaller {
 	$vlc.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 3)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
 	$vlc.location = $System_Drawing_Point
 	$vlc.DataBindings.DefaultDataSourceUpdateMode = 0
 	$vlc.Name = "vlc"
@@ -1832,7 +1954,7 @@ function computerRepairCentreInstaller {
 	$solitare.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 4)
+	$System_Drawing_Point.Y = 5 + (31 * 6)
 	$solitare.location = $System_Drawing_Point
 	$solitare.DataBindings.DefaultDataSourceUpdateMode = 0
 	$solitare.Name = "solitare"
@@ -1852,7 +1974,7 @@ function computerRepairCentreInstaller {
 	$zoom.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$zoom.location = $System_Drawing_Point
 	$zoom.DataBindings.DefaultDataSourceUpdateMode = 0
 	$zoom.Name = "zoom"
