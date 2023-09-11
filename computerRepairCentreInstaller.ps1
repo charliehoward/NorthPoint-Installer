@@ -80,7 +80,7 @@ function download {
 			$deleteFilesPath = "C:\Computer Repair Centre\deleteFiles.zip"
 			$zoomURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/zoom.ico"
 			$zoomPath = "C:\Computer Repair Centre\zoom.ico"
-			$discordRL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/discord.ico"
+			$discordURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/discord.ico"
 			$discordPath = "C:\Computer Repair Centre\discord.ico"
 			$steamURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/steam.ico"
 			$steamPath = "C:\Computer Repair Centre\steam.ico"
@@ -249,22 +249,28 @@ if ($internetProtocolCF -like $internetProtocol) {
 	$chandlersFordIP = 1
 	$romseyIP = 0
 	$highcliffeIP = 0
-	$location = 0
-	$locationOpposite = 1
+	$locationR = 0
+	$locationCF = 1
 }
 if ($internetProtocolR -like $internetProtocol) {
 	$chandlersFordIP = 0
 	$romseyIP = 1
 	$highcliffeIP = 0
-	$location = 1
-	$locationOpposite = 0
+	$locationR = 1
+	$locationCF = 0
 }
 if ($internetProtocolHC -like $internetProtocol) {
 	$chandlersFordIP = 0
 	$romseyIP = 0
 	$highcliffeIP = 1
-	$location = 1
-	$locationOpposite = 0
+	$locationR = 1
+	$locationCF = 0
+}
+if ($operatingSystem -like '*10.0.2*') {
+	$windows10 = 0
+}
+else {
+	$windows10 = 1
 }
 $HPEliteBook = 0
 $computerSystem = (Get-WmiObject -Class:Win32_ComputerSystem)
@@ -391,7 +397,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.09.11.1")
+				$syncHash.progress.Items.Add("Current version: 5.2023.09.11.2")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 11th of September 2023")
@@ -1449,7 +1455,7 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.09.11.1"
+	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.09.11.2"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -1622,7 +1628,7 @@ function computerRepairCentreInstaller {
 	$nightMode.location = $System_Drawing_Point
 	$nightMode.DataBindings.DefaultDataSourceUpdateMode = 0
 	$nightMode.Name = "nightMode"
-	$nightMode.Checked = $location
+	$nightMode.Checked = $locationR
 	$nightMode.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\nightMode.ico")
 	$crcInstaller.Controls.Add($nightMode)
 	$nightMode.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
@@ -1742,7 +1748,7 @@ function computerRepairCentreInstaller {
 	$kaspersky.location = $System_Drawing_Point
 	$kaspersky.DataBindings.DefaultDataSourceUpdateMode = 0
 	$kaspersky.Name = "kaspersky"
-	$kaspersky.Checked = $locationOpposite
+	$kaspersky.Checked = $locationCF
 	$kaspersky.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\kasperskyStandard.ico")
 	$crcInstaller.Controls.Add($kaspersky)
 	$kaspersky.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
@@ -1762,7 +1768,7 @@ function computerRepairCentreInstaller {
 	$libreOffice.location = $System_Drawing_Point
 	$libreOffice.DataBindings.DefaultDataSourceUpdateMode = 0
 	$libreOffice.Name = "libreOffice"
-	$libreOffice.Checked = $location
+	$libreOffice.Checked = $locationR
 	$libreOffice.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\libreOffice.ico")
 	$crcInstaller.Controls.Add($libreOffice)
 	$libreOffice.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
@@ -1782,7 +1788,7 @@ function computerRepairCentreInstaller {
 	$malwareBytes.location = $System_Drawing_Point
 	$malwareBytes.DataBindings.DefaultDataSourceUpdateMode = 0
 	$malwareBytes.Name = "malwareBytes"
-	$malwareBytes.Checked = $locationOpposite
+	$malwareBytes.Checked = $locationCF
 	$malwareBytes.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\malwareBytes.ico")
 	$crcInstaller.Controls.Add($malwareBytes)
 	$malwareBytes.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
@@ -1802,7 +1808,7 @@ function computerRepairCentreInstaller {
 	$microsoftOffice2007.location = $System_Drawing_Point
 	$microsoftOffice2007.DataBindings.DefaultDataSourceUpdateMode = 0
 	$microsoftOffice2007.Name = "microsoftOffice2007"
-	$microsoftOffice2007.Checked = $locationOpposite
+	$microsoftOffice2007.Checked = $locationCF
 	$microsoftOffice2007.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\microsoftOffice2007.ico")
 	$crcInstaller.Controls.Add($microsoftOffice2007)
 	$microsoftOffice2007.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
@@ -1942,7 +1948,7 @@ function computerRepairCentreInstaller {
 	$vlc.location = $System_Drawing_Point
 	$vlc.DataBindings.DefaultDataSourceUpdateMode = 0
 	$vlc.Name = "vlc"
-	$vlc.Checked = 1
+	$vlc.Checked = $windows10
 	$vlc.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\vlcMediaPlayer.ico")
 	$crcInstaller.Controls.Add($vlc)
 	$vlc.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
