@@ -19,17 +19,17 @@ Will disable sleep and screen timeout if plugged into AC power.
 
 **Update 5.2023.09.18.1**
 
-Updated Discord icon.
+Updated Discord icon.  
 Reorganised assets folder.
 
 **Update 5.2023.09.18.0**
 
-Added version to bottom of the main window.
+Added version to bottom of the main window.  
 Added view changelog button at the bottom of the main window.
 
 **Update 5.2023.09.11.2**
 
-Fixed Discord icon.
+Fixed Discord icon.  
 Changed VLC to only install on Windows 10.
 
 **Update 5.2023.09.11.1**
@@ -38,8 +38,8 @@ Added some missing progress bar additions.
 
 **Update 5.2023.09.11.0**
 
-Kaspersky will no longer be installed in Romsey or Highcliffe due to no longer having the option for a trial.
-Added Discord.
+Kaspersky will no longer be installed in Romsey or Highcliffe due to no longer having the option for a trial.  
+Added Discord.  
 Added Steam.
 
 **Update 5.2023.07.21.2**
@@ -60,7 +60,7 @@ Changed AnyDesk MSI location to the AnyDesk site so it's always up to date.
 
 **Update 5.2023.07.20.1**
 
-Changed AnyDesk installer to an MSI as the winget installer is frequently broken.
+Changed AnyDesk installer to an MSI as the winget installer is frequently broken.  
 Removed TeamViewer check from AnyDesk install as it's no longer relevant.
 
 **Update 5.2023.07.20.0**
@@ -98,7 +98,7 @@ The installer will now update the Windows Store for Windows 11 as well as 10 bec
 
 **Update 5.2023.02.16.0**
 
-Changed restart box icon as I don't think anyone knew what it was for.
+Changed restart box icon as I don't think anyone knew what it was for.  
 Changed this years Christmas song.
 
 **Update 5.2023.01.31.0**
@@ -151,8 +151,8 @@ Forgot to add Kaspersky move command.
 
 **Update 5.2023.01.23.7**
 
-Updated deleteFiles.ps1.
-Re-enabled Kaspersky.
+Updated deleteFiles.ps1.  
+Re-enabled Kaspersky.  
 Added Kaspersky Standard exe temporarily until I figure out how to enable a silent install. This must be run manually after the install is complete.
 
 **Update 5.2023.01.23.6**
@@ -165,13 +165,13 @@ Fixed issue with Microsoft .NET Windows Desktop Runtime 3.1.
 
 **Update 5.2023.01.23.4**
 
-If run on Windows 10 it will install winget and thge prerequisites.
-Added Microsoft .NET Windows Desktop Runtime 3.1.
+If run on Windows 10 it will install winget and the prerequisites.  
+Added Microsoft .NET Windows Desktop Runtime 3.1.  
 Fixed hanging issue. 
 
 **Update 5.2023.01.23.3**
 
-Removed Microsoft .NET Windows Desktop Runtime 3.1.
+Removed Microsoft .NET Windows Desktop Runtime 3.1.  
 Cleaned up checkboxes.
 
 **Update 5.2023.01.23.2**
@@ -184,10 +184,10 @@ Added winget installation for Windows 10.
 
 **Update 5.2023.01.23.0**
 
-Moved from chocolatey from to winget.
-Removed Microsoft Office 2019 and 2021.
-Removed HashTab.
-Removed uBlock Origin.
+Moved from chocolatey from to winget.  
+Removed Microsoft Office 2019 and 2021.  
+Removed HashTab.  
+Removed uBlock Origin.  
 Disabled Kaspersky for now until I can work out a silent install.
 
 **Update 4.2022.12.19.0**
@@ -248,12 +248,12 @@ Fixed Office path typo.
 
 **Update 4.2022.10.15.1**
 
-Fixed Office 2021 download error.
+Fixed Office 2021 download error.  
 Added progress steps for each part of Office 2021.
 
 **Update 4.2022.10.15.0**
 
-Split Office 2021 into 3 zips as it's so big.
+Split Office 2021 into 3 zips as it's so big.  
 Added Office 2021 folder to the cleanup script.
 
 **Update 4.2022.10.11.0**
@@ -262,7 +262,7 @@ Updated domains for IP check.
 
 **Update 4.2022.10.05.0**
 
-Stopped Office 2019 from installing on Windows 11.
+Stopped Office 2019 from installing on Windows 11.  
 Added Office 2021.
 
 **Update 4.2022.09.24.0**
@@ -283,7 +283,7 @@ Installer will now wait for the HP install.cmd to finish before continuing.
 
 **Update 4.2022.09.10.3**
 
-Moved } in wrong place stopping the HP software from installing.
+Moved } that was in the wrong place stopping the HP software from installing.
 
 **Update 4.2022.09.10.2**
 
@@ -291,7 +291,7 @@ Changed the order in which sleep will change timeout modes to make sure they're 
 
 **Update 4.2022.09.10.1**
 
-Fixed two confliting arguments.
+Fixed two conflicting arguments.
 
 **Update 4.2022.09.10.0**
 
@@ -307,8 +307,8 @@ Installer will now sing happy birthday.
 
 **Update 4.2022.09.07.0**
 
-Improved way of getting the IP.
-Added Highcliffe.
+Improved way of getting the IP.  
+Added Highcliffe.  
 Added Callum's birthday.
 
 **Update 4.2022.08.04.0**
@@ -345,7 +345,7 @@ Fixed iTunes icon.
 
 **Update 4.2022.07.08.1**
 
-Added birthday messages.
+Added birthday messages.  
 Changed all checkboxes to images rather than text.
 
 **Update 4.2022.07.08.0**
@@ -354,9 +354,9 @@ Fixed typo causing buttons to be blank.
 
 **Update 4.2022.07.07.1**
 
-Added dark mode.
-Modernised the GUI slightly.
-Added check boxes for all branches that can be checked and unchecked if ever needed.
+Added dark mode.  
+Modernised the GUI slightly.  
+Added check boxes for all branches that can be checked and unchecked if ever needed.  
 Added Highcliffe location but disabled until branch is opened.
 
 **Update 4.2022.07.07.0**
@@ -377,7 +377,7 @@ Added last updated line when installer is run.
 
 **Update 3.2022.07.02.2**
 
-Stopped the installer from deleting choco on every run.
+Stopped the installer from deleting choco on every run.  
 Will now remove CRC Installer x64.exe from Desktop on reboot.
 
 **Update 3.2022.07.02.1**
@@ -390,9 +390,9 @@ Fixed issue with installer not checking for already installed programs & fixed O
 
 **Update 3.2022.07.01.0**
 
-The installer will now check if a program is already installed before running the install command to speed up the installs on machines it has been run on previously.
-Cleaned up Office 2019 install.
-Added Desktop icons for Office 2007 and 2019 installs.
+The installer will now check if a program is already installed before running the install command to speed up the installs on machines it has been run on previously.  
+Cleaned up Office 2019 install.  
+Added Desktop icons for Office 2007 and 2019 installs.  
 Attemped to fix progress bar but it might need some further tweaks to get the progress point correct.
 
 **Update 3.2022.05.22.0**
@@ -413,10 +413,10 @@ Updated Kaspersky.
 
 **Update 3.2022.05.07.0**
 
-Updated download link for Kaspersky.
-Updated the readme to include new features I previously forgot to add.
-Corrected some typos.
-Removed taskbar pin as this currently doesn't work on Windows 11.
+Updated download link for Kaspersky.  
+Updated the readme to include new features I previously forgot to add.  
+Corrected some typos.  
+Removed taskbar pin as this currently doesn't work on Windows 11.  
 uBlock Origin is now disabled by default due to some customer complaints about removing it.
 
 **Update 3.2021.12.13.1**
@@ -433,7 +433,7 @@ Added HashTab to prerequisites for convenience.
 
 **Update 3.2021.10.25.0**
 
-Changed version format to keep track of when it was updated easier.
+Changed version format to keep track of when it was updated easier.  
 Added 4K support to Bing Wallpapers.
 
 **Update 3.10.12.9**
@@ -442,7 +442,7 @@ Fixed typo causing 2 Bing wallpaper tasks.
 
 **Update 3.10.12.8**
 
-Changed Bing wallpaper to run at 1PM everyday and at every logon.
+Changed Bing wallpaper to run at 1PM everyday and at every logon.  
 Corrected progress bar on installer.
 
 **Update 3.10.12.7**
@@ -475,7 +475,7 @@ Bing wallpapers now saves the files it's own folder to keep things tidy.
 
 **Update 3.10.12.0**
 
-Made some changes to Bing Wallpaper so it now saves the file with the date in the name so the user can keep wallpapers they like.
+Made some changes to Bing Wallpaper so it now saves the file with the date in the name so the user can keep wallpapers they like.  
 Zipped up the Bing Wallpaper files to stop files from failing from downloading.
 
 **Update 3.10.11.2**
@@ -493,12 +493,12 @@ Fixed Teams icon.
 
 **Update 3.10.10.0**
 
-Fixed Kaspersky mailing list issue.
-Installer will now check software MD5 checksums before installation.
-Added initial support for Windows 11.
-Installer now installs Microsoft Visual C++ Redistributable as part of the prerequisites.
-Added Teams as an install option.
-Removed some Windows 10 tweaks to make it run nicer for the end user.
+Fixed Kaspersky mailing list issue.  
+Installer will now check software MD5 checksums before installation.  
+Added initial support for Windows 11.  
+Installer now installs Microsoft Visual C++ Redistributable as part of the prerequisites.  
+Added Teams as an install option.  
+Removed some Windows 10 tweaks to make it run nicer for the end user.  
 Added Windows 11 tweaks to match Windows 10. More to come later on release.
 
 **Update 3.10.9.0**
@@ -539,12 +539,12 @@ Fixed typo stopping Bing Wallpapers from working.
 
 **Update 3.10.4.0**
 
-Reverted Bing Wallapers to save into the Picture folder.
+Reverted Bing Wallapers to save into the Picture folder.  
 Fixed issue with user selected wallpapers.
 
 **Update 3.10.3.0**
 
-Bing Wallpapers now saves the C Drive instead of the Pictures folder to allow slideslow mode.
+Bing Wallpapers now saves the C Drive instead of the Pictures folder to allow slideslow mode.  
 Bing Wallpapers will no longer override user selected wallpapers.
 
 **Update 3.10.2.0**
