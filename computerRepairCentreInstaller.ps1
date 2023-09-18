@@ -313,6 +313,8 @@ function computerRepairCentreInstaller {
 	$discord = New-Object System.Windows.Forms.CheckBox
 	$steamPowered = New-Object System.Windows.Forms.CheckBox
 	$HP = New-Object System.Windows.Forms.CheckBox
+	$changeLog = New-Object System.Windows.Forms.LinkLabel
+	$version = New-Object System.Windows.Forms.Label
 	$InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState
 	$syncHash = [hashtable]::Synchronized(@{})
 	$syncHash.crcInstaller = $crcInstaller
@@ -397,10 +399,10 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.09.11.2")
+				$syncHash.progress.Items.Add("Current version: 5.2023.09.18.0")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Last updated: 11th of September 2023")
+				$syncHash.progress.Items.Add("Last updated: 18th of September 2023")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -1455,12 +1457,12 @@ function computerRepairCentreInstaller {
 
 	## -- Computer Repair Centre Installer
 
-	$crcInstaller.Text = "Computer Repair Centre Installer 5.2023.09.11.2"
+	$crcInstaller.Text = "Computer Repair Centre Installer"
 	$crcInstaller.Name = "crcInstaller"
 	$crcInstaller.DataBindings.DefaultDataSourceUpdateMode = 0
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 610
-	$System_Drawing_Size.Height = 260
+	$System_Drawing_Size.Height = 280
 	$crcInstaller.ClientSize = $System_Drawing_Size
 	$crcInstaller.Icon = "C:\Computer Repair Centre\computerRepairCentreIcon.ico"
 	$crcInstaller.BackColor = $BackgroundColour
@@ -1511,7 +1513,7 @@ function computerRepairCentreInstaller {
 	$reboot.ForeColor = "White"
 
 
-  ## -- Close button
+   ## -- Close button
 
 	$close.TabIndex = 4
 	$close.Name = "close"
@@ -2073,6 +2075,27 @@ function computerRepairCentreInstaller {
 	$crcInstaller.Controls.Add($rebootBox)
 	$rebootBox.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$rebootBox.FlatAppearance.BorderSize=0
+
+
+	
+	## -- Readme
+
+	$version.Location = New-Object System.Drawing.Size(14,258)
+	$version.Size = New-Object System.Drawing.Size(250,20)
+	$version.LinkColor = "WHITE"
+	$version.Text = "Version 5.2023.09.18.0"
+	$crcInstaller.Controls.Add($version)
+
+
+	## -- Readme
+
+	$changeLog.Location = New-Object System.Drawing.Size(515,258)
+	$changeLog.Size = New-Object System.Drawing.Size(150,20)
+	$changeLog.LinkColor = "WHITE"
+	$changeLog.ActiveLinkColor = "RED"
+	$changeLog.Text = "View Changelog"
+	$changeLog.add_Click({[system.Diagnostics.Process]::start("https://github.com/charliehoward/NorthPoint-Installer/blob/master/README.md")})
+	$crcInstaller.Controls.Add($changeLog)
 
 
 	## -- Form
