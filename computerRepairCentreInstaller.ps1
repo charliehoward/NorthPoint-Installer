@@ -86,7 +86,7 @@ function download {
 			$steamPath = "C:\Computer Repair Centre\steam.ico"
 			$restartURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/restart.ico"
 			$restartPath = "C:\Computer Repair Centre\restart.ico"
-			$chandlersFordURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/icons/chandlersFord.ico"
+			$chandlersFordURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/chandlersFord.ico"
 			$chandlersFordPath = "C:\Computer Repair Centre\chandlersFord.ico"
 			$romseyURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/romsey.ico"
 			$romseyPath = "C:\Computer Repair Centre\romsey.ico"
@@ -399,7 +399,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.09.18.1")
+				$syncHash.progress.Items.Add("Current version: 5.2023.09.18.2")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("Last updated: 18th of September 2023")
@@ -2083,7 +2083,7 @@ function computerRepairCentreInstaller {
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
 	$version.LinkColor = "WHITE"
-	$version.Text = "Version 5.2023.09.18.1"
+	$version.Text = "Version 5.2023.09.18.2"
 	$crcInstaller.Controls.Add($version)
 
 
