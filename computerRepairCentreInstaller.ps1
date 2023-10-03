@@ -10,7 +10,7 @@ Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCent
 $BackgroundColour = "#2c2c2c"
 $ButtonColour = "#00b9ff"
 $date = Get-Date -Format "dd/MM"
-if ($date -like '*31/10*' -or '*30/10*' -or '*29/10*' -or '*28/10*' -or '*27/10*' -or '*26/10*' -or '*25/10*') {
+if ($date -like '*31/10*' -or $date -like '*30/10*' -or $date -like '*29/10*' -or $date -like '*28/10*' -or $date -like '*27/10*' -or $date -like '*26/10*' -or $date -like '*25/10*') {
 	$halloween = 1
 	$BackgroundColour = "#ed7014"
 	$ButtonColour = "#2c2c2c"
@@ -561,7 +561,7 @@ function computerRepairCentreInstaller {
 					}
 					if ($song -like '*7*') {
 						Start-Sleep 2
-						$syncHash.progress.Items.Add("Rockin' around the Christms tree")
+						$syncHash.progress.Items.Add("Rockin' around the Christmas tree")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 						Start-Sleep 2
@@ -2216,7 +2216,7 @@ function computerRepairCentreInstaller {
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
 	$version.LinkColor = "WHITE"
-	$version.Text = "Version 5.2023.10.03.0"
+	$version.Text = "Version 5.2023.10.03.1"
 	$crcInstaller.Controls.Add($version)
 
 
