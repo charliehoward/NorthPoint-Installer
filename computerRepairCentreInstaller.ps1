@@ -10,7 +10,7 @@ Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCent
 $BackgroundColour = "#2c2c2c"
 $ButtonColour = "#00b9ff"
 $date = Get-Date -Format "dd/MM"
-if ($date -like '*31/10*') {
+if ($date -like '*31/10*' -or '*30/10*' -or '*29/10*' -or '*28/10*' -or '*27/10*' -or '*26/10*' -or '*25/10*') {
 	$halloween = 1
 	$BackgroundColour = "#ed7014"
 	$ButtonColour = "#2c2c2c"
@@ -399,10 +399,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Current version: 5.2023.09.18.2")
-				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("Last updated: 18th of September 2023")
+				$syncHash.progress.Items.Add("Last updated: 3rd of October 2023")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -427,24 +424,160 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 				}
-				if ($synchash.christmas -like '*1*') { 
-					Start-Sleep 2
-					$syncHash.progress.Items.Add("Oh, the weather outside is frightful")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					Start-Sleep 2
-					$syncHash.progress.Items.Add("But the fire is so delightful")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					Start-Sleep 2
-					$syncHash.progress.Items.Add("And since we've no place to go")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					Start-Sleep 2
-					$syncHash.progress.Items.Add("Let it snow, let it snow, let it snow")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					Start-Sleep 10
+				if ($synchash.christmas -like '*1*') {
+					$song = Get-Random -Maximum 7
+					if ($song -like '*0*') {
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("Oh, the weather outside is frightful")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("But the fire is so delightful")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("And since we've no place to go")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("Let it snow, let it snow, let it snow")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 10
+					}
+					if ($song -like '*1*') {
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("I just want you for my own")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("More than you can ever know")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("Make my wish come true")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("All I want for Christmas is you")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 10
+					}
+					if ($song -like '*2*') {
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("Last Christmas, I gave you my heart")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("But the very next day you gave it away")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("This year, to save me from tears")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("I'll give it to someone special")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 10
+					}
+					if ($song -like '*3*') {
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("The boys of the NYPD choir")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("Still singing, Galway Bay")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("And the bells are ringing out")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("For Christmas Day")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 10
+					}
+					if ($song -like '*4*') {
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("Room is swaying, records playing")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("All the old songs we love to hear")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("All I wish that every day was Christmas")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("What a nice way to spend the year")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 10
+					}
+					if ($song -like '*5*') {
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("It's beginning to look a lot like Christmas")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("Toys in every store")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("But the prettiest sight to see is the holly that will be")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("On your front door")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 10
+					}
+					if ($song -like '*6*') {
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("Well I wish it could be Christmas every day")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("When the kids start singing and the bang begins to play")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("Oh, I wish it could be Christmas every day")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("Let the bells ring out for Christmas")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 10
+					}
+					if ($song -like '*7*') {
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("Rockin' around the Christms tree")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("Have a happy holiday")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("Everyone's dancing merrily")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 2
+						$syncHash.progress.Items.Add("In the new old-fashioned way")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Start-Sleep 10
+					}
 				}
 				$syncHash.progressBar.Maximum = 9
 				if ($syncHash.crc.Checked) { $syncHash.progressBar.Maximum += 1 }
@@ -2083,7 +2216,7 @@ function computerRepairCentreInstaller {
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
 	$version.LinkColor = "WHITE"
-	$version.Text = "Version 5.2023.09.18.2"
+	$version.Text = "Version 5.2023.10.03.0"
 	$crcInstaller.Controls.Add($version)
 
 
