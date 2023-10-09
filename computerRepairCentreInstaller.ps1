@@ -399,7 +399,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 3rd of October 2023")
+				$syncHash.progress.Items.Add("Last updated: 9th of October 2023")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -686,7 +686,7 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.Items.Add("Installing Microsoft .NET Windows Desktop Runtime 3.1...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				winget install -e --id Microsoft.DotNet.DesktopRuntime.3_1 --accept-source-agreements --accept-package-agreements
+				winget install --id=Microsoft.DotNet.DesktopRuntime.3_1 -e --accept-source-agreements --accept-package-agreements
 				$syncHash.progressBar.PerformStep()
 				$syncHash.progress.Items.Add("Installing Microsoft .NET Windows Desktop Runtime 5.0...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -699,7 +699,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progressBar.PerformStep()
 				}
 				else {
-					winget install -e --id Microsoft.DotNet.DesktopRuntime.5 --accept-source-agreements --accept-package-agreements
+					winget install --id=Microsoft.DotNet.DesktopRuntime.5 -e --accept-source-agreements --accept-package-agreements
 					$syncHash.progressBar.PerformStep()
 				}
 				$syncHash.progress.Items.Add("Installing Microsoft .NET Windows Desktop Runtime 6.0...")
@@ -713,7 +713,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progressBar.PerformStep()
 				}
 				else {
-					winget install -e --id Microsoft.DotNet.DesktopRuntime.6 --accept-source-agreements --accept-package-agreements
+					winget install --id=Microsoft.DotNet.DesktopRuntime.6 -e --accept-source-agreements --accept-package-agreements
 					$syncHash.progressBar.PerformStep()
 				}
 				$syncHash.progress.Items.Add("Installing Microsoft .NET Windows Desktop Runtime 7.0...")
@@ -727,7 +727,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progressBar.PerformStep()
 				}
 				else {
-					winget install -e --id Microsoft.DotNet.DesktopRuntime.7 --accept-source-agreements --accept-package-agreements 
+					winget install --id=Microsoft.DotNet.DesktopRuntime.7 -e --accept-source-agreements --accept-package-agreements 
 					$syncHash.progressBar.PerformStep()
 				}
 
@@ -802,7 +802,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing Discord...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						winget install -e --id Discord.Discord --accept-source-agreements --accept-package-agreements
+						winget install --id=Discord.Discord -e --accept-source-agreements --accept-package-agreements
 						$programList = winget list
 						if ($programList -like '*Discord*') {
 							$syncHash.progress.Items.Add("Completed installation of Discord.")
@@ -818,7 +818,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install -e --id Discord.Discord --force --accept-source-agreements --accept-package-agreements
+							winget install --id=Discord.Discord -e --force --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -837,7 +837,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing Google Chrome...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						winget install -e --id Google.Chrome --accept-source-agreements --accept-package-agreements
+						winget install --id=Google.Chrome -e --accept-source-agreements --accept-package-agreements
 						$programList = winget list
 						if ($programList -like '*Google.Chrome*') {
 							$syncHash.progress.Items.Add("Completed installation of Google Chrome.")
@@ -853,7 +853,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install -e --id Google.Chrome --force --accept-source-agreements --accept-package-agreements
+							winget install --id=Google.Chrome -e --force --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -872,7 +872,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing iTunes...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						winget install -e --id Apple.iTunes --accept-source-agreements --accept-package-agreements
+						winget install --id=Apple.iTunes -e --accept-source-agreements --accept-package-agreements
 						$programList = winget list
 						if ($programList -like '*iTunes*') {
 							$syncHash.progress.Items.Add("Completed installation of iTunes.")
@@ -888,7 +888,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install -e --id Apple.iTunes --force --accept-source-agreements --accept-package-agreements
+							winget install --id=Apple.iTunes -e --force --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -940,7 +940,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing LibreOffice...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						winget install -e --id TheDocumentFoundation.LibreOffice --accept-source-agreements --accept-package-agreements
+						winget install --id=TheDocumentFoundation.LibreOffice -e --accept-source-agreements --accept-package-agreements
 						$programList = winget list
 						if ($programList -like '*TheDocumentFoundation.LibreOffice*') {
 							$syncHash.progress.Items.Add("Completed installation of LibreOffice.")
@@ -956,7 +956,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install -e --id TheDocumentFoundation.LibreOffice --force --accept-source-agreements --accept-package-agreements
+							winget install --id=TheDocumentFoundation.LibreOffice -e --force --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -1007,7 +1007,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing MalwareBytes...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						winget install -e --id Malwarebytes.Malwarebytes --accept-source-agreements --accept-package-agreements
+						winget install --id=Malwarebytes.Malwarebytes -e --accept-source-agreements --accept-package-agreements
 						$programList = winget list
 						if ($programList -like '*Malwarebytes*') {
 							$syncHash.progress.Items.Add("Completed installation of MalwareBytes.")
@@ -1023,7 +1023,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install -e --id Malwarebytes.Malwarebytes --force --accept-source-agreements --accept-package-agreements
+							winget install --id=Malwarebytes.Malwarebytes -e --force --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}	
@@ -1042,7 +1042,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing Mozilla Firefox...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						winget install -e --id Mozilla.Firefox --accept-source-agreements --accept-package-agreements
+						winget install --id=Mozilla.Firefox -e --accept-source-agreements --accept-package-agreements
 						$programList = winget list
 						if ($programList -like '*Mozilla.Firefox*') {
 							$syncHash.progress.Items.Add("Completed installation of Mozilla Firefox.")
@@ -1058,7 +1058,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install -e --id Mozilla.Firefox --force --accept-source-agreements --accept-package-agreements
+							winget install --id=Mozilla.Firefox -e --force --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -1077,7 +1077,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing Mozilla Thunderbird...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						winget install -e --id Mozilla.Thunderbird --accept-source-agreements --accept-package-agreements
+						winget install --id=Mozilla.Thunderbird -e --accept-source-agreements --accept-package-agreements
 						$programList = winget list
 							if ($programList -like '*Mozilla.Thunderbird*') {
 							$syncHash.progress.Items.Add("Completed installation of Mozilla Thunderbird.")
@@ -1093,7 +1093,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install -e --id Mozilla.Thunderbird --force --accept-source-agreements --accept-package-agreements
+							winget install --id=Mozilla.Thunderbird -e --force --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -1112,7 +1112,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing Skype...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						winget install -e --id Microsoft.Skype --accept-source-agreements --accept-package-agreements
+						winget install --id=Microsoft.Skype -e --accept-source-agreements --accept-package-agreements
 						$programList = winget list
 						if ($programList -like '*Skype*') {
 							$syncHash.progress.Items.Add("Completed installation of Skype.")
@@ -1128,7 +1128,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install -e --id Microsoft.Skype --force --accept-source-agreements --accept-package-agreements
+							winget install --id=Microsoft.Skype -e --force --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -1147,7 +1147,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing Steam...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						winget install -e --id Valve.Steam --accept-source-agreements --accept-package-agreements
+						winget install --id=Valve.Steam -e --accept-source-agreements --accept-package-agreements
 						$programList = winget list
 						if ($programList -like '*Steam*') {
 							$syncHash.progress.Items.Add("Completed installation of Steam.")
@@ -1163,7 +1163,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install -e --id Valve.Steam --force --accept-source-agreements --accept-package-agreements
+							winget install --id=Valve.Steam -e --force --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -1182,7 +1182,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing Microsoft Teams...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						winget install -e --id Microsoft.Teams --accept-source-agreements --accept-package-agreements
+						winget install --id=Microsoft.Teams -e --accept-source-agreements --accept-package-agreements
 						$programList = winget list
 						if ($programList -like '*Microsoft.Teams*') {
 							$syncHash.progress.Items.Add("Completed installation of Microsoft Teams.")
@@ -1198,7 +1198,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install -e --id Microsoft.Teams --force --accept-source-agreements --accept-package-agreements
+							winget install --id=Microsoft.Teams -e --force --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -1217,7 +1217,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing TeamViewer...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						winget install TeamViewer.TeamViewer --accept-source-agreements --accept-package-agreements
+						winget install --id=TeamViewer.TeamViewer -e --accept-source-agreements --accept-package-agreements
 						$programList = winget list
 						if ($programList -like '*TeamViewer*') {
 							$syncHash.progress.Items.Add("Completed installation of TeamViewer.")
@@ -1233,7 +1233,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install TeamViewer.TeamViewer --force --accept-source-agreements --accept-package-agreements
+							winget install --id=TeamViewer.TeamViewer -e --force --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -1252,7 +1252,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing VLC Media Player...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						winget install -e --id VideoLAN.VLC --accept-source-agreements --accept-package-agreements
+						winget install --id=VideoLAN.VLC -e --accept-source-agreements --accept-package-agreements
 						$programList = winget list
 						if ($programList -like '*VideoLAN.VLC*') {
 							$syncHash.progress.Items.Add("Completed installation of VLC Media Player.")
@@ -1268,7 +1268,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install -e --id VideoLAN.VLC --force --accept-source-agreements --accept-package-agreements
+							winget install --id=VideoLAN.VLC -e --force --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -1320,7 +1320,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing Zoom...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						winget install -e --id Zoom.Zoom --accept-source-agreements --accept-package-agreements
+						winget install --id=Zoom.Zoom -e --accept-source-agreements --accept-package-agreements
 						$programList = winget list
 						if ($programList -like '*Zoom*') {
 							$syncHash.progress.Items.Add("Completed installation of Zoom.")
@@ -1336,7 +1336,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install -e --id Zoom.Zoom --force --accept-source-agreements --accept-package-agreements
+							winget install --id=Zoom.Zoom -e --force --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -2211,12 +2211,12 @@ function computerRepairCentreInstaller {
 
 
 	
-	## -- Readme
+	## -- Version
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
 	$version.LinkColor = "WHITE"
-	$version.Text = "Version 5.2023.10.03.1"
+	$version.Text = "Version 5.2023.10.09.0"
 	$crcInstaller.Controls.Add($version)
 
 
