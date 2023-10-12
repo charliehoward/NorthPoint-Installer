@@ -1318,8 +1318,25 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.Items.Add("Retrying the installation of VLC Media Player.")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progress.Items.Add("Downloading VLC Media Player.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							Invoke-RestMethod -Uri "https://ask4.mm.fcix.net/videolan-ftp/vlc/3.0.19/win64/vlc-3.0.19-win64.msi" -OutFile "C:\Computer Repair Centre\vlc.msi"
+							$syncHash.progress.Items.Add("Installing VLC Media Player...")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							msiexec /package "C:\Computer Repair Centre\vlc.msi" /passive
+							$timeout = New-TimeSpan -Minutes 5
+							$endTime = (Get-Date).Add($timeout)
+							Do {
+								Start-Sleep 10
+								$programList = winget list
+							}
+							Until ($programList -like '*VideoLAN.VLC*' -or ((Get-Date) -gt $endTime))
+							$syncHash.progress.Items.Add("Completed installation of VLC Media Player.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install --id=VideoLAN.VLC -e --force --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -2267,7 +2284,7 @@ function computerRepairCentreInstaller {
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
 	$version.LinkColor = "WHITE"
-	$version.Text = "Version 5.2023.10.12.0"
+	$version.Text = "Version 5.2023.10.12.1"
 	$crcInstaller.Controls.Add($version)
 
 
