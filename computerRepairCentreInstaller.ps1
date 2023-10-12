@@ -399,7 +399,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 9th of October 2023")
+				$syncHash.progress.Items.Add("Last updated: 12th of October 2023")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -852,8 +852,25 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.Items.Add("Retrying the installation of Google Chrome.")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progress.Items.Add("Downloading Google Chrome.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							Invoke-RestMethod -Uri "https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise.msi" -OutFile "C:\Computer Repair Centre\chrome.msi"
+							$syncHash.progress.Items.Add("Installing Google Chrome...")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							msiexec /package "C:\Computer Repair Centre\chrome.msi" /passive
+							$timeout = New-TimeSpan -Minutes 5
+							$endTime = (Get-Date).Add($timeout)
+							Do {
+								Start-Sleep 10
+								$programList = winget list
+							}
+							Until ($programList -like '*Google.Chrome*' -or ((Get-Date) -gt $endTime))
+							$syncHash.progress.Items.Add("Completed installation of Google Chrome.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install --id=Google.Chrome -e --force --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -955,8 +972,25 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.Items.Add("Retrying the installation of LibreOffice.")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progress.Items.Add("Downloading LibreOffice.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							Invoke-RestMethod -Uri "https://www.mirrorservice.org/sites/download.documentfoundation.org/tdf/libreoffice/stable/7.6.2/win/x86_64/LibreOffice_7.6.2_Win_x86-64.msi" -OutFile "C:\Computer Repair Centre\libreOffice.msi"
+							$syncHash.progress.Items.Add("Installing LibreOffice...")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							msiexec /package "C:\Computer Repair Centre\libreOffice.msi" /passive
+							$timeout = New-TimeSpan -Minutes 5
+							$endTime = (Get-Date).Add($timeout)
+							Do {
+								Start-Sleep 10
+								$programList = winget list
+							}
+							Until ($programList -like '*TheDocumentFoundation.LibreOffice*' -or ((Get-Date) -gt $endTime))
+							$syncHash.progress.Items.Add("Completed installation of LibreOffice.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install --id=TheDocumentFoundation.LibreOffice -e --force --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -1057,8 +1091,25 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.Items.Add("Retrying the installation of Mozilla Firefox.")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progress.Items.Add("Downloading Mozilla Firefox.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							Invoke-RestMethod -Uri "https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-GB" -OutFile "C:\Computer Repair Centre\firefox.msi"
+							$syncHash.progress.Items.Add("Installing Mozilla Firefox...")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							msiexec /package "C:\Computer Repair Centre\firefox.msi" /passive
+							$timeout = New-TimeSpan -Minutes 5
+							$endTime = (Get-Date).Add($timeout)
+							Do {
+								Start-Sleep 10
+								$programList = winget list
+							}
+							Until ($programList -like '*Mozilla.Firefox*' -or ((Get-Date) -gt $endTime))
+							$syncHash.progress.Items.Add("Completed installation of Mozilla Firefox.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-							winget install --id=Mozilla.Firefox -e --force --accept-source-agreements --accept-package-agreements
 						}
 					}
 				}
@@ -2216,7 +2267,7 @@ function computerRepairCentreInstaller {
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
 	$version.LinkColor = "WHITE"
-	$version.Text = "Version 5.2023.10.09.0"
+	$version.Text = "Version 5.2023.10.12.0"
 	$crcInstaller.Controls.Add($version)
 
 
