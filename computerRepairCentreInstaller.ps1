@@ -100,7 +100,7 @@ function download {
 			$microsoftUIPath = "C:\Computer Repair Centre\Microsoft.UI.Xaml.2.7_7.2208.15002.0_x64__8wekyb3d8bbwe.Appx"
 			$VCLibsURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/apps/Microsoft.VCLibs.x64.14.00.Desktop.Appx"
 			$VCLibsPath = "C:\Computer Repair Centre\Microsoft.VCLibs.x64.14.00.Desktop.Appx"
-			$wingetURL = "https://github.com/charliehoward/NorthPoint-Installer/releases/download/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
+			$wingetURL = "https://files.crchq.net/installer/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 			$wingetPath = "C:\Computer Repair Centre\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 			$nanaZipURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/apps/40174MouriNaruto.NanaZip_2.0.450.0_gnj4mf6z9tkrc.msixbundle"
 			$nanaZipPath = "C:\Computer Repair Centre\40174MouriNaruto.NanaZip_2.0.450.0_gnj4mf6z9tkrc.msixbundle"
@@ -2284,7 +2284,7 @@ function computerRepairCentreInstaller {
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
 	$version.LinkColor = "WHITE"
-	$version.Text = "Version 5.2023.10.16.0"
+	$version.Text = "Version 5.2023.10.16.1"
 	$crcInstaller.Controls.Add($version)
 
 
