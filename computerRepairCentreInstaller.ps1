@@ -100,8 +100,8 @@ function download {
 			$microsoftUIPath = "C:\Computer Repair Centre\Microsoft.UI.Xaml.2.7_7.2208.15002.0_x64__8wekyb3d8bbwe.Appx"
 			$VCLibsURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/apps/Microsoft.VCLibs.x64.14.00.Desktop.Appx"
 			$VCLibsPath = "C:\Computer Repair Centre\Microsoft.VCLibs.x64.14.00.Desktop.Appx"
-			$wingetURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/apps/MicrosoftDesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
-			$wingetPath = "C:\Computer Repair Centre\MicrosoftDesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
+			$wingetURL = "https://github.com/charliehoward/NorthPoint-Installer/releases/download/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
+			$wingetPath = "C:\Computer Repair Centre\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 			$nanaZipURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/apps/40174MouriNaruto.NanaZip_2.0.450.0_gnj4mf6z9tkrc.msixbundle"
 			$nanaZipPath = "C:\Computer Repair Centre\40174MouriNaruto.NanaZip_2.0.450.0_gnj4mf6z9tkrc.msixbundle"
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
@@ -399,7 +399,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 12th of October 2023")
+				$syncHash.progress.Items.Add("Last updated: 16th of October 2023")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -673,7 +673,7 @@ function computerRepairCentreInstaller {
 				Start-Sleep 5
 				Add-AppxPackage -Path "C:\Computer Repair Centre\Microsoft.VCLibs.x64.14.00.Desktop.Appx"
 				Start-Sleep 5
-				Add-AppxPackage -Path "C:\Computer Repair Centre\MicrosoftDesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
+				Add-AppxPackage -Path "C:\Computer Repair Centre\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 				Start-Sleep 5
 				$syncHash.progressBar.PerformStep()
 				$syncHash.progress.Items.Add("Disabling sleep on AC power...")
@@ -2284,7 +2284,7 @@ function computerRepairCentreInstaller {
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
 	$version.LinkColor = "WHITE"
-	$version.Text = "Version 5.2023.10.12.1"
+	$version.Text = "Version 5.2023.10.16.0"
 	$crcInstaller.Controls.Add($version)
 
 
