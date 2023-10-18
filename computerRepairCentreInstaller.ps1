@@ -1513,13 +1513,16 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Bing Wallpapers has been selected.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progress.Items.Add("Enabling Bing wallpapers and setting up daily schedule...")
+						$syncHash.progress.Items.Add("Installing Bing Wallpapers...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						$myPicturesFolder = [Environment]::GetFolderPath("MyPictures")
-      					$myPicturesFolderBing = ($myPicturesFolder) + "\Bing Wallpapers"
-        				New-Item -Path $myPicturesFolderBing -ItemType Directory
-						& "C:\Computer Repair Centre\bingWallpaperInitial.ps1"
+						#$syncHash.progress.Items.Add("Enabling Bing wallpapers and setting up daily schedule...")
+						#$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						#$syncHash.progress.SelectedIndex = -1;
+						#$myPicturesFolder = [Environment]::GetFolderPath("MyPictures")
+      					#$myPicturesFolderBing = ($myPicturesFolder) + "\Bing Wallpapers"
+        				#New-Item -Path $myPicturesFolderBing -ItemType Directory
+						#& "C:\Computer Repair Centre\bingWallpaperInitial.ps1"
 						$syncHash.progressBar.PerformStep()
 						$syncHash.progress.Items.Add("Completed installation of Bing Wallpapers.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -2285,7 +2288,7 @@ function computerRepairCentreInstaller {
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
 	$version.LinkColor = "WHITE"
-	$version.Text = "Version 5.2023.10.18.0"
+	$version.Text = "Version 5.2023.10.18.1"
 	$crcInstaller.Controls.Add($version)
 
 
