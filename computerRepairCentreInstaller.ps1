@@ -74,8 +74,6 @@ function download {
 			$iTunesPath = "C:\Computer Repair Centre\iTunes.ico"
 			$setDefaultBrowserURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/apps/SetDefaultBrowser.exe"
 			$setDefaultBrowserPath = "C:\Computer Repair Centre\setDefaultBrowser.exe"
-			$bingWallpaperURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/zips/bingWallpaper.zip"
-			$bingWallpaperPath = "C:\Computer Repair Centre\bingWallpaper.zip"
 			$deleteFilesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/zips/deleteFiles.zip"
 			$deleteFilesPath = "C:\Computer Repair Centre\deleteFiles.zip"
 			$zoomURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/zoom.ico"
@@ -139,8 +137,6 @@ function download {
 			Invoke-RestMethod -Uri $microsoftOfficeURL -OutFile $microsoftOfficePath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $microsoftOffice2007URL -OutFile $microsoftOffice2007Path
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $bingWallpaperURL -OutFile $bingWallpaperPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $zoomURL -OutFile $zoomPath
 			$syncHash.progressBar.PerformStep()
@@ -219,7 +215,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 34
+	$progressBar.Maximum = 33
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$downloadBox.Controls.Add($progressBar)
@@ -399,7 +395,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 18th of October 2023")
+				$syncHash.progress.Items.Add("Last updated: 19th of October 2023")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -1524,13 +1520,7 @@ function computerRepairCentreInstaller {
 						}
 						else {
 							winget install --id=Microsoft.BingWallpaper  -e
-							#$syncHash.progress.Items.Add("Enabling Bing wallpapers and setting up daily schedule...")
-							#$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							#$syncHash.progress.SelectedIndex = -1;
-							#$myPicturesFolder = [Environment]::GetFolderPath("MyPictures")
-      						#$myPicturesFolderBing = ($myPicturesFolder) + "\Bing Wallpapers"
-        					#New-Item -Path $myPicturesFolderBing -ItemType Directory
-							#& "C:\Computer Repair Centre\bingWallpaperInitial.ps1"
+							Sleep-Start 5
 							$syncHash.progressBar.PerformStep()
 							$syncHash.progress.Items.Add("Completed installation of Bing Wallpapers.")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1615,13 +1605,7 @@ function computerRepairCentreInstaller {
 						}
 						else {
 							winget install --id=Microsoft.BingWallpaper  -e
-							#$syncHash.progress.Items.Add("Enabling Bing wallpapers and setting up daily schedule...")
-							#$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							#$syncHash.progress.SelectedIndex = -1;
-							#$myPicturesFolder = [Environment]::GetFolderPath("MyPictures")
-      						#$myPicturesFolderBing = ($myPicturesFolder) + "\Bing Wallpapers"
-        					#New-Item -Path $myPicturesFolderBing -ItemType Directory
-							#& "C:\Computer Repair Centre\bingWallpaperInitial.ps1"
+							Sleep-Start 5
 							$syncHash.progressBar.PerformStep()
 							$syncHash.progress.Items.Add("Completed installation of Bing Wallpapers.")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -2312,7 +2296,7 @@ function computerRepairCentreInstaller {
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
 	$version.LinkColor = "WHITE"
-	$version.Text = "Version 5.2023.10.18.2"
+	$version.Text = "Version 5.2023.10.19.0"
 	$crcInstaller.Controls.Add($version)
 
 
