@@ -74,8 +74,8 @@ function download {
 			$iTunesPath = "C:\Computer Repair Centre\iTunes.ico"
 			$setDefaultBrowserURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/apps/SetDefaultBrowser.exe"
 			$setDefaultBrowserPath = "C:\Computer Repair Centre\setDefaultBrowser.exe"
-			$deleteFilesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/zips/deleteFiles.zip"
-			$deleteFilesPath = "C:\Computer Repair Centre\deleteFiles.zip"
+			$deleteFilesTaskURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFilesTask.ps1"
+			$deleteFilesTaskPath = "C:\Computer Repair Centre\deleteFilesTask.ps1"
 			$zoomURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/zoom.ico"
 			$zoomPath = "C:\Computer Repair Centre\zoom.ico"
 			$discordURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/discord.ico"
@@ -140,7 +140,7 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $zoomURL -OutFile $zoomPath
 			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $deleteFilesURL -OutFile $deleteFilesPath
+			Invoke-RestMethod -Uri $deleteFilesTaskURL -OutFile $deleteFilesTaskPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $restartURL -OutFile $restartPath
 			$syncHash.progressBar.PerformStep()
@@ -1535,6 +1535,8 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 					}
+					if ($syncHash.microsoftOffice2007.Checked) { Invoke-RestMethod -Uri "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFilesOffice.ps1" -OutFile "C:\Computer Repair Centre\deleteFiles.ps1" }
+					else { Invoke-RestMethod -Uri "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFiles.ps1" -OutFile "C:\Computer Repair Centre\deleteFiles.ps1" }
 					& 'C:\Computer Repair Centre\deleteFilesTask.ps1'
 					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1606,6 +1608,8 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = -1;
 						}
 					}
+					if ($syncHash.microsoftOffice2007.Checked) { Invoke-RestMethod -Uri "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFilesOffice.ps1" -OutFile "C:\Computer Repair Centre\deleteFiles.ps1" }
+					else { Invoke-RestMethod -Uri "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFiles.ps1" -OutFile "C:\Computer Repair Centre\deleteFiles.ps1" }
 					& 'C:\Computer Repair Centre\deleteFilesTask.ps1'
 					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -2290,7 +2294,7 @@ function computerRepairCentreInstaller {
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
 	$version.LinkColor = "WHITE"
-	$version.Text = "Version 5.2023.10.19.1"
+	$version.Text = "Version 5.2023.10.19.2"
 	$crcInstaller.Controls.Add($version)
 
 

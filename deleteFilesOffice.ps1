@@ -12,6 +12,7 @@ Remove-Item 'C:\Computer Repair Centre\*.Appx'
 Remove-Item 'C:\Computer Repair Centre\*.msixbundle'
 Remove-Item 'C:\Computer Repair Centre\computerRepairCentreInstaller.ps1'
 Remove-Item 'C:\Computer Repair Centre\deleteFilesTask.ps1'
+Remove-Item -Recurse -Force "C:\Computer Repair Centre\Office2007"
 Unregister-ScheduledTask -TaskName "Computer Repair Centre Delete Files" -Confirm:$false
 Write-Output "Finished cleaning up installation files..."
 Start-Sleep 5
