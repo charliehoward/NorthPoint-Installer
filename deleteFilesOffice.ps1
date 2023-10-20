@@ -15,4 +15,6 @@ Remove-Item 'C:\Computer Repair Centre\deleteFilesTask.ps1'
 Remove-Item -Recurse -Force "C:\Computer Repair Centre\Office2007"
 Unregister-ScheduledTask -TaskName "Computer Repair Centre Delete Files" -Confirm:$false
 Write-Output "Finished cleaning up installation files..."
+Get-Date -Format "yyyy/MM/dd - hh:mm" | Out-File -FilePath "C:\Computer Repair Centre\Installation Date.log"
 Start-Sleep 5
+Set-ItemProperty -Path "C:\Computer Repair Centre\Installation Date.log" -Name IsReadOnly -Value $true
