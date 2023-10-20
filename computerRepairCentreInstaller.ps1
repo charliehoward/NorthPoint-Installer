@@ -2288,7 +2288,7 @@ function computerRepairCentreInstaller {
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
 	$version.LinkColor = "WHITE"
-	$version.Text = "Version 5.2023.10.20.1"
+	$version.Text = "Version 5.2023.10.20.2"
 	$crcInstaller.Controls.Add($version)
 
 
