@@ -395,7 +395,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 20th of October 2023")
+				$syncHash.progress.Items.Add("Last updated: 27th of October 2023")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -1692,7 +1692,7 @@ function computerRepairCentreInstaller {
 	$install.DataBindings.DefaultDataSourceUpdateMode = 0
 	$install.add_Click($handler_install_Click)
 	$crcInstaller.Controls.Add($install)
-	$install.BackColor = "#00b9ff"
+	$install.BackColor = $ButtonColour
 	$install.ForeColor = "White"
 
 
@@ -1714,7 +1714,7 @@ function computerRepairCentreInstaller {
 	$reboot.DataBindings.DefaultDataSourceUpdateMode = 0
 	$reboot.add_Click($handler_reboot_Click)
 	$crcInstaller.Controls.Add($reboot)
-	$reboot.BackColor = "#00b9ff"
+	$reboot.BackColor = $ButtonColour
 	$reboot.ForeColor = "White"
 
 
@@ -1736,7 +1736,7 @@ function computerRepairCentreInstaller {
 	$close.DataBindings.DefaultDataSourceUpdateMode = 0
 	$close.add_Click($handler_close_Click)
 	$crcInstaller.Controls.Add($close)
-	$close.BackColor = "#00b9ff"
+	$close.BackColor = $ButtonColour
 	$close.ForeColor = "White"
 
 
@@ -2288,7 +2288,7 @@ function computerRepairCentreInstaller {
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
 	$version.LinkColor = "WHITE"
-	$version.Text = "Version 5.2023.10.20.2"
+	$version.Text = "Version 5.2023.10.27.0"
 	$crcInstaller.Controls.Add($version)
 
 
