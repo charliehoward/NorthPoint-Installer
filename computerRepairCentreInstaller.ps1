@@ -1,4 +1,4 @@
-## -- Copyright (c) Charlie Howard 2023 All rights reserved
+## -- Copyright (c) Charlie Howard 2024 All rights reserved
 
 
 ## -- Download files
@@ -94,15 +94,7 @@ function download {
 			$solitareIconPath = "C:\Computer Repair Centre\solitare.ico"
 			$HPURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/HP.ico"
 			$HPPath = "C:\Computer Repair Centre\HP.ico"
-			$microsoftUIURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/apps/Microsoft.UI.Xaml.2.7_7.2208.15002.0_x64__8wekyb3d8bbwe.Appx"
-			$microsoftUIPath = "C:\Computer Repair Centre\Microsoft.UI.Xaml.2.7_7.2208.15002.0_x64__8wekyb3d8bbwe.Appx"
-			$VCLibsURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/apps/Microsoft.VCLibs.x64.14.00.Desktop.Appx"
-			$VCLibsPath = "C:\Computer Repair Centre\Microsoft.VCLibs.x64.14.00.Desktop.Appx"
-			$wingetURL = "https://files.crchq.net/installer/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
-			$wingetPath = "C:\Computer Repair Centre\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
-			$nanaZipURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/apps/40174MouriNaruto.NanaZip_2.0.450.0_gnj4mf6z9tkrc.msixbundle"
-			$nanaZipPath = "C:\Computer Repair Centre\40174MouriNaruto.NanaZip_2.0.450.0_gnj4mf6z9tkrc.msixbundle"
-			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
+						Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $googleChromeURL -OutFile $googleChromePath
 			$syncHash.progressBar.PerformStep()
@@ -154,15 +146,7 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $HPURL -OutFile $HPPath
 			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $microsoftUIURL -OutFile $microsoftUIPath
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $VCLibsURL -OutFile $VCLibsPath
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $wingetURL -OutFile $wingetPath
-			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $anyDeskURL -OutFile $anyDeskPath
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $nanaZipURL -OutFile $nanaZipPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $steamURL -OutFile $steamPath
 			$syncHash.progressBar.PerformStep()
@@ -215,7 +199,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 33
+	$progressBar.Maximum = 29
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$downloadBox.Controls.Add($progressBar)
@@ -395,7 +379,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 3rd of November 2023")
+				$syncHash.progress.Items.Add("Last updated: 2nd of January 2024")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -653,6 +637,13 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progressBar.PerformStep()
 				}
+				$syncHash.progress.Items.Add("Downloading all prerequisites...")
+				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+				$syncHash.progress.SelectedIndex = -1;
+				Invoke-RestMethod -Uri https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/apps/Microsoft.UI.Xaml.2.7_7.2208.15002.0_x64__8wekyb3d8bbwe.Appx -OutFile C:\Computer Repair Centre\Microsoft.UI.Xaml.2.7_7.2208.15002.0_x64__8wekyb3d8bbwe.Appx
+				Invoke-RestMethod -Uri https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/apps/Microsoft.VCLibs.x64.14.00.Desktop.Appx -OutFile C:\Computer Repair Centre\Microsoft.VCLibs.x64.14.00.Desktop.Appx
+				Invoke-RestMethod -Uri https://files.crchq.net/installer/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -OutFile C:\Computer Repair Centre\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle
+				Invoke-RestMethod -Uri https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/apps/40174MouriNaruto.NanaZip_2.0.450.0_gnj4mf6z9tkrc.msixbundle -OutFile C:\Computer Repair Centre\40174MouriNaruto.NanaZip_2.0.450.0_gnj4mf6z9tkrc.msixbundle
 				$syncHash.progress.Items.Add("Installing all prerequisites...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
@@ -2289,7 +2280,7 @@ function computerRepairCentreInstaller {
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
 	$version.LinkColor = "WHITE"
-	$version.Text = "Version 5.2023.11.03.0"
+	$version.Text = "Version 5.2024.01.02.0"
 	$crcInstaller.Controls.Add($version)
 
 
