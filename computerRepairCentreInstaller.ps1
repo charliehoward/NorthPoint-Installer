@@ -641,7 +641,7 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				Invoke-RestMethod -Uri "https://files.crchq.net/installer/installerApps.zip" -OutFile "C:\Computer Repair Centre\installerApps.zip"
-				Invoke-RestMethod -Uri "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/apps/40174MouriNaruto.NanaZip_2.0.450.0_gnj4mf6z9tkrc.msixbundle" -OutFile "C:\Computer Repair Centre\40174MouriNaruto.NanaZip_2.0.450.0_gnj4mf6z9tkrc.msixbundle"
+				Invoke-RestMethod -Uri "https://files.crchq.net/installer/40174MouriNaruto.NanaZip_2.0.450.0_gnj4mf6z9tkrc.msixbundle" -OutFile "C:\Computer Repair Centre\40174MouriNaruto.NanaZip_2.0.450.0_gnj4mf6z9tkrc.msixbundle"
 				$syncHash.progress.Items.Add("Installing all prerequisites...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
@@ -2278,7 +2278,7 @@ function computerRepairCentreInstaller {
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
 	$version.LinkColor = "WHITE"
-	$version.Text = "Version 5.2024.01.03.1"
+	$version.Text = "Version 5.2024.01.03.2"
 	$crcInstaller.Controls.Add($version)
 
 
