@@ -645,19 +645,23 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.Items.Add("Installing all prerequisites...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progress.Items.Add("  Installing NanaZip...")
+				$syncHash.progress.Items.Add("- Installing NanaZip...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
+				$syncHash.progress.Items.Add("- Completed installation of NanaZip.")
+				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+				$syncHash.progress.SelectedIndex = -1;
+				$syncHash.progressBar.PerformStep()
 				Add-AppxPackage -Path "C:\Computer Repair Centre\40174MouriNaruto.NanaZip_2.0.450.0_gnj4mf6z9tkrc.msixbundle"
 				Start-Sleep 5
-				$syncHash.progress.Items.Add("  Updating Windows Store...")
+				$syncHash.progress.Items.Add("- Updating Windows Store...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZip_2.0.450.0_x64__gnj4mf6z9tkrc\NanaZipG.exe' x "C:\Computer Repair Centre\installerApps.zip" "-oC:\Computer Repair Centre" -aoa
 				Get-CimInstance -Namespace "Root\cimv2\mdm\dmmap" -ClassName "MDM_EnterpriseModernAppManagement_AppManagement01" | Invoke-CimMethod -MethodName UpdateScanMethod
 				$syncHash.progressBar.PerformStep()
 				Start-Sleep 5
-				$syncHash.progress.Items.Add("Installing winget...")
+				$syncHash.progress.Items.Add("- Installing winget...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				Add-AppxPackage -Path "C:\Computer Repair Centre\Microsoft.UI.Xaml.2.7_7.2208.15002.0_x64__8wekyb3d8bbwe.Appx"
@@ -667,24 +671,24 @@ function computerRepairCentreInstaller {
 				Add-AppxPackage -Path "C:\Computer Repair Centre\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 				Start-Sleep 5
 				$syncHash.progressBar.PerformStep()
-				$syncHash.progress.Items.Add("Disabling sleep on AC power...")
+				$syncHash.progress.Items.Add("- Disabling sleep on AC power...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				powercfg /change monitor-timeout-ac 0
 				Start-Sleep 2
 				powercfg /change standby-timeout-ac 0
 				$syncHash.progressBar.PerformStep()
-				$syncHash.progress.Items.Add("Installing Microsoft .NET Windows Desktop Runtime 3.1...")
+				$syncHash.progress.Items.Add("- Installing Microsoft .NET Windows Desktop Runtime 3.1...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				winget install --id=Microsoft.DotNet.DesktopRuntime.3_1 -e --accept-source-agreements --accept-package-agreements
 				$syncHash.progressBar.PerformStep()
-				$syncHash.progress.Items.Add("Installing Microsoft .NET Windows Desktop Runtime 5.0...")
+				$syncHash.progress.Items.Add("- Installing Microsoft .NET Windows Desktop Runtime 5.0...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$programList = winget list
 				if ($programList -like '*Microsoft.DotNet.DesktopRuntime.5*') { 
-					$syncHash.progress.Items.Add("Microsoft .NET Windows Desktop Runtime 5.0 is already installed.")
+					$syncHash.progress.Items.Add("- Microsoft .NET Windows Desktop Runtime 5.0 is already installed.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progressBar.PerformStep()
@@ -693,12 +697,12 @@ function computerRepairCentreInstaller {
 					winget install --id=Microsoft.DotNet.DesktopRuntime.5 -e --accept-source-agreements --accept-package-agreements
 					$syncHash.progressBar.PerformStep()
 				}
-				$syncHash.progress.Items.Add("Installing Microsoft .NET Windows Desktop Runtime 6.0...")
+				$syncHash.progress.Items.Add("- Installing Microsoft .NET Windows Desktop Runtime 6.0...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$programList = winget list
 				if ($programList -like '*Microsoft.DotNet.DesktopRuntime.6*') { 
-					$syncHash.progress.Items.Add("Microsoft .NET Windows Desktop Runtime 6.0 is already installed.")
+					$syncHash.progress.Items.Add("- Microsoft .NET Windows Desktop Runtime 6.0 is already installed.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progressBar.PerformStep()
@@ -707,12 +711,12 @@ function computerRepairCentreInstaller {
 					winget install --id=Microsoft.DotNet.DesktopRuntime.6 -e --accept-source-agreements --accept-package-agreements
 					$syncHash.progressBar.PerformStep()
 				}
-				$syncHash.progress.Items.Add("Installing Microsoft .NET Windows Desktop Runtime 7.0...")
+				$syncHash.progress.Items.Add("- Installing Microsoft .NET Windows Desktop Runtime 7.0...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$programList = winget list
 				if ($programList -like '*Microsoft.DotNet.DesktopRuntime.7*') { 
-					$syncHash.progress.Items.Add("Microsoft .NET Windows Desktop Runtime 7.0 is already installed.")
+					$syncHash.progress.Items.Add("- Microsoft .NET Windows Desktop Runtime 7.0 is already installed.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progressBar.PerformStep()
@@ -721,10 +725,6 @@ function computerRepairCentreInstaller {
 					winget install --id=Microsoft.DotNet.DesktopRuntime.7 -e --accept-source-agreements --accept-package-agreements 
 					$syncHash.progressBar.PerformStep()
 				}
-				$syncHash.progress.Items.Add("Completed installation of NanaZip.")
-				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-				$syncHash.progress.SelectedIndex = -1;
-				$syncHash.progressBar.PerformStep()
 				$syncHash.progress.Items.Add("Completed installation of all prerequisites...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
@@ -809,7 +809,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing Google Chrome...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						winget install --id=Google.Chrome -e --accept-source-agreements --accept-package-agreements
+						winget install -e --id Google.Chrome --accept-source-agreements --accept-package-agreements
 						$programList = winget list
 						if ($programList -like '*Google.Chrome*') {
 							$syncHash.progress.Items.Add("Completed installation of Google Chrome.")
@@ -2278,7 +2278,7 @@ function computerRepairCentreInstaller {
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
 	$version.LinkColor = "WHITE"
-	$version.Text = "Version 5.2024.01.03.0"
+	$version.Text = "Version 5.2024.01.03.1"
 	$crcInstaller.Controls.Add($version)
 
 
