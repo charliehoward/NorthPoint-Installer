@@ -72,8 +72,6 @@ function download {
 			$nightModePath = "C:\Computer Repair Centre\nightMode.ico"
 			$iTunesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/iTunes.ico"
 			$iTunesPath = "C:\Computer Repair Centre\iTunes.ico"
-			$setDefaultBrowserURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/apps/SetDefaultBrowser.exe"
-			$setDefaultBrowserPath = "C:\Computer Repair Centre\setDefaultBrowser.exe"
 			$deleteFilesTaskURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFilesTask.ps1"
 			$deleteFilesTaskPath = "C:\Computer Repair Centre\deleteFilesTask.ps1"
 			$zoomURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/zoom.ico"
@@ -123,8 +121,6 @@ function download {
 			Invoke-RestMethod -Uri $nightModeURL -OutFile $nightModePath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $computerRepairCentreOEMURL -OutFile $computerRepairCentreOEMPath
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $setDefaultBrowserURL -OutFile $setDefaultBrowserPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $microsoftOfficeURL -OutFile $microsoftOfficePath
 			$syncHash.progressBar.PerformStep()
@@ -199,7 +195,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 29
+	$progressBar.Maximum = 28
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$downloadBox.Controls.Add($progressBar)
@@ -379,7 +375,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 2nd of January 2024")
+				$syncHash.progress.Items.Add("Last updated: 13th of January 2024")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -2279,7 +2275,7 @@ function computerRepairCentreInstaller {
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
 	$version.LinkColor = "WHITE"
-	$version.Text = "Version 5.2024.01.03.3"
+	$version.Text = "Version 5.2024.01.13.0"
 	$crcInstaller.Controls.Add($version)
 
 
