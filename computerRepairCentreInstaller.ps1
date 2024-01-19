@@ -82,6 +82,8 @@ function download {
 			$steamPath = "C:\Computer Repair Centre\steam.ico"
 			$restartURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/restart.ico"
 			$restartPath = "C:\Computer Repair Centre\restart.ico"
+			$refurbURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/refurb.ico"
+			$refurbPath = "C:\Computer Repair Centre\refurb.ico"
 			$chandlersFordURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/chandlersFord.ico"
 			$chandlersFordPath = "C:\Computer Repair Centre\chandlersFord.ico"
 			$romseyURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/romsey.ico"
@@ -288,6 +290,7 @@ function computerRepairCentreInstaller {
 	$anyDesk = New-Object System.Windows.Forms.CheckBox
 	$discord = New-Object System.Windows.Forms.CheckBox
 	$steamPowered = New-Object System.Windows.Forms.CheckBox
+	$refurb = New-Object System.Windows.Forms.CheckBox
 	$HP = New-Object System.Windows.Forms.CheckBox
 	$changeLog = New-Object System.Windows.Forms.LinkLabel
 	$version = New-Object System.Windows.Forms.Label
@@ -321,6 +324,7 @@ function computerRepairCentreInstaller {
 	$syncHash.rebootBox = $rebootBox
 	$syncHash.reboot = $reboot
 	$syncHash.zoom = $zoom
+	$syncHash.refurb = $refurb
 	$syncHash.HPEliteBook = $HPEliteBook
 	$syncHash.romsey = $romsey
 	$syncHash.chandlersFord = $chandlersFord
@@ -375,7 +379,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 13th of January 2024")
+				$syncHash.progress.Items.Add("Last updated: 19th of January 2024")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -580,13 +584,8 @@ function computerRepairCentreInstaller {
 				if ($syncHash.operatingSystem -like '*6.1*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*6.2*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*6.3*') { $syncHash.progressBar.Maximum += 1 }
-				if ($syncHash.operatingSystem -like '*10.0.1*') { $syncHash.progressBar.Maximum += 7 }
-				if ($syncHash.operatingSystem -like '*10.0.2*') { $syncHash.progressBar.Maximum += 4 }
-				if ($syncHash.sleep -like '*1*' ) {
-					$syncHash.progress.Items.Add("This computer is a refurb, disable sleep on AC power and will reboot.")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-				}
+				if ($syncHash.operatingSystem -like '*10.0.1*') { $syncHash.progressBar.Maximum += 8 }
+				if ($syncHash.operatingSystem -like '*10.0.2*') { $syncHash.progressBar.Maximum += 5 }
 				$syncHash.progressBar.Refresh()
 				if ($syncHash.crc.Checked) {
 					$syncHash.progress.Items.Add("Computer Repair Centre OEM information is selected.")
@@ -642,6 +641,24 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.Items.Add("Installing all prerequisites...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
+				if ($syncHash.refurb.Checked) {
+					$syncHash.progress.Items.Add("- Disabling sleep on AC power...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					powercfg /change monitor-timeout-ac 0
+					Start-Sleep 2
+					powercfg /change standby-timeout-ac 0
+					$syncHash.progressBar.PerformStep()
+				}
+				else {
+					$syncHash.progress.Items.Add("- Disabling sleep on AC power temporarily...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					powercfg /change monitor-timeout-ac 0
+					Start-Sleep 2
+					powercfg /change standby-timeout-ac 0
+					$syncHash.progressBar.PerformStep()
+				}
 				$syncHash.progress.Items.Add("- Installing NanaZip...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
@@ -667,13 +684,6 @@ function computerRepairCentreInstaller {
 				Start-Sleep 5
 				Add-AppxPackage -Path "C:\Computer Repair Centre\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 				Start-Sleep 5
-				$syncHash.progressBar.PerformStep()
-				$syncHash.progress.Items.Add("- Disabling sleep on AC power...")
-				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-				$syncHash.progress.SelectedIndex = -1;
-				powercfg /change monitor-timeout-ac 0
-				Start-Sleep 2
-				powercfg /change standby-timeout-ac 0
 				$syncHash.progressBar.PerformStep()
 				$syncHash.progress.Items.Add("- Installing Microsoft .NET Windows Desktop Runtime 3.1...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1518,6 +1528,17 @@ function computerRepairCentreInstaller {
 					if ($syncHash.microsoftOffice2007.Checked) { Invoke-RestMethod -Uri "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFilesOffice.ps1" -OutFile "C:\Computer Repair Centre\deleteFiles.ps1" }
 					else { Invoke-RestMethod -Uri "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFiles.ps1" -OutFile "C:\Computer Repair Centre\deleteFiles.ps1" }
 					& 'C:\Computer Repair Centre\deleteFilesTask.ps1'
+					if ($syncHash.refurb.Checked) {
+					}
+					else {
+						$syncHash.progress.Items.Add("Re-enabling sleep on AC power...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						powercfg /change monitor-timeout-ac 30
+						Start-Sleep 2
+						powercfg /change standby-timeout-ac 60
+						$syncHash.progressBar.PerformStep()
+					}
 					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
@@ -1591,6 +1612,17 @@ function computerRepairCentreInstaller {
 					if ($syncHash.microsoftOffice2007.Checked) { Invoke-RestMethod -Uri "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFilesOffice.ps1" -OutFile "C:\Computer Repair Centre\deleteFiles.ps1" }
 					else { Invoke-RestMethod -Uri "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFiles.ps1" -OutFile "C:\Computer Repair Centre\deleteFiles.ps1" }
 					& 'C:\Computer Repair Centre\deleteFilesTask.ps1'
+					if ($syncHash.refurb.Checked) {
+					}
+					else {
+						$syncHash.progress.Items.Add("Re-enabling sleep on AC power...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						powercfg /change monitor-timeout-ac 30
+						Start-Sleep 2
+						powercfg /change standby-timeout-ac 60
+						$syncHash.progressBar.PerformStep()
+					}
 					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
@@ -2249,6 +2281,26 @@ function computerRepairCentreInstaller {
 	$highcliffe.FlatAppearance.BorderSize=0
 
 
+	## -- Refurb Box
+
+	$System_Drawing_Size = New-Object System.Drawing.Size
+	$System_Drawing_Size.Width = 70
+	$System_Drawing_Size.Height = 36
+	$refurb.Size = $System_Drawing_Size
+	$refurb.TabIndex = 6
+	$System_Drawing_Point = New-Object System.Drawing.Point
+	$System_Drawing_Point.X = 170 + (38 * 7.2)
+	$System_Drawing_Point.Y = 5 + (31 * 7)
+	$refurb.location = $System_Drawing_Point
+	$refurb.DataBindings.DefaultDataSourceUpdateMode = 0
+	$refurb.Name = "refurb"
+	$refurb.Checked = 0
+	$refurb.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\refurb.ico")
+	$crcInstaller.Controls.Add($refurb)
+	$refurb.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$refurb.FlatAppearance.BorderSize=0
+
+
 	## -- Restart Box
 
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -2274,8 +2326,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.LinkColor = "WHITE"
-	$version.Text = "Version 5.2024.01.13.0"
+	$version.Text = "Version 5.2024.01.19.0"
 	$crcInstaller.Controls.Add($version)
 
 
