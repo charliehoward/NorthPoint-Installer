@@ -150,6 +150,8 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $discordURL -OutFile $discordPath
 			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $refurbURL -OutFile $refurbPath
+			$syncHash.progressBar.PerformStep()
 			$syncHash.downloadBox.Close()
 		})
 	$psCmd.Runspace = $processRunspace
@@ -197,7 +199,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 28
+	$progressBar.Maximum = 29
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$downloadBox.Controls.Add($progressBar)
@@ -379,7 +381,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 19th of January 2024")
+				$syncHash.progress.Items.Add("Last updated: 20th of January 2024")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -2326,7 +2328,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.01.19.1"
+	$version.Text = "Version 5.2024.01.20.0"
 	$crcInstaller.Controls.Add($version)
 
 
