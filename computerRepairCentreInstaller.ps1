@@ -381,7 +381,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 20th of January 2024")
+				$syncHash.progress.Items.Add("Last updated: 7th of February 2024")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -818,7 +818,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing Google Chrome...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						winget install -e --id Google.Chrome --accept-source-agreements --accept-package-agreements
+						winget install Google.Chrome
 						$programList = winget list
 						if ($programList -like '*Google.Chrome*') {
 							$syncHash.progress.Items.Add("Completed installation of Google Chrome.")
@@ -2328,7 +2328,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.01.20.0"
+	$version.Text = "Version 5.2024.02.7.0"
 	$crcInstaller.Controls.Add($version)
 
 
