@@ -381,7 +381,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 7th of February 2024")
+				$syncHash.progress.Items.Add("Last updated: 29th of February 2024")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -587,7 +587,7 @@ function computerRepairCentreInstaller {
 				if ($syncHash.operatingSystem -like '*6.2*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*6.3*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*10.0.1*') { $syncHash.progressBar.Maximum += 8 }
-				if ($syncHash.operatingSystem -like '*10.0.2*') { $syncHash.progressBar.Maximum += 5 }
+				if ($syncHash.operatingSystem -like '*10.0.2*') { $syncHash.progressBar.Maximum += 6 }
 				$syncHash.progressBar.Refresh()
 				if ($syncHash.crc.Checked) {
 					$syncHash.progress.Items.Add("Computer Repair Centre OEM information is selected.")
@@ -1611,6 +1611,11 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = -1;
 						}
 					}
+					$syncHash.progress.Items.Add("Moving taskbar align to left...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Set-ItemProperty -Path HKCU:\software\microsoft\windows\currentversion\explorer\advanced -Name 'TaskbarAl' -Type 'DWord' -Value 0
+					$syncHash.progressBar.PerformStep()
 					if ($syncHash.microsoftOffice2007.Checked) { Invoke-RestMethod -Uri "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFilesOffice.ps1" -OutFile "C:\Computer Repair Centre\deleteFiles.ps1" }
 					else { Invoke-RestMethod -Uri "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFiles.ps1" -OutFile "C:\Computer Repair Centre\deleteFiles.ps1" }
 					& 'C:\Computer Repair Centre\deleteFilesTask.ps1'
@@ -2328,7 +2333,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.02.7.0"
+	$version.Text = "Version 5.2024.02.29.0"
 	$crcInstaller.Controls.Add($version)
 
 
