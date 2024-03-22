@@ -381,7 +381,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 29th of February 2024")
+				$syncHash.progress.Items.Add("Last updated: 22nd of March 2024")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -681,11 +681,13 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				Add-AppxPackage -Path "C:\Computer Repair Centre\Microsoft.UI.Xaml.2.7_7.2208.15002.0_x64__8wekyb3d8bbwe.Appx"
-				Start-Sleep 5
+				Start-Sleep 10
 				Add-AppxPackage -Path "C:\Computer Repair Centre\Microsoft.VCLibs.x64.14.00.Desktop.Appx"
-				Start-Sleep 5
+				Start-Sleep 10
 				Add-AppxPackage -Path "C:\Computer Repair Centre\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
-				Start-Sleep 5
+				Start-Sleep 10
+				winget search Chrome
+				Start-Sleep 10
 				$syncHash.progressBar.PerformStep()
 				$syncHash.progress.Items.Add("- Installing Microsoft .NET Windows Desktop Runtime 3.1...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -938,7 +940,7 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Installing LibreOffice...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						winget install --id=TheDocumentFoundation.LibreOffice -e --accept-source-agreements --accept-package-agreements
+						winget install TheDocumentFoundation.LibreOffice -e --accept-source-agreements --accept-package-agreements
 						$programList = winget list
 						if ($programList -like '*TheDocumentFoundation.LibreOffice*') {
 							$syncHash.progress.Items.Add("Completed installation of LibreOffice.")
@@ -956,7 +958,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.Items.Add("Downloading LibreOffice.")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
-							Invoke-RestMethod -Uri "https://www.mirrorservice.org/sites/download.documentfoundation.org/tdf/libreoffice/stable/7.6.2/win/x86_64/LibreOffice_7.6.2_Win_x86-64.msi" -OutFile "C:\Computer Repair Centre\libreOffice.msi"
+							Invoke-RestMethod -Uri "https://files.crchq.net/installer/LibreOffice.msi" -OutFile "C:\Computer Repair Centre\libreOffice.msi"
 							$syncHash.progress.Items.Add("Installing LibreOffice...")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
@@ -2333,7 +2335,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.02.29.0"
+	$version.Text = "Version 5.2024.03.22.0"
 	$crcInstaller.Controls.Add($version)
 
 
