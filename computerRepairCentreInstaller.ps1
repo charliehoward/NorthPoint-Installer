@@ -381,7 +381,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 22nd of March 2024")
+				$syncHash.progress.Items.Add("Last updated: 23rd of March 2024")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -639,7 +639,7 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.SelectedIndex = -1;
 				Invoke-RestMethod -Uri "https://files.crchq.net/installer/installerApps.zip" -OutFile "C:\Computer Repair Centre\installerApps.zip"
 				Invoke-RestMethod -Uri "https://files.crchq.net/installer/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle" -OutFile "C:\Computer Repair Centre\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
-				Invoke-RestMethod -Uri "https://files.crchq.net/installer/40174MouriNaruto.NanaZip_2.0.450.0_gnj4mf6z9tkrc.msixbundle" -OutFile "C:\Computer Repair Centre\40174MouriNaruto.NanaZip_2.0.450.0_gnj4mf6z9tkrc.msixbundle"
+				Invoke-RestMethod -Uri "https://files.crchq.net/installer/40174MouriNaruto.NanaZipPreview_3.0.756.0_gnj4mf6z9tkrc.msixbundle" -OutFile "C:\Computer Repair Centre\40174MouriNaruto.NanaZipPreview_3.0.756.0_gnj4mf6z9tkrc.msixbundle"
 				$syncHash.progress.Items.Add("Installing all prerequisites...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
@@ -668,12 +668,12 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progressBar.PerformStep()
-				Add-AppxPackage -Path "C:\Computer Repair Centre\40174MouriNaruto.NanaZip_2.0.450.0_gnj4mf6z9tkrc.msixbundle"
+				Add-AppxPackage -Path "C:\Computer Repair Centre\40174MouriNaruto.NanaZipPreview_3.0.756.0_gnj4mf6z9tkrc.msixbundle"
 				Start-Sleep 5
 				$syncHash.progress.Items.Add("- Updating Windows Store...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZip_2.0.450.0_x64__gnj4mf6z9tkrc\NanaZipG.exe' x "C:\Computer Repair Centre\installerApps.zip" "-oC:\Computer Repair Centre" -aoa
+				& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZipPreview_3.0.756.0_x64__gnj4mf6z9tkrc\NanaZipG.exe' x "C:\Computer Repair Centre\installerApps.zip" "-oC:\Computer Repair Centre" -aoa
 				Get-CimInstance -Namespace "Root\cimv2\mdm\dmmap" -ClassName "MDM_EnterpriseModernAppManagement_AppManagement01" | Invoke-CimMethod -MethodName UpdateScanMethod
 				$syncHash.progressBar.PerformStep()
 				Start-Sleep 5
@@ -686,13 +686,11 @@ function computerRepairCentreInstaller {
 				Start-Sleep 10
 				Add-AppxPackage -Path "C:\Computer Repair Centre\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 				Start-Sleep 10
-				winget search Chrome
-				Start-Sleep 10
 				$syncHash.progressBar.PerformStep()
 				$syncHash.progress.Items.Add("- Installing Microsoft .NET Windows Desktop Runtime 3.1...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				winget install --id=Microsoft.DotNet.DesktopRuntime.3_1 -e --accept-source-agreements --accept-package-agreements
+				winget install Microsoft.DotNet.DesktopRuntime.3_1 -e --accept-source-agreements --accept-package-agreements
 				$syncHash.progressBar.PerformStep()
 				$syncHash.progress.Items.Add("- Installing Microsoft .NET Windows Desktop Runtime 5.0...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -985,7 +983,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					Invoke-RestMethod -Uri "https://files.crchq.net/installer/Office2007.zip" -OutFile "C:\Computer Repair Centre\Office2007.zip"
-					& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZip_2.0.450.0_x64__gnj4mf6z9tkrc\NanaZipG.exe' x "C:\Computer Repair Centre\Office2007.zip" "-oC:\Computer Repair Centre\Office2007" -aoa
+					& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZipPreview_3.0.756.0_x64__gnj4mf6z9tkrc\NanaZipG.exe' x "C:\Computer Repair Centre\Office2007.zip" "-oC:\Computer Repair Centre\Office2007" -aoa
 					Start-Sleep 20
 					$syncHash.progressBar.PerformStep()
 					$syncHash.progress.Items.Add("Installing Microsoft Office 2007...")
@@ -1331,7 +1329,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					Invoke-RestMethod -Uri "https://files.crchq.net/installer/Windows7Games.zip" -OutFile "C:\Computer Repair Centre\Windows7Games.zip"
-					& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZip_2.0.450.0_x64__gnj4mf6z9tkrc\NanaZipG.exe' x "C:\Computer Repair Centre\Windows7Games.zip" "-oC:\Computer Repair Centre" -aoa
+					& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZipPreview_3.0.756.0_x64__gnj4mf6z9tkrc\NanaZipG.exe' x "C:\Computer Repair Centre\Windows7Games.zip" "-oC:\Computer Repair Centre" -aoa
 					Start-Sleep 10
 					$syncHash.progressBar.PerformStep()
 					$syncHash.progress.Items.Add("Installing Windows 7 Games...")
@@ -1399,7 +1397,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					Invoke-RestMethod -Uri "https://files.crchq.net/installer/HPHotkey.zip" -OutFile "C:\Computer Repair Centre\HPHotkey.zip"
-					& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZip_2.0.450.0_x64__gnj4mf6z9tkrc\NanaZipG.exe' x "C:\Computer Repair Centre\HPHotkey.zip" "-oC:\Computer Repair Centre" -aoa
+					& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZipPreview_3.0.756.0_x64__gnj4mf6z9tkrc\NanaZipG.exe' x "C:\Computer Repair Centre\HPHotkey.zip" "-oC:\Computer Repair Centre" -aoa
 					Start-Sleep 10
 					$syncHash.progressBar.PerformStep()
 					$syncHash.progress.Items.Add("Installing HP Hotkey Support...")
@@ -2335,7 +2333,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.03.22.0"
+	$version.Text = "Version 5.2024.03.23.0"
 	$crcInstaller.Controls.Add($version)
 
 
