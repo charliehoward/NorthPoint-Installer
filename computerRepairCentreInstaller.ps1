@@ -1505,7 +1505,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progressBar.PerformStep()
 						}
 						else {
-							winget install --id=Microsoft.BingWallpaper  -e
+							winget install Microsoft.BingWallpaper -e --accept-source-agreements --accept-package-agreements
 							Sleep-Start 5
 							$syncHash.progressBar.PerformStep()
 							$syncHash.progress.Items.Add("Completed installation of Bing Wallpapers.")
@@ -1603,7 +1603,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progressBar.PerformStep()
 						}
 						else {
-							winget install --id=Microsoft.BingWallpaper  -e
+							winget install Microsoft.BingWallpaper -e --accept-source-agreements --accept-package-agreements
 							Sleep-Start 5
 							$syncHash.progressBar.PerformStep()
 							$syncHash.progress.Items.Add("Completed installation of Bing Wallpapers.")
@@ -2333,7 +2333,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.03.25.0"
+	$version.Text = "Version 5.2024.03.25.1"
 	$crcInstaller.Controls.Add($version)
 
 
