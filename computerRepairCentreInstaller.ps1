@@ -340,6 +340,7 @@ function computerRepairCentreInstaller {
 	$syncHash.discord = $discord
 	$synchash.christmas = $christmas
 	$synchash.halloween = $halloween
+	$synchash.locationCF = $locationCF
 	$b1 = $false
 	$b2 = $false
 	$b3 = $false
@@ -1611,10 +1612,17 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = -1;
 						}
 					}
-					$syncHash.progress.Items.Add("Moving taskbar align to left...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					Set-ItemProperty -Path HKCU:\software\microsoft\windows\currentversion\explorer\advanced -Name 'TaskbarAl' -Type 'DWord' -Value 0
+					if ($synchash.locationCF -eq 1) {
+						$syncHash.progress.Items.Add("Set to not move taskbar in CF...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+					}
+					else {
+						$syncHash.progress.Items.Add("Moving taskbar align to left...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						Set-ItemProperty -Path HKCU:\software\microsoft\windows\currentversion\explorer\advanced -Name 'TaskbarAl' -Type 'DWord' -Value 0
+					}
 					$syncHash.progressBar.PerformStep()
 					if ($syncHash.microsoftOffice2007.Checked) { Invoke-RestMethod -Uri "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFilesOffice.ps1" -OutFile "C:\Computer Repair Centre\deleteFiles.ps1" }
 					else { Invoke-RestMethod -Uri "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFiles.ps1" -OutFile "C:\Computer Repair Centre\deleteFiles.ps1" }
@@ -2333,7 +2341,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.03.25.1"
+	$version.Text = "Version 5.2024.03.25.2"
 	$crcInstaller.Controls.Add($version)
 
 
