@@ -382,7 +382,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 25th of March 2024")
+				$syncHash.progress.Items.Add("Last updated: 2nd of April 2024")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -635,15 +635,6 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progressBar.PerformStep()
 				}
-				$syncHash.progress.Items.Add("Downloading all prerequisites...")
-				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-				$syncHash.progress.SelectedIndex = -1;
-				Invoke-RestMethod -Uri "https://files.crchq.net/installer/installerApps.zip" -OutFile "C:\Computer Repair Centre\installerApps.zip"
-				Invoke-RestMethod -Uri "https://files.crchq.net/installer/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle" -OutFile "C:\Computer Repair Centre\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
-				Invoke-RestMethod -Uri "https://files.crchq.net/installer/40174MouriNaruto.NanaZipPreview_3.0.756.0_gnj4mf6z9tkrc.msixbundle" -OutFile "C:\Computer Repair Centre\40174MouriNaruto.NanaZipPreview_3.0.756.0_gnj4mf6z9tkrc.msixbundle"
-				$syncHash.progress.Items.Add("Installing all prerequisites...")
-				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-				$syncHash.progress.SelectedIndex = -1;
 				if ($syncHash.refurb.Checked) {
 					$syncHash.progress.Items.Add("- Disabling sleep on AC power...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -662,6 +653,15 @@ function computerRepairCentreInstaller {
 					powercfg /change standby-timeout-ac 0
 					$syncHash.progressBar.PerformStep()
 				}
+				$syncHash.progress.Items.Add("Downloading all prerequisites...")
+				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+				$syncHash.progress.SelectedIndex = -1;
+				Invoke-RestMethod -Uri "https://files.crchq.net/installer/installerApps.zip" -OutFile "C:\Computer Repair Centre\installerApps.zip"
+				Invoke-RestMethod -Uri "https://files.crchq.net/installer/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle" -OutFile "C:\Computer Repair Centre\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
+				Invoke-RestMethod -Uri "https://files.crchq.net/installer/40174MouriNaruto.NanaZipPreview_3.0.756.0_gnj4mf6z9tkrc.msixbundle" -OutFile "C:\Computer Repair Centre\40174MouriNaruto.NanaZipPreview_3.0.756.0_gnj4mf6z9tkrc.msixbundle"
+				$syncHash.progress.Items.Add("Installing all prerequisites...")
+				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("- Installing NanaZip...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
@@ -2341,11 +2341,11 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.03.25.2"
+	$version.Text = "Version 5.2024.04.02.0"
 	$crcInstaller.Controls.Add($version)
 
 
-	## -- Readme
+	## -- Changelog
 
 	$changeLog.Location = New-Object System.Drawing.Size(515,258)
 	$changeLog.Size = New-Object System.Drawing.Size(150,20)
