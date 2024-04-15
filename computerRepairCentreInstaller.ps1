@@ -222,24 +222,27 @@ download
 $operatingSystem = (Get-WmiObject -Class Win32_OperatingSystem).version
 $internetProtocol = Invoke-RestMethod http://ipinfo.io/json | Select-Object -exp ip
 $internetProtocolCF = [System.Net.Dns]::GetHostAddresses("brm.crchq.net")
+$internetProtocolCFManual = "82.24.86.222"
 $internetProtocolR = [System.Net.Dns]::GetHostAddresses("first.crchq.net")
+$internetProtocolRManual = "81.134.32.116"
 $internetProtocolHC =[System.Net.Dns]::GetHostAddresses("fast.crchq.net")
+$internetProtocolHCManual = "81.130.137.162"
 $user = $env:UserName
-if ($internetProtocolCF -like $internetProtocol) {
+if ($internetProtocolCF -like $internetProtocol -Or $internetProtocolCFManual -like $internetProtocol) {
 	$chandlersFordIP = 1
 	$romseyIP = 0
 	$highcliffeIP = 0
 	$locationR = 0
 	$locationCF = 1
 }
-if ($internetProtocolR -like $internetProtocol) {
+if ($internetProtocolR -like $internetProtocol -Or $internetProtocolRManual -like $internetProtocol) {
 	$chandlersFordIP = 0
 	$romseyIP = 1
 	$highcliffeIP = 0
 	$locationR = 1
 	$locationCF = 0
 }
-if ($internetProtocolHC -like $internetProtocol) {
+if ($internetProtocolHC -like $internetProtocol -Or $internetProtocolHCManual -like $internetProtocol) {
 	$chandlersFordIP = 0
 	$romseyIP = 0
 	$highcliffeIP = 1
@@ -382,7 +385,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 2nd of April 2024")
+				$syncHash.progress.Items.Add("Last updated: 15th of April 2024")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -2341,7 +2344,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.04.02.0"
+	$version.Text = "Version 5.2024.04.15.0"
 	$crcInstaller.Controls.Add($version)
 
 
