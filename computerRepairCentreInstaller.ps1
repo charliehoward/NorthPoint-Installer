@@ -385,7 +385,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 15th of April 2024")
+				$syncHash.progress.Items.Add("Last updated: 20th of April 2024")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -639,7 +639,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progressBar.PerformStep()
 				}
 				if ($syncHash.refurb.Checked) {
-					$syncHash.progress.Items.Add("- Disabling sleep on AC power...")
+					$syncHash.progress.Items.Add("Disabling sleep on AC power...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					powercfg /change monitor-timeout-ac 0
@@ -648,7 +648,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progressBar.PerformStep()
 				}
 				else {
-					$syncHash.progress.Items.Add("- Disabling sleep on AC power temporarily...")
+					$syncHash.progress.Items.Add("Disabling sleep on AC power temporarily...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					powercfg /change monitor-timeout-ac 0
@@ -2344,7 +2344,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.04.15.0"
+	$version.Text = "Version 5.2024.04.20.0"
 	$crcInstaller.Controls.Add($version)
 
 
