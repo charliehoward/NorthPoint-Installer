@@ -385,7 +385,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 20th of April 2024")
+				$syncHash.progress.Items.Add("Last updated: 2nd of May 2024")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -690,6 +690,14 @@ function computerRepairCentreInstaller {
 				Start-Sleep 10
 				Add-AppxPackage -Path "C:\Computer Repair Centre\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 				Start-Sleep 10
+				winget list
+				Add-AppxPackage -Path "C:\Computer Repair Centre\Microsoft.UI.Xaml.2.7_7.2208.15002.0_x64__8wekyb3d8bbwe.Appx"
+				Start-Sleep 10
+				Add-AppxPackage -Path "C:\Computer Repair Centre\Microsoft.VCLibs.x64.14.00.Desktop.Appx"
+				Start-Sleep 10
+				Add-AppxPackage -Path "C:\Computer Repair Centre\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
+				Start-Sleep 10
+				winget list
 				$syncHash.progressBar.PerformStep()
 				$syncHash.progress.Items.Add("- Installing Microsoft .NET Windows Desktop Runtime 3.1...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -2344,7 +2352,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.04.20.0"
+	$version.Text = "Version 5.2024.05.02.0"
 	$crcInstaller.Controls.Add($version)
 
 
