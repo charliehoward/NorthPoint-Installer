@@ -385,7 +385,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 2nd of May 2024")
+				$syncHash.progress.Items.Add("Last updated: 3rd of May 2024")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -938,31 +938,31 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					$programList = winget list
-					if ($programList -like '*TheDocumentFoundation.LibreOffice*') { 
-						$syncHash.progress.Items.Add("LibreOffice is already installed.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-					}
-					else {
-						$syncHash.progress.Items.Add("Installing LibreOffice...")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						winget install TheDocumentFoundation.LibreOffice -e --accept-source-agreements --accept-package-agreements
-						$programList = winget list
-						if ($programList -like '*TheDocumentFoundation.LibreOffice*') {
-							$syncHash.progress.Items.Add("Completed installation of LibreOffice.")
-							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							$syncHash.progress.SelectedIndex = -1;
-							$syncHash.progressBar.PerformStep()
-						}
-						else {
-							$syncHash.progress.Items.Add("The installation of LibreOffice has failed.")
-							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							$syncHash.progress.SelectedIndex = -1;
-							$syncHash.progress.Items.Add("Retrying the installation of LibreOffice.")
-							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							$syncHash.progress.SelectedIndex = -1;
+#					if ($programList -like '*TheDocumentFoundation.LibreOffice*') { 
+#						$syncHash.progress.Items.Add("LibreOffice is already installed.")
+#						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+#						$syncHash.progress.SelectedIndex = -1;
+#						$syncHash.progressBar.PerformStep()
+#					}
+#					else {
+#						$syncHash.progress.Items.Add("Installing LibreOffice...")
+#						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+#						$syncHash.progress.SelectedIndex = -1;
+#						winget install TheDocumentFoundation.LibreOffice -e --accept-source-agreements --accept-package-agreements
+#						$programList = winget list
+#						if ($programList -like '*TheDocumentFoundation.LibreOffice*') {
+#							$syncHash.progress.Items.Add("Completed installation of LibreOffice.")
+#							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+#							$syncHash.progress.SelectedIndex = -1;
+#							$syncHash.progressBar.PerformStep()
+#						}
+#						else {
+#							$syncHash.progress.Items.Add("The installation of LibreOffice has failed.")
+#							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+#							$syncHash.progress.SelectedIndex = -1;
+#							$syncHash.progress.Items.Add("Retrying the installation of LibreOffice.")
+#							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+#							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progress.Items.Add("Downloading LibreOffice.")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
@@ -982,7 +982,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
-						}
+#						}
 					}
 				}
 				if ($syncHash.microsoftOffice2007.Checked) {
@@ -2350,7 +2350,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.05.02.1"
+	$version.Text = "Version 5.2024.05.03.0"
 	$crcInstaller.Controls.Add($version)
 
 
