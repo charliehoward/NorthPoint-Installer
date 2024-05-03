@@ -983,7 +983,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = -1;
 							$syncHash.progressBar.PerformStep()
 #						}
-					}
+#					}
 				}
 				if ($syncHash.microsoftOffice2007.Checked) {
 					$syncHash.progress.Items.Add("Microsoft Office 2007 is selected.")
@@ -2350,7 +2350,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.05.03.0"
+	$version.Text = "Version 5.2024.05.03.1"
 	$crcInstaller.Controls.Add($version)
 
 
