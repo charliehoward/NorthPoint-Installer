@@ -222,7 +222,7 @@ download
 $operatingSystem = (Get-WmiObject -Class Win32_OperatingSystem).version
 $internetProtocol = Invoke-RestMethod http://ipinfo.io/json | Select-Object -exp ip
 $internetProtocolCF = [System.Net.Dns]::GetHostAddresses("brm.crchq.net")
-$internetProtocolCFManual = "82.24.86.222"
+$internetProtocolCFManual = "192.168.0.15"
 $internetProtocolR = [System.Net.Dns]::GetHostAddresses("first.crchq.net")
 $internetProtocolRManual = "81.134.32.116"
 $internetProtocolHC =[System.Net.Dns]::GetHostAddresses("fast.crchq.net")
