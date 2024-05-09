@@ -385,7 +385,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 3rd of May 2024")
+				$syncHash.progress.Items.Add("Last updated: 9th of May 2024")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -591,7 +591,7 @@ function computerRepairCentreInstaller {
 				if ($syncHash.operatingSystem -like '*6.2*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*6.3*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*10.0.1*') { $syncHash.progressBar.Maximum += 8 }
-				if ($syncHash.operatingSystem -like '*10.0.2*') { $syncHash.progressBar.Maximum += 6 }
+				if ($syncHash.operatingSystem -like '*10.0.2*') { $syncHash.progressBar.Maximum += 7 }
 				$syncHash.progressBar.Refresh()
 				if ($syncHash.crc.Checked) {
 					$syncHash.progress.Items.Add("Computer Repair Centre OEM information is selected.")
@@ -1560,6 +1560,11 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("This computer is running Windows 11.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progress.Items.Add("Disabling device encryption...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\BitLocker" -Name PreventDeviceEncryption -Value 1
+					$syncHash.progressBar.PerformStep()
 					$syncHash.progress.Items.Add("Disabling fastboot mode...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
@@ -2350,7 +2355,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.05.03.1"
+	$version.Text = "Version 5.2024.05.09.0"
 	$crcInstaller.Controls.Add($version)
 
 
