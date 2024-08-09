@@ -385,7 +385,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 9th of May 2024")
+				$syncHash.progress.Items.Add("Last updated: 9th of August 2024")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -607,9 +607,9 @@ function computerRepairCentreInstaller {
 						New-Item -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Force
 						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name Logo -Value "C:\Computer Repair Centre\computerRepairCentreOEM.bmp" -Force
 						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name Manufacturer -Value "Computer Repair Centre" -Force
-						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportHours -Value "Mon-Fri 9:15am-5pm - Sat 9:15am-4pm" -Force
+						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportHours -Value "Mon-Fri 9:15am-5:00pm - Sat 9:15am-4:00pm" -Force
 						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportPhone -Value "01794 517142" -Force
-						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportURL -Value "https://www.firstforitrepairs.co.uk" -Force
+						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportURL -Value "https://www.thecomputerrepaircentre.co.uk/romsey" -Force
 					}
 					elseif ($syncHash.chandlersFord.Checked) {
 						$syncHash.progress.Items.Add("Installer being run from Chandlers Ford.")
@@ -618,9 +618,9 @@ function computerRepairCentreInstaller {
 						New-Item -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Force
 						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name Logo -Value "C:\Computer Repair Centre\computerRepairCentreOEM.bmp" -Force
 						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name Manufacturer -Value "Computer Repair Centre" -Force
-						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportHours -Value "Mon-Fri 9am-5pm - Sat 9am-4pm" -Force
+						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportHours -Value "Mon-Fri 9:00am-5:00pm - Sat 9:00am-4:00pm" -Force
 						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportPhone -Value "08712 244129" -Force
-						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportURL -Value "https://www.brmcomputers.co.uk" -Force
+						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportURL -Value "https://www.thecomputerrepaircentre.co.uk/chandlers-ford" -Force
 					}
 					elseif ($syncHash.highcliffe.Checked) {
 						$syncHash.progress.Items.Add("Installer being run from Highcliffe.")
@@ -629,9 +629,9 @@ function computerRepairCentreInstaller {
 						New-Item -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Force
 						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name Logo -Value "C:\Computer Repair Centre\computerRepairCentreOEM.bmp" -Force
 						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name Manufacturer -Value "Computer Repair Centre" -Force
-						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportHours -Value "Mon-Fri 9:15am-5pm" -Force
+						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportHours -Value "Mon-Fri 9:15am-5:00pm - Sat 9:00am-2:00pm" -Force
 						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportPhone -Value "01425 278579" -Force
-						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportURL -Value "https://www.fastitfix.co.uk" -Force
+						Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation -Name SupportURL -Value "https://www.thecomputerrepaircentre.co.uk/Highcliffe" -Force
 					}
 					$syncHash.progress.Items.Add("Completed installation of Computer Repair Centre OEM information.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -2355,7 +2355,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.05.09.0"
+	$version.Text = "Version 5.2024.08.09.0"
 	$crcInstaller.Controls.Add($version)
 
 
