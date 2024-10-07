@@ -935,7 +935,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Downloading LibreOffice.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Invoke-RestMethod -Uri "https://files.crchq.net/installer/LibreOffice.msi" -OutFile "C:\Computer Repair Centre\libreOffice.msi"
+					Invoke-RestMethod -Uri "https://files.crchq.net/installer/libreOffice.msi" -OutFile "C:\Computer Repair Centre\libreOffice.msi"
 					$syncHash.progress.Items.Add("Installing LibreOffice...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
@@ -2266,7 +2266,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.10.07.2"
+	$version.Text = "Version 5.2024.10.07.3"
 	$crcInstaller.Controls.Add($version)
 
 
