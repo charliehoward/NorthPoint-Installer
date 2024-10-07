@@ -671,7 +671,7 @@ function computerRepairCentreInstaller {
 				$syncHash.progress.Items.Add("- Updating Windows Store...")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
-				& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZip_3.1.1080.0_x64__gnj4mf6z9tkrc\NanaZip.Modern.exe' x "C:\Computer Repair Centre\installerApps.zip" "-oC:\Computer Repair Centre" -aoa
+				& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZip_3.1.1080.0_x64__gnj4mf6z9tkrc\NanaZip.Windows.exe' x "C:\Computer Repair Centre\installerApps.zip" "-oC:\Computer Repair Centre" -aoa
 				Get-CimInstance -Namespace "Root\cimv2\mdm\dmmap" -ClassName "MDM_EnterpriseModernAppManagement_AppManagement01" | Invoke-CimMethod -MethodName UpdateScanMethod
 				$syncHash.progressBar.PerformStep()
 				Start-Sleep 5
@@ -1274,7 +1274,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					Invoke-RestMethod -Uri "https://files.crchq.net/installer/Windows7Games.zip" -OutFile "C:\Computer Repair Centre\Windows7Games.zip"
-					& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZip_3.1.1080.0_x64__gnj4mf6z9tkrc\NanaZip.Modern.exe' x "C:\Computer Repair Centre\Windows7Games.zip" "-oC:\Computer Repair Centre" -aoa
+					& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZip_3.1.1080.0_x64__gnj4mf6z9tkrc\NanaZip.Windows.exe' x "C:\Computer Repair Centre\Windows7Games.zip" "-oC:\Computer Repair Centre" -aoa
 					Start-Sleep 10
 					$syncHash.progressBar.PerformStep()
 					$syncHash.progress.Items.Add("Installing Windows 7 Games...")
@@ -1342,7 +1342,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					Invoke-RestMethod -Uri "https://files.crchq.net/installer/HPHotkey.zip" -OutFile "C:\Computer Repair Centre\HPHotkey.zip"
-					& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZip_3.1.1080.0_x64__gnj4mf6z9tkrc\NanaZip.Modern.exe' x "C:\Computer Repair Centre\HPHotkey.zip" "-oC:\Computer Repair Centre" -aoa
+					& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZip_3.1.1080.0_x64__gnj4mf6z9tkrc\NanaZip.Windows.exe' x "C:\Computer Repair Centre\HPHotkey.zip" "-oC:\Computer Repair Centre" -aoa
 					Start-Sleep 10
 					$syncHash.progressBar.PerformStep()
 					$syncHash.progress.Items.Add("Installing HP Hotkey Support...")
@@ -2266,7 +2266,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.10.07.1"
+	$version.Text = "Version 5.2024.10.07.2"
 	$crcInstaller.Controls.Add($version)
 
 
