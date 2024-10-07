@@ -60,10 +60,6 @@ function download {
 			$teamsPath = "C:\Computer Repair Centre\teams.ico"
 			$malwareBytesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/malwareBytes.ico"
 			$malwareBytesPath = "C:\Computer Repair Centre\malwareBytes.ico"
-			$microsoftOfficeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/microsoftOffice.ico"
-			$microsoftOfficePath = "C:\Computer Repair Centre\microsoftOffice.ico"
-			$microsoftOffice2007URL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/microsoftOffice2007.ico"
-			$microsoftOffice2007Path = "C:\Computer Repair Centre\microsoftOffice2007.ico"
 			$vlcMediaPlayerURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/vlcMediaPlayer.ico"
 			$vlcMediaPlayerPath = "C:\Computer Repair Centre\vlcMediaPlayer.ico"
 			$bingURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/bing.ico"
@@ -94,7 +90,9 @@ function download {
 			$solitareIconPath = "C:\Computer Repair Centre\solitare.ico"
 			$HPURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/HP.ico"
 			$HPPath = "C:\Computer Repair Centre\HP.ico"
-						Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
+			$deleteFilesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFiles.ps1"
+			$deleteFilesPath = "C:\Computer Repair Centre\deleteFiles.ps1"
+			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $googleChromeURL -OutFile $googleChromePath
 			$syncHash.progressBar.PerformStep()
@@ -124,10 +122,6 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $computerRepairCentreOEMURL -OutFile $computerRepairCentreOEMPath
 			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $microsoftOfficeURL -OutFile $microsoftOfficePath
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $microsoftOffice2007URL -OutFile $microsoftOffice2007Path
-			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $zoomURL -OutFile $zoomPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $deleteFilesTaskURL -OutFile $deleteFilesTaskPath
@@ -152,6 +146,8 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $refurbURL -OutFile $refurbPath
 			$syncHash.progressBar.PerformStep()
+			Invoke-RestMethod -Uri $deleteFilesURL -OutFile $deleteFilesPath
+			$syncHash.progressBar.PerformStep() 
 			$syncHash.downloadBox.Close()
 		})
 	$psCmd.Runspace = $processRunspace
@@ -199,7 +195,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 29
+	$progressBar.Maximum = 27
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$downloadBox.Controls.Add($progressBar)
@@ -279,7 +275,6 @@ function computerRepairCentreInstaller {
 	$kaspersky = New-Object System.Windows.Forms.CheckBox
 	$vlc = New-Object System.Windows.Forms.CheckBox
 	$libreOffice = New-Object System.Windows.Forms.CheckBox
-	$microsoftOffice2007 = New-Object System.Windows.Forms.CheckBox
 	$skype = New-Object System.Windows.Forms.CheckBox
 	$teamViewer = New-Object System.Windows.Forms.CheckBox
 	$teams = New-Object System.Windows.Forms.CheckBox
@@ -312,7 +307,6 @@ function computerRepairCentreInstaller {
 	$syncHash.vlc = $vlc
 	$syncHash.libreOffice = $libreOffice
 	$syncHash.malwareBytes = $malwareBytes
-	$syncHash.microsoftOffice2007 = $microsoftOffice2007
 	$syncHash.skype = $skype
 	$syncHash.teamViewer = $teamViewer
 	$syncHash.teams = $teams
@@ -385,7 +379,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 9th of August 2024")
+				$syncHash.progress.Items.Add("Last updated: 7th of October 2024")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -938,81 +932,22 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					$programList = winget list
-#					if ($programList -like '*TheDocumentFoundation.LibreOffice*') { 
-#						$syncHash.progress.Items.Add("LibreOffice is already installed.")
-#						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-#						$syncHash.progress.SelectedIndex = -1;
-#						$syncHash.progressBar.PerformStep()
-#					}
-#					else {
-#						$syncHash.progress.Items.Add("Installing LibreOffice...")
-#						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-#						$syncHash.progress.SelectedIndex = -1;
-#						winget install TheDocumentFoundation.LibreOffice -e --accept-source-agreements --accept-package-agreements
-#						$programList = winget list
-#						if ($programList -like '*TheDocumentFoundation.LibreOffice*') {
-#							$syncHash.progress.Items.Add("Completed installation of LibreOffice.")
-#							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-#							$syncHash.progress.SelectedIndex = -1;
-#							$syncHash.progressBar.PerformStep()
-#						}
-#						else {
-#							$syncHash.progress.Items.Add("The installation of LibreOffice has failed.")
-#							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-#							$syncHash.progress.SelectedIndex = -1;
-#							$syncHash.progress.Items.Add("Retrying the installation of LibreOffice.")
-#							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-#							$syncHash.progress.SelectedIndex = -1;
-							$syncHash.progress.Items.Add("Downloading LibreOffice.")
-							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							$syncHash.progress.SelectedIndex = -1;
-							Invoke-RestMethod -Uri "https://files.crchq.net/installer/LibreOffice.msi" -OutFile "C:\Computer Repair Centre\libreOffice.msi"
-							$syncHash.progress.Items.Add("Installing LibreOffice...")
-							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							$syncHash.progress.SelectedIndex = -1;
-							msiexec /package "C:\Computer Repair Centre\libreOffice.msi" /passive
-							$timeout = New-TimeSpan -Minutes 5
-							$endTime = (Get-Date).Add($timeout)
-							Do {
-								Start-Sleep 10
-								$programList = winget list
-							}
-							Until ($programList -like '*TheDocumentFoundation.LibreOffice*' -or ((Get-Date) -gt $endTime))
-							$syncHash.progress.Items.Add("Completed installation of LibreOffice.")
-							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							$syncHash.progress.SelectedIndex = -1;
-							$syncHash.progressBar.PerformStep()
-#						}
-#					}
-				}
-				if ($syncHash.microsoftOffice2007.Checked) {
-					$syncHash.progress.Items.Add("Microsoft Office 2007 is selected.")
+					$syncHash.progress.Items.Add("Downloading LibreOffice.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progress.Items.Add("Downloading Microsoft Office 2007...")
+					Invoke-RestMethod -Uri "https://files.crchq.net/installer/LibreOffice.msi" -OutFile "C:\Computer Repair Centre\libreOffice.msi"
+					$syncHash.progress.Items.Add("Installing LibreOffice...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Invoke-RestMethod -Uri "https://files.crchq.net/installer/Office2007.zip" -OutFile "C:\Computer Repair Centre\Office2007.zip"
-					& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZipPreview_3.0.756.0_x64__gnj4mf6z9tkrc\NanaZipG.exe' x "C:\Computer Repair Centre\Office2007.zip" "-oC:\Computer Repair Centre\Office2007" -aoa
-					Start-Sleep 20
-					$syncHash.progressBar.PerformStep()
-					$syncHash.progress.Items.Add("Installing Microsoft Office 2007...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					$DesktopPath = [Environment]::GetFolderPath("Desktop")
-					& 'C:\Computer Repair Centre\Office2007\setup.exe' /config 'C:\Computer Repair Centre\Office2007\Enterprise.WW\config.xml'
+					msiexec /package "C:\Computer Repair Centre\libreOffice.msi" /passive
 					$timeout = New-TimeSpan -Minutes 5
 					$endTime = (Get-Date).Add($timeout)
 					Do {
 						Start-Sleep 10
 						$programList = winget list
 					}
-					Until ($programList -like '*Microsoft Office Enterprise 2007*' -or ((Get-Date) -gt $endTime))
-					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office Word 2007.lnk" "$DesktopPath\Word.lnk"
-					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office Excel 2007.lnk" "$DesktopPath\Excel.lnk"
-					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office PowerPoint 2007.lnk" "$DesktopPath\PowerPoint.lnk"
-					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office\Microsoft Office Outlook 2007.lnk" "$DesktopPath\Outlook.lnk"
-					$syncHash.progress.Items.Add("Completed installation of Microsoft Office 2007.")
+					Until ($programList -like '*TheDocumentFoundation.LibreOffice*' -or ((Get-Date) -gt $endTime))
+					$syncHash.progress.Items.Add("Completed installation of LibreOffice.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progressBar.PerformStep()
@@ -1434,7 +1369,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progressBar.PerformStep()
 				}
 				if ($syncHash.operatingSystem -like '*6.2*') {
-					$syncHash.progress.Items.Add("This computer is running OS 8. This OS is no longer supported by this software.")
+					$syncHash.progress.Items.Add("This computer is running OS 8 (lol). This OS is no longer supported by this software.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
@@ -1537,8 +1472,6 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 					}
-					if ($syncHash.microsoftOffice2007.Checked) { Invoke-RestMethod -Uri "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFilesOffice.ps1" -OutFile "C:\Computer Repair Centre\deleteFiles.ps1" }
-					else { Invoke-RestMethod -Uri "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFiles.ps1" -OutFile "C:\Computer Repair Centre\deleteFiles.ps1" }
 					& 'C:\Computer Repair Centre\deleteFilesTask.ps1'
 					if ($syncHash.refurb.Checked) {
 					}
@@ -1638,8 +1571,6 @@ function computerRepairCentreInstaller {
 						Set-ItemProperty -Path HKCU:\software\microsoft\windows\currentversion\explorer\advanced -Name 'TaskbarAl' -Type 'DWord' -Value 0
 					}
 					$syncHash.progressBar.PerformStep()
-					if ($syncHash.microsoftOffice2007.Checked) { Invoke-RestMethod -Uri "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFilesOffice.ps1" -OutFile "C:\Computer Repair Centre\deleteFiles.ps1" }
-					else { Invoke-RestMethod -Uri "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFiles.ps1" -OutFile "C:\Computer Repair Centre\deleteFiles.ps1" }
 					& 'C:\Computer Repair Centre\deleteFilesTask.ps1'
 					if ($syncHash.refurb.Checked) {
 					}
@@ -2023,7 +1954,7 @@ function computerRepairCentreInstaller {
 	$libreOffice.location = $System_Drawing_Point
 	$libreOffice.DataBindings.DefaultDataSourceUpdateMode = 0
 	$libreOffice.Name = "libreOffice"
-	$libreOffice.Checked = $locationR
+	$libreOffice.Checked = 1
 	$libreOffice.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\libreOffice.ico")
 	$crcInstaller.Controls.Add($libreOffice)
 	$libreOffice.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
@@ -2049,26 +1980,6 @@ function computerRepairCentreInstaller {
 	$malwareBytes.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$malwareBytes.FlatAppearance.BorderSize=0
 
-	
-	## -- Microsoft Office 2007
-
-	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 36
-	$System_Drawing_Size.Height = 36
-	$microsoftOffice2007.Size = $System_Drawing_Size
-	$microsoftOffice2007.TabIndex = 1
-	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
-	$microsoftOffice2007.location = $System_Drawing_Point
-	$microsoftOffice2007.DataBindings.DefaultDataSourceUpdateMode = 0
-	$microsoftOffice2007.Name = "microsoftOffice2007"
-	$microsoftOffice2007.Checked = $locationCF
-	$microsoftOffice2007.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\microsoftOffice2007.ico")
-	$crcInstaller.Controls.Add($microsoftOffice2007)
-	$microsoftOffice2007.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
-	$microsoftOffice2007.FlatAppearance.BorderSize=0
-
 
 	## -- Mozilla Firefox
 
@@ -2079,7 +1990,7 @@ function computerRepairCentreInstaller {
 	$mozillaFirefox.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 6)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
 	$mozillaFirefox.location = $System_Drawing_Point
 	$mozillaFirefox.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaFirefox.Name = "mozillaFirefox"
@@ -2099,7 +2010,7 @@ function computerRepairCentreInstaller {
 	$mozillaThunderbird.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 7)
+	$System_Drawing_Point.Y = 5 + (31 * 6)
 	$mozillaThunderbird.location = $System_Drawing_Point
 	$mozillaThunderbird.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaThunderbird.Name = "mozillaThunderbird"
@@ -2118,8 +2029,8 @@ function computerRepairCentreInstaller {
 	$skype.Size = $System_Drawing_Size
 	$skype.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 1)
+	$System_Drawing_Point.X = 16 + (45 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$skype.location = $System_Drawing_Point
 	$skype.DataBindings.DefaultDataSourceUpdateMode = 0
 	$skype.Name = "skype"
@@ -2139,7 +2050,7 @@ function computerRepairCentreInstaller {
 	$steamPowered.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 1)
 	$steamPowered.location = $System_Drawing_Point
 	$steamPowered.DataBindings.DefaultDataSourceUpdateMode = 0
 	$steamPowered.Name = "steamPowered"
@@ -2159,7 +2070,7 @@ function computerRepairCentreInstaller {
 	$teams.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 3)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
 	$teams.location = $System_Drawing_Point
 	$teams.DataBindings.DefaultDataSourceUpdateMode = 0
 	$teams.Name = "teams"
@@ -2179,7 +2090,7 @@ function computerRepairCentreInstaller {
 	$teamViewer.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 4)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$teamViewer.location = $System_Drawing_Point
 	$teamViewer.DataBindings.DefaultDataSourceUpdateMode = 0
 	$teamViewer.Name = "teamViewer"
@@ -2199,7 +2110,7 @@ function computerRepairCentreInstaller {
 	$vlc.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
 	$vlc.location = $System_Drawing_Point
 	$vlc.DataBindings.DefaultDataSourceUpdateMode = 0
 	$vlc.Name = "vlc"
@@ -2219,7 +2130,7 @@ function computerRepairCentreInstaller {
 	$solitare.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 6)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
 	$solitare.location = $System_Drawing_Point
 	$solitare.DataBindings.DefaultDataSourceUpdateMode = 0
 	$solitare.Name = "solitare"
@@ -2239,7 +2150,7 @@ function computerRepairCentreInstaller {
 	$zoom.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 7)
+	$System_Drawing_Point.Y = 5 + (31 * 6)
 	$zoom.location = $System_Drawing_Point
 	$zoom.DataBindings.DefaultDataSourceUpdateMode = 0
 	$zoom.Name = "zoom"
@@ -2355,7 +2266,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.08.09.0"
+	$version.Text = "Version 5.2024.10.07.0"
 	$crcInstaller.Controls.Add($version)
 
 
