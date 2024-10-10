@@ -92,6 +92,18 @@ function download {
 			$HPPath = "C:\Computer Repair Centre\HP.ico"
 			$deleteFilesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFiles.ps1"
 			$deleteFilesPath = "C:\Computer Repair Centre\deleteFiles.ps1"
+			if ($syncHash.christmas -like '*1*') {
+				$completeSongURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sounds/christmas.mp3"
+				$completeSongPath = "C:\Computer Repair Centre\complete.mp3"
+			}
+			elseif ($syncHash.halloween -like '*1*') {
+				$completeSongURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sounds/halloween.mp3"
+				$completeSongPath = "C:\Computer Repair Centre\complete.mp3"
+			}
+			else {
+				$completeSongURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sounds/win98shutdown.mp3"
+				$completeSongPath = "C:\Computer Repair Centre\complete.mp3"
+			}
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $googleChromeURL -OutFile $googleChromePath
@@ -148,6 +160,8 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $deleteFilesURL -OutFile $deleteFilesPath
 			$syncHash.progressBar.PerformStep() 
+			Invoke-RestMethod -Uri $completeSongURL -OutFile $completeSongPath
+			$syncHash.progressBar.PerformStep() 
 			$syncHash.downloadBox.Close()
 		})
 	$psCmd.Runspace = $processRunspace
@@ -195,7 +209,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 27
+	$progressBar.Maximum = 28
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$downloadBox.Controls.Add($progressBar)
@@ -335,9 +349,9 @@ function computerRepairCentreInstaller {
 	$syncHash.anyDesk = $anyDesk
 	$syncHash.steamPowered = $steamPowered
 	$syncHash.discord = $discord
-	$synchash.christmas = $christmas
-	$synchash.halloween = $halloween
-	$synchash.locationCF = $locationCF
+	$syncHash.christmas = $christmas
+	$syncHash.halloween = $halloween
+	$syncHash.locationCF = $locationCF
 	$b1 = $false
 	$b2 = $false
 	$b3 = $false
@@ -379,7 +393,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 7th of October 2024")
+				$syncHash.progress.Items.Add("Last updated: 10th of October 2024")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -399,12 +413,12 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 				}
-				if ($synchash.halloween -like '*1*') { 
+				if ($syncHash.halloween -like '*1*') { 
 					$syncHash.progress.Items.Add("Boo! Happy Halloween!")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 				}
-				if ($synchash.christmas -like '*1*') {
+				if ($syncHash.christmas -like '*1*') {
 					$song = Get-Random -Maximum 7
 					if ($song -like '*0*') {
 						Start-Sleep 2
@@ -585,7 +599,7 @@ function computerRepairCentreInstaller {
 				if ($syncHash.operatingSystem -like '*6.2*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*6.3*') { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.operatingSystem -like '*10.0.1*') { $syncHash.progressBar.Maximum += 8 }
-				if ($syncHash.operatingSystem -like '*10.0.2*') { $syncHash.progressBar.Maximum += 7 }
+				if ($syncHash.operatingSystem -like '*10.0.2*') { $syncHash.progressBar.Maximum += 8 }
 				$syncHash.progressBar.Refresh()
 				if ($syncHash.crc.Checked) {
 					$syncHash.progress.Items.Add("Computer Repair Centre OEM information is selected.")
@@ -1521,6 +1535,11 @@ function computerRepairCentreInstaller {
 					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowRecent" -Type DWord -Value 0
 					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowFrequent" -Type DWord -Value 0
 					$syncHash.progressBar.PerformStep()
+					$syncHash.progress.Items.Add("Enabling end task in taskbar...")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\TaskbarDeveloperSettings" -Name "TaskbarEndTask" -Type DWord -Value 1
+					$syncHash.progressBar.PerformStep()
 					if ($syncHash.nightMode.Checked) {
 						$syncHash.progress.Items.Add("Dark mode is selected.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1589,6 +1608,10 @@ function computerRepairCentreInstaller {
 					$syncHash.progressBar.PerformStep()
 				}
 				Remove-Item 'C:\Computer Repair Centre\*.log'
+				Add-Type -AssemblyName presentationCore
+				$mediaPlayer = New-Object system.windows.media.mediaplayer
+				$mediaPlayer.open('C:\Computer Repair Centre\complete.mp3')
+				$mediaPlayer.Play()
 				if ($syncHash.rebootBox.Checked) {
 					$syncHash.progress.Items.Add("The system will restart in 1 minute, if you need to cancel this press close.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -2266,7 +2289,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.10.07.3"
+	$version.Text = "Version 5.2024.10.10.0"
 	$crcInstaller.Controls.Add($version)
 
 
