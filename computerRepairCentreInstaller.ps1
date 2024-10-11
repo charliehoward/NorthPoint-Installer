@@ -10,14 +10,14 @@ Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCent
 $BackgroundColour = "#2c2c2c"
 $ButtonColour = "#00b9ff"
 $date = Get-Date -Format "dd/MM"
-if ($date -like '*31/10*' -or $date -like '*30/10*' -or $date -like '*29/10*' -or $date -like '*28/10*' -or $date -like '*27/10*' -or $date -like '*26/10*' -or $date -like '*25/10*') {
+if ($date -like '*31/10*' -or $date -like '*30/10*' -or $date -like '*29/10*') {
 	$halloween = 1
 	$BackgroundColour = "#ed7014"
 	$ButtonColour = "#2c2c2c"
 }
 if ($date -like '*/12*') {
 	$BackgroundColour = "#00873E"
-	$ButtonColour = "#D6001C"
+	$ButtonColour = "#FFFAFA"
 	$christmas = 1
 }
 function download {
@@ -393,7 +393,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 10th of October 2024")
+				$syncHash.progress.Items.Add("Last updated: 11th of October 2024")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -2289,7 +2289,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.10.10.0"
+	$version.Text = "Version 5.2024.10.11.0"
 	$crcInstaller.Controls.Add($version)
 
 
