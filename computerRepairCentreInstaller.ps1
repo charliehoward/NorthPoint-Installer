@@ -20,6 +20,12 @@ if ($date -like '*/12*') {
 	$ButtonColour = "#FFFAFA"
 	$christmas = 1
 }
+if ($date -like '*06/04*' -or $date -like '*25/07*' -or $date -like '*24/06*' -or $date -like '*09/06*' -or $date -like '*16/05*'-or $date -like '*21/04*') {
+	$BackgroundColour = "#ccfff7"
+	$ButtonColour = "#ffccfb "
+	$birthday = 1
+}
+
 function download {
 	[reflection.assembly]::loadwithpartialname("System.Windows.Forms")
 	[reflection.assembly]::loadwithpartialname("System.Drawing")
@@ -98,6 +104,10 @@ function download {
 			}
 			elseif ($syncHash.halloween -like '*1*') {
 				$completeSongURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sounds/halloween.mp3"
+				$completeSongPath = "C:\Computer Repair Centre\complete.mp3"
+			}
+			elseif ($syncHash.birthday -like '*1*') {
+				$completeSongURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sounds/birthday.mp3"
 				$completeSongPath = "C:\Computer Repair Centre\complete.mp3"
 			}
 			else {
@@ -351,11 +361,13 @@ function computerRepairCentreInstaller {
 	$syncHash.discord = $discord
 	$syncHash.christmas = $christmas
 	$syncHash.halloween = $halloween
+	$syncHash.birthday = $birthday
 	$syncHash.locationCF = $locationCF
 	$b1 = $false
 	$b2 = $false
 	$b3 = $false
 
+	
 	$date = Get-Date -Format "dd/MM"
 	if ($date -like '*06/04*') {
 		$birthday = 1
@@ -393,7 +405,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 11th of October 2024")
+				$syncHash.progress.Items.Add("Last updated: 12th of October 2024")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -2289,7 +2301,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.10.11.0"
+	$version.Text = "Version 5.2024.10.12.0"
 	$crcInstaller.Controls.Add($version)
 
 
