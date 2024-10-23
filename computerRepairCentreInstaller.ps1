@@ -1403,19 +1403,19 @@ function computerRepairCentreInstaller {
 					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowFrequent" -Type DWord -Value 0
 					$syncHash.progressBar.PerformStep()
 					$programList = winget list
-					if (($programList -like '*Firefox*') -or ($programList -notlike '*Chrome*')) {
-						if ($programList -like '*Firefox*') {
-							$syncHash.progress.Items.Add("Setting Mozilla Firefox as the default browser...")
-							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							$syncHash.progress.SelectedIndex = -1;
-							& 'C:\Computer Repair Centre\setDefaultBrowser.exe' HKLM Firefox-308046B0AF4A39CB
-							$syncHash.progressBar.PerformStep()
-						}
-						elseIf ($programList -like '*Chrome*') {
+					if (($programList -like '*Firefox*') -or ($programList -like '*Chrome*')) {
+						if ($programList -like '*Chrome*') {
 							$syncHash.progress.Items.Add("Setting Google Chrome as the default browser...")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
 							& 'C:\Computer Repair Centre\setDefaultBrowser.exe' Chrome
+							$syncHash.progressBar.PerformStep()
+						}
+						elseIf ($programList -like '*Firefox*') {
+							$syncHash.progress.Items.Add("Setting Mozilla Firefox as the default browser...")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							& 'C:\Computer Repair Centre\setDefaultBrowser.exe' HKLM Firefox-308046B0AF4A39CB
 							$syncHash.progressBar.PerformStep()
 						}
 					}
@@ -2239,7 +2239,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.10.23.0"
+	$version.Text = "Version 5.2024.10.23.1"
 	$crcInstaller.Controls.Add($version)
 
 
