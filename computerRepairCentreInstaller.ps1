@@ -27,6 +27,7 @@ if ($date -like '*06/04*' -or $date -like '*25/07*' -or $date -like '*24/06*' -o
 }
 
 function download {
+	$date = Get-Date -Format "dd/MM"
 	if ($date -like '*31/10*' -or $date -like '*30/10*' -or $date -like '*29/10*') {
 		$halloween = 1
 	}
@@ -2247,7 +2248,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.10.29.3"
+	$version.Text = "Version 5.2024.10.29.4"
 	$crcInstaller.Controls.Add($version)
 
 
