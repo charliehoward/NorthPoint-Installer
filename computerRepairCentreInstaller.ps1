@@ -96,15 +96,15 @@ function download {
 			$HPPath = "C:\Computer Repair Centre\HP.ico"
 			$deleteFilesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFiles.ps1"
 			$deleteFilesPath = "C:\Computer Repair Centre\deleteFiles.ps1"
-			if ($syncHash.christmas -like '*1*') {
+			if ($christmas -like '*1*') {
 				$completeSongURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sounds/christmas.mp3"
 				$completeSongPath = "C:\Computer Repair Centre\complete.mp3"
 			}
-			elseif ($syncHash.halloween -like '*1*') {
+			elseif ($halloween -like '*1*') {
 				$completeSongURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sounds/halloween.mp3"
 				$completeSongPath = "C:\Computer Repair Centre\complete.mp3"
 			}
-			elseif ($syncHash.birthday -like '*1*') {
+			elseif ($birthday -like '*1*') {
 				$completeSongURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sounds/birthday.mp3"
 				$completeSongPath = "C:\Computer Repair Centre\complete.mp3"
 			}
@@ -399,7 +399,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 23rd of October 2024")
+				$syncHash.progress.Items.Add("Last updated: 29th of October 2024")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -2239,7 +2239,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.10.23.1"
+	$version.Text = "Version 5.2024.10.29.0"
 	$crcInstaller.Controls.Add($version)
 
 
