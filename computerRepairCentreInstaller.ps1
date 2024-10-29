@@ -99,15 +99,15 @@ function download {
 			$HPPath = "C:\Computer Repair Centre\HP.ico"
 			$deleteFilesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFiles.ps1"
 			$deleteFilesPath = "C:\Computer Repair Centre\deleteFiles.ps1"
-			if ($christmas -like '*1*') {
+			if ($syncHash.christmas -like '*1*') {
 				$completeSongURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sounds/christmas.mp3"
 				$completeSongPath = "C:\Computer Repair Centre\complete.mp3"
 			}
-			elseif ($halloween -like '*1*') {
+			elseif ($syncHash.halloween -like '*1*') {
 				$completeSongURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sounds/halloween.mp3"
 				$completeSongPath = "C:\Computer Repair Centre\complete.mp3"
 			}
-			elseif ($birthday -like '*1*') {
+			elseif ($syncHash.birthday -like '*1*') {
 				$completeSongURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sounds/birthday.mp3"
 				$completeSongPath = "C:\Computer Repair Centre\complete.mp3"
 			}
@@ -2242,7 +2242,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.10.29.1"
+	$version.Text = "Version 5.2024.10.29.2"
 	$crcInstaller.Controls.Add($version)
 
 
