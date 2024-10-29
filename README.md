@@ -1,6 +1,6 @@
 [![built-in-PowerShell](https://img.shields.io/badge/Built%20in-PowerShell-blue)](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2) ![winget](https://img.shields.io/badge/Powered%20by-Winget-blue) ![Arch](https://img.shields.io/badge/Arch-x86%20|%20AMD64-blue) ![OS](https://img.shields.io/badge/OS-Windows%2010%20|%20Windows%2011-green)
 
-## NorthPoint Installer Version 5.2024.10.29.4
+## NorthPoint Installer Version 5.2024.10.29.5
 ###### Copyright (c) Charlie Howard 2024 All rights reserved.
 
 A PowerShell based GUI installer for Windows 10/11, may also run on Windows 8.1/7 but this is no longer tested.
@@ -18,6 +18,10 @@ Sets the default browser to either Google Chrome or Mozilla Firefox depending on
 Disables sleep and screen timeout if plugged into AC power during the install and then revert it once it has completed to prevent the computer going to sleep during the install which can cause issues, you also get the option to prevent sleep on AC power permanently with the "Refurb" box.
 
 ### Changelog
+
+**Update 5.2024.10.29.5**
+
+Fixed elseIf command downloading correct sound file.
 
 **Update 5.2024.10.29.4**
 

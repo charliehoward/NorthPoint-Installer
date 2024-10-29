@@ -27,16 +27,6 @@ if ($date -like '*06/04*' -or $date -like '*25/07*' -or $date -like '*24/06*' -o
 }
 
 function download {
-	$date = Get-Date -Format "dd/MM"
-	if ($date -like '*31/10*' -or $date -like '*30/10*' -or $date -like '*29/10*') {
-		$halloween = 1
-	}
-	if ($date -like '*/12*') {
-		$christmas = 1
-	}
-	if ($date -like '*06/04*' -or $date -like '*25/07*' -or $date -like '*24/06*' -or $date -like '*09/06*' -or $date -like '*16/05*'-or $date -like '*21/04*') {
-		$birthday = 1
-	}
 	[reflection.assembly]::loadwithpartialname("System.Windows.Forms")
 	[reflection.assembly]::loadwithpartialname("System.Drawing")
 	$downloadBox = New-Object System.Windows.Forms.Form
@@ -45,6 +35,9 @@ function download {
 	$syncHash = [hashtable]::Synchronized(@{})
 	$syncHash.downloadBox = $downloadBox
 	$syncHash.progressBar = $progressBar
+	$syncHash.halloween = $halloween
+	$syncHash.christmas = $christmas
+	$syncHash.birthday = $birthday
 	$b1 = $false
 	$b2 = $false
 	$b3 = $false
@@ -106,20 +99,18 @@ function download {
 			$HPPath = "C:\Computer Repair Centre\HP.ico"
 			$deleteFilesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFiles.ps1"
 			$deleteFilesPath = "C:\Computer Repair Centre\deleteFiles.ps1"
-			if ($christmas -like '*1*') {
+			$completeSongURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sounds/win98shutdown.mp3"
+			$completeSongPath = "C:\Computer Repair Centre\complete.mp3"
+			if ($syncHash.christmas -like '*1*') {
 				$completeSongURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sounds/christmas.mp3"
 				$completeSongPath = "C:\Computer Repair Centre\complete.mp3"
 			}
-			elseif ($halloween -like '*1*') {
+			elseif ($syncHash.halloween -like '*1*') {
 				$completeSongURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sounds/halloween.mp3"
 				$completeSongPath = "C:\Computer Repair Centre\complete.mp3"
 			}
-			elseif ($birthday -like '*1*') {
+			elseif ($syncHash.birthday -like '*1*') {
 				$completeSongURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sounds/birthday.mp3"
-				$completeSongPath = "C:\Computer Repair Centre\complete.mp3"
-			}
-			else {
-				$completeSongURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sounds/win98shutdown.mp3"
 				$completeSongPath = "C:\Computer Repair Centre\complete.mp3"
 			}
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
@@ -2248,7 +2239,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.10.29.4"
+	$version.Text = "Version 5.2024.10.29.5"
 	$crcInstaller.Controls.Add($version)
 
 
