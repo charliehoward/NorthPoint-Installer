@@ -27,9 +27,15 @@ if ($date -like '*06/04*' -or $date -like '*25/07*' -or $date -like '*24/06*' -o
 }
 
 function download {
-	$syncHash.christmas = $christmas
-	$syncHash.halloween = $halloween
-	$syncHash.birthday = $birthday
+	if ($date -like '*31/10*' -or $date -like '*30/10*' -or $date -like '*29/10*') {
+		$halloween = 1
+	}
+	if ($date -like '*/12*') {
+		$christmas = 1
+	}
+	if ($date -like '*06/04*' -or $date -like '*25/07*' -or $date -like '*24/06*' -or $date -like '*09/06*' -or $date -like '*16/05*'-or $date -like '*21/04*') {
+		$birthday = 1
+	}
 	[reflection.assembly]::loadwithpartialname("System.Windows.Forms")
 	[reflection.assembly]::loadwithpartialname("System.Drawing")
 	$downloadBox = New-Object System.Windows.Forms.Form
@@ -99,15 +105,15 @@ function download {
 			$HPPath = "C:\Computer Repair Centre\HP.ico"
 			$deleteFilesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFiles.ps1"
 			$deleteFilesPath = "C:\Computer Repair Centre\deleteFiles.ps1"
-			if ($syncHash.christmas -like '*1*') {
+			if ($christmas -like '*1*') {
 				$completeSongURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sounds/christmas.mp3"
 				$completeSongPath = "C:\Computer Repair Centre\complete.mp3"
 			}
-			elseif ($syncHash.halloween -like '*1*') {
+			elseif ($halloween -like '*1*') {
 				$completeSongURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sounds/halloween.mp3"
 				$completeSongPath = "C:\Computer Repair Centre\complete.mp3"
 			}
-			elseif ($syncHash.birthday -like '*1*') {
+			elseif ($birthday -like '*1*') {
 				$completeSongURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sounds/birthday.mp3"
 				$completeSongPath = "C:\Computer Repair Centre\complete.mp3"
 			}
@@ -345,20 +351,19 @@ function computerRepairCentreInstaller {
 	$syncHash.reboot = $reboot
 	$syncHash.zoom = $zoom
 	$syncHash.refurb = $refurb
-	$syncHash.HPEliteBook = $HPEliteBook
-	$syncHash.romsey = $romsey
-	$syncHash.chandlersFord = $chandlersFord
-	$syncHash.highcliffe = $highcliffe
-	$syncHash.birthday = $birthday
-	$syncHash.birthdayName = $birthdayName
 	$syncHash.solitare = $solitare
 	$syncHash.HP = $HP
 	$syncHash.anyDesk = $anyDesk
 	$syncHash.steamPowered = $steamPowered
 	$syncHash.discord = $discord
+	$syncHash.HPEliteBook = $HPEliteBook
+	$syncHash.romsey = $romsey
+	$syncHash.chandlersFord = $chandlersFord
+	$syncHash.highcliffe = $highcliffe
 	$syncHash.christmas = $christmas
 	$syncHash.halloween = $halloween
 	$syncHash.birthday = $birthday
+	$syncHash.birthdayName = $birthdayName
 	$syncHash.locationCF = $locationCF
 	$b1 = $false
 	$b2 = $false
@@ -2242,7 +2247,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.10.29.2"
+	$version.Text = "Version 5.2024.10.29.3"
 	$crcInstaller.Controls.Add($version)
 
 
