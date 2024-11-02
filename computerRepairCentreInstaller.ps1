@@ -1753,7 +1753,7 @@ function computerRepairCentreInstaller {
 	$darkMode.DataBindings.DefaultDataSourceUpdateMode = 0
 	$darkMode.Name = "darkMode"
 	$darkMode.Checked = $locationR
-	$darkMode.Image = [System.Drawing.Image]::FromFile("D:\NextCloud\Spyro\Documents\Projects\NorthPoint-Installer\assets\icons\darkMode.ico")	
+	$darkMode.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\darkMode.ico")	
 	$crcInstaller.Controls.Add($darkMode)
 	$darkMode.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$darkMode.FlatAppearance.BorderSize=0
@@ -2113,7 +2113,7 @@ function computerRepairCentreInstaller {
 	$highcliffe.DataBindings.DefaultDataSourceUpdateMode = 0
 	$highcliffe.Name = "highcliffe"
 	$highcliffe.Checked = $highcliffeIP
-	$highcliffe.Image = [System.Drawing.Image]::FromFile("D:\NextCloud\Spyro\Documents\Projects\NorthPoint-Installer\assets\icons\highcliffe.ico")
+	$highcliffe.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\highcliffe.ico")
 	$crcInstaller.Controls.Add($highcliffe)
 	$highcliffe.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$highcliffe.FlatAppearance.BorderSize=0
@@ -2133,7 +2133,7 @@ function computerRepairCentreInstaller {
 	$power.DataBindings.DefaultDataSourceUpdateMode = 0
 	$power.Name = "power"
 	$power.Checked = 0
-	$power.Image = [System.Drawing.Image]::FromFile("D:\NextCloud\Spyro\Documents\Projects\NorthPoint-Installer\assets\icons\power.ico")
+	$power.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\power.ico")
 	$crcInstaller.Controls.Add($power)
 	$power.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$power.FlatAppearance.BorderSize=0
@@ -2153,7 +2153,7 @@ function computerRepairCentreInstaller {
 	$rebootBox.DataBindings.DefaultDataSourceUpdateMode = 0
 	$rebootBox.Name = "rebootBox"
 	$rebootBox.Checked = 1
-	$rebootBox.Image = [System.Drawing.Image]::FromFile("D:\NextCloud\Spyro\Documents\Projects\NorthPoint-Installer\assets\icons\restart.ico")
+	$rebootBox.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\restart.ico")
 	$crcInstaller.Controls.Add($rebootBox)
 	$rebootBox.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$rebootBox.FlatAppearance.BorderSize=0
@@ -2164,7 +2164,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.11.02.3"
+	$version.Text = "Version 5.2024.11.02.4"
 	$crcInstaller.Controls.Add($version)
 
 
