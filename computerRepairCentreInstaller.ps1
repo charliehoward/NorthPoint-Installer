@@ -6,6 +6,7 @@
 New-Item -Path "C:\Computer Repair Centre\" -Name "icons" -ItemType Directory
 New-Item -Path "C:\Computer Repair Centre\" -Name "scripts" -ItemType Directory
 New-Item -Path "C:\Computer Repair Centre\" -Name "sounds" -ItemType Directory
+New-Item -Path "C:\Computer Repair Centre\" -Name "apps" -ItemType Directory
 $computerRepairCentreIconURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/computerRepairCentreIcon.ico"
 $computerRepairCentreIconPath = "C:\Computer Repair Centre\icons\computerRepairCentreIcon.ico"
 $seconds = Get-Date -Format ss
@@ -1407,9 +1408,9 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.Items.Add("Re-enabling sleep on AC power...")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
-						powercfg /change monitor-timeout-ac 30
+						powercfg /change monitor-timeout-ac 15
 						Start-Sleep 2
-						powercfg /change standby-timeout-ac 60
+						powercfg /change standby-timeout-ac 30
 						$syncHash.progressBar.PerformStep()
 					}
 					$syncHash.progress.Items.Add("The installation has finished! You can safely close the program.")
@@ -2163,7 +2164,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.11.02.2"
+	$version.Text = "Version 5.2024.11.02.3"
 	$crcInstaller.Controls.Add($version)
 
 
