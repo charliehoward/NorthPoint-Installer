@@ -1,13 +1,13 @@
 [![built-in-PowerShell](https://img.shields.io/badge/Built%20in-PowerShell-blue)](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2) ![winget](https://img.shields.io/badge/Powered%20by-Winget-blue) ![Arch](https://img.shields.io/badge/Arch-x86%20|%20AMD64-blue) ![OS](https://img.shields.io/badge/OS-Windows%2010%20|%20Windows%2011-green)
 
-## NorthPoint Installer Version 5.2024.11.02.1
+## NorthPoint Installer Version 5.2024.11.02.2
 ###### Copyright (c) Charlie Howard 2024 All rights reserved.
 
 A PowerShell based GUI installer for Windows 10/11, may also run on Windows 8.1/7 but this is no longer tested.
 
 Installs Microsoft .NET (3.1, 5.0, 6.0, 7.0) and NanaZip by default as these are needed or recommended for the installer to work correctly.
 
-Gives you the option to install the Computer Repair Centre OEM information, Bing Wallpapers, Dark mode, AnyDesk, BitDefender, Discord, Google Chrome, LibreOffice, MalwareBytes, Mozilla Firefox, Mozilla Thunderbird, Skype, Steam, Teams, VLC Media Player, Windows 7 Games & Zoom.
+Gives you the option to install the Computer Repair Centre OEM information, Bing Wallpapers, Dark mode, AnyDesk, BitDefender, Discord, Google Chrome, LibreOffice, MalwareBytes, Mozilla Firefox, Mozilla Thunderbird, Skype, Steam, VLC Media Player, and Zoom.
 
 If run on Windows 10 or Windows 11 it disables hibernation mode and Wi-Fi sense.
 
@@ -19,6 +19,10 @@ Disables sleep and screen timeout if plugged into AC power during the install an
 
 ### Changelog
 
+**Update 5.2024.11.02.2**
+
+Fixed a couple of broken icons.
+Removed Teams as doesn't seem needed now.
 
 **Update 5.2024.11.02.1**
 

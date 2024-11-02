@@ -70,8 +70,6 @@ function download {
 			$bitDefenderPath = "C:\Computer Repair Centre\icons\bitDefender.ico"
 			$anyDeskURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/anyDesk.ico"
 			$anyDeskPath = "C:\Computer Repair Centre\icons\anyDesk.ico"
-			$teamsURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/teams.ico"
-			$teamsPath = "C:\Computer Repair Centre\icons\teams.ico"
 			$malwareBytesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/malwareBytes.ico"
 			$malwareBytesPath = "C:\Computer Repair Centre\icons\malwareBytes.ico"
 			$vlcMediaPlayerURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/vlcMediaPlayer.ico"
@@ -135,8 +133,6 @@ function download {
 			Invoke-RestMethod -Uri $skypeURL -OutFile $skypePath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $bitDefenderURL -OutFile $bitDefenderPath
-			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $teamsURL -OutFile $teamsPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $vlcMediaPlayerURL -OutFile $vlcMediaPlayerPath
 			$syncHash.progressBar.PerformStep()
@@ -219,7 +215,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 27
+	$progressBar.Maximum = 26
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$downloadBox.Controls.Add($progressBar)
@@ -302,7 +298,6 @@ function computerRepairCentreInstaller {
 	$microsoftOffice2007 = New-Object System.Windows.Forms.CheckBox
 	$skype = New-Object System.Windows.Forms.CheckBox
 	$bitDefender = New-Object System.Windows.Forms.CheckBox
-	$teams = New-Object System.Windows.Forms.CheckBox
 	$wallpaper = New-Object System.Windows.Forms.CheckBox
 	$darkMode = New-Object System.Windows.Forms.CheckBox
 	$rebootBox = New-Object System.Windows.Forms.CheckBox
@@ -333,7 +328,6 @@ function computerRepairCentreInstaller {
 	$syncHash.malwareBytes = $malwareBytes
 	$syncHash.skype = $skype
 	$syncHash.bitDefender = $bitDefender
-	$syncHash.teams = $teams
 	$syncHash.wallpaper = $wallpaper
 	$syncHash.darkMode = $darkMode
 	$syncHash.operatingSystem = $operatingSystem
@@ -598,7 +592,6 @@ function computerRepairCentreInstaller {
 				if ($syncHash.wallpaper.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.darkMode.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.zoom.Checked) { $syncHash.progressBar.Maximum += 1 }
-				if ($syncHash.teams.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.steamPowered.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.discord.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.HP.Checked) { $syncHash.progressBar.Maximum += 3 }
@@ -1182,41 +1175,6 @@ function computerRepairCentreInstaller {
 						}
 					}
 				}
-				if ($syncHash.teams.Checked) {
-					$syncHash.progress.Items.Add("Microsoft Teams is selected.")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					$programList = winget list
-					if ($programList -like '*Microsoft.Teams*') { 
-						$syncHash.progress.Items.Add("Microsoft Teams is already installed.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-					}
-					else {
-						$syncHash.progress.Items.Add("Installing Microsoft Teams...")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						winget install --id=Microsoft.Teams -e --accept-source-agreements --accept-package-agreements
-						$programList = winget list
-						if ($programList -like '*Microsoft.Teams*') {
-							$syncHash.progress.Items.Add("Completed installation of Microsoft Teams.")
-							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							$syncHash.progress.SelectedIndex = -1;
-							$syncHash.progressBar.PerformStep()
-						}
-						else {
-							$syncHash.progress.Items.Add("The installation of Microsoft Teams has failed.")
-							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							$syncHash.progress.SelectedIndex = -1;
-							$syncHash.progress.Items.Add("Retrying the installation of Microsoft Teams.")
-							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							$syncHash.progress.SelectedIndex = -1;
-							$syncHash.progressBar.PerformStep()
-							winget install --id=Microsoft.Teams -e --force --accept-source-agreements --accept-package-agreements
-						}
-					}
-				}
 				if ($syncHash.vlc.Checked) {
 					$syncHash.progress.Items.Add("VLC Media Player is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1627,7 +1585,7 @@ function computerRepairCentreInstaller {
 	$System_Drawing_Size.Width = 610
 	$System_Drawing_Size.Height = 280
 	$crcInstaller.ClientSize = $System_Drawing_Size
-	$crcInstaller.Icon = "C:\Computer Repair Centre\computerRepairCentreIcon.ico"
+	$crcInstaller.Icon = "C:\Computer Repair Centre\icons\computerRepairCentreIcon.ico"
 	$crcInstaller.BackColor = $BackgroundColour
 	$crcInstaller.ForeColor = "White"
 
@@ -1874,7 +1832,7 @@ function computerRepairCentreInstaller {
 	$googleChrome.DataBindings.DefaultDataSourceUpdateMode = 0
 	$googleChrome.Name = "googleChrome"
 	$googleChrome.Checked = 1
-	$googleChrome.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\bitDefender.ico")
+	$googleChrome.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\googleChrome.ico")
 	$crcInstaller.Controls.Add($googleChrome)
 	$googleChrome.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$googleChrome.FlatAppearance.BorderSize=0
@@ -2060,26 +2018,6 @@ function computerRepairCentreInstaller {
 	$steamPowered.FlatAppearance.BorderSize=0
 
 
-	## -- Teams
-
-	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 36
-	$System_Drawing_Size.Height = 36
-	$teams.Size = $System_Drawing_Size
-	$teams.TabIndex = 7
-	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 3)
-	$teams.location = $System_Drawing_Point
-	$teams.DataBindings.DefaultDataSourceUpdateMode = 0
-	$teams.Name = "teams"
-	$teams.Checked = 0
-	$teams.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\teams.ico")
-	$crcInstaller.Controls.Add($teams)
-	$teams.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
-	$teams.FlatAppearance.BorderSize=0
-
-	
 	## -- VLC Media Player
 
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -2089,12 +2027,12 @@ function computerRepairCentreInstaller {
 	$vlc.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 4)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$vlc.location = $System_Drawing_Point
 	$vlc.DataBindings.DefaultDataSourceUpdateMode = 0
 	$vlc.Name = "vlc"
 	$vlc.Checked = $windows10
-	$vlc.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\vlcMediaPlayer.ico")
+	$vlc.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\vlcMediaPlayer.ico")
 	$crcInstaller.Controls.Add($vlc)
 	$vlc.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$vlc.FlatAppearance.BorderSize=0
@@ -2109,7 +2047,7 @@ function computerRepairCentreInstaller {
 	$zoom.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
 	$zoom.location = $System_Drawing_Point
 	$zoom.DataBindings.DefaultDataSourceUpdateMode = 0
 	$zoom.Name = "zoom"
@@ -2225,7 +2163,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.11.02.1"
+	$version.Text = "Version 5.2024.11.02.2"
 	$crcInstaller.Controls.Add($version)
 
 
