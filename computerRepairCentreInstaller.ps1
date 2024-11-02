@@ -3,6 +3,9 @@
 
 ## -- Download files
 
+New-Item -Path "C:\Computer Repair Centre\" -Name "icons" -ItemType Directory
+New-Item -Path "C:\Computer Repair Centre\" -Name "scripts" -ItemType Directory
+New-Item -Path "C:\Computer Repair Centre\" -Name "sounds" -ItemType Directory
 $computerRepairCentreIconURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/computerRepairCentreIcon.ico"
 $computerRepairCentreIconPath = "C:\Computer Repair Centre\icons\computerRepairCentreIcon.ico"
 $seconds = Get-Date -Format ss
@@ -2222,7 +2225,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.11.02.0"
+	$version.Text = "Version 5.2024.11.02.1"
 	$crcInstaller.Controls.Add($version)
 
 

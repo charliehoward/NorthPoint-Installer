@@ -1,6 +1,6 @@
 [![built-in-PowerShell](https://img.shields.io/badge/Built%20in-PowerShell-blue)](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2) ![winget](https://img.shields.io/badge/Powered%20by-Winget-blue) ![Arch](https://img.shields.io/badge/Arch-x86%20|%20AMD64-blue) ![OS](https://img.shields.io/badge/OS-Windows%2010%20|%20Windows%2011-green)
 
-## NorthPoint Installer Version 5.2024.11.02.0
+## NorthPoint Installer Version 5.2024.11.02.1
 ###### Copyright (c) Charlie Howard 2024 All rights reserved.
 
 A PowerShell based GUI installer for Windows 10/11, may also run on Windows 8.1/7 but this is no longer tested.
@@ -19,6 +19,10 @@ Disables sleep and screen timeout if plugged into AC power during the install an
 
 ### Changelog
 
+
+**Update 5.2024.11.02.1**
+
+Fixed issue with folders not being created.
 
 **Update 5.2024.11.02.0**
 
