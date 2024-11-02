@@ -4,17 +4,18 @@
 Write-Output "Cleaning up installation files..."
 $DesktopPath = [Environment]::GetFolderPath("Desktop")
 Remove-Item "$DesktopPath\Computer Repair Centre Installer.exe"
+Remove-Item 'C:\Computer Repair Centre\icons\' -Recurse
+Remove-Item 'C:\Computer Repair Centre\sounds\' -Recurse
 Remove-Item 'C:\Computer Repair Centre\*.ico'
 Remove-Item 'C:\Computer Repair Centre\*.msi'
 Remove-Item 'C:\Computer Repair Centre\*.exe'
 Remove-Item 'C:\Computer Repair Centre\*.zip'
-Remove-Item 'C:\Computer Repair Centre\*.7z'
 Remove-Item 'C:\Computer Repair Centre\*.Appx'
 Remove-Item 'C:\Computer Repair Centre\*.log'
 Remove-Item 'C:\Computer Repair Centre\*.mp3'
 Remove-Item 'C:\Computer Repair Centre\*.msixbundle'
 Remove-Item 'C:\Computer Repair Centre\computerRepairCentreInstaller.ps1'
-Remove-Item 'C:\Computer Repair Centre\deleteFilesTask.ps1'
+Remove-Item 'C:\Computer Repair Centre\scripts\deleteFilesTask.ps1'
 Unregister-ScheduledTask -TaskName "Computer Repair Centre Delete Files" -Confirm:$false
 Write-Output "Finished cleaning up installation files..."
 Get-Date -Format "yyyy/MM/dd - hh:mm" | Out-File -FilePath "C:\Computer Repair Centre\Installation Date.log"

@@ -4,7 +4,7 @@
 ## -- Download files
 
 $computerRepairCentreIconURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/computerRepairCentreIcon.ico"
-$computerRepairCentreIconPath = "C:\Computer Repair Centre\computerRepairCentreIcon.ico"
+$computerRepairCentreIconPath = "C:\Computer Repair Centre\icons\computerRepairCentreIcon.ico"
 $seconds = Get-Date -Format ss
 Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 $BackgroundColour = "#2c2c2c"
@@ -50,70 +50,68 @@ function download {
 			$computerRepairCentreOEMURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/computerRepairCentre/computerRepairCentreOEM.bmp"
 			$computerRepairCentreOEMPath = "C:\Computer Repair Centre\computerRepairCentreOEM.bmp"
 			$googleChromeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/googleChrome.ico"
-			$googleChromePath = "C:\Computer Repair Centre\googleChrome.ico"
+			$googleChromePath = "C:\Computer Repair Centre\icons\googleChrome.ico"
 			$kasperskyStandardURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/kasperskyStandard.ico"
-			$kasperskyStandardPath = "C:\Computer Repair Centre\kasperskyStandard.ico"
+			$kasperskyStandardPath = "C:\Computer Repair Centre\icons\kasperskyStandard.ico"
 			$libreOfficeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/libreOffice.ico"
-			$libreOfficePath = "C:\Computer Repair Centre\libreOffice.ico"
+			$libreOfficePath = "C:\Computer Repair Centre\icons\libreOffice.ico"
 			$microsoftOffice2007URL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/microsoftOffice2007.ico"
-			$microsoftOffice2007Path = "C:\Computer Repair Centre\microsoftOffice2007.ico"
+			$microsoftOffice2007Path = "C:\Computer Repair Centre\icons\microsoftOffice2007.ico"
 			$mozillaFirefoxURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/mozillaFirefox.ico"
-			$mozillaFirefoxPath = "C:\Computer Repair Centre\mozillaFirefox.ico"
+			$mozillaFirefoxPath = "C:\Computer Repair Centre\icons\mozillaFirefox.ico"
 			$mozillaThunderbirdURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/mozillaThunderbird.ico"
-			$mozillaThunderbirdPath = "C:\Computer Repair Centre\mozillaThunderbird.ico"
+			$mozillaThunderbirdPath = "C:\Computer Repair Centre\icons\mozillaThunderbird.ico"
 			$skypeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/skype.ico"
-			$skypePath = "C:\Computer Repair Centre\skype.ico"
-			$teamViewerURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/teamViewer.ico"
-			$teamViewerPath = "C:\Computer Repair Centre\teamViewer.ico"
+			$skypePath = "C:\Computer Repair Centre\icons\skype.ico"
+			$bitDefenderURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/bitDefender.ico"
+			$bitDefenderPath = "C:\Computer Repair Centre\icons\bitDefender.ico"
 			$anyDeskURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/anyDesk.ico"
-			$anyDeskPath = "C:\Computer Repair Centre\anyDesk.ico"
+			$anyDeskPath = "C:\Computer Repair Centre\icons\anyDesk.ico"
 			$teamsURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/teams.ico"
-			$teamsPath = "C:\Computer Repair Centre\teams.ico"
+			$teamsPath = "C:\Computer Repair Centre\icons\teams.ico"
 			$malwareBytesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/malwareBytes.ico"
-			$malwareBytesPath = "C:\Computer Repair Centre\malwareBytes.ico"
+			$malwareBytesPath = "C:\Computer Repair Centre\icons\malwareBytes.ico"
 			$vlcMediaPlayerURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/vlcMediaPlayer.ico"
-			$vlcMediaPlayerPath = "C:\Computer Repair Centre\vlcMediaPlayer.ico"
+			$vlcMediaPlayerPath = "C:\Computer Repair Centre\icons\vlcMediaPlayer.ico"
 			$bingURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/bing.ico"
-			$bingPath = "C:\Computer Repair Centre\bing.ico"
-			$nightModeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/nightMode.ico"
-			$nightModePath = "C:\Computer Repair Centre\nightMode.ico"
+			$bingPath = "C:\Computer Repair Centre\icons\bing.ico"
+			$darkModeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/darkMode.ico"
+			$darkModePath = "C:\Computer Repair Centre\icons\darkMode.ico"
 			$deleteFilesTaskURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFilesTask.ps1"
-			$deleteFilesTaskPath = "C:\Computer Repair Centre\deleteFilesTask.ps1"
+			$deleteFilesTaskPath = "C:\Computer Repair Centre\scripts\deleteFilesTask.ps1"
 			$zoomURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/zoom.ico"
-			$zoomPath = "C:\Computer Repair Centre\zoom.ico"
+			$zoomPath = "C:\Computer Repair Centre\icons\zoom.ico"
 			$discordURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/discord.ico"
-			$discordPath = "C:\Computer Repair Centre\discord.ico"
+			$discordPath = "C:\Computer Repair Centre\icons\discord.ico"
 			$steamURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/steam.ico"
-			$steamPath = "C:\Computer Repair Centre\steam.ico"
+			$steamPath = "C:\Computer Repair Centre\icons\steam.ico"
 			$restartURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/restart.ico"
-			$restartPath = "C:\Computer Repair Centre\restart.ico"
-			$refurbURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/refurb.ico"
-			$refurbPath = "C:\Computer Repair Centre\refurb.ico"
+			$restartPath = "C:\Computer Repair Centre\icons\restart.ico"
+			$powerURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/power.ico"
+			$powerPath = "C:\Computer Repair Centre\icons\power.ico"
 			$chandlersFordURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/chandlersFord.ico"
-			$chandlersFordPath = "C:\Computer Repair Centre\chandlersFord.ico"
+			$chandlersFordPath = "C:\Computer Repair Centre\icons\chandlersFord.ico"
 			$romseyURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/romsey.ico"
-			$romseyPath = "C:\Computer Repair Centre\romsey.ico"
+			$romseyPath = "C:\Computer Repair Centre\icons\romsey.ico"
 			$highcliffeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/highcliffe.ico"
-			$highcliffePath = "C:\Computer Repair Centre\highcliffe.ico"
-			$solitareIconURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/solitare.ico"
-			$solitareIconPath = "C:\Computer Repair Centre\solitare.ico"
+			$highcliffePath = "C:\Computer Repair Centre\icons\highcliffe.ico"
 			$HPURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/HP.ico"
-			$HPPath = "C:\Computer Repair Centre\HP.ico"
+			$HPPath = "C:\Computer Repair Centre\icons\HP.ico"
 			$deleteFilesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFiles.ps1"
-			$deleteFilesPath = "C:\Computer Repair Centre\deleteFiles.ps1"
+			$deleteFilesPath = "C:\Computer Repair Centre\scripts\deleteFiles.ps1"
 			$completeSongURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sounds/win98shutdown.mp3"
-			$completeSongPath = "C:\Computer Repair Centre\complete.mp3"
+			$completeSongPath = "C:\Computer Repair Centre\sounds\complete.mp3"
 			if ($syncHash.christmas -like '*1*') {
 				$completeSongURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sounds/christmas.mp3"
-				$completeSongPath = "C:\Computer Repair Centre\complete.mp3"
+				$completeSongPath = "C:\Computer Repair Centre\sounds\complete.mp3"
 			}
 			elseif ($syncHash.halloween -like '*1*') {
 				$completeSongURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sounds/halloween.mp3"
-				$completeSongPath = "C:\Computer Repair Centre\complete.mp3"
+				$completeSongPath = "C:\Computer Repair Centre\sounds\complete.mp3"
 			}
 			elseif ($syncHash.birthday -like '*1*') {
 				$completeSongURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sounds/birthday.mp3"
-				$completeSongPath = "C:\Computer Repair Centre\complete.mp3"
+				$completeSongPath = "C:\Computer Repair Centre\sounds\complete.mp3"
 			}
 			Invoke-RestMethod -Uri $computerRepairCentreIconURL -OutFile $computerRepairCentreIconPath
 			$syncHash.progressBar.PerformStep()
@@ -133,7 +131,7 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $skypeURL -OutFile $skypePath
 			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $teamViewerURL -OutFile $teamViewerPath
+			Invoke-RestMethod -Uri $bitDefenderURL -OutFile $bitDefenderPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $teamsURL -OutFile $teamsPath
 			$syncHash.progressBar.PerformStep()
@@ -141,7 +139,7 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $bingURL -OutFile $bingPath
 			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $nightModeURL -OutFile $nightModePath
+			Invoke-RestMethod -Uri $darkModeURL -OutFile $darkModePath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $computerRepairCentreOEMURL -OutFile $computerRepairCentreOEMPath
 			$syncHash.progressBar.PerformStep()
@@ -157,8 +155,6 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $highcliffeURL -OutFile $highcliffePath
 			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $solitareIconURL -OutFile $solitareIconPath
-			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $HPURL -OutFile $HPPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $anyDeskURL -OutFile $anyDeskPath
@@ -167,7 +163,7 @@ function download {
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $discordURL -OutFile $discordPath
 			$syncHash.progressBar.PerformStep()
-			Invoke-RestMethod -Uri $refurbURL -OutFile $refurbPath
+			Invoke-RestMethod -Uri $powerURL -OutFile $powerPath
 			$syncHash.progressBar.PerformStep()
 			Invoke-RestMethod -Uri $deleteFilesURL -OutFile $deleteFilesPath
 			$syncHash.progressBar.PerformStep() 
@@ -188,7 +184,7 @@ function download {
 	$System_Drawing_Size.Width = 550
 	$System_Drawing_Size.Height = 130
 	$downloadBox.ClientSize = $System_Drawing_Size
-	$downloadBox.Icon = "C:\Computer Repair Centre\computerRepairCentreIcon.ico"
+	$downloadBox.Icon = "C:\Computer Repair Centre\icons\computerRepairCentreIcon.ico"
 	$downloadBox.BackColor = $BackgroundColour
 	$downloadBox.ForeColor = "White"
 
@@ -220,7 +216,7 @@ function download {
 	$progressBar.Size = $System_Drawing_Size
 	$progressBar.TabIndex = 3
 	$progressBar.Minimum = 0
-	$progressBar.Maximum = 28
+	$progressBar.Maximum = 27
 	$progressBar.Step = 1
 	$progressBar.Value = 0
 	$downloadBox.Controls.Add($progressBar)
@@ -302,20 +298,19 @@ function computerRepairCentreInstaller {
 	$libreOffice = New-Object System.Windows.Forms.CheckBox
 	$microsoftOffice2007 = New-Object System.Windows.Forms.CheckBox
 	$skype = New-Object System.Windows.Forms.CheckBox
-	$teamViewer = New-Object System.Windows.Forms.CheckBox
+	$bitDefender = New-Object System.Windows.Forms.CheckBox
 	$teams = New-Object System.Windows.Forms.CheckBox
 	$wallpaper = New-Object System.Windows.Forms.CheckBox
-	$nightMode = New-Object System.Windows.Forms.CheckBox
+	$darkMode = New-Object System.Windows.Forms.CheckBox
 	$rebootBox = New-Object System.Windows.Forms.CheckBox
 	$zoom = New-Object System.Windows.Forms.CheckBox
 	$romsey = New-Object System.Windows.Forms.CheckBox
 	$chandlersFord = New-Object System.Windows.Forms.CheckBox
 	$highcliffe = New-Object System.Windows.Forms.CheckBox
-	$solitare = New-Object System.Windows.Forms.CheckBox
 	$anyDesk = New-Object System.Windows.Forms.CheckBox
 	$discord = New-Object System.Windows.Forms.CheckBox
 	$steamPowered = New-Object System.Windows.Forms.CheckBox
-	$refurb = New-Object System.Windows.Forms.CheckBox
+	$power = New-Object System.Windows.Forms.CheckBox
 	$HP = New-Object System.Windows.Forms.CheckBox
 	$changeLog = New-Object System.Windows.Forms.LinkLabel
 	$version = New-Object System.Windows.Forms.Label
@@ -334,10 +329,10 @@ function computerRepairCentreInstaller {
 	$syncHash.microsoftOffice2007 = $microsoftOffice2007
 	$syncHash.malwareBytes = $malwareBytes
 	$syncHash.skype = $skype
-	$syncHash.teamViewer = $teamViewer
+	$syncHash.bitDefender = $bitDefender
 	$syncHash.teams = $teams
 	$syncHash.wallpaper = $wallpaper
-	$syncHash.nightMode = $nightMode
+	$syncHash.darkMode = $darkMode
 	$syncHash.operatingSystem = $operatingSystem
 	$syncHash.internetProtocol = $internetProtocol
 	$syncHash.libreOfficeLocation = $libreOfficeLocation
@@ -348,8 +343,7 @@ function computerRepairCentreInstaller {
 	$syncHash.rebootBox = $rebootBox
 	$syncHash.reboot = $reboot
 	$syncHash.zoom = $zoom
-	$syncHash.refurb = $refurb
-	$syncHash.solitare = $solitare
+	$syncHash.power = $power
 	$syncHash.HP = $HP
 	$syncHash.anyDesk = $anyDesk
 	$syncHash.steamPowered = $steamPowered
@@ -405,7 +399,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 31st of October 2024. Spooky.")
+				$syncHash.progress.Items.Add("Last updated: 2nd of November 2024.")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -596,15 +590,14 @@ function computerRepairCentreInstaller {
 				if ($syncHash.libreOffice.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.microsoftOffice2007.Checked) { $syncHash.progressBar.Maximum += 2 }
 				if ($syncHash.skype.Checked) { $syncHash.progressBar.Maximum += 1 }
-				if ($syncHash.teamViewer.Checked) { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.bitDefender.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.anyDesk.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.wallpaper.Checked) { $syncHash.progressBar.Maximum += 1 }
-				if ($syncHash.nightMode.Checked) { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.darkMode.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.zoom.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.teams.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.steamPowered.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.discord.Checked) { $syncHash.progressBar.Maximum += 1 }
-				if ($syncHash.solitare.Checked) { $syncHash.progressBar.Maximum += 3 }
 				if ($syncHash.HP.Checked) { $syncHash.progressBar.Maximum += 3 }
 				if ($syncHash.microsoftOffice2007.Checked) { $syncHash.progressBar.Maximum += 2 }
 				if ($syncHash.operatingSystem -like '*6.1*') { $syncHash.progressBar.Maximum += 1 }
@@ -658,7 +651,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 					$syncHash.progressBar.PerformStep()
 				}
-				if ($syncHash.refurb.Checked) {
+				if ($syncHash.power.Checked) {
 					$syncHash.progress.Items.Add("Disabling sleep on AC power...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
@@ -798,6 +791,41 @@ function computerRepairCentreInstaller {
 						$syncHash.progressBar.PerformStep()
 					}
 				}
+				if ($syncHash.bitDefender.Checked) {
+					$syncHash.progress.Items.Add("BitDefender is selected.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					$programList = winget list
+					if ($programList -like '*Bitdefender*') { 
+						$syncHash.progress.Items.Add("BitDefender is already installed.")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						$syncHash.progressBar.PerformStep()
+					}
+					else {
+						$syncHash.progress.Items.Add("Installing BitDefender...")
+						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+						$syncHash.progress.SelectedIndex = -1;
+						winget install -e --id Bitdefender.Bitdefender --accept-source-agreements --accept-package-agreements
+						$programList = winget list
+						if ($programList -like '*BitDefender*') {
+							$syncHash.progress.Items.Add("Completed installation of BitDefender.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+						}
+						else {
+							$syncHash.progress.Items.Add("The installation of BitDefender has failed.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progress.Items.Add("Retrying the installation of BitDefender.")
+							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+							$syncHash.progress.SelectedIndex = -1;
+							$syncHash.progressBar.PerformStep()
+							winget install -e --id Bitdefender.Bitdefender --force --accept-source-agreements --accept-package-agreements
+						}
+					}
+				}
 				if ($syncHash.discord.Checked) {
 					$syncHash.progress.Items.Add("Discord is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -926,11 +954,11 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Downloading LibreOffice.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Invoke-RestMethod -Uri "https://files.crchq.net/installer/libreOffice.msi" -OutFile "C:\Computer Repair Centre\libreOffice.msi"
+					Invoke-RestMethod -Uri "https://files.crchq.net/installer/libreOffice.msi" -OutFile "C:\Computer Repair Centre\apps\libreOffice.msi"
 					$syncHash.progress.Items.Add("Installing LibreOffice...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					msiexec /package "C:\Computer Repair Centre\libreOffice.msi" /passive
+					msiexec /package "C:\Computer Repair Centre\apps\libreOffice.msi" /passive
 					$timeout = New-TimeSpan -Minutes 5
 					$endTime = (Get-Date).Add($timeout)
 					Do {
@@ -951,12 +979,12 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					$DesktopPath = [Environment]::GetFolderPath("Desktop")
-					Invoke-RestMethod -Uri "https://files.crchq.net/installer/Office2007.7z" -OutFile "C:\Computer Repair Centre\Office2007.7z"
+					Invoke-RestMethod -Uri "https://files.crchq.net/installer/office2007.zip" -OutFile "C:\Computer Repair Centre\apps\Office2007.zip"
 					$syncHash.progress.Items.Add("Extracting Microsoft Office 2007 to the Desktop...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
 					Start-Sleep 20
-					& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZip_3.1.1080.0_x64__gnj4mf6z9tkrc\NanaZip.Windows.exe' x "C:\Computer Repair Centre\Office2007.7z" "-o$DesktopPath\Office 2007" -aoa
+					& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZip_3.1.1080.0_x64__gnj4mf6z9tkrc\NanaZip.Windows.exe' x "C:\Computer Repair Centre\apps\Office2007.zip" -o"$DesktopPath\Office 2007" -aoa
 					$syncHash.progressBar.PerformStep()
 					}
 				if ($syncHash.malwareBytes.Checked) {
@@ -1027,7 +1055,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.Items.Add("Downloading Mozilla Firefox.")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
-							Invoke-RestMethod -Uri "https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-GB" -OutFile "C:\Computer Repair Centre\firefox.msi"
+							Invoke-RestMethod -Uri "https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-GB" -OutFile "C:\Computer Repair Centre\apps\firefox.msi"
 							$syncHash.progress.Items.Add("Installing Mozilla Firefox...")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
@@ -1186,41 +1214,6 @@ function computerRepairCentreInstaller {
 						}
 					}
 				}
-				if ($syncHash.teamViewer.Checked) {
-					$syncHash.progress.Items.Add("TeamViewer is selected.")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					$programList = winget list
-					if ($programList -like '*TeamViewer*') { 
-						$syncHash.progress.Items.Add("TeamViewer is already installed.")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						$syncHash.progressBar.PerformStep()
-					}
-					else {
-						$syncHash.progress.Items.Add("Installing TeamViewer...")
-						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-						$syncHash.progress.SelectedIndex = -1;
-						winget install --id=TeamViewer.TeamViewer -e --accept-source-agreements --accept-package-agreements
-						$programList = winget list
-						if ($programList -like '*TeamViewer*') {
-							$syncHash.progress.Items.Add("Completed installation of TeamViewer.")
-							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							$syncHash.progress.SelectedIndex = -1;
-							$syncHash.progressBar.PerformStep()
-						}
-						else {
-							$syncHash.progress.Items.Add("The installation of TeamViewer has failed.")
-							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							$syncHash.progress.SelectedIndex = -1;
-							$syncHash.progress.Items.Add("Retrying the installation of TeamViewer.")
-							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-							$syncHash.progress.SelectedIndex = -1;
-							$syncHash.progressBar.PerformStep()
-							winget install --id=TeamViewer.TeamViewer -e --force --accept-source-agreements --accept-package-agreements
-						}
-					}
-				}
 				if ($syncHash.vlc.Checked) {
 					$syncHash.progress.Items.Add("VLC Media Player is selected.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -1254,7 +1247,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.Items.Add("Downloading VLC Media Player.")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
-							Invoke-RestMethod -Uri "https://ask4.mm.fcix.net/videolan-ftp/vlc/3.0.19/win64/vlc-3.0.19-win64.msi" -OutFile "C:\Computer Repair Centre\vlc.msi"
+							Invoke-RestMethod -Uri "https://ask4.mm.fcix.net/videolan-ftp/vlc/3.0.19/win64/vlc-3.0.19-win64.msi" -OutFile "C:\Computer Repair Centre\apps\vlc.msi"
 							$syncHash.progress.Items.Add("Installing VLC Media Player...")
 							$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 							$syncHash.progress.SelectedIndex = -1;
@@ -1272,39 +1265,6 @@ function computerRepairCentreInstaller {
 							$syncHash.progressBar.PerformStep()
 						}
 					}
-				}
-				if ($syncHash.solitare.Checked) {
-					$syncHash.progress.Items.Add("Windows 7 Games are selected.")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progress.Items.Add("Downloading Windows 7 Games...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					Invoke-RestMethod -Uri "https://files.crchq.net/installer/Windows7Games.zip" -OutFile "C:\Computer Repair Centre\Windows7Games.zip"
-					& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZip_3.1.1080.0_x64__gnj4mf6z9tkrc\NanaZip.Windows.exe' x "C:\Computer Repair Centre\Windows7Games.zip" "-oC:\Computer Repair Centre" -aoa
-					Start-Sleep 10
-					$syncHash.progressBar.PerformStep()
-					$syncHash.progress.Items.Add("Installing Windows 7 Games...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					& 'C:\Computer Repair Centre\Windows7Games.exe' /S
-					Start-Sleep 30
-					$DesktopPath = [Environment]::GetFolderPath("Desktop")
-					$syncHash.progress.Items.Add("Completed installation of Windows 7 Games.")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progressBar.PerformStep()
-					$syncHash.progress.Items.Add("Adding Desktop items...")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games\Chess.lnk" "$DesktopPath\Chess.lnk"
-					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games\FreeCell.lnk" "$DesktopPath\FreeCell.lnk"
-					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games\Hearts.lnk" "$DesktopPath\Hearts.lnk"
-					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games\Mahjong.lnk" "$DesktopPath\Mahjong.lnk"
-					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games\Minesweeper.lnk" "$DesktopPath\Minesweeper.lnk"
-					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games\Solitaire.lnk" "$DesktopPath\Solitaire.lnk"
-					Copy-Item "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Games\SpiderSolitaire.lnk" "$DesktopPath\SpiderSolitaire.lnk"
-					$syncHash.progressBar.PerformStep()
 				}
 				if ($syncHash.zoom.Checked) {
 					$syncHash.progress.Items.Add("Zoom is selected.")
@@ -1348,7 +1308,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Downloading HP Hotkey Support...")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					Invoke-RestMethod -Uri "https://files.crchq.net/installer/HPHotkey.zip" -OutFile "C:\Computer Repair Centre\HPHotkey.zip"
+					Invoke-RestMethod -Uri "https://files.crchq.net/installer/HPHotkey.zip" -OutFile "C:\Computer Repair Centre\apps\HPHotkey.zip"
 					& 'C:\Program Files\WindowsApps\40174MouriNaruto.NanaZip_3.1.1080.0_x64__gnj4mf6z9tkrc\NanaZip.Windows.exe' x "C:\Computer Repair Centre\HPHotkey.zip" "-oC:\Computer Repair Centre" -aoa
 					Start-Sleep 10
 					$syncHash.progressBar.PerformStep()
@@ -1465,7 +1425,7 @@ function computerRepairCentreInstaller {
 							$syncHash.progress.SelectedIndex = -1;
 						}
 					}
-					if ($syncHash.nightMode.Checked) {
+					if ($syncHash.darkMode.Checked) {
 						$syncHash.progress.Items.Add("Dark mode is selected.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
@@ -1479,8 +1439,8 @@ function computerRepairCentreInstaller {
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
 					}
-					& 'C:\Computer Repair Centre\deleteFilesTask.ps1'
-					if ($syncHash.refurb.Checked) {
+					& 'C:\Computer Repair Centre\scripts\deleteFilesTask.ps1'
+					if ($syncHash.power.Checked) {
 					}
 					else {
 						$syncHash.progress.Items.Add("Re-enabling sleep on AC power...")
@@ -1533,7 +1493,7 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.SelectedIndex = -1;
 					Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\TaskbarDeveloperSettings" -Name "TaskbarEndTask" -Type DWord -Value 1
 					$syncHash.progressBar.PerformStep()
-					if ($syncHash.nightMode.Checked) {
+					if ($syncHash.darkMode.Checked) {
 						$syncHash.progress.Items.Add("Dark mode is selected.")
 						$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 						$syncHash.progress.SelectedIndex = -1;
@@ -1583,8 +1543,8 @@ function computerRepairCentreInstaller {
 						Set-ItemProperty -Path HKCU:\software\microsoft\windows\currentversion\explorer\advanced -Name 'TaskbarAl' -Type 'DWord' -Value 0
 					}
 					$syncHash.progressBar.PerformStep()
-					& 'C:\Computer Repair Centre\deleteFilesTask.ps1'
-					if ($syncHash.refurb.Checked) {
+					& 'C:\Computer Repair Centre\scripts\deleteFilesTask.ps1'
+					if ($syncHash.power.Checked) {
 					}
 					else {
 						$syncHash.progress.Items.Add("Re-enabling sleep on AC power...")
@@ -1603,7 +1563,7 @@ function computerRepairCentreInstaller {
 				Remove-Item 'C:\Computer Repair Centre\*.log'
 				Add-Type -AssemblyName presentationCore
 				$mediaPlayer = New-Object system.windows.media.mediaplayer
-				$mediaPlayer.open('C:\Computer Repair Centre\complete.mp3')
+				$mediaPlayer.open('C:\Computer Repair Centre\sounds\complete.mp3')
 				$mediaPlayer.Play()
 				if ($syncHash.rebootBox.Checked) {
 					$syncHash.progress.Items.Add("The system will restart in 1 minute, if you need to cancel this press close.")
@@ -1790,7 +1750,7 @@ function computerRepairCentreInstaller {
 	$crc.DataBindings.DefaultDataSourceUpdateMode = 0
 	$crc.Name = "crc"
 	$crc.Checked = 1
-	$crc.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\computerRepairCentreIcon.ico")
+	$crc.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\computerRepairCentreIcon.ico")
 	$crcInstaller.Controls.Add($crc)
 	$crc.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$crc.FlatAppearance.BorderSize=0
@@ -1811,7 +1771,7 @@ function computerRepairCentreInstaller {
 	$wallpaper.DataBindings.DefaultDataSourceUpdateMode = 0
 	$wallpaper.Name = "wallpaper"
 	$wallpaper.Checked = 1
-	$wallpaper.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\bing.ico")
+	$wallpaper.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\bing.ico")
 	$crcInstaller.Controls.Add($wallpaper)
 	$wallpaper.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$wallpaper.FlatAppearance.BorderSize=0
@@ -1822,19 +1782,19 @@ function computerRepairCentreInstaller {
 	$System_Drawing_Size = New-Object System.Drawing.Size
 	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
-	$nightMode.Size = $System_Drawing_Size
-	$nightMode.TabIndex = 4
+	$darkMode.Size = $System_Drawing_Size
+	$darkMode.TabIndex = 4
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 0)
 	$System_Drawing_Point.Y = 5 + (31 * 3)
-	$nightMode.location = $System_Drawing_Point
-	$nightMode.DataBindings.DefaultDataSourceUpdateMode = 0
-	$nightMode.Name = "nightMode"
-	$nightMode.Checked = $locationR
-	$nightMode.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\nightMode.ico")
-	$crcInstaller.Controls.Add($nightMode)
-	$nightMode.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
-	$nightMode.FlatAppearance.BorderSize=0
+	$darkMode.location = $System_Drawing_Point
+	$darkMode.DataBindings.DefaultDataSourceUpdateMode = 0
+	$darkMode.Name = "darkMode"
+	$darkMode.Checked = $locationR
+	$darkMode.Image = [System.Drawing.Image]::FromFile("D:\NextCloud\Spyro\Documents\Projects\NorthPoint-Installer\assets\icons\darkMode.ico")	
+	$crcInstaller.Controls.Add($darkMode)
+	$darkMode.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$darkMode.FlatAppearance.BorderSize=0
 
 
 	## -- AnyDesk
@@ -1851,10 +1811,30 @@ function computerRepairCentreInstaller {
 	$anyDesk.DataBindings.DefaultDataSourceUpdateMode = 0
 	$anyDesk.Name = "anyDesk"
 	$anyDesk.Checked = 1
-	$anyDesk.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\anyDesk.ico")
+	$anyDesk.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\anyDesk.ico")
 	$crcInstaller.Controls.Add($anyDesk)
 	$anyDesk.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$anyDesk.FlatAppearance.BorderSize=0
+
+
+	## -- BitDefender
+
+	$System_Drawing_Size = New-Object System.Drawing.Size
+	$System_Drawing_Size.Width = 36
+	$System_Drawing_Size.Height = 36
+	$bitDefender.Size = $System_Drawing_Size
+	$bitDefender.TabIndex = 2
+	$System_Drawing_Point = New-Object System.Drawing.Point
+	$System_Drawing_Point.X = 16 + (45 * 0)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$bitDefender.location = $System_Drawing_Point
+	$bitDefender.DataBindings.DefaultDataSourceUpdateMode = 0
+	$bitDefender.Name = "bitDefender"
+	$bitDefender.Checked = 0
+	$bitDefender.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\bitDefender.ico")
+	$crcInstaller.Controls.Add($bitDefender)
+	$bitDefender.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$bitDefender.FlatAppearance.BorderSize=0
 
 
 	## -- Discord
@@ -1866,12 +1846,12 @@ function computerRepairCentreInstaller {
 	$discord.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 0)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$System_Drawing_Point.Y = 5 + (31 * 6)
 	$discord.location = $System_Drawing_Point
 	$discord.DataBindings.DefaultDataSourceUpdateMode = 0
 	$discord.Name = "discord"
 	$discord.Checked = 0
-	$discord.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\discord.ico")
+	$discord.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\discord.ico")
 	$crcInstaller.Controls.Add($discord)
 	$discord.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$discord.FlatAppearance.BorderSize=0
@@ -1886,12 +1866,12 @@ function computerRepairCentreInstaller {
 	$googleChrome.TabIndex = 2
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 0)
-	$System_Drawing_Point.Y = 5 + (31 * 6)
+	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$googleChrome.location = $System_Drawing_Point
 	$googleChrome.DataBindings.DefaultDataSourceUpdateMode = 0
 	$googleChrome.Name = "googleChrome"
 	$googleChrome.Checked = 1
-	$googleChrome.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\googleChrome.ico")
+	$googleChrome.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\bitDefender.ico")
 	$crcInstaller.Controls.Add($googleChrome)
 	$googleChrome.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$googleChrome.FlatAppearance.BorderSize=0
@@ -1905,13 +1885,13 @@ function computerRepairCentreInstaller {
 	$HP.Size = $System_Drawing_Size
 	$HP.TabIndex = 2
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 0)
-	$System_Drawing_Point.Y = 5 + (31 * 7)
+	$System_Drawing_Point.X = 16 + (45 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 1)
 	$HP.location = $System_Drawing_Point
 	$HP.DataBindings.DefaultDataSourceUpdateMode = 0
 	$HP.Name = "HP"
 	$HP.Checked = $HPEliteBook
-	$HP.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\HP.ico")
+	$HP.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\HP.ico")
 	$crcInstaller.Controls.Add($HP)
 	$HP.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$HP.FlatAppearance.BorderSize=0
@@ -1926,12 +1906,12 @@ function computerRepairCentreInstaller {
 	$kaspersky.TabIndex = 3
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
 	$kaspersky.location = $System_Drawing_Point
 	$kaspersky.DataBindings.DefaultDataSourceUpdateMode = 0
 	$kaspersky.Name = "kaspersky"
-	$kaspersky.Checked = $locationCF
-	$kaspersky.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\kasperskyStandard.ico")
+	$kaspersky.Checked = 0
+	$kaspersky.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\kasperskyStandard.ico")
 	$crcInstaller.Controls.Add($kaspersky)
 	$kaspersky.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$kaspersky.FlatAppearance.BorderSize=0
@@ -1946,12 +1926,12 @@ function computerRepairCentreInstaller {
 	$libreOffice.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$libreOffice.location = $System_Drawing_Point
 	$libreOffice.DataBindings.DefaultDataSourceUpdateMode = 0
 	$libreOffice.Name = "libreOffice"
 	$libreOffice.Checked = 1
-	$libreOffice.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\libreOffice.ico")
+	$libreOffice.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\libreOffice.ico")
 	$crcInstaller.Controls.Add($libreOffice)
 	$libreOffice.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$libreOffice.FlatAppearance.BorderSize=0
@@ -1966,12 +1946,12 @@ function computerRepairCentreInstaller {
 	$malwareBytes.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 3)
+	$System_Drawing_Point.Y = 5 + (31 * 4)
 	$malwareBytes.location = $System_Drawing_Point
 	$malwareBytes.DataBindings.DefaultDataSourceUpdateMode = 0
 	$malwareBytes.Name = "malwareBytes"
 	$malwareBytes.Checked = $locationCF
-	$malwareBytes.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\malwareBytes.ico")
+	$malwareBytes.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\malwareBytes.ico")
 	$crcInstaller.Controls.Add($malwareBytes)
 	$malwareBytes.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$malwareBytes.FlatAppearance.BorderSize=0
@@ -1986,12 +1966,12 @@ function computerRepairCentreInstaller {
 	$microsoftOffice2007.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 4)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
 	$microsoftOffice2007.location = $System_Drawing_Point
 	$microsoftOffice2007.DataBindings.DefaultDataSourceUpdateMode = 0
 	$microsoftOffice2007.Name = "microsoftOffice2007"
 	$microsoftOffice2007.Checked = $locationCF
-	$microsoftOffice2007.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\microsoftOffice2007.ico")
+	$microsoftOffice2007.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\microsoftOffice2007.ico")
 	$crcInstaller.Controls.Add($microsoftOffice2007)
 	$microsoftOffice2007.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$microsoftOffice2007.FlatAppearance.BorderSize=0
@@ -2006,12 +1986,12 @@ function computerRepairCentreInstaller {
 	$mozillaFirefox.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
+	$System_Drawing_Point.Y = 5 + (31 * 6)
 	$mozillaFirefox.location = $System_Drawing_Point
 	$mozillaFirefox.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaFirefox.Name = "mozillaFirefox"
 	$mozillaFirefox.Checked = 1
-	$mozillaFirefox.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\mozillaFirefox.ico")
+	$mozillaFirefox.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\mozillaFirefox.ico")
 	$crcInstaller.Controls.Add($mozillaFirefox)
 	$mozillaFirefox.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$mozillaFirefox.FlatAppearance.BorderSize=0
@@ -2026,12 +2006,12 @@ function computerRepairCentreInstaller {
 	$mozillaThunderbird.TabIndex = 1
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 6)
+	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$mozillaThunderbird.location = $System_Drawing_Point
 	$mozillaThunderbird.DataBindings.DefaultDataSourceUpdateMode = 0
 	$mozillaThunderbird.Name = "mozillaThunderbird"
 	$mozillaThunderbird.Checked = 0
-	$mozillaThunderbird.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\mozillaThunderbird.ico")
+	$mozillaThunderbird.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\mozillaThunderbird.ico")
 	$crcInstaller.Controls.Add($mozillaThunderbird)
 	$mozillaThunderbird.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$mozillaThunderbird.FlatAppearance.BorderSize=0
@@ -2045,13 +2025,13 @@ function computerRepairCentreInstaller {
 	$skype.Size = $System_Drawing_Size
 	$skype.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 1)
-	$System_Drawing_Point.Y = 5 + (31 * 7)
+	$System_Drawing_Point.X = 16 + (45 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 1)
 	$skype.location = $System_Drawing_Point
 	$skype.DataBindings.DefaultDataSourceUpdateMode = 0
 	$skype.Name = "skype"
 	$skype.Checked = 0
-	$skype.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\skype.ico")
+	$skype.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\skype.ico")
 	$crcInstaller.Controls.Add($skype)
 	$skype.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$skype.FlatAppearance.BorderSize=0
@@ -2066,12 +2046,12 @@ function computerRepairCentreInstaller {
 	$steamPowered.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 1)
+	$System_Drawing_Point.Y = 5 + (31 * 2)
 	$steamPowered.location = $System_Drawing_Point
 	$steamPowered.DataBindings.DefaultDataSourceUpdateMode = 0
 	$steamPowered.Name = "steamPowered"
 	$steamPowered.Checked = 0
-	$steamPowered.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\steam.ico")
+	$steamPowered.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\steam.ico")
 	$crcInstaller.Controls.Add($steamPowered)
 	$steamPowered.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$steamPowered.FlatAppearance.BorderSize=0
@@ -2086,37 +2066,17 @@ function computerRepairCentreInstaller {
 	$teams.TabIndex = 7
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 2)
+	$System_Drawing_Point.Y = 5 + (31 * 3)
 	$teams.location = $System_Drawing_Point
 	$teams.DataBindings.DefaultDataSourceUpdateMode = 0
 	$teams.Name = "teams"
 	$teams.Checked = 0
-	$teams.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\teams.ico")
+	$teams.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\teams.ico")
 	$crcInstaller.Controls.Add($teams)
 	$teams.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$teams.FlatAppearance.BorderSize=0
 
 	
-	## -- TeamViewer
-
-	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 36
-	$System_Drawing_Size.Height = 36
-	$teamViewer.Size = $System_Drawing_Size
-	$teamViewer.TabIndex = 7
-	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 3)
-	$teamViewer.location = $System_Drawing_Point
-	$teamViewer.DataBindings.DefaultDataSourceUpdateMode = 0
-	$teamViewer.Name = "teamViewer"
-	$teamViewer.Checked = 0
-	$teamViewer.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\teamViewer.ico")
-	$crcInstaller.Controls.Add($teamViewer)
-	$teamViewer.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
-	$teamViewer.FlatAppearance.BorderSize=0
-
-
 	## -- VLC Media Player
 
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -2137,26 +2097,6 @@ function computerRepairCentreInstaller {
 	$vlc.FlatAppearance.BorderSize=0
 
 
-	## -- Windows 7 Games
-
-	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 36
-	$System_Drawing_Size.Height = 36
-	$solitare.Size = $System_Drawing_Size
-	$solitare.TabIndex = 6
-	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 5)
-	$solitare.location = $System_Drawing_Point
-	$solitare.DataBindings.DefaultDataSourceUpdateMode = 0
-	$solitare.Name = "solitare"
-	$solitare.Checked = 0
-	$solitare.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\solitare.ico")
-	$crcInstaller.Controls.Add($solitare)
-	$solitare.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
-	$solitare.FlatAppearance.BorderSize=0
-
-	
 	## -- Zoom
 
 	$System_Drawing_Size = New-Object System.Drawing.Size
@@ -2166,12 +2106,12 @@ function computerRepairCentreInstaller {
 	$zoom.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
 	$System_Drawing_Point.X = 16 + (45 * 2)
-	$System_Drawing_Point.Y = 5 + (31 * 6)
+	$System_Drawing_Point.Y = 5 + (31 * 5)
 	$zoom.location = $System_Drawing_Point
 	$zoom.DataBindings.DefaultDataSourceUpdateMode = 0
 	$zoom.Name = "zoom"
 	$zoom.Checked = 0
-	$zoom.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\zoom.ico")
+	$zoom.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\zoom.ico")
 	$crcInstaller.Controls.Add($zoom)
 	$zoom.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$zoom.FlatAppearance.BorderSize=0
@@ -2191,7 +2131,7 @@ function computerRepairCentreInstaller {
 	$chandlersFord.DataBindings.DefaultDataSourceUpdateMode = 0
 	$chandlersFord.Name = "chandlersFord"
 	$chandlersFord.Checked = $chandlersFordIP
-	$chandlersFord.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\chandlersFord.ico")
+	$chandlersFord.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\chandlersFord.ico")
 	$crcInstaller.Controls.Add($chandlersFord)
 	$chandlersFord.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$chandlersFord.FlatAppearance.BorderSize=0
@@ -2211,7 +2151,7 @@ function computerRepairCentreInstaller {
 	$romsey.DataBindings.DefaultDataSourceUpdateMode = 0
 	$romsey.Name = "romsey"
 	$romsey.Checked = $romseyIP
-	$romsey.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\romsey.ico")
+	$romsey.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\icons\romsey.ico")
 	$crcInstaller.Controls.Add($romsey)
 	$romsey.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$romsey.FlatAppearance.BorderSize=0
@@ -2231,47 +2171,47 @@ function computerRepairCentreInstaller {
 	$highcliffe.DataBindings.DefaultDataSourceUpdateMode = 0
 	$highcliffe.Name = "highcliffe"
 	$highcliffe.Checked = $highcliffeIP
-	$highcliffe.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\highcliffe.ico")
+	$highcliffe.Image = [System.Drawing.Image]::FromFile("D:\NextCloud\Spyro\Documents\Projects\NorthPoint-Installer\assets\icons\highcliffe.ico")
 	$crcInstaller.Controls.Add($highcliffe)
 	$highcliffe.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$highcliffe.FlatAppearance.BorderSize=0
 
 
-	## -- Refurb Box
+	## -- Power Box
 
 	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 70
+	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
-	$refurb.Size = $System_Drawing_Size
-	$refurb.TabIndex = 6
+	$power.Size = $System_Drawing_Size
+	$power.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 170 + (38 * 7.2)
+	$System_Drawing_Point.X = 170 + (47 * 7.2)
 	$System_Drawing_Point.Y = 5 + (31 * 7)
-	$refurb.location = $System_Drawing_Point
-	$refurb.DataBindings.DefaultDataSourceUpdateMode = 0
-	$refurb.Name = "refurb"
-	$refurb.Checked = 0
-	$refurb.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\refurb.ico")
-	$crcInstaller.Controls.Add($refurb)
-	$refurb.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
-	$refurb.FlatAppearance.BorderSize=0
+	$power.location = $System_Drawing_Point
+	$power.DataBindings.DefaultDataSourceUpdateMode = 0
+	$power.Name = "power"
+	$power.Checked = 0
+	$power.Image = [System.Drawing.Image]::FromFile("D:\NextCloud\Spyro\Documents\Projects\NorthPoint-Installer\assets\icons\power.ico")
+	$crcInstaller.Controls.Add($power)
+	$power.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+	$power.FlatAppearance.BorderSize=0
 
 
 	## -- Restart Box
 
 	$System_Drawing_Size = New-Object System.Drawing.Size
-	$System_Drawing_Size.Width = 70
+	$System_Drawing_Size.Width = 36
 	$System_Drawing_Size.Height = 36
 	$rebootBox.Size = $System_Drawing_Size
 	$rebootBox.TabIndex = 6
 	$System_Drawing_Point = New-Object System.Drawing.Point
-	$System_Drawing_Point.X = 170 + (50 * 7.2)
+	$System_Drawing_Point.X = 170 + (54 * 7.2)
 	$System_Drawing_Point.Y = 5 + (31 * 7)
 	$rebootBox.location = $System_Drawing_Point
 	$rebootBox.DataBindings.DefaultDataSourceUpdateMode = 0
 	$rebootBox.Name = "rebootBox"
 	$rebootBox.Checked = 1
-	$rebootBox.Image = [System.Drawing.Image]::FromFile("C:\Computer Repair Centre\restart.ico")
+	$rebootBox.Image = [System.Drawing.Image]::FromFile("D:\NextCloud\Spyro\Documents\Projects\NorthPoint-Installer\assets\icons\restart.ico")
 	$crcInstaller.Controls.Add($rebootBox)
 	$rebootBox.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 	$rebootBox.FlatAppearance.BorderSize=0
@@ -2282,7 +2222,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.10.31.0"
+	$version.Text = "Version 5.2024.11.02.0"
 	$crcInstaller.Controls.Add($version)
 
 

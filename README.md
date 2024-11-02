@@ -1,13 +1,13 @@
 [![built-in-PowerShell](https://img.shields.io/badge/Built%20in-PowerShell-blue)](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2) ![winget](https://img.shields.io/badge/Powered%20by-Winget-blue) ![Arch](https://img.shields.io/badge/Arch-x86%20|%20AMD64-blue) ![OS](https://img.shields.io/badge/OS-Windows%2010%20|%20Windows%2011-green)
 
-## NorthPoint Installer Version 5.2024.10.31.0
+## NorthPoint Installer Version 5.2024.11.02.0
 ###### Copyright (c) Charlie Howard 2024 All rights reserved.
 
 A PowerShell based GUI installer for Windows 10/11, may also run on Windows 8.1/7 but this is no longer tested.
 
 Installs Microsoft .NET (3.1, 5.0, 6.0, 7.0) and NanaZip by default as these are needed or recommended for the installer to work correctly.
 
-Gives you the option to install the Computer Repair Centre OEM information, Bing Wallpapers, Dark mode, AnyDesk, Discord, Google Chrome, LibreOffice, MalwareBytes, Mozilla Firefox, Mozilla Thunderbird, Skype, Steam, Teams, TeamViewer, VLC Media Player, Windows 7 Games & Zoom.
+Gives you the option to install the Computer Repair Centre OEM information, Bing Wallpapers, Dark mode, AnyDesk, BitDefender, Discord, Google Chrome, LibreOffice, MalwareBytes, Mozilla Firefox, Mozilla Thunderbird, Skype, Steam, Teams, VLC Media Player, Windows 7 Games & Zoom.
 
 If run on Windows 10 or Windows 11 it disables hibernation mode and Wi-Fi sense.
 
@@ -18,6 +18,16 @@ Sets the default browser to either Google Chrome or Mozilla Firefox depending on
 Disables sleep and screen timeout if plugged into AC power during the install and then revert it once it has completed to prevent the computer going to sleep during the install which can cause issues, you also get the option to prevent sleep on AC power permanently with the "Refurb" box.
 
 ### Changelog
+
+
+**Update 5.2024.11.02.0**
+
+Removed Windows 7 games, as I don't think anyones ever used it.
+Added BitDefender as the world is being silly about Kaspersky.
+Fixed Office 2007 URL typo.
+Updated all the icons.
+Added subfolders to 'C:\Computer Repair Centre' to tidy up installation folder.
+Removed TeamViewer.
 
 **Update 5.2024.10.31.0**
 
