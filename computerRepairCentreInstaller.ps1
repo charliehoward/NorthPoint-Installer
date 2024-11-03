@@ -79,7 +79,9 @@ function download {
 			$bingPath = "C:\Computer Repair Centre\icons\bing.ico"
 			$darkModeURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/darkMode.ico"
 			$darkModePath = "C:\Computer Repair Centre\icons\darkMode.ico"
-			$deleteFilesTaskURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFilesTask.ps1"
+			$deleteFilesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/scripts/deleteFiles.ps1"
+			$deleteFilesPath = "C:\Computer Repair Centre\scripts\deleteFiles.ps1"
+			$deleteFilesTaskURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/scripts/deleteFilesTask.ps1"
 			$deleteFilesTaskPath = "C:\Computer Repair Centre\scripts\deleteFilesTask.ps1"
 			$zoomURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/zoom.ico"
 			$zoomPath = "C:\Computer Repair Centre\icons\zoom.ico"
@@ -99,8 +101,6 @@ function download {
 			$highcliffePath = "C:\Computer Repair Centre\icons\highcliffe.ico"
 			$HPURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/icons/HP.ico"
 			$HPPath = "C:\Computer Repair Centre\icons\HP.ico"
-			$deleteFilesURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/deleteFiles.ps1"
-			$deleteFilesPath = "C:\Computer Repair Centre\scripts\deleteFiles.ps1"
 			$completeSongURL = "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/sounds/win98shutdown.mp3"
 			$completeSongPath = "C:\Computer Repair Centre\sounds\complete.mp3"
 			if ($syncHash.christmas -like '*1*') {
@@ -333,7 +333,6 @@ function computerRepairCentreInstaller {
 	$syncHash.darkMode = $darkMode
 	$syncHash.operatingSystem = $operatingSystem
 	$syncHash.internetProtocol = $internetProtocol
-	$syncHash.libreOfficeLocation = $libreOfficeLocation
 	$syncHash.user = $user
 	$syncHash.progressBarValue = $progressBarValue
 	$syncHash.wallpapersURL = $wallpapersURL
@@ -397,7 +396,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 2nd of November 2024.")
+				$syncHash.progress.Items.Add("Last updated: 3rd of November 2024.")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				if ($birthday -like '*1*') { 
@@ -585,7 +584,7 @@ function computerRepairCentreInstaller {
 				if (($syncHash.mozillaFirefox.Checked) -or ($syncHash.googleChrome.Checked)) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.kaspersky.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.vlc.Checked) { $syncHash.progressBar.Maximum += 1 }
-				if ($syncHash.libreOffice.Checked) { $syncHash.progressBar.Maximum += 1 }
+				if ($syncHash.libreOffice.Checked) { $syncHash.progressBar.Maximum += 2 }
 				if ($syncHash.microsoftOffice2007.Checked) { $syncHash.progressBar.Maximum += 2 }
 				if ($syncHash.skype.Checked) { $syncHash.progressBar.Maximum += 1 }
 				if ($syncHash.bitDefender.Checked) { $syncHash.progressBar.Maximum += 1 }
@@ -966,6 +965,11 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Completed installation of LibreOffice.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
+					$syncHash.progressBar.PerformStep()
+					$syncHash.progress.Items.Add("Setting LibreOffice default file type to Office 2007-2021.")
+					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+					$syncHash.progress.SelectedIndex = -1;
+					Invoke-RestMethod -Uri "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/scripts/DefaultOOXML.xcd" -OutFile "C:\Program Files\LibreOffice\share\registry\DefaultOOXML.xcd"
 					$syncHash.progressBar.PerformStep()
 				}
 				if ($syncHash.microsoftOffice2007.Checked) {
@@ -2164,7 +2168,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.11.02.4"
+	$version.Text = "Version 5.2024.11.03.0"
 	$crcInstaller.Controls.Add($version)
 
 
