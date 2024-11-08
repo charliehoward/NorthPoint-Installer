@@ -312,6 +312,7 @@ function computerRepairCentreInstaller {
 	$power = New-Object System.Windows.Forms.CheckBox
 	$HP = New-Object System.Windows.Forms.CheckBox
 	$changeLog = New-Object System.Windows.Forms.LinkLabel
+	$version6 = New-Object System.Windows.Forms.LinkLabel
 	$version = New-Object System.Windows.Forms.Label
 	$InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState
 	$syncHash = [hashtable]::Synchronized(@{})
@@ -396,9 +397,13 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 3rd of November 2024.")
+				$syncHash.progress.Items.Add("Last updated: 8th of November 2024.")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
+				$syncHash.progress.Items.Add("There is now a new version of the installer, please download it below.")
+				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
+				$syncHash.progress.SelectedIndex = -1;
+				Start-Sleep 15
 				if ($birthday -like '*1*') { 
 					$syncHash.progress.Items.Add("Today is $birthdayName's birthday!")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
@@ -2168,7 +2173,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.11.03.0"
+	$version.Text = "Version 5.2024.11.08.0"
 	$crcInstaller.Controls.Add($version)
 
 
@@ -2181,6 +2186,16 @@ function computerRepairCentreInstaller {
 	$changeLog.Text = "View Changelog"
 	$changeLog.add_Click({[system.Diagnostics.Process]::start("https://github.com/charliehoward/NorthPoint-Installer/blob/master/README.md")})
 	$crcInstaller.Controls.Add($changeLog)
+
+	## -- Version 6
+
+	$version6.Location = New-Object System.Drawing.Size(450,258)
+	$version6.Size = New-Object System.Drawing.Size(150,20)
+	$version6.LinkColor = "WHITE"
+	$version6.ActiveLinkColor = "RED"
+	$version6.Text = "Version 6"
+	$version6.add_Click({[system.Diagnostics.Process]::start("https://github.com/charliehoward/PlutoPoint-Installer/blob/main/Computer%20Repair%20Centre%20Installer%20Launcher.exe")})
+	$crcInstaller.Controls.Add($version6)
 
 
 	## -- Form
