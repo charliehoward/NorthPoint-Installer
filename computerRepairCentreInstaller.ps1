@@ -397,7 +397,7 @@ function computerRepairCentreInstaller {
 		$processRunspace.Open()
 		$processRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 		$psCmd = [powershell]::Create().AddScript({
-				$syncHash.progress.Items.Add("Last updated: 8th of November 2024.")
+				$syncHash.progress.Items.Add("Last updated: 27th of November 2024.")
 				$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 				$syncHash.progress.SelectedIndex = -1;
 				$syncHash.progress.Items.Add("There is now a new version of the installer, please download it below.")
@@ -970,11 +970,6 @@ function computerRepairCentreInstaller {
 					$syncHash.progress.Items.Add("Completed installation of LibreOffice.")
 					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
 					$syncHash.progress.SelectedIndex = -1;
-					$syncHash.progressBar.PerformStep()
-					$syncHash.progress.Items.Add("Setting LibreOffice default file type to Office 2007-2021.")
-					$syncHash.progress.SelectedIndex = $syncHash.progress.Items.Count - 1;
-					$syncHash.progress.SelectedIndex = -1;
-					Invoke-RestMethod -Uri "https://github.com/charliehoward/NorthPoint-Installer/raw/master/assets/scripts/DefaultOOXML.xcd" -OutFile "C:\Program Files\LibreOffice\share\registry\DefaultOOXML.xcd"
 					$syncHash.progressBar.PerformStep()
 				}
 				if ($syncHash.microsoftOffice2007.Checked) {
@@ -2173,7 +2168,7 @@ function computerRepairCentreInstaller {
 
 	$version.Location = New-Object System.Drawing.Size(14,258)
 	$version.Size = New-Object System.Drawing.Size(250,20)
-	$version.Text = "Version 5.2024.11.08.0"
+	$version.Text = "Version 5.2024.11.27.0"
 	$crcInstaller.Controls.Add($version)
 
 

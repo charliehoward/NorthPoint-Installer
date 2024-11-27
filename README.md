@@ -1,7 +1,9 @@
 [![built-in-PowerShell](https://img.shields.io/badge/Built%20in-PowerShell-blue)](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2) ![winget](https://img.shields.io/badge/Powered%20by-Winget-blue) ![Arch](https://img.shields.io/badge/Arch-x86%20|%20AMD64-blue) ![OS](https://img.shields.io/badge/OS-Windows%2010%20|%20Windows%2011-green)
 
-## NorthPoint Installer Version 5.2024.11.08.0
+## NorthPoint Installer Version 5.2024.11.27.0
 ###### Copyright (c) Charlie Howard 2024 All rights reserved.
+
+[Version 6 now released.](https://github.com/charliehoward/PlutoPoint-Installer)
 
 A PowerShell based GUI installer for Windows 10/11, may also run on Windows 8.1/7 but this is no longer tested.
 
@@ -18,6 +20,10 @@ Sets the default browser to either Google Chrome or Mozilla Firefox depending on
 Disables sleep and screen timeout if plugged into AC power during the install and then revert it once it has completed to prevent the computer going to sleep during the install which can cause issues, you also get the option to prevent sleep on AC power permanently with the "Refurb" box.
 
 ### Changelog
+
+**Update 5.2024.11.27.0**
+
+Removed LibreOffice XML as that was causing LibreOffice to not open. Updated this old version incase Steve is still using it.
 
 **Update 5.2024.11.08.0**
 
