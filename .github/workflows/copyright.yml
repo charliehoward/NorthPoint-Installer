@@ -22,7 +22,7 @@ jobs:
           # 1. Update README.md
           sed -i -E "s/Copyright © Charlie Howard 2016-[0-9]{4}\.?/Copyright © Charlie Howard 2016-$CURRENT_YEAR/g" README.md
 
-          # 2. Update C++ files (.cpp, .h, .hpp)
+          # 2. Update C++ files
           # Converts "// -- Copyright (c) Charlie Howard YYYY..." to "// Copyright © Charlie Howard 2016-CURRENT_YEAR All rights reserved"
           find . -type f \( -name "*.cpp" \) -exec sed -i -E "s/\/\/\s*(--\s*)?Copyright\s*(\(c\)|©)\s*Charlie Howard\s*(2016-[0-9]{4}|[0-9]{4})\s*All rights reserved\.?/\/\/ Copyright © Charlie Howard 2016-$CURRENT_YEAR All rights reserved/g" {} +
 
@@ -34,6 +34,6 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git add README.md '*.cpp' '*.h' '*.hpp' '*.ps1'
+          git add README.md '*.cpp' '*.ps1'
           # Only commit if changes were actually made
           git diff --staged --quiet || (git commit -m "chore: update copyright year range to 2016-$(date +%Y)" && git push)
