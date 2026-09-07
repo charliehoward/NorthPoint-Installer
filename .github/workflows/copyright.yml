@@ -24,7 +24,7 @@ jobs:
 
           # 2. Update C++ files (.cpp, .h, .hpp)
           # Converts "// -- Copyright (c) Charlie Howard YYYY..." to "// Copyright © Charlie Howard 2016-CURRENT_YEAR All rights reserved"
-          find . -type f \( -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \) -exec sed -i -E "s/\/\/\s*(--\s*)?Copyright\s*(\(c\)|©)\s*Charlie Howard\s*(2016-[0-9]{4}|[0-9]{4})\s*All rights reserved\.?/\/\/ Copyright © Charlie Howard 2016-$CURRENT_YEAR All rights reserved/g" {} +
+          find . -type f \( -name "*.cpp" \) -exec sed -i -E "s/\/\/\s*(--\s*)?Copyright\s*(\(c\)|©)\s*Charlie Howard\s*(2016-[0-9]{4}|[0-9]{4})\s*All rights reserved\.?/\/\/ Copyright © Charlie Howard 2016-$CURRENT_YEAR All rights reserved/g" {} +
 
           # 3. Update PowerShell files (.ps1)
           # Converts "## -- Copyright (c) Charlie Howard YYYY..." to "## Copyright © Charlie Howard 2016-CURRENT_YEAR All rights reserved"
