@@ -1,0 +1,39 @@
+name: Update Copyright Year
+
+on:
+  schedule:
+    - cron: '0 2 1 1 *'
+  workflow_dispatch:
+
+jobs:
+  update-copyright:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Update copyright year in README.md, C++, and PS1 files
+        run: |
+          CURRENT_YEAR=$(date +%Y)
+
+          # 1. Update README.md
+          sed -i -E "s/Copyright © Charlie Howard 2016-[0-9]{4}\.?/Copyright © Charlie Howard 2016-$CURRENT_YEAR/g" README.md
+
+          # 2. Update C++ files (.cpp, .h, .hpp)
+          # Converts "// -- Copyright (c) Charlie Howard YYYY..." to "// Copyright © Charlie Howard 2016-CURRENT_YEAR All rights reserved"
+          find . -type f \( -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \) -exec sed -i -E "s/\/\/\s*(--\s*)?Copyright\s*(\(c\)|©)\s*Charlie Howard\s*(2016-[0-9]{4}|[0-9]{4})\s*All rights reserved\.?/\/\/ Copyright © Charlie Howard 2016-$CURRENT_YEAR All rights reserved/g" {} +
+
+          # 3. Update PowerShell files (.ps1)
+          # Converts "## -- Copyright (c) Charlie Howard YYYY..." to "## Copyright © Charlie Howard 2016-CURRENT_YEAR All rights reserved"
+          find . -type f -name "*.ps1" -exec sed -i -E "s/##\s*(--\s*)?Copyright\s*(\(c\)|©)\s*Charlie Howard\s*(2016-[0-9]{4}|[0-9]{4})\s*All rights reserved\.?/__HASHTAG____HASHTAG__ Copyright © Charlie Howard 2016-$CURRENT_YEAR All rights reserved/g" {} +
+
+      - name: Commit and push changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add README.md '*.cpp' '*.h' '*.hpp' '*.ps1'
+          # Only commit if changes were actually made
+          git diff --staged --quiet || (git commit -m "chore: update copyright year range to 2016-$(date +%Y)" && git push)
