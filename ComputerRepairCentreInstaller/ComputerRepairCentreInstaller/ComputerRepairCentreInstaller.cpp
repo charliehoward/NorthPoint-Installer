@@ -1,4 +1,4 @@
-// -- Copyright (c) Charlie Howard 2025 All rights reserved
+// Copyright © Charlie Howard 2016-2026 All rights reserved
 
 
 #include "pch.h"

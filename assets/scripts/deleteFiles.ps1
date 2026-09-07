@@ -1,4 +1,4 @@
-## -- Copyright (c) Charlie Howard 2026 All rights reserved
+__HASHTAG____HASHTAG__ Copyright © Charlie Howard 2016-2026 All rights reserved
 
 
 Write-Output "Cleaning up installation files..."
